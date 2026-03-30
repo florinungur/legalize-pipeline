@@ -113,10 +113,10 @@ jobs:
           t = get_text_parser(code)
           m = get_metadata_parser(code)
           assert hasattr(c, 'create'), f'{c.__name__} missing create()'
-          assert hasattr(c, 'get_texto'), f'{c.__name__} missing get_texto()'
-          assert hasattr(c, 'get_metadatos'), f'{c.__name__} missing get_metadatos()'
+          assert hasattr(c, 'get_text'), f'{c.__name__} missing get_text()'
+          assert hasattr(c, 'get_metadata'), f'{c.__name__} missing get_metadata()'
           assert hasattr(d, 'discover_all'), f'{d.__name__} missing discover_all()'
-          assert hasattr(t, 'parse_texto'), f'{type(t).__name__} missing parse_texto()'
+          assert hasattr(t, 'parse_text'), f'{type(t).__name__} missing parse_text()'
           assert hasattr(m, 'parse'), f'{type(m).__name__} missing parse()'
           print(f'  Client:    {c.__name__} ✓')
           print(f'  Discovery: {d.__name__} ✓')

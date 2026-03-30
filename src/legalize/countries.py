@@ -1,12 +1,8 @@
 """Country registry — dynamic dispatch for multi-country pipeline.
 
 To add a new country:
-1. Implement LegislativeClient, NormDiscovery, TextParser, MetadataParser in fetcher/
+1. Create fetcher/{code}/ with client.py, discovery.py, parser.py
 2. Register the import paths in REGISTRY below
-3. Add rango folders to transformer/slug.py RANGO_FOLDERS
-4. Add country config to web/countries.py COUNTRIES dict
-5. Create pipeline_{code}.py for fetch/bootstrap orchestration
-6. Add CLI commands to cli.py
 
 See ADDING_A_COUNTRY.md for full walkthrough.
 """
