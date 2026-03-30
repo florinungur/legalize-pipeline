@@ -10,19 +10,17 @@ build/
 .venv/
 venv/
 
-# Cache del pipeline
+# Pipeline cache and data (regenerated from APIs)
 .cache/
-.blob/
-.blob-test/
-
-# Output generado
-output/
-
-# Datos crudos (XML + JSON, se regeneran desde la API)
+.pipeline/
 data/
 
-# Pipeline state (se gestiona por separado)
-.pipeline/
+# Tool configs (local only)
+.gstack/
+.claude/
+.vercel/
+.blob/
+.blob-test/
 
 # IDE
 .idea/
@@ -32,11 +30,8 @@ data/
 # Environment
 .env
 .env.*
-!.env.example
 
 # OS
 .DS_Store
 Thumbs.db
-.gstack/
-.vercel
 *.tgz
