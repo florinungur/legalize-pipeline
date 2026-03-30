@@ -106,10 +106,25 @@ def _elem_to_paragraphs(nutzdaten: ET.Element) -> list[Paragraph]:
 
 
 class RISTextParser(TextParser):
-    """Parses a single RIS XML document (one NOR = one paragraph) into Bloque objects."""
+    """Parses RIS XML documents (one or more NOR paragraphs) into Bloque objects."""
 
     def parse_text(self, data: bytes) -> list[Any]:
-        """Parse a NOR XML into a single Bloque with one Version."""
+        """Parse NOR XML(s) into Bloque objects.
+
+        Handles both single NOR documents and combined documents
+        (wrapped in <combined_nor_documents> by the client).
+        """
+        text = data.decode("utf-8", errors="replace")
+
+        # Combined document from get_text (multiple NOR XMLs)
+        if "<combined_nor_documents" in text:
+            return self._parse_combined(data)
+
+        # Single NOR document
+        return self._parse_single(data)
+
+    def _parse_single(self, data: bytes) -> list[Any]:
+        """Parse a single NOR XML into one Bloque."""
         root = ET.fromstring(data)
         nutzdaten = root.find(".//r:nutzdaten", NS)
         if nutzdaten is None:
@@ -129,13 +144,24 @@ class RISTextParser(TextParser):
             paragraphs=tuple(paragraphs),
         )
 
-        bloque = Bloque(
-            id=nor_id,
-            tipo="paragraph",
-            titulo=para_label,
-            versions=(version,),
-        )
-        return [bloque]
+        return [Bloque(id=nor_id, tipo="paragraph", titulo=para_label, versions=(version,))]
+
+    def _parse_combined(self, data: bytes) -> list[Any]:
+        """Parse combined NOR documents into multiple Bloques."""
+        import re
+
+        text = data.decode("utf-8", errors="replace")
+        blocks = []
+
+        # Extract individual RIS documents from the combined wrapper
+        for match in re.finditer(r"(<risdok[^>]*>.*?</risdok>)", text, re.DOTALL):
+            doc_xml = match.group(1).encode("utf-8")
+            try:
+                blocks.extend(self._parse_single(doc_xml))
+            except ET.ParseError:
+                continue
+
+        return blocks
 
     def extract_reforms(self, data: bytes) -> list[Any]:
         """Extract reform points from RIS XML.
@@ -143,6 +169,13 @@ class RISTextParser(TextParser):
         Full reform history requires cross-referencing the Novellen endpoint
         (a separate API call per Gesetz). Returns empty list for now.
         """
+        text = data.decode("utf-8", errors="replace")
+        if "<combined_nor_documents" in text:
+            blocks = self._parse_combined(data)
+            from legalize.transformer.xml_parser import extract_reforms
+
+            return extract_reforms(blocks)
+
         root = ET.fromstring(data)
         nutzdaten = root.find(".//r:nutzdaten", NS)
         if nutzdaten is None:
