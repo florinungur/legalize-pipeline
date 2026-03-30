@@ -2,16 +2,16 @@ repos:
   # ─── Pre-commit: fast checks on every commit ───
   - repo: local
     hooks:
-      - id: ruff-check
-        name: ruff lint
-        entry: ruff check src/ tests/
+      - id: ruff-lint
+        name: ruff lint (auto-fix)
+        entry: ruff check --fix src/ tests/
         language: system
         pass_filenames: false
         types: [python]
 
       - id: ruff-format
-        name: ruff format
-        entry: ruff format --check src/ tests/
+        name: ruff format (auto-fix)
+        entry: ruff format src/ tests/
         language: system
         pass_filenames: false
         types: [python]
