@@ -69,21 +69,71 @@ def _strip_html(s: str) -> str:
     return re.sub(r"<[^>]+>", "", s).strip()
 
 
+# Tags to skip entirely (headers, footers, layout artifacts from Word)
+_SKIP_TAGS = {"kzinhalt", "fzinhalt", "layoutdaten", "feld"}
+
+# Absatz typ values that are page headers/footers (not content)
+_SKIP_TYP = {"kz", "fz"}
+
+
 def _elem_to_paragraphs(nutzdaten: ET.Element) -> list[Paragraph]:
-    """Convert RIS XML nutzdaten into a list of Paragraph objects."""
+    """Convert RIS XML nutzdaten into a list of Paragraph objects.
+
+    Filters out:
+    - kzinhalt/fzinhalt (page headers/footers with "Bundesrecht konsolidiert")
+    - absatz typ="kz"/typ="fz" (header/footer text)
+    - metadata preamble (ct in _SKIP_CT: kurztitel, kundmachungsorgan, etc.)
+    - feld elements (Word merge fields like page numbers)
+
+    Keeps everything else: actual law text (ct="text" or no ct).
+    """
     paragraphs: list[Paragraph] = []
 
     for el in nutzdaten.iter():
         tag = el.tag.split("}")[-1] if "}" in el.tag else el.tag
-        ct = el.get("ct", "")
 
-        if tag == "absatz" and ct not in _SKIP_CT:
+        # Skip header/footer/layout elements entirely
+        if tag in _SKIP_TAGS:
+            continue
+
+        ct = el.get("ct", "")
+        typ = el.get("typ", "")
+
+        # Skip metadata fields (already extracted via API)
+        if ct in _SKIP_CT:
+            continue
+
+        # Skip page header/footer paragraphs
+        if typ in _SKIP_TYP:
+            continue
+
+        if tag == "ueberschrift":
+            # Skip metadata headings (e.g., "Kurztitel", "Text", "Kundmachungsorgan")
+            text = "".join(el.itertext()).strip()
+            if text and text not in (
+                "Kurztitel",
+                "Kundmachungsorgan",
+                "Inkrafttretensdatum",
+                "Außerkrafttretensdatum",
+                "Text",
+                "Beachte",
+                "Schlagworte",
+                "§/Artikel/Anlage",
+                "Langtitel",
+                "Typ",
+                "Änderung",
+                "Index",
+                "Gesetzesnummer",
+                "Alte Dokumentnummer",
+            ):
+                paragraphs.append(Paragraph(css_class=f"heading_{typ or 'g1'}", text=text))
+
+        elif tag == "absatz":
             text = "".join(el.itertext()).strip()
             if text:
-                typ = el.get("typ", "abs")
-                paragraphs.append(Paragraph(css_class=typ, text=text))
+                paragraphs.append(Paragraph(css_class=typ or "abs", text=text))
 
-        elif tag == "listelem" and ct == "text":
+        elif tag == "listelem":
             sym_el = el.find("r:symbol", NS)
             sym = ("".join(sym_el.itertext()).strip() + " ") if sym_el is not None else ""
             parts: list[str] = []
