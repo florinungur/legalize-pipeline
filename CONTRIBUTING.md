@@ -2,7 +2,7 @@
 
 ## The #1 contribution: add your country
 
-Writing a fetcher for your country's legislation is the highest-impact contribution. See **[docs/ADDING_A_COUNTRY.md](docs/ADDING_A_COUNTRY.md)** for the full technical guide.
+Writing a fetcher for your country's legislation is the highest-impact contribution. See **[ADDING_A_COUNTRY.md](ADDING_A_COUNTRY.md)** for the full technical guide.
 
 ## Development setup
 

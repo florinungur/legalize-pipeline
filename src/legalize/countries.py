@@ -8,7 +8,7 @@ To add a new country:
 5. Create pipeline_{code}.py for fetch/bootstrap orchestration
 6. Add CLI commands to cli.py
 
-See docs/ADDING_A_COUNTRY.md for full walkthrough.
+See ADDING_A_COUNTRY.md for full walkthrough.
 """
 
 from __future__ import annotations
@@ -49,7 +49,7 @@ REGISTRY: dict[str, dict[str, tuple[str, str]]] = {
     # To add a new country:
     # 1. Create fetcher/{code}/ with client.py, discovery.py, parser.py
     # 2. Register here
-    # See docs/ADDING_A_COUNTRY.md
+    # See ADDING_A_COUNTRY.md
 }
 
 

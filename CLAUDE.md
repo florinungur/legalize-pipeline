@@ -164,7 +164,7 @@ To add a new country:
 3. Register in `countries.py` REGISTRY
 4. Add `countries:` section to `config.yaml` with `source` params for the client
 
-See [docs/ADDING_A_COUNTRY.md](docs/ADDING_A_COUNTRY.md) for the full walkthrough.
+See [ADDING_A_COUNTRY.md](ADDING_A_COUNTRY.md) for the full walkthrough.
 
 ## BOE API (Spain)
 

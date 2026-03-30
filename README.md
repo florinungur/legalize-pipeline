@@ -110,7 +110,7 @@ legalize status
 3. Register in `countries.py` REGISTRY
 4. Add `countries:` section to `config.yaml`
 
-See [docs/ADDING_A_COUNTRY.md](docs/ADDING_A_COUNTRY.md) for the full walkthrough.
+See [ADDING_A_COUNTRY.md](ADDING_A_COUNTRY.md) for the full walkthrough.
 
 ## Countries
 
@@ -122,11 +122,11 @@ See [docs/ADDING_A_COUNTRY.md](docs/ADDING_A_COUNTRY.md) for the full walkthroug
 | Germany | Wanted | [BGBL](https://www.bgbl.de/) | -- | Help wanted! |
 | Portugal | Wanted | [DRE](https://dre.pt/) | -- | Help wanted! |
 
-Want to add your country? See [docs/ADDING_A_COUNTRY.md](docs/ADDING_A_COUNTRY.md).
+Want to add your country? See [ADDING_A_COUNTRY.md](ADDING_A_COUNTRY.md).
 
 ## Contributing
 
-We welcome contributions, especially new country parsers. See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/ADDING_A_COUNTRY.md](docs/ADDING_A_COUNTRY.md).
+We welcome contributions, especially new country parsers. See [CONTRIBUTING.md](CONTRIBUTING.md) and [ADDING_A_COUNTRY.md](ADDING_A_COUNTRY.md).
 
 ## License
 
