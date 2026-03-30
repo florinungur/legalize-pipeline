@@ -24,7 +24,7 @@ from legalize.fetcher.fr.parser import (
     _extract_text_legi,
     _parse_date_legi,
     _parse_legi_combined,
-    _titulo_corto_fr,
+    _short_title_fr,
 )
 from legalize.models import EstadoNorma, Rango
 
@@ -175,37 +175,37 @@ COMBINED_XML_BLOCKQUOTE = b"""\
 
 
 class TestParseDateLegi:
-    def test_fecha_iso(self):
+    def test_iso_date(self):
         """Real dump format: YYYY-MM-DD."""
         assert _parse_date_legi("2008-07-24") == date(2008, 7, 24)
 
-    def test_fecha_historica_iso(self):
+    def test_historical_iso_date(self):
         assert _parse_date_legi("1958-10-05") == date(1958, 10, 5)
 
-    def test_fecha_yyyymmdd_compat(self):
+    def test_yyyymmdd_compat(self):
         """Also accepts YYYYMMDD format."""
         assert _parse_date_legi("20080724") == date(2008, 7, 24)
 
-    def test_sentinel_2999_devuelve_none(self):
+    def test_sentinel_2999_returns_none(self):
         """2999-01-01 = indefinite validity, returns None."""
         assert _parse_date_legi("2999-01-01") is None
 
-    def test_sentinel_99999999_devuelve_none(self):
+    def test_sentinel_99999999_returns_none(self):
         """99999999 sentinel returns None."""
         assert _parse_date_legi("99999999") is None
 
-    def test_vacia_devuelve_none(self):
+    def test_empty_returns_none(self):
         assert _parse_date_legi("") is None
         assert _parse_date_legi("   ") is None
 
-    def test_ano_mayor_2100_devuelve_none(self):
+    def test_year_above_2100_returns_none(self):
         assert _parse_date_legi("2101-01-01") is None
 
-    def test_fecha_invalida_devuelve_none(self):
+    def test_invalid_date_returns_none(self):
         assert _parse_date_legi("2008-13-32") is None
         assert _parse_date_legi("abc") is None
 
-    def test_fecha_corta_devuelve_none(self):
+    def test_short_date_returns_none(self):
         assert _parse_date_legi("2008") is None
 
 
@@ -215,7 +215,7 @@ class TestParseDateLegi:
 
 
 class TestExtractTextLegi:
-    def test_texto_plano(self):
+    def test_plain_text(self):
         el = etree.fromstring(b"<p>Texto simple.</p>")
         assert _extract_text_legi(el) == "Texto simple."
 
@@ -243,22 +243,25 @@ class TestExtractTextLegi:
 
 
 # ─────────────────────────────────────────────
-# Tests: _titulo_corto_fr
+# Tests: _short_title_fr
 # ─────────────────────────────────────────────
 
 
-class TestTituloCortoFR:
+class TestShortTitleFR:
     def test_code(self):
-        assert _titulo_corto_fr("Code civil") == "Code civil"
+        assert _short_title_fr("Code civil") == "Code civil"
 
     def test_constitution(self):
-        assert _titulo_corto_fr("Constitution du 4 octobre 1958") == "Constitution"
+        assert _short_title_fr("Constitution du 4 octobre 1958") == "Constitution"
 
     def test_loi_avec_numero(self):
-        assert _titulo_corto_fr("Loi n° 2024-123 du 1er mars 2024 relative aux transports") == "Loi n° 2024-123"
+        assert (
+            _short_title_fr("Loi n° 2024-123 du 1er mars 2024 relative aux transports")
+            == "Loi n° 2024-123"
+        )
 
     def test_vacio(self):
-        assert _titulo_corto_fr("") == ""
+        assert _short_title_fr("") == ""
 
 
 # ─────────────────────────────────────────────
@@ -268,84 +271,84 @@ class TestTituloCortoFR:
 
 class TestParseLEGICombined:
     def test_parse_simple(self):
-        bloques = _parse_legi_combined(COMBINED_XML_SIMPLE)
+        blocks = _parse_legi_combined(COMBINED_XML_SIMPLE)
         # Should contain: section Titre I, article 1, section Titre II, article 5
-        assert len(bloques) == 4
+        assert len(blocks) == 4
 
-    def test_secciones(self):
-        bloques = _parse_legi_combined(COMBINED_XML_SIMPLE)
-        secciones = [b for b in bloques if b.tipo == "section"]
-        assert len(secciones) == 2
-        assert "souveraineté" in secciones[0].titulo
-        assert "Président" in secciones[1].titulo
+    def test_sections(self):
+        blocks = _parse_legi_combined(COMBINED_XML_SIMPLE)
+        sections = [b for b in blocks if b.tipo == "section"]
+        assert len(sections) == 2
+        assert "souveraineté" in sections[0].titulo
+        assert "Président" in sections[1].titulo
 
-    def test_articulo_con_dos_versiones(self):
+    def test_article_with_two_versions(self):
         """Article 1 has 2 versions (1958 and 2008), grouped by cid."""
-        bloques = _parse_legi_combined(COMBINED_XML_SIMPLE)
-        articulos = [b for b in bloques if b.tipo == "article"]
-        art1 = [a for a in articulos if "1" in a.titulo][0]
+        blocks = _parse_legi_combined(COMBINED_XML_SIMPLE)
+        articles = [b for b in blocks if b.tipo == "article"]
+        art1 = [a for a in articles if "1" in a.titulo][0]
         assert len(art1.versions) == 2
-        fechas = [v.fecha_publicacion for v in art1.versions]
-        assert date(1958, 10, 5) in fechas
-        assert date(2008, 7, 24) in fechas
+        dates = [v.fecha_publicacion for v in art1.versions]
+        assert date(1958, 10, 5) in dates
+        assert date(2008, 7, 24) in dates
 
-    def test_articulo_source_modif(self):
+    def test_article_source_modif(self):
         """The 2008 version of article 1 has source_modif JORFTEXT."""
-        bloques = _parse_legi_combined(COMBINED_XML_SIMPLE)
-        articulos = [b for b in bloques if b.tipo == "article"]
-        art1 = [a for a in articulos if "1" in a.titulo][0]
+        blocks = _parse_legi_combined(COMBINED_XML_SIMPLE)
+        articles = [b for b in blocks if b.tipo == "article"]
+        art1 = [a for a in articles if "1" in a.titulo][0]
         version_2008 = [v for v in art1.versions if v.fecha_publicacion == date(2008, 7, 24)][0]
         assert version_2008.id_norma == "JORFTEXT000017237542"
 
-    def test_articulo_solo_vigente(self):
+    def test_article_single_version(self):
         """Article 5 has a single version."""
-        bloques = _parse_legi_combined(COMBINED_XML_SIMPLE)
-        articulos = [b for b in bloques if b.tipo == "article"]
-        art5 = [a for a in articulos if "5" in a.titulo][0]
+        blocks = _parse_legi_combined(COMBINED_XML_SIMPLE)
+        articles = [b for b in blocks if b.tipo == "article"]
+        art5 = [a for a in articles if "5" in a.titulo][0]
         assert len(art5.versions) == 1
         assert art5.versions[0].fecha_publicacion == date(1958, 6, 4)
 
-    def test_contenido_articulo(self):
-        bloques = _parse_legi_combined(COMBINED_XML_SIMPLE)
-        articulos = [b for b in bloques if b.tipo == "article"]
-        art5 = [a for a in articulos if "5" in a.titulo][0]
+    def test_article_content(self):
+        blocks = _parse_legi_combined(COMBINED_XML_SIMPLE)
+        articles = [b for b in blocks if b.tipo == "article"]
+        art5 = [a for a in articles if "5" in a.titulo][0]
         paragraphs = art5.versions[0].paragraphs
         assert any("Article 5" in p.text for p in paragraphs)
         assert any("Président" in p.text for p in paragraphs)
 
-    def test_seccion_derogada_tiene_version_vacia(self):
-        bloques = _parse_legi_combined(COMBINED_XML_ABROGATED_SECTION)
-        secciones = [b for b in bloques if b.tipo == "section"]
-        assert len(secciones) == 1
-        sec = secciones[0]
+    def test_repealed_section_has_empty_version(self):
+        blocks = _parse_legi_combined(COMBINED_XML_ABROGATED_SECTION)
+        sections = [b for b in blocks if b.tipo == "section"]
+        assert len(sections) == 1
+        sec = sections[0]
         assert len(sec.versions) == 2
         assert len(sec.versions[0].paragraphs) > 0
         assert len(sec.versions[1].paragraphs) == 0
         assert sec.versions[1].fecha_publicacion == date(2010, 1, 1)
 
-    def test_articulo_derogado_tiene_version_vacia(self):
-        bloques = _parse_legi_combined(COMBINED_XML_ABROGATED_SECTION)
-        articulos = [b for b in bloques if b.tipo == "article"]
-        assert len(articulos) == 1
-        art = articulos[0]
+    def test_repealed_article_has_empty_version(self):
+        blocks = _parse_legi_combined(COMBINED_XML_ABROGATED_SECTION)
+        articles = [b for b in blocks if b.tipo == "article"]
+        assert len(articles) == 1
+        art = articles[0]
         assert len(art.versions) == 2
         assert len(art.versions[-1].paragraphs) == 0
 
-    def test_xml_vacio(self):
+    def test_empty_xml(self):
         data = b'<legi_combined id="X"><META/></legi_combined>'
         assert _parse_legi_combined(data) == []
 
     def test_niv_css_mapping(self):
-        bloques = _parse_legi_combined(COMBINED_XML_SIMPLE)
-        secciones = [b for b in bloques if b.tipo == "section"]
-        for sec in secciones:
+        blocks = _parse_legi_combined(COMBINED_XML_SIMPLE)
+        sections = [b for b in blocks if b.tipo == "section"]
+        for sec in sections:
             assert sec.versions[0].paragraphs[0].css_class == "titulo_tit"
 
-    def test_blockquote_en_contenu(self):
+    def test_blockquote_in_content(self):
         """Articles with <blockquote> (common in amending articles)."""
-        bloques = _parse_legi_combined(COMBINED_XML_BLOCKQUOTE)
-        assert len(bloques) == 1
-        art = bloques[0]
+        blocks = _parse_legi_combined(COMBINED_XML_BLOCKQUOTE)
+        assert len(blocks) == 1
+        art = blocks[0]
         text = "\n".join(p.text for p in art.versions[0].paragraphs)
         assert "modifi" in text
         assert "livraisons" in text
@@ -385,7 +388,7 @@ class TestLEGIMetadataParser:
         assert meta.fecha_publicacion == date(1804, 3, 21)
         assert meta.estado == EstadoNorma.VIGENTE
 
-    def test_sentinel_2999_no_es_fecha_valida(self):
+    def test_sentinel_2999_not_valid_date(self):
         """2999-01-01 as sentinel must not be parsed as a date."""
         parser = LEGIMetadataParser()
         meta = parser.parse(STRUCTURE_XML_CONSTITUTION, "LEGITEXT000006071194")
@@ -399,17 +402,17 @@ class TestLEGIMetadataParser:
 
 
 class TestLEGITextParser:
-    def test_parse_texto(self):
+    def test_parse_text(self):
         parser = LEGITextParser()
-        bloques = parser.parse_texto(COMBINED_XML_SIMPLE)
-        assert len(bloques) == 4
+        blocks = parser.parse_text(COMBINED_XML_SIMPLE)
+        assert len(blocks) == 4
 
     def test_extract_reforms(self):
         parser = LEGITextParser()
         reforms = parser.extract_reforms(COMBINED_XML_SIMPLE)
         assert len(reforms) >= 2
-        fechas = [r.fecha for r in reforms]
-        assert date(1958, 10, 5) in fechas or date(1958, 6, 4) in fechas
+        dates = [r.fecha for r in reforms]
+        assert date(1958, 10, 5) in dates or date(1958, 6, 4) in dates
 
 
 # ─────────────────────────────────────────────
@@ -420,22 +423,26 @@ class TestLEGITextParser:
 class TestCountriesDispatch:
     def test_get_text_parser_fr(self):
         from legalize.countries import get_text_parser
+
         parser = get_text_parser("fr")
         assert isinstance(parser, LEGITextParser)
 
     def test_get_metadata_parser_fr(self):
         from legalize.countries import get_metadata_parser
+
         parser = get_metadata_parser("fr")
         assert isinstance(parser, LEGIMetadataParser)
 
     def test_get_client_class_fr(self):
         from legalize.countries import get_client_class
         from legalize.fetcher.fr.client import LEGIClient
+
         assert get_client_class("fr") is LEGIClient
 
     def test_get_discovery_class_fr(self):
         from legalize.countries import get_discovery_class
         from legalize.fetcher.fr.discovery import LEGIDiscovery
+
         assert get_discovery_class("fr") is LEGIDiscovery
 
 
@@ -445,9 +452,9 @@ class TestCountriesDispatch:
 
 
 class TestSlugFR:
-    def test_norma_to_filepath_uses_pais(self):
+    def test_norm_to_filepath_uses_pais(self):
         from legalize.models import EstadoNorma, NormaMetadata, Rango
-        from legalize.transformer.slug import norma_to_filepath
+        from legalize.transformer.slug import norm_to_filepath
 
         meta = NormaMetadata(
             titulo="Code civil",
@@ -460,7 +467,7 @@ class TestSlugFR:
             departamento="",
             fuente="https://www.legifrance.gouv.fr/codes/texte_lc/LEGITEXT000006069414",
         )
-        assert norma_to_filepath(meta) == "fr/LEGITEXT000006069414.md"
+        assert norm_to_filepath(meta) == "fr/LEGITEXT000006069414.md"
 
 
 # ─────────────────────────────────────────────
@@ -471,16 +478,19 @@ class TestSlugFR:
 class TestIdToSubpath:
     def test_legitext(self):
         from legalize.fetcher.fr.client import _id_to_subpath
+
         result = _id_to_subpath("LEGITEXT000006071194")
         # Only 5 digit pairs in the path (first 10 of 12)
         assert result == "LEGI/TEXT/00/00/06/07/11/LEGITEXT000006071194.xml"
 
     def test_legiarti(self):
         from legalize.fetcher.fr.client import _id_to_subpath
+
         result = _id_to_subpath("LEGIARTI000006527453")
         assert result == "LEGI/ARTI/00/00/06/52/74/LEGIARTI000006527453.xml"
 
     def test_legiscta(self):
         from legalize.fetcher.fr.client import _id_to_subpath
+
         result = _id_to_subpath("LEGISCTA000006083836")
         assert result == "LEGI/SCTA/00/00/06/08/38/LEGISCTA000006083836.xml"

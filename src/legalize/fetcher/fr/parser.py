@@ -1,6 +1,6 @@
 """Parsers LEGI — consolidated text and metadata from the LEGI database.
 
-Parses the combined XML built by LEGIClient.get_texto()
+Parses the combined XML built by LEGIClient.get_text()
 (<legi_combined> format) and the metadata from the structure file.
 
 Reference: Archéo-Lex (github.com/Legilibre/Archeo-Lex) for the
@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 # LEGI NATURE → Rango mapping
 # ─────────────────────────────────────────────
 
-_NATURE_TO_RANGO: dict[str, Rango] = {
+_NATURE_TO_RANK: dict[str, Rango] = {
     "CODE": Rango.CODE,
     "CONSTITUTION": Rango.CONSTITUTION_FR,
     "LOI": Rango.LOI,
@@ -47,10 +47,10 @@ _NATURE_TO_RANGO: dict[str, Rango] = {
 # ─────────────────────────────────────────────
 
 _SECTION_NIV_CSS: dict[str, str] = {
-    "1": "titulo_tit",       # ## heading
-    "2": "capitulo_tit",     # ### heading
-    "3": "seccion",          # #### heading
-    "4": "seccion",          # #### heading (sub-section)
+    "1": "titulo_tit",  # ## heading
+    "2": "capitulo_tit",  # ### heading
+    "3": "seccion",  # #### heading
+    "4": "seccion",  # #### heading (sub-section)
 }
 
 
@@ -192,7 +192,7 @@ def _extract_contenu_paragraphs(article_el: etree._Element) -> list[Paragraph]:
 
 
 def _parse_legi_combined(data: bytes) -> list[Bloque]:
-    """Parses the combined XML from LEGIClient.get_texto() into Bloques.
+    """Parses the combined XML from LEGIClient.get_text() into Bloques.
 
     Input format: <legi_combined id="LEGITEXTXXX">
       <META>...</META>
@@ -243,12 +243,12 @@ def _parse_legi_combined(data: bytes) -> list[Bloque]:
 
 def _parse_section_bloque(section_el: etree._Element) -> Bloque | None:
     """Creates a section Bloque (heading) from a <section> element."""
-    titre = section_el.get("titre", "")
-    if not titre:
+    title = section_el.get("titre", "")
+    if not title:
         return None
 
-    debut = _parse_date_legi(section_el.get("debut", ""))
-    if debut is None:
+    start_date = _parse_date_legi(section_el.get("debut", ""))
+    if start_date is None:
         return None
 
     niv = section_el.get("niv", "1")
@@ -257,22 +257,22 @@ def _parse_section_bloque(section_el: etree._Element) -> Bloque | None:
     versions: list[Version] = [
         Version(
             id_norma=section_el.get("id", ""),
-            fecha_publicacion=debut,
-            fecha_vigencia=debut,
-            paragraphs=(Paragraph(css_class=css_class, text=titre),),
+            fecha_publicacion=start_date,
+            fecha_vigencia=start_date,
+            paragraphs=(Paragraph(css_class=css_class, text=title),),
         )
     ]
 
     # If the section was repealed, add an empty version at the end date
-    etat = section_el.get("etat", "")
-    if etat in ("ABROGE", "ABROGE_DIFF"):
-        fin = _parse_date_legi(section_el.get("fin", ""))
-        if fin is not None:
+    status = section_el.get("etat", "")
+    if status in ("ABROGE", "ABROGE_DIFF"):
+        end_date = _parse_date_legi(section_el.get("fin", ""))
+        if end_date is not None:
             versions.append(
                 Version(
                     id_norma=section_el.get("id", ""),
-                    fecha_publicacion=fin,
-                    fecha_vigencia=fin,
+                    fecha_publicacion=end_date,
+                    fecha_vigencia=end_date,
                     paragraphs=(),
                 )
             )
@@ -280,7 +280,7 @@ def _parse_section_bloque(section_el: etree._Element) -> Bloque | None:
     return Bloque(
         id=section_el.get("id", ""),
         tipo="section",
-        titulo=titre,
+        titulo=title,
         versions=tuple(versions),
     )
 
@@ -288,22 +288,22 @@ def _parse_section_bloque(section_el: etree._Element) -> Bloque | None:
 def _parse_article_bloque(cid: str, article_els: list[etree._Element]) -> Bloque | None:
     """Creates an article Bloque with all its historical versions."""
     versions: list[Version] = []
-    max_fin: date | None = None
+    max_end_date: date | None = None
     all_abrogated = True
 
     for art_el in sorted(article_els, key=lambda e: e.get("debut", "")):
-        etat = art_el.get("etat", "")
-        debut = _parse_date_legi(art_el.get("debut", ""))
-        fin_date = _parse_date_legi(art_el.get("fin", ""))
+        status = art_el.get("etat", "")
+        start_date = _parse_date_legi(art_el.get("debut", ""))
+        end_date = _parse_date_legi(art_el.get("fin", ""))
 
-        if debut is None:
+        if start_date is None:
             continue
 
-        if etat == "VIGUEUR":
+        if status == "VIGUEUR":
             all_abrogated = False
 
-        if fin_date is not None:
-            max_fin = max(max_fin, fin_date) if max_fin else fin_date
+        if end_date is not None:
+            max_end_date = max(max_end_date, end_date) if max_end_date else end_date
 
         paragraphs = _extract_contenu_paragraphs(art_el)
         if not paragraphs:
@@ -313,24 +313,28 @@ def _parse_article_bloque(cid: str, article_els: list[etree._Element]) -> Bloque
         source = art_el.find("source_modif")
         id_norma = (source.get("id", "") if source is not None else "") or art_el.get("id", "")
 
-        versions.append(Version(
-            id_norma=id_norma,
-            fecha_publicacion=debut,
-            fecha_vigencia=debut,
-            paragraphs=tuple(paragraphs),
-        ))
+        versions.append(
+            Version(
+                id_norma=id_norma,
+                fecha_publicacion=start_date,
+                fecha_vigencia=start_date,
+                paragraphs=tuple(paragraphs),
+            )
+        )
 
     if not versions:
         return None
 
     # If all versions are repealed, add an empty version at the end
-    if all_abrogated and max_fin is not None:
-        versions.append(Version(
-            id_norma="",
-            fecha_publicacion=max_fin,
-            fecha_vigencia=max_fin,
-            paragraphs=(),
-        ))
+    if all_abrogated and max_end_date is not None:
+        versions.append(
+            Version(
+                id_norma="",
+                fecha_publicacion=max_end_date,
+                fecha_vigencia=max_end_date,
+                paragraphs=(),
+            )
+        )
 
     num = article_els[0].get("num", "")
     title = f"Article {num}" if num else cid
@@ -356,12 +360,12 @@ def _text_of(parent: etree._Element, tag: str) -> str:
     return ""
 
 
-def _parse_etat(etat_str: str) -> EstadoNorma:
+def _parse_status(status_str: str) -> EstadoNorma:
     """Converts LEGI ETAT to EstadoNorma."""
-    etat = etat_str.upper()
-    if etat in ("ABROGE", "ABROGE_DIFF"):
+    status_upper = status_str.upper()
+    if status_upper in ("ABROGE", "ABROGE_DIFF"):
         return EstadoNorma.DEROGADA
-    if etat == "MODIFIE":
+    if status_upper == "MODIFIE":
         return EstadoNorma.PARCIALMENTE_DEROGADA
     return EstadoNorma.VIGENTE
 
@@ -373,7 +377,7 @@ def _build_legifrance_url(norm_id: str, nature: str) -> str:
     return f"https://www.legifrance.gouv.fr/loda/id/{norm_id}"
 
 
-def _titulo_corto_fr(raw_title: str) -> str:
+def _short_title_fr(raw_title: str) -> str:
     """Generates a short title for French texts.
 
     "Code civil" → "Code civil"
@@ -398,7 +402,7 @@ def _titulo_corto_fr(raw_title: str) -> str:
     return raw_title
 
 
-def _parse_metadatos_legi(xml_data: bytes, norm_id: str) -> NormaMetadata:
+def _parse_metadata_legi(xml_data: bytes, norm_id: str) -> NormaMetadata:
     """Parses metadata from a LEGI structure file.
 
     Extracts information from META/META_COMMUN and META/META_SPEC.
@@ -414,30 +418,30 @@ def _parse_metadatos_legi(xml_data: bytes, norm_id: str) -> NormaMetadata:
         or norm_id
     )
     identifier = _text_of(root, "ID") or norm_id
-    etat = _text_of(root, "ETAT")
+    status_str = _text_of(root, "ETAT")
 
     # Dates — in the actual dump, DATE_PUBLI for codes is usually 2999-01-01
     # For codes, look for debut of the first VERSION
-    fecha_pub_str = _text_of(root, "DATE_PUBLI")
-    fecha_pub = _parse_date_legi(fecha_pub_str)
-    if fecha_pub is None:
-        fecha_pub = _parse_date_legi(_text_of(root, "DATE_TEXTE"))
-    if fecha_pub is None:
+    pub_date_str = _text_of(root, "DATE_PUBLI")
+    pub_date = _parse_date_legi(pub_date_str)
+    if pub_date is None:
+        pub_date = _parse_date_legi(_text_of(root, "DATE_TEXTE"))
+    if pub_date is None:
         # Fallback: debut from LIEN_TXT in VERSIONS
         for lien_txt in root.iter("LIEN_TXT"):
-            fecha_pub = _parse_date_legi(lien_txt.get("debut", ""))
-            if fecha_pub is not None:
+            pub_date = _parse_date_legi(lien_txt.get("debut", ""))
+            if pub_date is not None:
                 break
-    if fecha_pub is None:
-        fecha_pub = _parse_date_legi(_text_of(root, "DATE_DEBUT"))
-    if fecha_pub is None:
+    if pub_date is None:
+        pub_date = _parse_date_legi(_text_of(root, "DATE_DEBUT"))
+    if pub_date is None:
         raise ValueError(f"Could not extract publication date for {norm_id}")
 
-    fecha_modif_str = _text_of(root, "DERNIERE_MODIFICATION")
-    fecha_modif = _parse_date_legi(fecha_modif_str)
+    modif_date_str = _text_of(root, "DERNIERE_MODIFICATION")
+    modif_date = _parse_date_legi(modif_date_str)
 
     # Rank
-    rank = _NATURE_TO_RANGO.get(nature, Rango.OTRO)
+    rank = _NATURE_TO_RANK.get(nature, Rango.OTRO)
 
     # Autorite / Ministere as department
     department = _text_of(root, "AUTORITE") or _text_of(root, "MINISTERE") or ""
@@ -445,7 +449,7 @@ def _parse_metadatos_legi(xml_data: bytes, norm_id: str) -> NormaMetadata:
     # Source URL
     source_url = _build_legifrance_url(identifier, nature)
 
-    short_title = _titulo_corto_fr(title)
+    short_title = _short_title_fr(title)
 
     return NormaMetadata(
         titulo=title,
@@ -453,11 +457,11 @@ def _parse_metadatos_legi(xml_data: bytes, norm_id: str) -> NormaMetadata:
         identificador=identifier,
         pais="fr",
         rango=rank,
-        fecha_publicacion=fecha_pub,
-        estado=_parse_etat(etat),
+        fecha_publicacion=pub_date,
+        estado=_parse_status(status_str),
         departamento=department,
         fuente=source_url,
-        fecha_ultima_modificacion=fecha_modif,
+        fecha_ultima_modificacion=modif_date,
     )
 
 
@@ -469,12 +473,13 @@ def _parse_metadatos_legi(xml_data: bytes, norm_id: str) -> NormaMetadata:
 class LEGITextParser(TextParser):
     """Parses the combined LEGI XML into Bloque objects."""
 
-    def parse_texto(self, data: bytes) -> list[Any]:
+    def parse_text(self, data: bytes) -> list[Any]:
         return _parse_legi_combined(data)
 
     def extract_reforms(self, data: bytes) -> list[Any]:
         blocks = _parse_legi_combined(data)
         from legalize.transformer.xml_parser import extract_reforms
+
         return extract_reforms(blocks)
 
 
@@ -482,4 +487,4 @@ class LEGIMetadataParser(MetadataParser):
     """Parses metadata from a LEGI structure file."""
 
     def parse(self, data: bytes, norm_id: str) -> NormaMetadata:
-        return _parse_metadatos_legi(data, norm_id)
+        return _parse_metadata_legi(data, norm_id)

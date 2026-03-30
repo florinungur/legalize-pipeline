@@ -164,10 +164,10 @@ class TestCountriesDispatch:
             assert hasattr(cls, "__exit__"), f"{code} client missing __exit__"
 
     def test_all_parsers_have_required_methods(self):
-        """TextParser has parse_texto, extract_reforms; MetadataParser has parse."""
+        """TextParser has parse_text, extract_reforms; MetadataParser has parse."""
         for code in REGISTRY:
             tp = get_text_parser(code)
-            assert hasattr(tp, "parse_texto"), f"{code} text_parser missing parse_texto"
+            assert hasattr(tp, "parse_text"), f"{code} text_parser missing parse_text"
             assert hasattr(tp, "extract_reforms"), f"{code} text_parser missing extract_reforms"
 
             mp = get_metadata_parser(code)
@@ -389,7 +389,7 @@ class TestStateStorePersistence:
 class TestGenericPipeline:
     def test_extract_reforms_generic_fallback(self):
         """_extract_reforms_generic falls back to extract_reforms when parser has no SFSR method."""
-        mock_parser = MagicMock(spec=["parse_texto", "extract_reforms"])
+        mock_parser = MagicMock(spec=["parse_text", "extract_reforms"])
         mock_client = MagicMock()
         # Ensure the parser does NOT have extract_reforms_from_sfsr
         assert not hasattr(mock_parser, "extract_reforms_from_sfsr")

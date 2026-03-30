@@ -156,9 +156,7 @@ def _abbreviate_articles(articles: list[str]) -> str:
     return f"arts. {shown} y {len(nums) - 3} más"
 
 
-def _get_affected_articles(
-    reform: Reform, blocks: list[Bloque] | tuple[Bloque, ...]
-) -> list[str]:
+def _get_affected_articles(reform: Reform, blocks: list[Bloque] | tuple[Bloque, ...]) -> list[str]:
     """Get titles of articles affected by a reform."""
     titles = []
     block_map = {b.id: b for b in blocks}

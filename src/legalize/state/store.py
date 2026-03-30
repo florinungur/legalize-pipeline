@@ -60,12 +60,14 @@ class StateStore:
             )
 
         for r in data.get("runs", []):
-            self._runs.append(RunRecord(
-                timestamp=r["timestamp"],
-                summaries_reviewed=r.get("summaries_reviewed", []),
-                commits_created=r.get("commits_created", 0),
-                errors=r.get("errors", []),
-            ))
+            self._runs.append(
+                RunRecord(
+                    timestamp=r["timestamp"],
+                    summaries_reviewed=r.get("summaries_reviewed", []),
+                    commits_created=r.get("commits_created", 0),
+                    errors=r.get("errors", []),
+                )
+            )
 
     def save(self) -> None:
         """Persist state to disk."""
@@ -114,12 +116,14 @@ class StateStore:
         errors: list[str] | None = None,
     ) -> None:
         """Record a pipeline run."""
-        self._runs.append(RunRecord(
-            timestamp=datetime.now().isoformat(),
-            summaries_reviewed=summaries or [],
-            commits_created=commits,
-            errors=errors or [],
-        ))
+        self._runs.append(
+            RunRecord(
+                timestamp=datetime.now().isoformat(),
+                summaries_reviewed=summaries or [],
+                commits_created=commits,
+                errors=errors or [],
+            )
+        )
 
     def get_norm_state(self, norm_id: str) -> Optional[NormState]:
         return self._norms.get(norm_id)

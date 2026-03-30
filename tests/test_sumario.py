@@ -1,7 +1,7 @@
 """Tests for the BOE sumario parser."""
 
 from legalize.config import ScopeConfig
-from legalize.fetcher.es.sumario import parse_sumario
+from legalize.fetcher.es.sumario import parse_summary
 from legalize.models import Rango
 
 # Minimal XML that replicates the real BOE sumario structure
@@ -55,7 +55,7 @@ class TestParseSumario:
     def test_filters_section_1_only(self):
         """Only includes dispositions from section 1 (General provisions)."""
         scope = ScopeConfig()
-        result = parse_sumario(SUMARIO_XML, scope)
+        result = parse_summary(SUMARIO_XML, scope)
         ids = [d.id_boe for d in result]
         # Section 1 items
         assert "BOE-A-2026-1001" in ids
@@ -65,26 +65,26 @@ class TestParseSumario:
     def test_filters_by_rango(self):
         """Filters by rangos in scope."""
         scope = ScopeConfig(rangos=[Rango.LEY_ORGANICA])
-        result = parse_sumario(SUMARIO_XML, scope)
+        result = parse_summary(SUMARIO_XML, scope)
         # Only the LO should be present
         assert len(result) >= 1
         lo_ids = [d.id_boe for d in result if d.rango == Rango.LEY_ORGANICA]
         assert "BOE-A-2026-1001" in lo_ids
 
-    def test_infers_rango_from_titulo(self):
+    def test_infers_rango_from_title(self):
         scope = ScopeConfig()
-        result = parse_sumario(SUMARIO_XML, scope)
+        result = parse_summary(SUMARIO_XML, scope)
         lo = next(d for d in result if d.id_boe == "BOE-A-2026-1001")
         assert lo.rango == Rango.LEY_ORGANICA
 
-    def test_extracts_departamento(self):
+    def test_extracts_department(self):
         scope = ScopeConfig()
-        result = parse_sumario(SUMARIO_XML, scope)
+        result = parse_summary(SUMARIO_XML, scope)
         lo = next(d for d in result if d.id_boe == "BOE-A-2026-1001")
         assert lo.departamento == "CORTES GENERALES"
 
     def test_extracts_url_xml(self):
         scope = ScopeConfig()
-        result = parse_sumario(SUMARIO_XML, scope)
+        result = parse_summary(SUMARIO_XML, scope)
         lo = next(d for d in result if d.id_boe == "BOE-A-2026-1001")
         assert "BOE-A-2026-1001" in lo.url_xml

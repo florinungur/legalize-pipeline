@@ -107,6 +107,7 @@ class GitRepo:
         message = format_commit_message(info)
         # Git does not accept pre-1970 dates (Unix epoch)
         from datetime import date as date_type
+
         git_date = info.author_date
         if git_date < date_type(1970, 1, 2):
             git_date = date_type(1970, 1, 2)
@@ -152,9 +153,9 @@ class GitRepo:
                 norm_id = ""
                 for line in body.splitlines():
                     if line.startswith("Source-Id: "):
-                        source_id = line[len("Source-Id: "):]
+                        source_id = line[len("Source-Id: ") :]
                     elif line.startswith("Norm-Id: "):
-                        norm_id = line[len("Norm-Id: "):]
+                        norm_id = line[len("Norm-Id: ") :]
                 if source_id and norm_id:
                     self._existing_commits.add((source_id, norm_id))
 

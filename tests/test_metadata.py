@@ -3,7 +3,7 @@
 from datetime import date
 
 from legalize.models import EstadoNorma, Rango
-from legalize.fetcher.es.metadata import parse_metadatos
+from legalize.fetcher.es.metadata import parse_metadata
 
 # Real XML from the Constitution (captured from the API)
 CONSTITUCION_META_XML = b"""<?xml version="1.0" encoding="utf-8"?>
@@ -35,24 +35,24 @@ CONSTITUCION_META_XML = b"""<?xml version="1.0" encoding="utf-8"?>
 
 class TestParseMetadatos:
     def test_parse_constitucion(self):
-        meta = parse_metadatos(CONSTITUCION_META_XML, "BOE-A-1978-31229")
+        meta = parse_metadata(CONSTITUCION_META_XML, "BOE-A-1978-31229")
         assert meta.identificador == "BOE-A-1978-31229"
         assert meta.rango == Rango.CONSTITUCION
         assert meta.fecha_publicacion == date(1978, 12, 29)
         assert meta.departamento == "Cortes Generales"
         assert meta.estado == EstadoNorma.VIGENTE
 
-    def test_titulo(self):
-        meta = parse_metadatos(CONSTITUCION_META_XML, "BOE-A-1978-31229")
+    def test_title(self):
+        meta = parse_metadata(CONSTITUCION_META_XML, "BOE-A-1978-31229")
         assert "Constitucion" in meta.titulo
 
-    def test_fuente(self):
-        meta = parse_metadatos(CONSTITUCION_META_XML, "BOE-A-1978-31229")
+    def test_source_url(self):
+        meta = parse_metadata(CONSTITUCION_META_XML, "BOE-A-1978-31229")
         assert meta.fuente.startswith("https://")
 
     def test_rango_from_code(self):
         """The rango is resolved from code '1070' = Constitution."""
-        meta = parse_metadatos(CONSTITUCION_META_XML, "BOE-A-1978-31229")
+        meta = parse_metadata(CONSTITUCION_META_XML, "BOE-A-1978-31229")
         assert meta.rango == Rango.CONSTITUCION
 
     def test_derogada_status(self):
@@ -61,5 +61,5 @@ class TestParseMetadatos:
             b"<estatus_derogacion>N</estatus_derogacion>",
             b"<estatus_derogacion>T</estatus_derogacion>",
         )
-        meta = parse_metadatos(xml, "BOE-A-1978-31229")
+        meta = parse_metadata(xml, "BOE-A-1978-31229")
         assert meta.estado == EstadoNorma.DEROGADA

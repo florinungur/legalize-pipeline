@@ -13,7 +13,6 @@ from typing import Any, Optional
 import yaml
 
 
-
 @dataclass
 class BOEConfig:
     """BOE API connection configuration."""
@@ -147,9 +146,7 @@ def load_config(path: str | Path = "config.yaml", overrides: dict | None = None)
                 "retry_backoff_multiplier", BOEConfig.retry_backoff_multiplier
             ),
             retry_jitter=boe_raw.get("retry_jitter", BOEConfig.retry_jitter),
-            requests_per_second=boe_raw.get(
-                "requests_per_second", BOEConfig.requests_per_second
-            ),
+            requests_per_second=boe_raw.get("requests_per_second", BOEConfig.requests_per_second),
             user_agent=boe_raw.get("user_agent", BOEConfig.user_agent),
         ),
         scope=ScopeConfig(

@@ -63,10 +63,12 @@ class BOEClient:
         self._rate_limiter = RateLimiter(config.requests_per_second)
 
         self._session = requests.Session()
-        self._session.headers.update({
-            "User-Agent": config.user_agent,
-            "Accept": "application/xml",
-        })
+        self._session.headers.update(
+            {
+                "User-Agent": config.user_agent,
+                "Accept": "application/xml",
+            }
+        )
 
         # Retry with backoff for server errors
         retry = Retry(
@@ -133,41 +135,41 @@ class BOEClient:
 
     # ── Public endpoints ──
 
-    def get_sumario(self, fecha: date) -> bytes:
+    def get_sumario(self, target_date: date) -> bytes:
         """Fetches the BOE daily summary for a date: /api/boe/sumario/{YYYYMMDD}."""
-        path = f"/api/boe/sumario/{fecha.strftime('%Y%m%d')}"
+        path = f"/api/boe/sumario/{target_date.strftime('%Y%m%d')}"
         return self._fetch(self._build_url(path))
 
-    def get_texto_consolidado(self, id_boe: str, bypass_cache: bool = False) -> bytes:
+    def get_consolidated_text(self, id_boe: str, bypass_cache: bool = False) -> bytes:
         """Fetches the consolidated text XML: /api/legislacion-consolidada/id/{id}/texto."""
         path = f"/api/legislacion-consolidada/id/{id_boe}/texto"
         return self._fetch(self._build_url(path), bypass_cache=bypass_cache)
 
-    def get_metadatos(self, id_boe: str) -> bytes:
+    def get_metadata(self, id_boe: str) -> bytes:
         """Fetches metadata for a norm: /api/legislacion-consolidada/id/{id}/metadatos."""
         path = f"/api/legislacion-consolidada/id/{id_boe}/metadatos"
         return self._fetch(self._build_url(path))
 
-    def get_indice(self, id_boe: str) -> bytes:
+    def get_index(self, id_boe: str) -> bytes:
         """Fetches the block index: /api/legislacion-consolidada/id/{id}/texto/indice."""
         path = f"/api/legislacion-consolidada/id/{id_boe}/texto/indice"
         return self._fetch(self._build_url(path))
 
-    def get_catalogo(
+    def get_catalog(
         self,
-        rango: str | None = None,
-        fecha_desde: date | None = None,
-        fecha_hasta: date | None = None,
+        rank: str | None = None,
+        start_date: date | None = None,
+        end_date: date | None = None,
         offset: int = 0,
     ) -> bytes:
         """Queries the consolidated legislation catalog with filters."""
         params: dict[str, str] = {}
-        if rango:
-            params["rango"] = rango
-        if fecha_desde:
-            params["fecha_desde"] = fecha_desde.isoformat()
-        if fecha_hasta:
-            params["fecha_hasta"] = fecha_hasta.isoformat()
+        if rank:
+            params["rango"] = rank
+        if start_date:
+            params["fecha_desde"] = start_date.isoformat()
+        if end_date:
+            params["fecha_hasta"] = end_date.isoformat()
         if offset > 0:
             params["offset"] = str(offset)
 

@@ -20,14 +20,18 @@ class BOEDiscovery(NormDiscovery):
 
     def discover_all(self, client: LegislativeClient, **kwargs) -> Iterator[str]:
         """Discover all norms via BOE catalog API."""
-        from legalize.fetcher.es.catalogo import iter_normas_from_catalog
-        yield from iter_normas_from_catalog(client, self.config)
+        from legalize.fetcher.es.catalogo import iter_norms_from_catalog
 
-    def discover_daily(self, client: LegislativeClient, target_date: date, **kwargs) -> Iterator[str]:
+        yield from iter_norms_from_catalog(client, self.config)
+
+    def discover_daily(
+        self, client: LegislativeClient, target_date: date, **kwargs
+    ) -> Iterator[str]:
         """Discover norms from a BOE daily sumario."""
-        from legalize.fetcher.es.sumario import parse_sumario
+        from legalize.fetcher.es.sumario import parse_summary
+
         scope = kwargs.get("scope", self.config.scope if self.config else None)
         xml_data = client.get_sumario(target_date)
-        dispositions = parse_sumario(xml_data, scope)
+        dispositions = parse_summary(xml_data, scope)
         for disp in dispositions:
             yield disp.id_norma

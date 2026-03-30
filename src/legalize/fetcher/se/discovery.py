@@ -65,7 +65,9 @@ class SwedishDiscovery(NormDiscovery):
     """
 
     def discover_all(
-        self, client: LegislativeClient, **kwargs,
+        self,
+        client: LegislativeClient,
+        **kwargs,
     ) -> Iterator[str]:
         """Discover all base statute SFS numbers in the Riksdagen catalog.
 
@@ -121,7 +123,10 @@ class SwedishDiscovery(NormDiscovery):
         logger.info("Total discovered: %d base statutes", count)
 
     def discover_daily(
-        self, client: LegislativeClient, target_date: date, **kwargs,
+        self,
+        client: LegislativeClient,
+        target_date: date,
+        **kwargs,
     ) -> Iterator[str]:
         """Discover statutes published or updated on a specific date.
 
@@ -162,7 +167,8 @@ class SwedishDiscovery(NormDiscovery):
                     seen.add(base_sfs)
                     logger.info(
                         "Amendment SFS %s affects base law %s",
-                        sfs, base_sfs,
+                        sfs,
+                        base_sfs,
                     )
                     yield base_sfs
             else:
@@ -184,10 +190,15 @@ class SwedishDiscovery(NormDiscovery):
             return client._get(url)  # type: ignore[attr-defined]
         # Fallback for testing or non-SwedishClient instances
         import requests as req
-        resp = req.get(url, timeout=30, headers={
-            "User-Agent": "legalize-bot/1.0",
-            "Accept": "application/json",
-        })
+
+        resp = req.get(
+            url,
+            timeout=30,
+            headers={
+                "User-Agent": "legalize-bot/1.0",
+                "Accept": "application/json",
+            },
+        )
         resp.raise_for_status()
         return resp.content
 

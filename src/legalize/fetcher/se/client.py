@@ -48,14 +48,16 @@ class SwedishClient(LegislativeClient):
 
     def __init__(self) -> None:
         self._session = requests.Session()
-        self._session.headers.update({
-            "User-Agent": _USER_AGENT,
-            "Accept": "application/json",
-        })
+        self._session.headers.update(
+            {
+                "User-Agent": _USER_AGENT,
+                "Accept": "application/json",
+            }
+        )
         self._last_request_time: float = 0.0
         self._rate_lock = threading.Lock()
 
-    def get_texto(self, norm_id: str) -> bytes:
+    def get_text(self, norm_id: str) -> bytes:
         """Fetch the full document JSON for a Swedish statute.
 
         Searches Riksdagen API by SFS number, extracts dok_id,
@@ -72,19 +74,19 @@ class SwedishClient(LegislativeClient):
         logger.info("Fetching document text: %s", url)
         return self._get(url)
 
-    def get_metadatos(self, norm_id: str) -> bytes:
+    def get_metadata(self, norm_id: str) -> bytes:
         """Fetch metadata for a Swedish statute.
 
-        Uses the same endpoint as get_texto — metadata is embedded
+        Uses the same endpoint as get_text — metadata is embedded
         in the full document JSON (dokumentstatus.dokuppgift).
 
         Args:
             norm_id: SFS number, e.g. "1962:700"
 
         Returns:
-            Full document JSON as bytes (same as get_texto).
+            Full document JSON as bytes (same as get_text).
         """
-        return self.get_texto(norm_id)
+        return self.get_text(norm_id)
 
     def get_amendment_register(self, norm_id: str) -> bytes:
         """Fetch the SFSR amendment register for a statute.
@@ -120,18 +122,14 @@ class SwedishClient(LegislativeClient):
         Raises:
             ValueError: If no document is found for the SFS number.
         """
-        url = (
-            f"{_RIKSDAGEN_LIST_URL}/"
-            f"?sok={quote(norm_id)}&doktyp=sfs&format=json&utformat=json"
-        )
+        url = f"{_RIKSDAGEN_LIST_URL}/?sok={quote(norm_id)}&doktyp=sfs&format=json&utformat=json"
         logger.debug("Searching Riksdagen for SFS %s", norm_id)
         data = self._get(url)
 
         import json
+
         result = json.loads(data)
-        documents = (
-            result.get("dokumentlista", {}).get("dokument") or []
-        )
+        documents = result.get("dokumentlista", {}).get("dokument") or []
 
         if not documents:
             raise ValueError(f"No Riksdagen document found for SFS {norm_id}")
@@ -147,7 +145,8 @@ class SwedishClient(LegislativeClient):
         dok_id = documents[0]["dok_id"]
         logger.warning(
             "No exact match for SFS %s, using first result: %s",
-            norm_id, dok_id,
+            norm_id,
+            dok_id,
         )
         return dok_id
 
@@ -177,7 +176,11 @@ class SwedishClient(LegislativeClient):
                 wait = _BACKOFF_BASE ** (attempt + 1)
                 logger.warning(
                     "HTTP %d from %s, retrying in %.1fs (attempt %d/%d)",
-                    response.status_code, url, wait, attempt + 1, _MAX_RETRIES,
+                    response.status_code,
+                    url,
+                    wait,
+                    attempt + 1,
+                    _MAX_RETRIES,
                 )
                 time.sleep(wait)
                 self._rate_limit()

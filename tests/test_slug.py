@@ -3,7 +3,7 @@
 from datetime import date
 
 from legalize.models import EstadoNorma, NormaMetadata, Rango
-from legalize.transformer.slug import norma_to_filepath
+from legalize.transformer.slug import norm_to_filepath
 
 
 def _make_metadata(
@@ -29,22 +29,22 @@ def _make_metadata(
 class TestNormaToFilepath:
     def test_state_level_uses_pais(self):
         meta = _make_metadata("BOE-A-2015-11430")
-        assert norma_to_filepath(meta) == "es/BOE-A-2015-11430.md"
+        assert norm_to_filepath(meta) == "es/BOE-A-2015-11430.md"
 
     def test_ccaa_uses_jurisdiccion(self):
         meta = _make_metadata("BOE-A-2020-615", jurisdiccion="es-pv")
-        assert norma_to_filepath(meta) == "es-pv/BOE-A-2020-615.md"
+        assert norm_to_filepath(meta) == "es-pv/BOE-A-2020-615.md"
 
     def test_france(self):
         meta = _make_metadata("JORF-001", pais="fr")
-        assert norma_to_filepath(meta) == "fr/JORF-001.md"
+        assert norm_to_filepath(meta) == "fr/JORF-001.md"
 
     def test_filename_is_identificador(self):
         meta = _make_metadata("BOE-A-1978-31229")
-        assert norma_to_filepath(meta).endswith("BOE-A-1978-31229.md")
+        assert norm_to_filepath(meta).endswith("BOE-A-1978-31229.md")
 
     def test_no_rango_subfolder(self):
         """Rango does not affect the path — it's in the YAML frontmatter."""
         meta1 = _make_metadata("BOE-A-1978-31229", rango=Rango.CONSTITUCION)
         meta2 = _make_metadata("BOE-A-1978-31229", rango=Rango.LEY)
-        assert norma_to_filepath(meta1) == norma_to_filepath(meta2)
+        assert norm_to_filepath(meta1) == norm_to_filepath(meta2)

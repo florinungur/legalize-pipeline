@@ -52,12 +52,12 @@ def _id_to_subpath(legi_id: str) -> str:
     LEGIARTI000006527453 → LEGI/ARTI/00/00/06/52/74/LEGIARTI000006527453.xml
     LEGISCTA000006083281 → LEGI/SCTA/00/00/06/08/32/LEGISCTA000006083281.xml
     """
-    prefix = legi_id[:4]   # LEGI
+    prefix = legi_id[:4]  # LEGI
     type_code = legi_id[4:8]  # TEXT, ARTI, SCTA
-    digits = legi_id[8:]   # 000006083281 (12 digits)
+    digits = legi_id[8:]  # 000006083281 (12 digits)
     # Only the first 10 digits → 5 pairs for the path
     path_digits = digits[:10]
-    groups = "/".join(path_digits[i:i + 2] for i in range(0, len(path_digits), 2))
+    groups = "/".join(path_digits[i : i + 2] for i in range(0, len(path_digits), 2))
     return f"{prefix}/{type_code}/{groups}/{legi_id}.xml"
 
 
@@ -90,7 +90,7 @@ class LEGIClient(LegislativeClient):
     """Reads norms from the local LEGI database dump.
 
     Does not make HTTP requests. Works with the decompressed XML dump.
-    get_texto() builds a combined XML with structure + inline articles.
+    get_text() builds a combined XML with structure + inline articles.
     """
 
     @classmethod
@@ -106,7 +106,7 @@ class LEGIClient(LegislativeClient):
         # Cache of found text directories
         self._text_dir_cache: dict[str, Path | None] = {}
 
-    def get_texto(self, norm_id: str) -> bytes:
+    def get_text(self, norm_id: str) -> bytes:
         """Builds combined XML with structure + article content.
 
         Reads the structure file (TEXTELR) and embeds the content
@@ -133,7 +133,7 @@ class LEGIClient(LegislativeClient):
 
         return etree.tostring(combined, encoding="utf-8", xml_declaration=True)
 
-    def get_metadatos(self, norm_id: str) -> bytes:
+    def get_metadata(self, norm_id: str) -> bytes:
         """Returns the XML from the version file (contains TITRE and full META).
 
         In the actual dump, the struct file does NOT have TITRE_TEXTE for codes.
@@ -169,10 +169,7 @@ class LEGIClient(LegislativeClient):
             self._text_dir_cache[norm_id] = _find_text_dir(self._base, norm_id)
         text_dir = self._text_dir_cache[norm_id]
         if text_dir is None:
-            raise FileNotFoundError(
-                f"Text not found in dump: {norm_id}. "
-                f"Base: {self._base}"
-            )
+            raise FileNotFoundError(f"Text not found in dump: {norm_id}. Base: {self._base}")
         return text_dir
 
     def _article_path_in_text(self, text_dir: Path, article_id: str) -> Path:
@@ -212,7 +209,8 @@ class LEGIClient(LegislativeClient):
                 section_id = child.get("id", "")
 
                 etree.SubElement(
-                    target, "section",
+                    target,
+                    "section",
                     id=section_id,
                     titre=titre,
                     niv=niv,
@@ -227,7 +225,8 @@ class LEGIClient(LegislativeClient):
             elif tag == "LIEN_ART":
                 art_id = child.get("id", "")
                 art_el = etree.SubElement(
-                    target, "article",
+                    target,
+                    "article",
                     id=art_id,
                     cid=child.get("cid", art_id),
                     num=child.get("num", ""),
@@ -238,9 +237,7 @@ class LEGIClient(LegislativeClient):
                 )
                 self._embed_article_content(text_dir, art_id, art_el)
 
-    def _resolve_section(
-        self, text_dir: Path, section_id: str, target: etree._Element
-    ) -> None:
+    def _resolve_section(self, text_dir: Path, section_id: str, target: etree._Element) -> None:
         """Reads a section_ta file and walks its STRUCTURE_TA recursively.
 
         File: {text_dir}/section_ta/LEGI/SCTA/.../LEGISCTAXXX.xml
@@ -287,11 +284,15 @@ class LEGIClient(LegislativeClient):
                     typelien = lien.get("typelien", "")
                     # sens="cible" = this article was modified BY the lien
                     if sens == "cible" and typelien in (
-                        "MODIFIE", "CREATION", "CREE",
-                        "TRANSFERE", "REPLACE",
+                        "MODIFIE",
+                        "CREATION",
+                        "CREE",
+                        "TRANSFERE",
+                        "REPLACE",
                     ):
                         etree.SubElement(
-                            target, "source_modif",
+                            target,
+                            "source_modif",
                             id=lien.get("cidtexte", ""),
                             date=lien.get("datesignatexte", ""),
                             nature=lien.get("naturetexte", ""),

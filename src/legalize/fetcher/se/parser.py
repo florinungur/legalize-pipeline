@@ -38,10 +38,10 @@ logger = logging.getLogger(__name__)
 
 # Defined as Rango strings — consistent with how Spain/France do it.
 # Rango is a free-form str subclass, so any string is valid.
-_RANGO_GRUNDLAG = Rango("grundlag")       # Fundamental law (constitution)
-_RANGO_BALK = Rango("balk")               # Code (e.g. Brottsbalken)
-_RANGO_LAG = Rango("lag")                 # Act/Law
-_RANGO_FORORDNING = Rango("forordning")   # Ordinance/Regulation
+_RANK_GRUNDLAG = Rango("grundlag")  # Fundamental law (constitution)
+_RANK_BALK = Rango("balk")  # Code (e.g. Brottsbalken)
+_RANK_LAG = Rango("lag")  # Act/Law
+_RANK_FORORDNING = Rango("forordning")  # Ordinance/Regulation
 
 # ─────────────────────────────────────────────
 # Title → Rango detection
@@ -57,7 +57,7 @@ _GRUNDLAG_KEYWORDS = (
 )
 
 
-def _detect_rango(title: str) -> Rango:
+def _detect_rank(title: str) -> Rango:
     """Detect the normative rank from a Swedish statute title.
 
     Detection order (most specific first):
@@ -70,21 +70,22 @@ def _detect_rango(title: str) -> Rango:
 
     for keyword in _GRUNDLAG_KEYWORDS:
         if keyword in title_lower:
-            return _RANGO_GRUNDLAG
+            return _RANK_GRUNDLAG
 
     if "balk" in title_lower:
-        return _RANGO_BALK
+        return _RANK_BALK
 
     if "förordning" in title_lower:
-        return _RANGO_FORORDNING
+        return _RANK_FORORDNING
 
     # Default: lag (act) — most Swedish SFS entries are laws
-    return _RANGO_LAG
+    return _RANK_LAG
 
 
 # ─────────────────────────────────────────────
 # Date helpers
 # ─────────────────────────────────────────────
+
 
 def _parse_date_se(date_str: str | None) -> date | None:
     """Parse a date string from Riksdagen JSON.
@@ -178,13 +179,15 @@ def _parse_provisions(text: str) -> list[dict[str, Any]]:
         section = _normalize_section_ref(current_section)
         provision_ref = f"{current_chapter}:{section}" if current_chapter else section
 
-        provisions.append({
-            "provision_ref": provision_ref,
-            "chapter": current_chapter,
-            "section": section,
-            "title": current_title,
-            "content": " ".join(current_content).strip(),
-        })
+        provisions.append(
+            {
+                "provision_ref": provision_ref,
+                "chapter": current_chapter,
+                "section": section,
+                "title": current_title,
+                "content": " ".join(current_content).strip(),
+            }
+        )
 
         seen_refs.add(provision_ref)
 
@@ -234,13 +237,9 @@ def _parse_provisions(text: str) -> list[dict[str, Any]]:
             )
 
             candidate_ordinal = _section_ordinal(normalized_section)
-            current_ordinal = (
-                _section_ordinal(current_section) if current_section else None
-            )
+            current_ordinal = _section_ordinal(current_section) if current_section else None
             last_ordinal = (
-                last_ordinal_by_chapter.get(chapter_for_section)
-                if chapter_for_section
-                else None
+                last_ordinal_by_chapter.get(chapter_for_section) if chapter_for_section else None
             )
 
             # Suppression checks (same as TypeScript parser)
@@ -264,12 +263,7 @@ def _parse_provisions(text: str) -> list[dict[str, Any]]:
                 and bool(re.match(r"^[a-zåäö]", remainder))
             )
 
-            if (
-                is_duplicate
-                or is_out_of_order_current
-                or is_out_of_order_history
-                or is_inline_ref
-            ):
+            if is_duplicate or is_out_of_order_current or is_out_of_order_history or is_inline_ref:
                 if current_section:
                     current_content.append(line)
                 continue
@@ -307,6 +301,7 @@ def _parse_provisions(text: str) -> list[dict[str, Any]]:
 # JSON extraction helpers
 # ─────────────────────────────────────────────
 
+
 def _extract_text_from_json(data: bytes) -> str:
     """Extract the plain text field from Riksdagen document JSON.
 
@@ -334,10 +329,7 @@ def _extract_dokuppgift(data: bytes) -> dict[str, str]:
     Returns them as a flat dict keyed by uppgift name.
     """
     doc_json = json.loads(data)
-    uppgifter = (
-        doc_json.get("dokumentstatus", {}).get("dokuppgift", {}).get("uppgift")
-        or []
-    )
+    uppgifter = doc_json.get("dokumentstatus", {}).get("dokuppgift", {}).get("uppgift") or []
 
     result: dict[str, str] = {}
     for item in uppgifter:
@@ -459,15 +451,17 @@ def _parse_sfsr_html(html: str) -> list[Reform]:
             year = int(year_match.group(1))
             # Use January 1 of the year as approximate date
             # (exact date would require additional lookup)
-            reforma_date = date(year, 1, 1)
+            reform_date = date(year, 1, 1)
         else:
             continue
 
-        reforms.append(Reform(
-            fecha=reforma_date,
-            id_norma=f"SFS {sfs_number}",
-            bloques_afectados=affected,
-        ))
+        reforms.append(
+            Reform(
+                fecha=reform_date,
+                id_norma=f"SFS {sfs_number}",
+                bloques_afectados=affected,
+            )
+        )
 
     return reforms
 
@@ -480,7 +474,7 @@ def _parse_sfsr_html(html: str) -> list[Reform]:
 class SwedishTextParser(TextParser):
     """Parses Riksdagen JSON document text into Bloque objects."""
 
-    def parse_texto(self, data: bytes) -> list[Any]:
+    def parse_text(self, data: bytes) -> list[Any]:
         """Parse the Riksdagen JSON into a list of Bloque objects.
 
         Extracts the text field from the JSON, then parses chapters
@@ -537,11 +531,13 @@ class SwedishTextParser(TextParser):
                 if sfs_match:
                     sfs = sfs_match.group(1)
                     year = int(sfs[:4])
-                    return [Reform(
-                        fecha=date(year, 1, 1),
-                        id_norma=f"SFS {sfs}",
-                        bloques_afectados=(),
-                    )]
+                    return [
+                        Reform(
+                            fecha=date(year, 1, 1),
+                            id_norma=f"SFS {sfs}",
+                            bloques_afectados=(),
+                        )
+                    ]
 
         return []
 
@@ -583,42 +579,36 @@ class SwedishMetadataParser(MetadataParser):
         dokuppgift = _extract_dokuppgift(data)
 
         # Title
-        title = (
-            doc.get("titel", "")
-            or dokuppgift.get("titel", "")
-            or f"SFS {norm_id}"
-        )
+        title = doc.get("titel", "") or dokuppgift.get("titel", "") or f"SFS {norm_id}"
         title = " ".join(title.split()).strip()
 
         # Short title
-        short_title = _titulo_corto_se(title, norm_id)
+        short_title = _short_title_se(title, norm_id)
 
         # Dates
         html = doc.get("html", "")
         html_meta = _extract_html_metadata(html)
 
-        utfardad = html_meta.get("Utfärdad") or doc.get("datum", "")
-        fecha_pub = _parse_date_se(utfardad)
-        if fecha_pub is None:
+        issued_date_str = html_meta.get("Utfärdad") or doc.get("datum", "")
+        pub_date = _parse_date_se(issued_date_str)
+        if pub_date is None:
             # Fallback: use the year from the SFS number
             year_match = re.match(r"(\d{4})", norm_id)
             if year_match:
-                fecha_pub = date(int(year_match.group(1)), 1, 1)
+                pub_date = date(int(year_match.group(1)), 1, 1)
             else:
-                raise ValueError(
-                    f"Could not extract publication date for SFS {norm_id}"
-                )
+                raise ValueError(f"Could not extract publication date for SFS {norm_id}")
 
-        andrad_tom = html_meta.get("Ändrad t.o.m.", "")
-        fecha_modif = _parse_date_se(andrad_tom)
+        amended_through = html_meta.get("Ändrad t.o.m.", "")
+        modif_date = _parse_date_se(amended_through)
 
         # Status
-        estado = EstadoNorma.VIGENTE
+        status = EstadoNorma.VIGENTE
         if html_meta.get("Upphävd"):
-            estado = EstadoNorma.DEROGADA
+            status = EstadoNorma.DEROGADA
 
         # Rank
-        rank = _detect_rango(title)
+        rank = _detect_rank(title)
 
         # Identifier
         # Normalize for filesystem: "1962:700" → "SFS-1962-700"
@@ -637,11 +627,11 @@ class SwedishMetadataParser(MetadataParser):
             identificador=identifier,
             pais="se",
             rango=rank,
-            fecha_publicacion=fecha_pub,
-            estado=estado,
+            fecha_publicacion=pub_date,
+            estado=status,
             departamento="",
             fuente=source_url,
-            fecha_ultima_modificacion=fecha_modif,
+            fecha_ultima_modificacion=modif_date,
         )
 
 
@@ -650,7 +640,7 @@ class SwedishMetadataParser(MetadataParser):
 # ─────────────────────────────────────────────
 
 
-def _titulo_corto_se(raw_title: str, norm_id: str) -> str:
+def _short_title_se(raw_title: str, norm_id: str) -> str:
     """Generate a short title for a Swedish statute.
 
     Examples:
@@ -704,22 +694,26 @@ def _provisions_to_blocks(provisions: list[dict[str, Any]]) -> list[Bloque]:
             if title:
                 chapter_title = f"{chapter} kap. {title}"
 
-            blocks.append(Bloque(
-                id=f"kap_{chapter}",
-                tipo="section",
-                titulo=chapter_title,
-                versions=(Version(
-                    id_norma="",
-                    fecha_publicacion=date(1900, 1, 1),
-                    fecha_vigencia=date(1900, 1, 1),
-                    paragraphs=(
-                        Paragraph(
-                            css_class="titulo_tit",
-                            text=chapter_title,
+            blocks.append(
+                Bloque(
+                    id=f"kap_{chapter}",
+                    tipo="section",
+                    titulo=chapter_title,
+                    versions=(
+                        Version(
+                            id_norma="",
+                            fecha_publicacion=date(1900, 1, 1),
+                            fecha_vigencia=date(1900, 1, 1),
+                            paragraphs=(
+                                Paragraph(
+                                    css_class="titulo_tit",
+                                    text=chapter_title,
+                                ),
+                            ),
                         ),
                     ),
-                ),),
-            ))
+                )
+            )
 
         # Build paragraphs for the section/article
         paragraphs: list[Paragraph] = []
@@ -740,16 +734,20 @@ def _provisions_to_blocks(provisions: list[dict[str, Any]]) -> list[Bloque]:
             paragraphs.append(Paragraph(css_class="parrafo", text=content))
 
         if paragraphs:
-            blocks.append(Bloque(
-                id=provision_ref or f"s_{section}",
-                tipo="article",
-                titulo=f"{section} §" if section else provision_ref,
-                versions=(Version(
-                    id_norma="",
-                    fecha_publicacion=date(1900, 1, 1),
-                    fecha_vigencia=date(1900, 1, 1),
-                    paragraphs=tuple(paragraphs),
-                ),),
-            ))
+            blocks.append(
+                Bloque(
+                    id=provision_ref or f"s_{section}",
+                    tipo="article",
+                    titulo=f"{section} §" if section else provision_ref,
+                    versions=(
+                        Version(
+                            id_norma="",
+                            fecha_publicacion=date(1900, 1, 1),
+                            fecha_vigencia=date(1900, 1, 1),
+                            paragraphs=tuple(paragraphs),
+                        ),
+                    ),
+                )
+            )
 
     return blocks

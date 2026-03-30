@@ -11,7 +11,7 @@ from typing import Callable
 
 from legalize.models import Bloque, NormaMetadata, Paragraph
 from legalize.transformer.frontmatter import render_frontmatter
-from legalize.transformer.xml_parser import get_bloque_at_date
+from legalize.transformer.xml_parser import get_block_at_date
 
 
 # ─────────────────────────────────────────────
@@ -87,7 +87,7 @@ def render_paragraphs(paragraphs: list[Paragraph] | tuple[Paragraph, ...]) -> st
     return "\n".join(lines)
 
 
-def render_norma_at_date(
+def render_norm_at_date(
     metadata: NormaMetadata,
     blocks: list[Bloque] | tuple[Bloque, ...],
     target_date: date,
@@ -115,7 +115,7 @@ def render_norma_at_date(
 
     # Blocks in effect at the date
     for block in blocks:
-        version = get_bloque_at_date(block, target_date)
+        version = get_block_at_date(block, target_date)
         if version is None:
             continue
 

@@ -154,11 +154,13 @@ def _norma_to_dict(norm: NormaCompleta) -> dict:
             if b and b.titulo:
                 affected.append(b.titulo)
 
-        reforms.append({
-            "date": reform.fecha.isoformat(),
-            "source_id": reform.id_norma,
-            "articles_affected": affected,
-        })
+        reforms.append(
+            {
+                "date": reform.fecha.isoformat(),
+                "source_id": reform.id_norma,
+                "articles_affected": affected,
+            }
+        )
 
     return {
         "metadata": metadata_dict,
@@ -202,32 +204,37 @@ def load_norma_from_json(json_path: Path) -> NormaCompleta:
                 for i, line in enumerate(lines):
                     css = css_classes[i] if css_classes and i < len(css_classes) else "parrafo"
                     paragraphs.append(Paragraph(css_class=css, text=line))
-            versions.append(Version(
-                id_norma=v["source_id"],
-                fecha_publicacion=date.fromisoformat(v["date"]),
-                fecha_vigencia=date.fromisoformat(v["date"]),
-                paragraphs=tuple(paragraphs),
-            ))
-        blocks.append(Bloque(
-            id=art["block_id"],
-            tipo=art["block_type"],
-            titulo=art["title"],
-            versions=tuple(versions),
-        ))
+            versions.append(
+                Version(
+                    id_norma=v["source_id"],
+                    fecha_publicacion=date.fromisoformat(v["date"]),
+                    fecha_vigencia=date.fromisoformat(v["date"]),
+                    paragraphs=tuple(paragraphs),
+                )
+            )
+        blocks.append(
+            Bloque(
+                id=art["block_id"],
+                tipo=art["block_type"],
+                titulo=art["title"],
+                versions=tuple(versions),
+            )
+        )
 
     reforms = []
     for r in data["reforms"]:
-        reforms.append(Reform(
-            fecha=date.fromisoformat(r["date"]),
-            id_norma=r["source_id"],
-            bloques_afectados=tuple(
-                art["block_id"]
-                for art in data["articles"]
-                for v in art["versions"]
-                if v["source_id"] == r["source_id"]
-                and v["date"] == r["date"]
-            ),
-        ))
+        reforms.append(
+            Reform(
+                fecha=date.fromisoformat(r["date"]),
+                id_norma=r["source_id"],
+                bloques_afectados=tuple(
+                    art["block_id"]
+                    for art in data["articles"]
+                    for v in art["versions"]
+                    if v["source_id"] == r["source_id"] and v["date"] == r["date"]
+                ),
+            )
+        )
 
     return NormaCompleta(
         metadata=metadata,

@@ -22,8 +22,23 @@ console = Console()
 
 # ELI codes for all Spanish autonomous communities
 _CCAA_CODES = [
-    "es-an", "es-ar", "es-as", "es-cb", "es-cl", "es-cm", "es-cn", "es-ct",
-    "es-ex", "es-ga", "es-ib", "es-mc", "es-md", "es-nc", "es-pv", "es-ri", "es-vc",
+    "es-an",
+    "es-ar",
+    "es-as",
+    "es-cb",
+    "es-cl",
+    "es-cm",
+    "es-cn",
+    "es-ct",
+    "es-ex",
+    "es-ga",
+    "es-ib",
+    "es-mc",
+    "es-md",
+    "es-nc",
+    "es-pv",
+    "es-ri",
+    "es-vc",
 ]
 
 
@@ -39,7 +54,8 @@ def _setup_logging(verbose: bool) -> None:
 def _country_option(default: str = "es"):
     """Shared --country option for all commands."""
     return click.option(
-        "--country", "-c",
+        "--country",
+        "-c",
         default=default,
         type=click.Choice(supported_countries(), case_sensitive=False),
         help="Country code (e.g., es, fr, se).",
@@ -101,6 +117,7 @@ def fetch(
 
     if catalog and country == "es":
         from legalize.pipeline import fetch_catalog
+
         fetch_catalog(config, force=force)
     elif fetch_all_flag:
         generic_fetch_all(config, country, force=force, limit=limit)
@@ -272,11 +289,11 @@ def reprocess(
 
 
 @cli.command("fetch-ccaa")
-@click.argument("jurisdiccion", required=False)
+@click.argument("jurisdiction", required=False)
 @click.option("--all", "all_flag", is_flag=True, help="Fetch all 17 CCAA.")
 @click.option("--force", is_flag=True, help="Re-download even if already exists.")
 @click.pass_context
-def fetch_ccaa(ctx: click.Context, jurisdiccion: str | None, all_flag: bool, force: bool) -> None:
+def fetch_ccaa(ctx: click.Context, jurisdiction: str | None, all_flag: bool, force: bool) -> None:
     """Download CCAA legislation from BOE API.
 
     Examples:
@@ -290,25 +307,25 @@ def fetch_ccaa(ctx: click.Context, jurisdiccion: str | None, all_flag: bool, for
     if all_flag:
         for jur in _CCAA_CODES:
             fetch_catalog_ccaa(config, jur, force=force)
-    elif jurisdiccion:
-        if jurisdiccion not in _CCAA_CODES:
-            console.print(f"[red]Unknown: {jurisdiccion}. Valid: {', '.join(_CCAA_CODES)}[/red]")
+    elif jurisdiction:
+        if jurisdiction not in _CCAA_CODES:
+            console.print(f"[red]Unknown: {jurisdiction}. Valid: {', '.join(_CCAA_CODES)}[/red]")
             return
-        fetch_catalog_ccaa(config, jurisdiccion, force=force)
+        fetch_catalog_ccaa(config, jurisdiction, force=force)
     else:
         console.print("Use --all or pass a jurisdiction code.")
         console.print(f"  Available: {', '.join(_CCAA_CODES)}")
 
 
 @cli.command("bootstrap-ccaa")
-@click.argument("jurisdiccion", required=False)
+@click.argument("jurisdiction", required=False)
 @click.option("--all", "all_flag", is_flag=True, help="Bootstrap all 17 CCAA.")
 @click.option("--force", is_flag=True, help="Re-download even if already exists.")
 @click.option("--dry-run", is_flag=True, help="Simulate without creating commits.")
 @click.pass_context
 def bootstrap_ccaa(
     ctx: click.Context,
-    jurisdiccion: str | None,
+    jurisdiction: str | None,
     all_flag: bool,
     force: bool,
     dry_run: bool,
@@ -326,23 +343,34 @@ def bootstrap_ccaa(
 
     config = ctx.obj["config"]
 
-    targets = _CCAA_CODES if all_flag else ([jurisdiccion] if jurisdiccion else [])
+    targets = _CCAA_CODES if all_flag else ([jurisdiction] if jurisdiction else [])
     if not targets:
         console.print("Use --all or pass a jurisdiction code.")
         console.print(f"  Available: {', '.join(_CCAA_CODES)}")
         return
 
-    if jurisdiccion and jurisdiccion not in _CCAA_CODES:
-        console.print(f"[red]Unknown: {jurisdiccion}. Valid: {', '.join(_CCAA_CODES)}[/red]")
+    if jurisdiction and jurisdiction not in _CCAA_CODES:
+        console.print(f"[red]Unknown: {jurisdiction}. Valid: {', '.join(_CCAA_CODES)}[/red]")
         return
 
     _JUR_TO_DEPT_NAME = {
-        "es-an": "Andalucía", "es-ar": "Aragón", "es-as": "Asturias",
-        "es-cb": "Cantabria", "es-cl": "Castilla y León", "es-cm": "Castilla-La Mancha",
-        "es-cn": "Canarias", "es-ct": "Cataluña", "es-ex": "Extremadura",
-        "es-ga": "Galicia", "es-ib": "Balears", "es-mc": "Murcia",
-        "es-md": "Madrid", "es-nc": "Navarra", "es-pv": "País Vasco",
-        "es-ri": "Rioja", "es-vc": "Valencian",
+        "es-an": "Andalucía",
+        "es-ar": "Aragón",
+        "es-as": "Asturias",
+        "es-cb": "Cantabria",
+        "es-cl": "Castilla y León",
+        "es-cm": "Castilla-La Mancha",
+        "es-cn": "Canarias",
+        "es-ct": "Cataluña",
+        "es-ex": "Extremadura",
+        "es-ga": "Galicia",
+        "es-ib": "Balears",
+        "es-mc": "Murcia",
+        "es-md": "Madrid",
+        "es-nc": "Navarra",
+        "es-pv": "País Vasco",
+        "es-ri": "Rioja",
+        "es-vc": "Valencian",
     }
 
     grand_total = 0
@@ -425,5 +453,3 @@ def status(ctx: click.Context) -> None:
                 jdir = Path(cc.data_dir) / "json"
                 count = len(list(jdir.glob("*.json"))) if jdir.exists() else 0
                 console.print(f"  {code}: {count} norms in {cc.data_dir}")
-
-

@@ -32,11 +32,11 @@ class LegislativeClient(ABC):
         return cls()
 
     @abstractmethod
-    def get_texto(self, norm_id: str) -> bytes:
+    def get_text(self, norm_id: str) -> bytes:
         """Fetch the consolidated text of a norm (XML or HTML)."""
 
     @abstractmethod
-    def get_metadatos(self, norm_id: str) -> bytes:
+    def get_metadata(self, norm_id: str) -> bytes:
         """Fetch metadata for a norm."""
 
     @abstractmethod
@@ -65,7 +65,9 @@ class NormDiscovery(ABC):
         """Discover all norm IDs in the catalog."""
 
     @abstractmethod
-    def discover_daily(self, client: LegislativeClient, target_date: date, **kwargs) -> Iterator[str]:
+    def discover_daily(
+        self, client: LegislativeClient, target_date: date, **kwargs
+    ) -> Iterator[str]:
         """Discover norms published/updated on a specific date."""
 
 
@@ -77,7 +79,7 @@ class TextParser(ABC):
     """
 
     @abstractmethod
-    def parse_texto(self, data: bytes) -> list[Any]:
+    def parse_text(self, data: bytes) -> list[Any]:
         """Parse consolidated text into a list of Bloque objects."""
 
     @abstractmethod

@@ -41,12 +41,12 @@ from legalize.models import Disposition, Rango
 logger = logging.getLogger(__name__)
 
 # BOE sections containing relevant legislative dispositions
-_SECCIONES_LEGISLATIVAS = {"1", "1A", "T"}  # I. Disposiciones generales, TC
+_LEGISLATIVE_SECTIONS = {"1", "1A", "T"}  # I. Disposiciones generales, TC
 
 
-def _infer_rango_from_titulo(titulo: str) -> Rango | None:
+def _infer_rango_from_title(title: str) -> Rango | None:
     """Infers the normative rank from a disposition's title."""
-    lower = titulo.lower()
+    lower = title.lower()
     if lower.startswith("ley orgánica") or lower.startswith("ley organica"):
         return Rango.LEY_ORGANICA
     if lower.startswith("real decreto legislativo"):
@@ -58,13 +58,13 @@ def _infer_rango_from_titulo(titulo: str) -> Rango | None:
     return None
 
 
-def _is_correccion(titulo: str) -> bool:
+def _is_correction(title: str) -> bool:
     """Detects whether this is an error correction."""
-    lower = titulo.lower()
+    lower = title.lower()
     return "corrección de errores" in lower or "correccion de errores" in lower
 
 
-def _extract_norma_afectada(titulo: str) -> list[str]:
+def _extract_affected_norms(title: str) -> list[str]:
     """Attempts to extract BOE-IDs of affected norms from the title.
 
     Looks for patterns like 'por el que se modifica la Ley...' but
@@ -77,7 +77,7 @@ def _extract_norma_afectada(titulo: str) -> list[str]:
     return []
 
 
-def parse_sumario(xml_data: bytes, scope: ScopeConfig) -> list[Disposition]:
+def parse_summary(xml_data: bytes, scope: ScopeConfig) -> list[Disposition]:
     """Parses a BOE daily summary and filters by scope.
 
     Args:
@@ -92,62 +92,65 @@ def parse_sumario(xml_data: bytes, scope: ScopeConfig) -> list[Disposition]:
 
     # Iterate sections → departments → headings → items
     for seccion in root.iter("seccion"):
-        seccion_code = seccion.get("codigo", "")
+        section_code = seccion.get("codigo", "")
 
         # Only process legislative sections
-        if seccion_code not in _SECCIONES_LEGISLATIVAS:
+        if section_code not in _LEGISLATIVE_SECTIONS:
             continue
 
-        for departamento in seccion.iter("departamento"):
-            dept_nombre = departamento.get("nombre", "")
+        for dept_el in seccion.iter("departamento"):
+            dept_name = dept_el.get("nombre", "")
 
-            for item in departamento.iter("item"):
-                disposition = _parse_item(item, dept_nombre, scope)
+            for item in dept_el.iter("item"):
+                disposition = _parse_item(item, dept_name, scope)
                 if disposition is not None:
                     dispositions.append(disposition)
 
-    logger.info("Summary: %d dispositions in scope out of %d total items",
-                len(dispositions), _count_items(root))
+    logger.info(
+        "Summary: %d dispositions in scope out of %d total items",
+        len(dispositions),
+        _count_items(root),
+    )
     return dispositions
 
 
-def _parse_item(item: etree._Element, departamento: str, scope: ScopeConfig) -> Disposition | None:
+def _parse_item(item: etree._Element, department: str, scope: ScopeConfig) -> Disposition | None:
     """Parses a summary <item> and filters it by scope."""
     id_el = item.find("identificador")
-    titulo_el = item.find("titulo")
+    title_el = item.find("titulo")
     url_xml_el = item.find("url_xml")
 
-    if id_el is None or titulo_el is None:
+    if id_el is None or title_el is None:
         return None
 
     id_boe = id_el.text.strip() if id_el.text else ""
-    titulo = titulo_el.text.strip() if titulo_el.text else ""
+    title = title_el.text.strip() if title_el.text else ""
     url_xml = url_xml_el.text.strip() if url_xml_el is not None and url_xml_el.text else ""
 
-    if not id_boe or not titulo:
+    if not id_boe or not title:
         return None
 
     # Infer rank from title
-    rango = _infer_rango_from_titulo(titulo)
+    rank = _infer_rango_from_title(title)
 
     # Filter by ranks in scope (empty list = accept all)
-    if scope.rangos and rango is not None and rango not in scope.rangos:
+    if scope.rangos and rank is not None and rank not in scope.rangos:
         return None
 
     # If we cannot infer the rank, include it only if it's section 1
     # (general dispositions) — we'll filter later when downloading metadata
-    es_correccion = _is_correccion(titulo)
-    es_nueva = not es_correccion and "modifica" not in titulo.lower()
+    is_correction = _is_correction(title)
+    is_new = not is_correction and "modifica" not in title.lower()
 
     return Disposition(
         id_boe=id_boe,
-        titulo=titulo,
-        rango=rango,
-        departamento=departamento,
+        titulo=title,
+        rango=rank,
+        departamento=department,
         url_xml=url_xml,
-        normas_afectadas=tuple(_extract_norma_afectada(titulo)),
-        es_nueva=es_nueva,
-        es_correccion=es_correccion,
+        normas_afectadas=tuple(_extract_affected_norms(title)),
+        es_nueva=is_new,
+        es_correccion=is_correction,
     )
 
 

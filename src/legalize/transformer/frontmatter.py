@@ -34,13 +34,15 @@ def render_frontmatter(metadata: NormaMetadata, version_date: date) -> str:
     if metadata.jurisdiccion:
         lines.append(f'jurisdiccion: "{metadata.jurisdiccion}"')
 
-    lines.extend([
-        f'rango: "{metadata.rango}"',
-        f'fecha_publicacion: "{metadata.fecha_publicacion.isoformat()}"',
-        f'ultima_actualizacion: "{version_date.isoformat()}"',
-        f'estado: "{metadata.estado.value if isinstance(metadata.estado, EstadoNorma) else metadata.estado}"',
-        f'fuente: "{metadata.fuente}"',
-    ])
+    lines.extend(
+        [
+            f'rango: "{metadata.rango}"',
+            f'fecha_publicacion: "{metadata.fecha_publicacion.isoformat()}"',
+            f'ultima_actualizacion: "{version_date.isoformat()}"',
+            f'estado: "{metadata.estado.value if isinstance(metadata.estado, EstadoNorma) else metadata.estado}"',
+            f'fuente: "{metadata.fuente}"',
+        ]
+    )
 
     if metadata.url_pdf:
         lines.append(f'url_pdf: "{metadata.url_pdf}"')

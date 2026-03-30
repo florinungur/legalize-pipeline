@@ -17,12 +17,12 @@ from datetime import date, timedelta
 
 from legalize.config import Config
 from legalize.fetcher.es.client import BOEClient
-from legalize.fetcher.es.sumario import parse_sumario
+from legalize.fetcher.es.sumario import parse_summary
 
 logger = logging.getLogger(__name__)
 
 
-def iter_normas_fijas(config: Config) -> Iterator[str]:
+def iter_fixed_norms(config: Config) -> Iterator[str]:
     """Generates BOE IDs from the fixed norms list in config.
 
     Fixed norms are those always included in bootstrap,
@@ -32,11 +32,11 @@ def iter_normas_fijas(config: Config) -> Iterator[str]:
         yield boe_id
 
 
-def iter_normas_from_sumarios(
+def iter_norms_from_summaries(
     client: BOEClient,
     config: Config,
-    fecha_desde: date,
-    fecha_hasta: date,
+    start_date: date,
+    end_date: date,
 ) -> Iterator[str]:
     """Discovers BOE IDs by iterating daily summaries over a date range.
 
@@ -48,16 +48,16 @@ def iter_normas_from_sumarios(
     Args:
         client: BOE HTTP client.
         config: Configuration (for scope).
-        fecha_desde: Start date (inclusive).
-        fecha_hasta: End date (inclusive).
+        start_date: Start date (inclusive).
+        end_date: End date (inclusive).
 
     Yields:
         BOE IDs of dispositions within scope.
     """
     seen: set[str] = set()
-    current = fecha_desde
+    current = start_date
 
-    while current <= fecha_hasta:
+    while current <= end_date:
         # No BOE on Sundays
         if current.weekday() == 6:
             current += timedelta(days=1)
@@ -65,7 +65,7 @@ def iter_normas_from_sumarios(
 
         try:
             xml_data = client.get_sumario(current)
-            dispositions = parse_sumario(xml_data, config.scope)
+            dispositions = parse_summary(xml_data, config.scope)
 
             for disp in dispositions:
                 if disp.id_boe not in seen:

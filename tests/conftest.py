@@ -33,28 +33,38 @@ def sample_laws(tmp_path):
         ("BOE-A-TEST-003", "Real Decreto Derogado", "real_decreto", "derogada", "es"),
     ]
 
-    for i, (lid, titulo, rango, estado, pais) in enumerate(laws):
+    for i, (lid, title, rank, status, country) in enumerate(laws):
         data = {
             "metadata": {
                 "identificador": lid,
-                "titulo": titulo,
-                "pais": pais,
-                "rango": rango,
+                "titulo": title,
+                "pais": country,
+                "rango": rank,
                 "fecha_publicacion": f"2024-0{i + 1}-01",
                 "ultima_actualizacion": f"2024-0{i + 1}-01",
-                "estado": estado,
+                "estado": status,
                 "departamento": "Test",
                 "fuente": f"https://example.com/{lid}",
             },
-            "articles": [{
-                "block_id": "a1",
-                "block_type": "precepto",
-                "title": "Artículo 1",
-                "position": 0,
-                "current_text": f"Texto del artículo 1 de {titulo}",
-                "versions": [{"date": f"2024-0{i + 1}-01", "source_id": lid, "text": f"Texto de {titulo}"}],
-            }],
-            "reforms": [{"date": f"2024-0{i + 1}-01", "source_id": lid, "articles_affected": ["Artículo 1"]}],
+            "articles": [
+                {
+                    "block_id": "a1",
+                    "block_type": "precepto",
+                    "title": "Artículo 1",
+                    "position": 0,
+                    "current_text": f"Texto del artículo 1 de {title}",
+                    "versions": [
+                        {
+                            "date": f"2024-0{i + 1}-01",
+                            "source_id": lid,
+                            "text": f"Texto de {title}",
+                        }
+                    ],
+                }
+            ],
+            "reforms": [
+                {"date": f"2024-0{i + 1}-01", "source_id": lid, "articles_affected": ["Artículo 1"]}
+            ],
         }
         (json_dir / f"{lid}.json").write_text(json.dumps(data), encoding="utf-8")
 

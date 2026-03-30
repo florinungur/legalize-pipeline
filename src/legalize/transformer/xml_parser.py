@@ -68,7 +68,7 @@ def _extract_text(element: etree._Element) -> str:
     return "".join(parts)
 
 
-def parse_texto_xml(xml_data: bytes | str) -> list[Bloque]:
+def parse_text_xml(xml_data: bytes | str) -> list[Bloque]:
     """Parses the BOE consolidated text XML and returns a list of Bloque.
 
     Args:
@@ -112,19 +112,23 @@ def parse_texto_xml(xml_data: bytes | str) -> list[Bloque]:
 
             parsed_vig = _parse_date(fecha_vig) if fecha_vig else parsed_pub
 
-            versions.append(Version(
-                id_norma=version_el.get("id_norma", ""),
-                fecha_publicacion=parsed_pub,
-                fecha_vigencia=parsed_vig if parsed_vig is not None else parsed_pub,
-                paragraphs=tuple(paragraphs),
-            ))
+            versions.append(
+                Version(
+                    id_norma=version_el.get("id_norma", ""),
+                    fecha_publicacion=parsed_pub,
+                    fecha_vigencia=parsed_vig if parsed_vig is not None else parsed_pub,
+                    paragraphs=tuple(paragraphs),
+                )
+            )
 
-        blocks.append(Bloque(
-            id=block_el.get("id", ""),
-            tipo=block_el.get("tipo", ""),
-            titulo=block_el.get("titulo", ""),
-            versions=tuple(versions),
-        ))
+        blocks.append(
+            Bloque(
+                id=block_el.get("id", ""),
+                tipo=block_el.get("tipo", ""),
+                titulo=block_el.get("titulo", ""),
+                versions=tuple(versions),
+            )
+        )
 
     return blocks
 
@@ -146,17 +150,17 @@ def extract_reforms(blocks: list[Bloque]) -> list[Reform]:
 
     reforms = [
         Reform(
-            fecha=fecha,
-            id_norma=id_norma,
+            fecha=reform_date,
+            id_norma=norm_id,
             bloques_afectados=tuple(block_ids),
         )
-        for (fecha, id_norma), block_ids in sorted(reform_map.items())
+        for (reform_date, norm_id), block_ids in sorted(reform_map.items())
     ]
 
     return reforms
 
 
-def get_bloque_at_date(block: Bloque, target_date: date) -> Version | None:
+def get_block_at_date(block: Bloque, target_date: date) -> Version | None:
     """Returns the version of a block in effect at target_date."""
     applicable = [v for v in block.versions if v.fecha_publicacion <= target_date]
     if not applicable:

@@ -28,9 +28,9 @@ from legalize.models import (
 from legalize.state.mappings import IdToFilename
 from legalize.state.store import StateStore
 from legalize.storage import load_norma_from_json, save_raw_xml, save_structured_json
-from legalize.transformer.markdown import render_norma_at_date
-from legalize.transformer.slug import norma_to_filepath
-from legalize.transformer.xml_parser import extract_reforms, parse_texto_xml
+from legalize.transformer.markdown import render_norm_at_date
+from legalize.transformer.slug import norm_to_filepath
+from legalize.transformer.xml_parser import extract_reforms, parse_text_xml
 
 console = Console()
 logger = logging.getLogger(__name__)
@@ -49,7 +49,7 @@ def fetch_one(config: Config, boe_id: str, force: bool = False) -> NormaCompleta
     """
     from legalize.fetcher.cache import FileCache
     from legalize.fetcher.es.client import BOEClient
-    from legalize.fetcher.es.metadata import parse_metadatos
+    from legalize.fetcher.es.metadata import parse_metadata
 
     json_path = Path(config.data_dir) / "json" / f"{boe_id}.json"
     if json_path.exists() and not force:
@@ -60,11 +60,11 @@ def fetch_one(config: Config, boe_id: str, force: bool = False) -> NormaCompleta
     with BOEClient(config.boe, cache) as client:
         try:
             console.print(f"  Downloading [bold]{boe_id}[/bold]...")
-            meta_xml = client.get_metadatos(boe_id)
-            metadata = parse_metadatos(meta_xml, boe_id)
-            text_xml = client.get_texto_consolidado(boe_id, bypass_cache=force)
+            meta_xml = client.get_metadata(boe_id)
+            metadata = parse_metadata(meta_xml, boe_id)
+            text_xml = client.get_consolidated_text(boe_id, bypass_cache=force)
 
-            blocks = parse_texto_xml(text_xml)
+            blocks = parse_text_xml(text_xml)
             reforms = extract_reforms(blocks)
 
             norm = NormaCompleta(
@@ -137,9 +137,7 @@ def fetch_catalog(config: Config, force: bool = False) -> list[str]:
 
     # Filter state-level only
     in_scope = [
-        item["identificador"]
-        for item in all_items
-        if item.get("ambito", {}).get("codigo") == "1"
+        item["identificador"] for item in all_items if item.get("ambito", {}).get("codigo") == "1"
     ]
 
     console.print(f"  {len(in_scope)} state-level norms found\n")
@@ -163,8 +161,7 @@ def fetch_catalog(config: Config, force: bool = False) -> list[str]:
         # Progress every 100
         if (len(fetched) + errors) % 100 == 0:
             console.print(
-                f"  [{i}/{len(in_scope)}] {len(fetched)} new, "
-                f"{skipped} existing, {errors} errors"
+                f"  [{i}/{len(in_scope)}] {len(fetched)} new, {skipped} existing, {errors} errors"
             )
 
     console.print(f"\n[bold green]✓ {len(fetched)} new norms downloaded[/bold green]")
@@ -176,7 +173,7 @@ def fetch_catalog(config: Config, force: bool = False) -> list[str]:
     return fetched
 
 
-def fetch_catalog_ccaa(config: Config, jurisdiccion: str, force: bool = False) -> list[str]:
+def fetch_catalog_ccaa(config: Config, jurisdiction: str, force: bool = False) -> list[str]:
     """Download all norms for an autonomous community from the BOE catalog.
 
     Filters by ambito=2 (Autonómico) and the ELI jurisdiction code.
@@ -184,7 +181,7 @@ def fetch_catalog_ccaa(config: Config, jurisdiccion: str, force: bool = False) -
 
     Args:
         config: Pipeline configuration.
-        jurisdiccion: ELI code (e.g., "es-pv", "es-ct", "es-an").
+        jurisdiction: ELI code (e.g., "es-pv", "es-ct", "es-an").
         force: Re-download even if already cached.
 
     Returns:
@@ -192,16 +189,16 @@ def fetch_catalog_ccaa(config: Config, jurisdiccion: str, force: bool = False) -
     """
     import requests
 
-    from legalize.fetcher.es.metadata import _DEPT_TO_JURISDICCION
+    from legalize.fetcher.es.metadata import _DEPT_TO_JURISDICTION
 
-    # Reverse lookup: jurisdiccion → all matching departamento codes
-    dept_codes = [code for code, jur in _DEPT_TO_JURISDICCION.items() if jur == jurisdiccion]
+    # Reverse lookup: jurisdiction → all matching departamento codes
+    dept_codes = [code for code, jur in _DEPT_TO_JURISDICTION.items() if jur == jurisdiction]
 
     if not dept_codes:
-        console.print(f"[red]Unknown jurisdiction: {jurisdiccion}[/red]")
+        console.print(f"[red]Unknown jurisdiction: {jurisdiction}[/red]")
         return []
 
-    console.print(f"[bold]Fetch CCAA catalog — {jurisdiccion} (depts={dept_codes})[/bold]\n")
+    console.print(f"[bold]Fetch CCAA catalog — {jurisdiction} (depts={dept_codes})[/bold]\n")
 
     # Paginate full catalog
     base_url = f"{config.boe.base_url}/api/legislacion-consolidada"
@@ -233,7 +230,7 @@ def fetch_catalog_ccaa(config: Config, jurisdiccion: str, force: bool = False) -
         and item.get("departamento", {}).get("codigo") in dept_code_set
     ]
 
-    console.print(f"  {len(in_scope)} norms found for {jurisdiccion}\n")
+    console.print(f"  {len(in_scope)} norms found for {jurisdiction}\n")
 
     # Download each one
     fetched = []
@@ -253,8 +250,7 @@ def fetch_catalog_ccaa(config: Config, jurisdiccion: str, force: bool = False) -
 
         if (len(fetched) + errors) % 50 == 0:
             console.print(
-                f"  [{i}/{len(in_scope)}] {len(fetched)} new, "
-                f"{skipped} existing, {errors} errors"
+                f"  [{i}/{len(in_scope)}] {len(fetched)} new, {skipped} existing, {errors} errors"
             )
 
     console.print(f"\n[bold green]✓ {len(fetched)} new norms downloaded[/bold green]")
@@ -297,11 +293,11 @@ def generic_fetch_one(
         try:
             console.print(f"  Processing [bold]{norm_id}[/bold]...")
 
-            meta_data = client.get_metadatos(norm_id)
+            meta_data = client.get_metadata(norm_id)
             metadata = meta_parser.parse(meta_data, norm_id)
 
-            text_data = client.get_texto(norm_id)
-            blocks = text_parser.parse_texto(text_data)
+            text_data = client.get_text(norm_id)
+            blocks = text_parser.parse_text(text_data)
             reforms = _extract_reforms_generic(text_parser, client, norm_id, blocks)
 
             norm = NormaCompleta(
@@ -361,9 +357,7 @@ def generic_fetch_all(
             errors += 1
 
         if i % 50 == 0:
-            console.print(
-                f"  [dim][{i}/{len(norm_ids)}] {len(fetched)} OK, {errors} errors[/dim]"
-            )
+            console.print(f"  [dim][{i}/{len(norm_ids)}] {len(fetched)} OK, {errors} errors[/dim]")
 
     console.print(f"\n[bold green]✓ {len(fetched)} norms fetched[/bold green]")
     if errors:
@@ -443,8 +437,7 @@ def commit_one(config: Config, norm_id: str, dry_run: bool = False) -> int:
     reforms = norm.reforms
 
     console.print(
-        f"  [bold]{metadata.titulo_corto}[/bold]: "
-        f"{len(blocks)} bloques, {len(reforms)} versiones"
+        f"  [bold]{metadata.titulo_corto}[/bold]: {len(blocks)} bloques, {len(reforms)} versiones"
     )
 
     if dry_run:
@@ -461,7 +454,7 @@ def commit_one(config: Config, norm_id: str, dry_run: bool = False) -> int:
     mappings.load()
 
     commits_created = 0
-    file_path = norma_to_filepath(metadata)
+    file_path = norm_to_filepath(metadata)
 
     for reform in reforms:
         # Idempotency check: Source-Id + Norm-Id (a single Source-Id can be both its own norm AND a reform of another)
@@ -471,7 +464,7 @@ def commit_one(config: Config, norm_id: str, dry_run: bool = False) -> int:
         is_first = reform == reforms[0]
         commit_type = CommitType.BOOTSTRAP if is_first else CommitType.REFORMA
 
-        markdown = render_norma_at_date(metadata, blocks, reform.fecha)
+        markdown = render_norm_at_date(metadata, blocks, reform.fecha)
         changed = repo.write_and_add(file_path, markdown)
 
         if not changed and not is_first:
@@ -571,7 +564,7 @@ def bootstrap_from_local_xml(
 ) -> int:
     """Bootstrap from a local XML (pilot/tests)."""
     xml_bytes = Path(xml_path).read_bytes()
-    blocks = parse_texto_xml(xml_bytes)
+    blocks = parse_text_xml(xml_bytes)
     reforms = extract_reforms(blocks)
 
     norm = NormaCompleta(
@@ -601,8 +594,8 @@ def daily(
 
     from legalize.fetcher.cache import FileCache
     from legalize.fetcher.es.client import BOEClient
-    from legalize.fetcher.es.sumario import parse_sumario
-    from legalize.fetcher.es.metadata import parse_metadatos
+    from legalize.fetcher.es.sumario import parse_summary
+    from legalize.fetcher.es.metadata import parse_metadata
 
     cache = FileCache(config.cache_dir)
     state = StateStore(config.state_path)
@@ -642,7 +635,7 @@ def daily(
 
             try:
                 xml_data = client.get_sumario(current_date)
-                dispositions = parse_sumario(xml_data, config.scope)
+                dispositions = parse_summary(xml_data, config.scope)
             except Exception:
                 msg = f"Error fetching summary for {current_date}"
                 logger.error(msg, exc_info=True)
@@ -661,13 +654,13 @@ def daily(
                     continue
 
                 try:
-                    meta_xml = client.get_metadatos(disp.id_boe)
-                    metadata = parse_metadatos(meta_xml, disp.id_boe)
-                    text_xml = client.get_texto_consolidado(metadata.identificador)
-                    blocks = parse_texto_xml(text_xml)
+                    meta_xml = client.get_metadata(disp.id_boe)
+                    metadata = parse_metadata(meta_xml, disp.id_boe)
+                    text_xml = client.get_consolidated_text(metadata.identificador)
+                    blocks = parse_text_xml(text_xml)
 
-                    file_path = norma_to_filepath(metadata)
-                    markdown = render_norma_at_date(metadata, blocks, current_date)
+                    file_path = norm_to_filepath(metadata)
+                    markdown = render_norm_at_date(metadata, blocks, current_date)
 
                     if repo.has_commit_with_source_id(disp.id_boe):
                         continue
@@ -743,5 +736,3 @@ def reprocess(
         # TODO: commit as fix-pipeline instead of bootstrap/reforma
         commits += commit_one(config, boe_id, dry_run=dry_run)
     return commits
-
-

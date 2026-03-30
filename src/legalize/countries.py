@@ -56,6 +56,7 @@ REGISTRY: dict[str, dict[str, tuple[str, str]]] = {
 def _import_class(module_path: str, class_name: str):
     """Lazy import a class by module path and name."""
     from importlib import import_module
+
     module = import_module(module_path)
     return getattr(module, class_name)
 

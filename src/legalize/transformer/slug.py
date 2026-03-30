@@ -12,7 +12,7 @@ from __future__ import annotations
 from legalize.models import NormaMetadata
 
 
-def norma_to_filepath(metadata: NormaMetadata) -> str:
+def norm_to_filepath(metadata: NormaMetadata) -> str:
     """Generates the path for a norm file.
 
     State-level: '{pais}/{identificador}.md'

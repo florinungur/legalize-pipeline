@@ -24,7 +24,7 @@ from legalize.models import (
 )
 from legalize.pipeline import commit_all, commit_one
 from legalize.storage import load_norma_from_json, save_structured_json
-from legalize.transformer.slug import norma_to_filepath
+from legalize.transformer.slug import norm_to_filepath
 
 
 # ─────────────────────────────────────────────
@@ -58,16 +58,28 @@ def _make_norm_es() -> NormaCompleta:
     src2 = "BOE-A-2010-500"
 
     blocks = [
-        _make_block("a1", "Artículo 1", [
-            _make_version(src1, d1, "Texto original del artículo 1."),
-            _make_version(src2, d2, "Texto reformado del artículo 1."),
-        ]),
-        _make_block("a2", "Artículo 2", [
-            _make_version(src1, d1, "Texto original del artículo 2."),
-        ]),
-        _make_block("a3", "Artículo 3", [
-            _make_version(src1, d1, "Texto original del artículo 3."),
-        ]),
+        _make_block(
+            "a1",
+            "Artículo 1",
+            [
+                _make_version(src1, d1, "Texto original del artículo 1."),
+                _make_version(src2, d2, "Texto reformado del artículo 1."),
+            ],
+        ),
+        _make_block(
+            "a2",
+            "Artículo 2",
+            [
+                _make_version(src1, d1, "Texto original del artículo 2."),
+            ],
+        ),
+        _make_block(
+            "a3",
+            "Artículo 3",
+            [
+                _make_version(src1, d1, "Texto original del artículo 3."),
+            ],
+        ),
     ]
 
     reforms = [
@@ -98,16 +110,30 @@ def _make_norm_fr() -> NormaCompleta:
     src2 = "JORFTEXT000033202746"
 
     blocks = [
-        _make_block("art1", "Article 1", [
-            _make_version(src1, d1, "Toute personne est capable de contracter."),
-            _make_version(src2, d2, "Toute personne physique et morale est capable de contracter."),
-        ]),
-        _make_block("art2", "Article 2", [
-            _make_version(src1, d1, "La loi ne dispose que pour l'avenir."),
-        ]),
-        _make_block("art3", "Article 3", [
-            _make_version(src1, d1, "Les lois de police et de sûreté obligent tous."),
-        ]),
+        _make_block(
+            "art1",
+            "Article 1",
+            [
+                _make_version(src1, d1, "Toute personne est capable de contracter."),
+                _make_version(
+                    src2, d2, "Toute personne physique et morale est capable de contracter."
+                ),
+            ],
+        ),
+        _make_block(
+            "art2",
+            "Article 2",
+            [
+                _make_version(src1, d1, "La loi ne dispose que pour l'avenir."),
+            ],
+        ),
+        _make_block(
+            "art3",
+            "Article 3",
+            [
+                _make_version(src1, d1, "Les lois de police et de sûreté obligent tous."),
+            ],
+        ),
     ]
 
     reforms = [
@@ -138,16 +164,28 @@ def _make_norm_se() -> NormaCompleta:
     src2 = "SFS-2020-321"
 
     blocks = [
-        _make_block("kap1p1", "1 kap. 1 §", [
-            _make_version(src1, d1, "Brottsbalken gäller för brott som begås i Sverige."),
-            _make_version(src2, d2, "Brottsbalken gäller för brott begångna inom riket."),
-        ]),
-        _make_block("kap1p2", "1 kap. 2 §", [
-            _make_version(src1, d1, "Straff skall bestämmas efter lag."),
-        ]),
-        _make_block("kap1p3", "1 kap. 3 §", [
-            _make_version(src1, d1, "Den som begår brott under påverkan av alkohol döms."),
-        ]),
+        _make_block(
+            "kap1p1",
+            "1 kap. 1 §",
+            [
+                _make_version(src1, d1, "Brottsbalken gäller för brott som begås i Sverige."),
+                _make_version(src2, d2, "Brottsbalken gäller för brott begångna inom riket."),
+            ],
+        ),
+        _make_block(
+            "kap1p2",
+            "1 kap. 2 §",
+            [
+                _make_version(src1, d1, "Straff skall bestämmas efter lag."),
+            ],
+        ),
+        _make_block(
+            "kap1p3",
+            "1 kap. 3 §",
+            [
+                _make_version(src1, d1, "Den som begår brott under påverkan av alkohol döms."),
+            ],
+        ),
     ]
 
     reforms = [
@@ -264,7 +302,9 @@ class TestGenericCommitMultiCountry:
         _save_norm(test_config, norm)
         commit_one(test_config, norm.metadata.identificador)
 
-        md_path = Path(test_config.git.repo_path) / expected_dir / f"{norm.metadata.identificador}.md"
+        md_path = (
+            Path(test_config.git.repo_path) / expected_dir / f"{norm.metadata.identificador}.md"
+        )
         assert md_path.exists(), f"Expected {md_path} to exist"
 
         content = md_path.read_text(encoding="utf-8")
@@ -284,7 +324,9 @@ class TestGenericCommitMultiCountry:
         _save_norm(test_config, norm)
         commit_one(test_config, norm.metadata.identificador)
 
-        md_path = Path(test_config.git.repo_path) / expected_dir / f"{norm.metadata.identificador}.md"
+        md_path = (
+            Path(test_config.git.repo_path) / expected_dir / f"{norm.metadata.identificador}.md"
+        )
         content = md_path.read_text(encoding="utf-8")
         assert f'pais: "{norm.metadata.pais}"' in content
 
@@ -326,18 +368,30 @@ class TestMultiVersionNorm:
         sources = ["SRC-ORIG", "SRC-1992", "SRC-2011", "SRC-2024"]
 
         blocks = [
-            _make_block("a1", "Artículo 1", [
-                _make_version(sources[0], dates[0], "Versión original art 1."),
-                _make_version(sources[1], dates[1], "Versión 1992 art 1."),
-            ]),
-            _make_block("a2", "Artículo 2", [
-                _make_version(sources[0], dates[0], "Versión original art 2."),
-                _make_version(sources[2], dates[2], "Versión 2011 art 2."),
-            ]),
-            _make_block("a3", "Artículo 3", [
-                _make_version(sources[0], dates[0], "Versión original art 3."),
-                _make_version(sources[3], dates[3], "Versión 2024 art 3."),
-            ]),
+            _make_block(
+                "a1",
+                "Artículo 1",
+                [
+                    _make_version(sources[0], dates[0], "Versión original art 1."),
+                    _make_version(sources[1], dates[1], "Versión 1992 art 1."),
+                ],
+            ),
+            _make_block(
+                "a2",
+                "Artículo 2",
+                [
+                    _make_version(sources[0], dates[0], "Versión original art 2."),
+                    _make_version(sources[2], dates[2], "Versión 2011 art 2."),
+                ],
+            ),
+            _make_block(
+                "a3",
+                "Artículo 3",
+                [
+                    _make_version(sources[0], dates[0], "Versión original art 3."),
+                    _make_version(sources[3], dates[3], "Versión 2024 art 3."),
+                ],
+            ),
         ]
 
         reforms = [
@@ -589,19 +643,19 @@ class TestCommitAllMultiCountry:
 
 
 class TestSlugMultiCountry:
-    """Test norma_to_filepath generates correct paths for each country."""
+    """Test norm_to_filepath generates correct paths for each country."""
 
     def test_spanish_norm_path(self):
         norm = _make_norm_es()
-        assert norma_to_filepath(norm.metadata) == "es/BOE-A-2000-100.md"
+        assert norm_to_filepath(norm.metadata) == "es/BOE-A-2000-100.md"
 
     def test_french_norm_path(self):
         norm = _make_norm_fr()
-        assert norma_to_filepath(norm.metadata) == "fr/LEGITEXT000006070721.md"
+        assert norm_to_filepath(norm.metadata) == "fr/LEGITEXT000006070721.md"
 
     def test_swedish_norm_path(self):
         norm = _make_norm_se()
-        assert norma_to_filepath(norm.metadata) == "se/SFS-1962-700.md"
+        assert norm_to_filepath(norm.metadata) == "se/SFS-1962-700.md"
 
     def test_jurisdiccion_overrides_pais(self):
         """Autonomous community norms use jurisdiccion as directory."""
@@ -617,4 +671,4 @@ class TestSlugMultiCountry:
             fuente="https://example.com",
             jurisdiccion="es-pv",
         )
-        assert norma_to_filepath(meta) == "es-pv/BOE-A-2020-615.md"
+        assert norm_to_filepath(meta) == "es-pv/BOE-A-2020-615.md"

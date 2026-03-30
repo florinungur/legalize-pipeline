@@ -32,12 +32,12 @@ from datetime import date
 from lxml import etree
 
 from legalize.models import EstadoNorma, NormaMetadata, Rango
-from legalize.fetcher.es.titulos import get_titulo_corto
+from legalize.fetcher.es.titulos import get_short_title
 
 logger = logging.getLogger(__name__)
 
 # Mapping of BOE rank texts (case-insensitive) to our enum
-_RANGO_MAP: dict[str, Rango] = {
+_RANK_TEXT_MAP: dict[str, Rango] = {
     "constitución": Rango.CONSTITUCION,
     "constitucion": Rango.CONSTITUCION,
     "ley orgánica": Rango.LEY_ORGANICA,
@@ -60,7 +60,7 @@ _RANGO_MAP: dict[str, Rango] = {
 }
 
 # Mapping of BOE rank codes to our enum
-_RANGO_CODE_MAP: dict[str, Rango] = {
+_RANK_CODE_MAP: dict[str, Rango] = {
     "1070": Rango.CONSTITUCION,
     "1010": Rango.LEY_ORGANICA,
     "1020": Rango.LEY,
@@ -109,29 +109,29 @@ def _parse_date_boe(text: str) -> date | None:
         return None
 
 
-def _parse_rango(meta: etree._Element) -> Rango | None:
+def _parse_rank(meta: etree._Element) -> Rango | None:
     """Resolves the rank from code or text."""
     code = _code_of(meta, "rango")
-    if code and code in _RANGO_CODE_MAP:
-        return _RANGO_CODE_MAP[code]
+    if code and code in _RANK_CODE_MAP:
+        return _RANK_CODE_MAP[code]
 
     text = _text_of(meta, "rango").lower()
-    return _RANGO_MAP.get(text)
+    return _RANK_TEXT_MAP.get(text)
 
 
-def _parse_estado(meta: etree._Element) -> EstadoNorma:
+def _parse_status(meta: etree._Element) -> EstadoNorma:
     """Determines the validity status from BOE flags."""
-    derogacion = _text_of(meta, "estatus_derogacion")
-    if derogacion == "T":
+    repeal_status = _text_of(meta, "estatus_derogacion")
+    if repeal_status == "T":
         return EstadoNorma.DEROGADA
-    if derogacion == "P":
+    if repeal_status == "P":
         return EstadoNorma.PARCIALMENTE_DEROGADA
     return EstadoNorma.VIGENTE
 
 
-def _infer_rango_from_titulo(titulo: str) -> Rango | None:
+def _infer_rango_from_title(title: str) -> Rango | None:
     """Attempts to infer the rank from the title."""
-    lower = titulo.lower()
+    lower = title.lower()
     if "constitución" in lower or "constitucion" in lower:
         return Rango.CONSTITUCION
     if "ley orgánica" in lower or "ley organica" in lower:
@@ -154,54 +154,54 @@ def _infer_rango_from_titulo(titulo: str) -> Rango | None:
 # BOE departamento code → ELI jurisdiction code
 # BOE departamento code → ELI jurisdiction code
 # Some CCAA have multiple codes (name changes over time)
-_DEPT_TO_JURISDICCION: dict[str, str] = {
-    "8010": "es-an",   # Andalucía
-    "8020": "es-ar",   # Aragón
-    "8030": "es-cn",   # Canarias
-    "8040": "es-cb",   # Cantabria
-    "8060": "es-cm",   # Castilla-La Mancha
-    "8070": "es-ct",   # Cataluña
-    "8080": "es-ex",   # Extremadura
-    "8090": "es-ga",   # Galicia
-    "8100": "es-mc",   # Murcia
-    "8110": "es-ri",   # La Rioja
-    "8120": "es-ib",   # Illes Balears (código antiguo)
-    "8121": "es-ib",   # Illes Balears (código actual)
-    "8131": "es-md",   # Madrid
-    "8140": "es-pv",   # País Vasco
-    "8150": "es-as",   # Asturias
-    "8161": "es-vc",   # Comunidad Valenciana
-    "8162": "es-vc",   # Comunitat Valenciana (nombre en valenciano)
-    "8170": "es-nc",   # Navarra
-    "9531": "es-cl",   # Castilla y León
+_DEPT_TO_JURISDICTION: dict[str, str] = {
+    "8010": "es-an",  # Andalucía
+    "8020": "es-ar",  # Aragón
+    "8030": "es-cn",  # Canarias
+    "8040": "es-cb",  # Cantabria
+    "8060": "es-cm",  # Castilla-La Mancha
+    "8070": "es-ct",  # Cataluña
+    "8080": "es-ex",  # Extremadura
+    "8090": "es-ga",  # Galicia
+    "8100": "es-mc",  # Murcia
+    "8110": "es-ri",  # La Rioja
+    "8120": "es-ib",  # Illes Balears (código antiguo)
+    "8121": "es-ib",  # Illes Balears (código actual)
+    "8131": "es-md",  # Madrid
+    "8140": "es-pv",  # País Vasco
+    "8150": "es-as",  # Asturias
+    "8161": "es-vc",  # Comunidad Valenciana
+    "8162": "es-vc",  # Comunitat Valenciana (nombre en valenciano)
+    "8170": "es-nc",  # Navarra
+    "9531": "es-cl",  # Castilla y León
 }
 
 
-def _extract_jurisdiccion(meta: etree._Element) -> str | None:
+def _extract_jurisdiction(meta: etree._Element) -> str | None:
     """Extract autonomous community jurisdiction from BOE metadata.
 
     Uses the departamento code to determine the ELI jurisdiction.
     Returns None for state-level legislation (ambito=1).
     """
-    ambito_code = _code_of(meta, "ambito")
-    if ambito_code != "2":
+    scope_code = _code_of(meta, "ambito")
+    if scope_code != "2":
         return None
 
     dept_code = _code_of(meta, "departamento")
-    jurisdiccion = _DEPT_TO_JURISDICCION.get(dept_code)
+    jurisdiction = _DEPT_TO_JURISDICTION.get(dept_code)
 
-    if jurisdiccion is None:
+    if jurisdiction is None:
         # Fallback: try to extract from ELI URL (e.g., /eli/es-pv/l/...)
         eli = _text_of(meta, "url_eli")
         if eli and "/eli/" in eli:
             parts = eli.split("/eli/")[1].split("/")
             if parts and parts[0].startswith("es-"):
-                jurisdiccion = parts[0]
+                jurisdiction = parts[0]
 
-    return jurisdiccion
+    return jurisdiction
 
 
-def parse_metadatos(xml_data: bytes, id_boe: str) -> NormaMetadata:
+def parse_metadata(xml_data: bytes, id_boe: str) -> NormaMetadata:
     """Parses the XML response from the BOE /metadatos endpoint.
 
     Args:
@@ -221,44 +221,44 @@ def parse_metadatos(xml_data: bytes, id_boe: str) -> NormaMetadata:
     if meta is None:
         raise ValueError(f"<metadatos> not found in response for {id_boe}")
 
-    identificador = _text_of(meta, "identificador") or id_boe
-    titulo = _text_of(meta, "titulo") or id_boe
-    titulo_corto = get_titulo_corto(identificador, titulo)
-    departamento = _text_of(meta, "departamento")
+    identifier = _text_of(meta, "identificador") or id_boe
+    title = _text_of(meta, "titulo") or id_boe
+    short_title = get_short_title(identifier, title)
+    department = _text_of(meta, "departamento")
 
-    rango = _parse_rango(meta)
-    if rango is None:
-        rango = _infer_rango_from_titulo(titulo)
-    if rango is None:
+    rank = _parse_rank(meta)
+    if rank is None:
+        rank = _infer_rango_from_title(title)
+    if rank is None:
         logger.warning("Unrecognized rank for %s, using OTRO as fallback", id_boe)
-        rango = Rango.OTRO
+        rank = Rango.OTRO
 
-    fecha_pub = _parse_date_boe(_text_of(meta, "fecha_publicacion"))
-    if fecha_pub is None:
+    pub_date = _parse_date_boe(_text_of(meta, "fecha_publicacion"))
+    if pub_date is None:
         raise ValueError(f"Could not extract publication date for {id_boe}")
 
-    fecha_vigencia = _parse_date_boe(_text_of(meta, "fecha_vigencia"))
-    estado = _parse_estado(meta)
+    effective_date = _parse_date_boe(_text_of(meta, "fecha_vigencia"))
+    status = _parse_status(meta)
 
-    fuente = (
+    source_url = (
         _text_of(meta, "url_eli")
         or _text_of(meta, "url_html_consolidada")
-        or f"https://www.boe.es/buscar/act.php?id={identificador}"
+        or f"https://www.boe.es/buscar/act.php?id={identifier}"
     )
 
     # Detect autonomous community jurisdiction from ELI URL or ambito
-    jurisdiccion = _extract_jurisdiccion(meta)
+    jurisdiction = _extract_jurisdiction(meta)
 
     return NormaMetadata(
-        titulo=titulo,
-        titulo_corto=titulo_corto,
-        identificador=identificador,
+        titulo=title,
+        titulo_corto=short_title,
+        identificador=identifier,
         pais="es",
-        rango=rango,
-        fecha_publicacion=fecha_pub,
-        estado=estado,
-        departamento=departamento,
-        fuente=fuente,
-        jurisdiccion=jurisdiccion,
-        fecha_ultima_modificacion=fecha_vigencia,
+        rango=rank,
+        fecha_publicacion=pub_date,
+        estado=status,
+        departamento=department,
+        fuente=source_url,
+        jurisdiccion=jurisdiction,
+        fecha_ultima_modificacion=effective_date,
     )
