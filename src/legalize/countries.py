@@ -29,24 +29,27 @@ if TYPE_CHECKING:
 
 REGISTRY: dict[str, dict[str, tuple[str, str]]] = {
     "es": {
-        "client": ("legalize.fetcher.client", "BOEClient"),
-        "discovery": ("legalize.fetcher.discovery_boe", "BOEDiscovery"),
-        "text_parser": ("legalize.fetcher.parser_boe", "BOETextParser"),
-        "metadata_parser": ("legalize.fetcher.parser_boe", "BOEMetadataParser"),
+        "client": ("legalize.fetcher.es.client", "BOEClient"),
+        "discovery": ("legalize.fetcher.es.discovery", "BOEDiscovery"),
+        "text_parser": ("legalize.fetcher.es.parser", "BOETextParser"),
+        "metadata_parser": ("legalize.fetcher.es.parser", "BOEMetadataParser"),
     },
     "fr": {
-        "client": ("legalize.fetcher.client_legi", "LEGIClient"),
-        "discovery": ("legalize.fetcher.discovery_legi", "LEGIDiscovery"),
-        "text_parser": ("legalize.fetcher.parser_legi", "LEGITextParser"),
-        "metadata_parser": ("legalize.fetcher.parser_legi", "LEGIMetadataParser"),
+        "client": ("legalize.fetcher.fr.client", "LEGIClient"),
+        "discovery": ("legalize.fetcher.fr.discovery", "LEGIDiscovery"),
+        "text_parser": ("legalize.fetcher.fr.parser", "LEGITextParser"),
+        "metadata_parser": ("legalize.fetcher.fr.parser", "LEGIMetadataParser"),
     },
-    # To add a new country (e.g. UK):
-    # "uk": {
-    #     "client": ("legalize.fetcher.client_uk", "UKClient"),
-    #     "discovery": ("legalize.fetcher.discovery_uk", "UKDiscovery"),
-    #     "text_parser": ("legalize.fetcher.parser_uk", "UKTextParser"),
-    #     "metadata_parser": ("legalize.fetcher.parser_uk", "UKMetadataParser"),
-    # },
+    "se": {
+        "client": ("legalize.fetcher.se.client", "SwedishClient"),
+        "discovery": ("legalize.fetcher.se.discovery", "SwedishDiscovery"),
+        "text_parser": ("legalize.fetcher.se.parser", "SwedishTextParser"),
+        "metadata_parser": ("legalize.fetcher.se.parser", "SwedishMetadataParser"),
+    },
+    # To add a new country:
+    # 1. Create fetcher/{code}/ with client.py, discovery.py, parser.py
+    # 2. Register here
+    # See docs/ADDING_A_COUNTRY.md
 }
 
 

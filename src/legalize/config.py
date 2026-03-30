@@ -8,7 +8,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date
 from pathlib import Path
-from typing import Optional
+from typing import Any, Optional
 
 import yaml
 
@@ -50,6 +50,19 @@ class GitConfig:
 
 
 @dataclass
+class CountryConfig:
+    """Configuration for a single country pipeline."""
+
+    repo_path: str = ""
+    data_dir: str = ""
+    cache_dir: str = ".cache"
+    max_workers: int = 1
+    state_path: str = ""  # default: .pipeline/{code}/state.json
+    mappings_path: str = ""  # default: .pipeline/{code}/mappings.json
+    source: dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass
 class Config:
     """Global pipeline configuration."""
 
@@ -62,6 +75,42 @@ class Config:
     state_path: str = ".pipeline/state.json"
     mappings_path: str = ".pipeline/mappings/id-to-filename.json"
     legi_dir: str = ""  # Path to the extracted LEGI dump (France)
+    countries: dict[str, CountryConfig] = field(default_factory=dict)
+
+    def get_country(self, code: str) -> CountryConfig:
+        """Get config for a country, with legacy fallback for ES."""
+        if code in self.countries:
+            cc = self.countries[code]
+            if not cc.state_path:
+                cc.state_path = f".pipeline/{code}/state.json"
+            if not cc.mappings_path:
+                cc.mappings_path = f".pipeline/{code}/mappings.json"
+            return cc
+        # Legacy fallback: construct from flat config fields
+        if code == "es":
+            return CountryConfig(
+                repo_path=self.git.repo_path,
+                data_dir=self.data_dir,
+                cache_dir=self.cache_dir,
+                state_path=self.state_path,
+                mappings_path=self.mappings_path,
+                source={
+                    "base_url": self.boe.base_url,
+                    "requests_per_second": self.boe.requests_per_second,
+                    "request_timeout": self.boe.request_timeout,
+                    "max_retries": self.boe.max_retries,
+                },
+            )
+        if code == "fr":
+            return CountryConfig(
+                repo_path=self.git.repo_path.replace("es", "fr"),
+                data_dir=self.data_dir.replace("data", "data-fr"),
+                source={"legi_dir": self.legi_dir},
+            )
+        raise ValueError(
+            f"Country '{code}' not configured. "
+            f"Add it to the 'countries' section of config.yaml."
+        )
 
 
 def _parse_date(value: str | None) -> Optional[date]:
@@ -95,6 +144,20 @@ def load_config(path: str | Path = "config.yaml", overrides: dict | None = None)
     scope_raw = raw.get("scope", {})
     git_raw = raw.get("git", {})
 
+    # Parse per-country configs
+    countries_raw = raw.get("countries", {})
+    countries = {}
+    for code, country_raw in countries_raw.items():
+        countries[code] = CountryConfig(
+            repo_path=country_raw.get("repo_path", ""),
+            data_dir=country_raw.get("data_dir", ""),
+            cache_dir=country_raw.get("cache_dir", ".cache"),
+            max_workers=country_raw.get("max_workers", 1),
+            state_path=country_raw.get("state_path", ""),
+            mappings_path=country_raw.get("mappings_path", ""),
+            source=country_raw.get("source", {}),
+        )
+
     return Config(
         boe=BOEConfig(
             base_url=boe_raw.get("base_url", BOEConfig.base_url),
@@ -127,6 +190,7 @@ def load_config(path: str | Path = "config.yaml", overrides: dict | None = None)
         state_path=raw.get("state_path", Config.state_path),
         mappings_path=raw.get("mappings_path", Config.mappings_path),
         legi_dir=raw.get("legi_dir", Config.legi_dir),
+        countries=countries,
     )
 
 

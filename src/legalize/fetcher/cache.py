@@ -8,6 +8,8 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
+import tempfile
 import time
 from dataclasses import dataclass
 from pathlib import Path
@@ -59,7 +61,7 @@ class FileCache:
         )
 
     def put(self, key: str, content: bytes, headers: dict[str, str]) -> None:
-        """Stores content with its response headers."""
+        """Stores content with its response headers (atomic write)."""
         content_path, meta_path = self._key_to_paths(key)
 
         content_path.write_bytes(content)
@@ -69,8 +71,15 @@ class FileCache:
             "headers": headers,
             "timestamp": time.time(),
         }
-        with open(meta_path, "w", encoding="utf-8") as f:
-            json.dump(meta, f, indent=2)
+        # Atomic write: temp file + os.replace prevents corruption on crash
+        fd, tmp = tempfile.mkstemp(dir=self._dir, suffix=".tmp")
+        try:
+            with os.fdopen(fd, "w", encoding="utf-8") as f:
+                json.dump(meta, f, indent=2)
+            os.replace(tmp, meta_path)
+        except BaseException:
+            os.unlink(tmp)
+            raise
 
     def etag_for(self, key: str) -> Optional[str]:
         """Returns the stored ETag for conditional requests."""

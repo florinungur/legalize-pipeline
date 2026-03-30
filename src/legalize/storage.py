@@ -1,10 +1,10 @@
 """Local storage for raw and structured data.
 
-Saves to the private repo (pipeline):
-- data/xml/{id}.xml     — Raw BOE XML (original source)
-- data/json/{id}.json   — Structured data ready for DB
+Saves intermediate data for the pipeline:
+- data/xml/{id}.xml     — Raw source XML
+- data/json/{id}.json   — Structured data for downstream consumers
 
-The JSON contains all the information needed to populate the DB
+The JSON contains all information needed to generate commits
 without re-downloading or re-parsing anything.
 """
 
@@ -12,10 +12,18 @@ from __future__ import annotations
 
 import json
 import logging
+from datetime import date
 from pathlib import Path
 
 from legalize.models import (
+    Bloque,
+    EstadoNorma,
     NormaCompleta,
+    NormaMetadata,
+    Paragraph,
+    Rango,
+    Reform,
+    Version,
 )
 
 logger = logging.getLogger(__name__)
@@ -96,6 +104,8 @@ def _norma_to_dict(norma: NormaCompleta) -> dict:
         "fuente": meta.fuente,
     }
 
+    if meta.jurisdiccion:
+        metadata_dict["jurisdiccion"] = meta.jurisdiccion
     if meta.url_pdf:
         metadata_dict["url_pdf"] = meta.url_pdf
     if meta.materias:
@@ -114,11 +124,16 @@ def _norma_to_dict(norma: NormaCompleta) -> dict:
 
         for version in bloque.versions:
             text = "\n\n".join(p.text for p in version.paragraphs)
-            article["versions"].append({
+            version_dict: dict = {
                 "date": version.fecha_publicacion.isoformat(),
                 "source_id": version.id_norma,
                 "text": text,
-            })
+            }
+            # Preserve CSS classes for lossless round-trip
+            css_classes = [p.css_class for p in version.paragraphs]
+            if css_classes and any(c != "parrafo" for c in css_classes):
+                version_dict["css_classes"] = css_classes
+            article["versions"].append(version_dict)
 
         # current_text = latest version
         if bloque.versions:
@@ -150,3 +165,72 @@ def _norma_to_dict(norma: NormaCompleta) -> dict:
         "articles": articles,
         "reforms": reforms,
     }
+
+
+def load_norma_from_json(json_path: Path) -> NormaCompleta:
+    """Load a NormaCompleta from a structured JSON file.
+
+    Inverse of save_structured_json(). Handles backwards compatibility
+    with older JSONs that don't have css_classes.
+    """
+    with open(json_path, encoding="utf-8") as f:
+        data = json.load(f)
+
+    meta = data["metadata"]
+    metadata = NormaMetadata(
+        titulo=meta["titulo"],
+        titulo_corto=meta["titulo_corto"],
+        identificador=meta["identificador"],
+        pais=meta["pais"],
+        rango=Rango(meta["rango"]),
+        fecha_publicacion=date.fromisoformat(meta["fecha_publicacion"]),
+        estado=EstadoNorma(meta["estado"]),
+        departamento=meta["departamento"],
+        fuente=meta["fuente"],
+        jurisdiccion=meta.get("jurisdiccion"),
+        fecha_ultima_modificacion=date.fromisoformat(meta["ultima_actualizacion"]),
+    )
+
+    bloques = []
+    for art in data["articles"]:
+        versions = []
+        for v in art["versions"]:
+            paragraphs = []
+            css_classes = v.get("css_classes")
+            if v["text"].strip():
+                lines = [line.strip() for line in v["text"].split("\n\n") if line.strip()]
+                for i, line in enumerate(lines):
+                    css = css_classes[i] if css_classes and i < len(css_classes) else "parrafo"
+                    paragraphs.append(Paragraph(css_class=css, text=line))
+            versions.append(Version(
+                id_norma=v["source_id"],
+                fecha_publicacion=date.fromisoformat(v["date"]),
+                fecha_vigencia=date.fromisoformat(v["date"]),
+                paragraphs=tuple(paragraphs),
+            ))
+        bloques.append(Bloque(
+            id=art["block_id"],
+            tipo=art["block_type"],
+            titulo=art["title"],
+            versions=tuple(versions),
+        ))
+
+    reforms = []
+    for r in data["reforms"]:
+        reforms.append(Reform(
+            fecha=date.fromisoformat(r["date"]),
+            id_norma=r["source_id"],
+            bloques_afectados=tuple(
+                art["block_id"]
+                for art in data["articles"]
+                for v in art["versions"]
+                if v["source_id"] == r["source_id"]
+                and v["date"] == r["date"]
+            ),
+        ))
+
+    return NormaCompleta(
+        metadata=metadata,
+        bloques=tuple(bloques),
+        reforms=tuple(reforms),
+    )

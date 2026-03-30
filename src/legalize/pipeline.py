@@ -10,7 +10,6 @@ Incremental flows:
 
 from __future__ import annotations
 
-import json
 import logging
 from datetime import date
 from pathlib import Path
@@ -28,7 +27,7 @@ from legalize.models import (
 )
 from legalize.state.mappings import IdToFilename
 from legalize.state.store import StateStore
-from legalize.storage import save_raw_xml, save_structured_json
+from legalize.storage import load_norma_from_json, save_raw_xml, save_structured_json
 from legalize.transformer.markdown import render_norma_at_date
 from legalize.transformer.slug import norma_to_filepath
 from legalize.transformer.xml_parser import extract_reforms, parse_texto_xml
@@ -177,20 +176,107 @@ def fetch_catalog(config: Config, force: bool = False) -> list[str]:
     return fetched
 
 
+def fetch_catalog_ccaa(config: Config, jurisdiccion: str, force: bool = False) -> list[str]:
+    """Download all norms for an autonomous community from the BOE catalog.
+
+    Filters by ambito=2 (Autonómico) and the ELI jurisdiction code.
+    Uses the same BOE API — CCAA laws published in BOE have full consolidated text.
+
+    Args:
+        config: Pipeline configuration.
+        jurisdiccion: ELI code (e.g., "es-pv", "es-ct", "es-an").
+        force: Re-download even if already cached.
+
+    Returns:
+        List of successfully downloaded BOE-IDs.
+    """
+    import requests
+
+    from legalize.transformer.metadata import _DEPT_TO_JURISDICCION
+
+    # Reverse lookup: jurisdiccion → all matching departamento codes
+    dept_codes = [code for code, jur in _DEPT_TO_JURISDICCION.items() if jur == jurisdiccion]
+
+    if not dept_codes:
+        console.print(f"[red]Unknown jurisdiction: {jurisdiccion}[/red]")
+        return []
+
+    console.print(f"[bold]Fetch CCAA catalog — {jurisdiccion} (depts={dept_codes})[/bold]\n")
+
+    # Paginate full catalog
+    base_url = f"{config.boe.base_url}/api/legislacion-consolidada"
+    all_items: list[dict] = []
+    offset = 0
+    batch = 1000
+
+    console.print("  Querying catalog (paginated)...")
+    while True:
+        resp = requests.get(
+            base_url,
+            headers={"Accept": "application/json"},
+            params={"limit": batch, "offset": offset},
+            timeout=60,
+        )
+        resp.raise_for_status()
+        items = resp.json().get("data", [])
+        if not items:
+            break
+        all_items.extend(items)
+        offset += batch
+
+    # Filter by CCAA departamento (may have multiple codes)
+    dept_code_set = set(dept_codes)
+    in_scope = [
+        item["identificador"]
+        for item in all_items
+        if item.get("ambito", {}).get("codigo") == "2"
+        and item.get("departamento", {}).get("codigo") in dept_code_set
+    ]
+
+    console.print(f"  {len(in_scope)} norms found for {jurisdiccion}\n")
+
+    # Download each one
+    fetched = []
+    errors = 0
+    skipped = 0
+    for i, boe_id in enumerate(in_scope, 1):
+        json_path = Path(config.data_dir) / "json" / f"{boe_id}.json"
+        if json_path.exists() and not force:
+            skipped += 1
+            continue
+
+        norma = fetch_one(config, boe_id, force=force)
+        if norma is not None:
+            fetched.append(boe_id)
+        else:
+            errors += 1
+
+        if (len(fetched) + errors) % 50 == 0:
+            console.print(
+                f"  [{i}/{len(in_scope)}] {len(fetched)} new, "
+                f"{skipped} existing, {errors} errors"
+            )
+
+    console.print(f"\n[bold green]✓ {len(fetched)} new norms downloaded[/bold green]")
+    console.print(f"  {skipped} already existed, {errors} errors")
+
+    return fetched
+
+
 # ─────────────────────────────────────────────
 # COMMIT — generate git commits from local data/
 # ─────────────────────────────────────────────
 
 
-def commit_one(config: Config, boe_id: str, dry_run: bool = False) -> int:
+def commit_one(config: Config, norm_id: str, dry_run: bool = False) -> int:
     """Generate commits for ONE law from its JSON in data/.
 
-    Does not download anything. Reads data/json/{boe_id}.json.
+    Does not download anything. Reads data/json/{norm_id}.json.
     Commits for this law are added to the repo without touching other laws.
 
     Returns number of commits created.
     """
-    json_path = Path(config.data_dir) / "json" / f"{boe_id}.json"
+    json_path = Path(config.data_dir) / "json" / f"{norm_id}.json"
     if not json_path.exists():
         console.print(f"  [red]{json_path} does not exist. Run fetch first.[/red]")
         return 0
@@ -267,9 +353,9 @@ def commit_all(config: Config, dry_run: bool = False) -> int:
     total = 0
     errors = 0
     for i, json_file in enumerate(json_files, 1):
-        boe_id = json_file.stem
+        norm_id = json_file.stem
         try:
-            commits = commit_one(config, boe_id, dry_run=dry_run)
+            commits = commit_one(config, norm_id, dry_run=dry_run)
             total += commits
 
             if not dry_run and commits > 0:
@@ -282,8 +368,8 @@ def commit_all(config: Config, dry_run: bool = False) -> int:
                     )
         except Exception:
             errors += 1
-            logger.error("Error committing %s, continuing", boe_id, exc_info=True)
-            console.print(f"  [red]✗ {boe_id} — error, continuing[/red]")
+            logger.error("Error committing %s, continuing", norm_id, exc_info=True)
+            console.print(f"  [red]✗ {norm_id} — error, continuing[/red]")
 
         # Save state periodically (every 50 laws)
         if not dry_run and i % 50 == 0:
@@ -509,71 +595,9 @@ def reprocess(
 
 
 def _load_norma_from_json(json_path: Path) -> NormaCompleta:
-    """Load a NormaCompleta from a JSON in data/."""
-    from legalize.models import (
-        Bloque,
-        EstadoNorma,
-        Paragraph,
-        Rango,
-        Version,
-    )
+    """Load a NormaCompleta from a JSON in data/.
 
-    with open(json_path, encoding="utf-8") as f:
-        data = json.load(f)
-
-    meta = data["metadata"]
-    metadata = NormaMetadata(
-        titulo=meta["titulo"],
-        titulo_corto=meta["titulo_corto"],
-        identificador=meta["identificador"],
-        pais=meta["pais"],
-        rango=Rango(meta["rango"]),
-        fecha_publicacion=date.fromisoformat(meta["fecha_publicacion"]),
-        estado=EstadoNorma(meta["estado"]),
-        departamento=meta["departamento"],
-        fuente=meta["fuente"],
-        fecha_ultima_modificacion=date.fromisoformat(meta["ultima_actualizacion"]),
-    )
-
-    bloques = []
-    for art in data["articles"]:
-        versions = []
-        for v in art["versions"]:
-            # Reconstruct paragraphs from text
-            paragraphs = []
-            if v["text"].strip():
-                for line in v["text"].split("\n\n"):
-                    if line.strip():
-                        paragraphs.append(Paragraph(css_class="parrafo", text=line.strip()))
-            versions.append(Version(
-                id_norma=v["source_id"],
-                fecha_publicacion=date.fromisoformat(v["date"]),
-                fecha_vigencia=date.fromisoformat(v["date"]),
-                paragraphs=tuple(paragraphs),
-            ))
-        bloques.append(Bloque(
-            id=art["block_id"],
-            tipo=art["block_type"],
-            titulo=art["title"],
-            versions=tuple(versions),
-        ))
-
-    reforms = []
-    for r in data["reforms"]:
-        reforms.append(Reform(
-            fecha=date.fromisoformat(r["date"]),
-            id_norma=r["source_id"],
-            bloques_afectados=tuple(
-                art["block_id"]
-                for art in data["articles"]
-                for v in art["versions"]
-                if v["source_id"] == r["source_id"]
-                and v["date"] == r["date"]
-            ),
-        ))
-
-    return NormaCompleta(
-        metadata=metadata,
-        bloques=tuple(bloques),
-        reforms=tuple(reforms),
-    )
+    Delegates to storage.load_norma_from_json(). Kept for backwards compat
+    with pipeline_fr.py and pipeline_se.py which import this.
+    """
+    return load_norma_from_json(json_path)

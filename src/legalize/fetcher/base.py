@@ -5,9 +5,12 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from collections.abc import Iterator
 from datetime import date
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from legalize.models import NormaMetadata
+
+if TYPE_CHECKING:
+    from legalize.config import CountryConfig
 
 
 class LegislativeClient(ABC):
@@ -18,6 +21,15 @@ class LegislativeClient(ABC):
     - Fetching metadata
     - Rate limiting and caching
     """
+
+    @classmethod
+    def create(cls, country_config: CountryConfig) -> LegislativeClient:
+        """Create a client instance from country config.
+
+        Override in subclass to read source-specific params.
+        Default: no-args constructor.
+        """
+        return cls()
 
     @abstractmethod
     def get_texto(self, norm_id: str) -> bytes:
