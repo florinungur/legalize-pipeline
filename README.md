@@ -40,8 +40,7 @@ src/legalize/
     xml_parser.py         Bloque/Version extraction, reform timeline
     markdown.py           Bloque -> Markdown (CSS class mapping)
     frontmatter.py        YAML frontmatter rendering
-    metadata.py           Metadata parsing helpers
-    slug.py               norma_to_filepath() -> {country_dir}/{id}.md
+    slug.py               norm_to_filepath() -> {country_dir}/{id}.md
   committer/            # Generic: Markdown -> git commits
     git_ops.py            Git operations with historical dates
     message.py            Commit message formatting (6 types)
@@ -62,7 +61,7 @@ src/legalize/
 # Install
 pip install -e ".[dev]"
 
-# Run tests (111 passing)
+# Run tests (147 passing)
 pytest tests/ -v
 
 # Lint

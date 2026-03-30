@@ -42,7 +42,7 @@ Processing Spanish (BOE), French (LEGI), and Swedish (SFSR) legislation. Archite
 # Install
 pip install -e ".[dev]"
 
-# Run tests (111 passing)
+# Run tests (147 passing)
 pytest tests/ -v
 
 # Lint
@@ -178,5 +178,4 @@ Base: `https://www.boe.es/datosabiertos/`
 
 - Dates as `datetime.date` internally; parse at XML boundary, format at output
 - English for all code, comments, and variable names
-- Spec in `spec-leyes-git.md` (original design doc, may be outdated vs actual implementation)
 - CI via GitHub App (Legalize Pipeline); daily runs are local for now

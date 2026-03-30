@@ -1,7 +1,7 @@
 [project]
 name = "legalize"
 version = "0.1.0"
-description = "Legislación española como repositorio Git — cada ley es un fichero Markdown, cada reforma un commit"
+description = "Multi-country pipeline that converts official legislation into version-controlled Markdown in Git"
 requires-python = ">=3.12"
 license = "MIT"
 dependencies = [
