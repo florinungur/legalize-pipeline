@@ -6,7 +6,10 @@ Processes BOE daily summaries (sumarios) and generates commits for new legislati
 from __future__ import annotations
 
 import logging
+import subprocess
 from datetime import date
+
+import requests
 
 from rich.console import Console
 
@@ -76,7 +79,7 @@ def daily(
             try:
                 xml_data = client.get_sumario(current_date)
                 dispositions = parse_summary(xml_data, config.scope)
-            except Exception:
+            except requests.RequestException:
                 msg = f"Error fetching summary for {current_date}"
                 logger.error(msg, exc_info=True)
                 errors.append(msg)
@@ -128,7 +131,7 @@ def daily(
 
                     mappings.set(metadata.identificador, file_path)
 
-                except Exception:
+                except (requests.RequestException, ValueError, OSError):
                     msg = f"Error processing {disp.id_boe}"
                     logger.error(msg, exc_info=True)
                     errors.append(msg)
@@ -138,7 +141,7 @@ def daily(
     if not dry_run and config.git.push and commits_created > 0:
         try:
             repo.push(branch=config.git.branch)
-        except Exception:
+        except subprocess.CalledProcessError:
             logger.error("Error pushing", exc_info=True)
             errors.append("Error pushing")
 

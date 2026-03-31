@@ -402,7 +402,7 @@ def bootstrap_ccaa(
             try:
                 c = commit_one(config, jf.stem, dry_run=dry_run)
                 commits += c
-            except Exception:
+            except (OSError, ValueError):
                 errors += 1
             if i % 100 == 0:
                 console.print(f"  [{i}/{len(jur_files)}] {commits} commits")

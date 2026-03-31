@@ -9,11 +9,14 @@ not just the Constitution.
 
 from __future__ import annotations
 
+import logging
 from datetime import date
 
 from lxml import etree
 
 from legalize.models import Bloque, Paragraph, Reform, Version
+
+logger = logging.getLogger(__name__)
 
 
 def _parse_date(date_str: str) -> date | None:
@@ -30,6 +33,7 @@ def _parse_date(date_str: str) -> date | None:
             return None
         return parsed
     except ValueError:
+        logger.debug("Could not parse date: %s", date_str)
         return None
 
 

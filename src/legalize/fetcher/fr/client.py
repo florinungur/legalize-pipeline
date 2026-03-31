@@ -254,7 +254,7 @@ class LEGIClient(LegislativeClient):
             structure_ta = section_root.find("STRUCTURE_TA")
             if structure_ta is not None:
                 self._walk_structure(structure_ta, target, text_dir)
-        except Exception:
+        except etree.XMLSyntaxError:
             logger.warning("Error reading section_ta %s", section_id, exc_info=True)
 
     def _embed_article_content(
@@ -301,5 +301,5 @@ class LEGIClient(LegislativeClient):
 
         except etree.XMLSyntaxError:
             logger.warning("Invalid XML for article %s", article_id)
-        except Exception:
+        except OSError:
             logger.warning("Error reading article %s", article_id, exc_info=True)

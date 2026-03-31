@@ -8,6 +8,8 @@ from __future__ import annotations
 import logging
 from pathlib import Path
 
+import requests
+
 from rich.console import Console
 
 from legalize.config import Config
@@ -56,11 +58,11 @@ def fetch_one(config: Config, boe_id: str, force: bool = False) -> NormaCompleta
 
             console.print(
                 f"  [green]✓[/green] {metadata.titulo_corto}: "
-                f"{len(blocks)} bloques, {len(reforms)} versiones"
+                f"{len(blocks)} blocks, {len(reforms)} versions"
             )
             return norm
 
-        except Exception:
+        except (requests.RequestException, ValueError, OSError):
             logger.error("Error downloading %s", boe_id, exc_info=True)
             console.print(f"  [red]✗ Error downloading {boe_id}[/red]")
             return None

@@ -13,7 +13,10 @@ Generic (country-agnostic) flows:
 from __future__ import annotations
 
 import logging
+import subprocess
 from pathlib import Path
+
+import requests
 
 from rich.console import Console
 
@@ -87,11 +90,11 @@ def generic_fetch_one(
 
             console.print(
                 f"  [green]✓[/green] {metadata.titulo_corto}: "
-                f"{len(blocks)} bloques, {len(reforms)} versiones"
+                f"{len(blocks)} blocks, {len(reforms)} versions"
             )
             return norm
 
-        except Exception:
+        except (requests.RequestException, ValueError, FileNotFoundError, OSError):
             logger.error("Error processing %s", norm_id, exc_info=True)
             console.print(f"  [red]✗ Error processing {norm_id}[/red]")
             return None
@@ -213,8 +216,9 @@ def commit_one(config: Config, norm_id: str, dry_run: bool = False) -> int:
     blocks = norm.bloques
     reforms = norm.reforms
 
+    logger.info("Committing %s: %d reforms", norm_id, len(reforms))
     console.print(
-        f"  [bold]{metadata.titulo_corto}[/bold]: {len(blocks)} bloques, {len(reforms)} versiones"
+        f"  [bold]{metadata.titulo_corto}[/bold]: {len(blocks)} blocks, {len(reforms)} versions"
     )
 
     if dry_run:
@@ -292,7 +296,7 @@ def commit_all(config: Config, dry_run: bool = False) -> int:
                         norm.reforms[-1].fecha,
                         len(norm.reforms),
                     )
-        except Exception:
+        except (OSError, ValueError, subprocess.CalledProcessError):
             errors += 1
             logger.error("Error committing %s, continuing", norm_id, exc_info=True)
             console.print(f"  [red]✗ {norm_id} — error, continuing[/red]")

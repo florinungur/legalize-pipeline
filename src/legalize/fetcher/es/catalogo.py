@@ -15,6 +15,8 @@ import logging
 from collections.abc import Iterator
 from datetime import date, timedelta
 
+import requests
+
 from legalize.config import Config
 from legalize.fetcher.es.client import BOEClient
 from legalize.fetcher.es.sumario import parse_summary
@@ -72,7 +74,7 @@ def iter_norms_from_summaries(
                     seen.add(disp.id_boe)
                     yield disp.id_boe
 
-        except Exception:
+        except requests.RequestException:
             logger.warning("Error processing summary for %s, continuing", current, exc_info=True)
 
         current += timedelta(days=1)

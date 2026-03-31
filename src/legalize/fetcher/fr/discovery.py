@@ -71,7 +71,7 @@ class LEGIDiscovery(NormDiscovery):
 
                 try:
                     nature, etat = self._read_nature_etat(struct_path)
-                except Exception:
+                except (etree.XMLSyntaxError, FileNotFoundError):
                     logger.warning("Error reading %s, skipping", struct_path)
                     continue
 

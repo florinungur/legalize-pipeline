@@ -104,6 +104,7 @@ def _parse_date_se(date_str: str | None) -> date | None:
             return date.fromisoformat(match.group(1))
         return None
     except ValueError:
+        logger.debug("Could not parse date: %s", date_str)
         return None
 
 

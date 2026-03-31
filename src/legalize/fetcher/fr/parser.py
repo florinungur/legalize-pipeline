@@ -86,6 +86,7 @@ def _parse_date_legi(date_str: str) -> date | None:
             return None
         return parsed
     except ValueError:
+        logger.debug("Could not parse date: %s", date_str)
         return None
 
 
