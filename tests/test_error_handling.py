@@ -4,7 +4,7 @@ Tests that errors are handled gracefully throughout the pipeline:
 - Fetch errors (network, parse) return None instead of crashing
 - Commit errors skip bad norms and continue with the rest
 - Storage errors raise appropriate exceptions
-- State/mappings handle missing files gracefully
+- State handles missing files gracefully
 """
 
 from __future__ import annotations
@@ -29,7 +29,6 @@ from legalize.models import (
     Version,
 )
 from legalize.pipeline import commit_all, commit_one, generic_fetch_all, generic_fetch_one
-from legalize.state.mappings import IdToFilename
 from legalize.state.store import StateStore
 from legalize.storage import load_norma_from_json, save_structured_json
 
@@ -88,7 +87,6 @@ def test_config(tmp_path) -> Config:
                 repo_path=str(tmp_path / "repo"),
                 data_dir=str(tmp_path / "data"),
                 state_path=str(tmp_path / "state.json"),
-                mappings_path=str(tmp_path / "mappings.json"),
             ),
         },
     )
@@ -304,7 +302,6 @@ class TestStateStoreErrorHandling:
         store = StateStore(tmp_path / "nonexistent" / "state.json")
         store.load()  # should not raise
 
-        assert store.norms_count == 0
         assert store.last_summary_date is None
 
     def test_load_handles_corrupt_json(self, tmp_path):
@@ -317,22 +314,3 @@ class TestStateStoreErrorHandling:
         store = StateStore(state_file)
         with pytest.raises(json.JSONDecodeError):
             store.load()
-
-
-# ─────────────────────────────────────────────
-# TestMappingsErrorHandling
-# ─────────────────────────────────────────────
-
-
-class TestMappingsErrorHandling:
-    """Test IdToFilename error handling."""
-
-    def test_load_handles_missing_file(self, tmp_path):
-        """IdToFilename.load() on non-existent path.
-        Verify no crash, empty mappings.
-        """
-        mappings = IdToFilename(tmp_path / "nonexistent" / "mappings.json")
-        mappings.load()  # should not raise
-
-        assert len(mappings) == 0
-        assert mappings.get("BOE-A-1978-31229") is None

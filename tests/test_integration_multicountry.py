@@ -218,7 +218,6 @@ def _country_config(tmp_path, code: str) -> CountryConfig:
         repo_path=str(tmp_path / "repo"),
         data_dir=str(tmp_path / "data"),
         state_path=str(tmp_path / f"state-{code}.json"),
-        mappings_path=str(tmp_path / f"mappings-{code}.json"),
     )
 
 

@@ -17,7 +17,6 @@ from legalize.committer.git_ops import GitRepo
 from legalize.committer.message import build_commit_info
 from legalize.config import Config
 from legalize.models import CommitType, Reform
-from legalize.state.mappings import IdToFilename
 from legalize.state.store import StateStore
 from legalize.transformer.markdown import render_norm_at_date
 from legalize.transformer.slug import norm_to_filepath
@@ -56,8 +55,6 @@ def daily(
     cache = FileCache(cc.cache_dir)
     state = StateStore(cc.state_path)
     state.load()
-    mappings = IdToFilename(cc.mappings_path)
-    mappings.load()
 
     if target_date:
         dates_to_process = [target_date]
@@ -142,8 +139,6 @@ def daily(
                         commits_created += 1
                         console.print(f"    [green]✓[/green] {info.subject}")
 
-                    mappings.set(metadata.identificador, file_path)
-
                 except (requests.RequestException, ValueError, OSError):
                     msg = f"Error processing {disp.id_boe}"
                     logger.error(msg, exc_info=True)
@@ -164,7 +159,6 @@ def daily(
         errors=errors,
     )
     state.save()
-    mappings.save()
 
     console.print(f"\n[bold green]✓ {commits_created} commits[/bold green]")
     if errors:

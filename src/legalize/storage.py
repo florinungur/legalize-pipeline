@@ -1,7 +1,6 @@
-"""Local storage for raw and structured data.
+"""Local storage for structured data.
 
 Saves intermediate data for the pipeline:
-- data/xml/{id}.xml     — Raw source XML
 - data/json/{id}.json   — Structured data for downstream consumers
 
 The JSON contains all information needed to generate commits
@@ -27,15 +26,6 @@ from legalize.models import (
 )
 
 logger = logging.getLogger(__name__)
-
-
-def save_raw_xml(data_dir: str | Path, norm_id: str, xml_bytes: bytes) -> Path:
-    """Save the raw BOE XML."""
-    path = Path(data_dir) / "xml" / f"{norm_id}.xml"
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(xml_bytes)
-    logger.debug("XML saved: %s", path)
-    return path
 
 
 def save_structured_json(data_dir: str | Path, norm: NormaCompleta) -> Path:

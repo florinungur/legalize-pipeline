@@ -28,9 +28,8 @@ from legalize.models import (
     NormaCompleta,
     NormaMetadata,
 )
-from legalize.state.mappings import IdToFilename
 from legalize.state.store import StateStore
-from legalize.storage import load_norma_from_json, save_raw_xml, save_structured_json
+from legalize.storage import load_norma_from_json, save_structured_json
 from legalize.transformer.markdown import render_norm_at_date
 from legalize.transformer.slug import norm_to_filepath
 from legalize.transformer.xml_parser import extract_reforms, parse_text_xml
@@ -232,9 +231,6 @@ def commit_one(config: Config, country: str, norm_id: str, dry_run: bool = False
     repo = GitRepo(cc.repo_path, config.git.committer_name, config.git.committer_email)
     repo.init()
 
-    mappings = IdToFilename(cc.mappings_path)
-    mappings.load()
-
     commits_created = 0
     file_path = norm_to_filepath(metadata)
 
@@ -259,16 +255,20 @@ def commit_one(config: Config, country: str, norm_id: str, dry_run: bool = False
             commits_created += 1
             console.print(f"    [green]✓[/green] {reform.fecha} — {info.subject}")
 
-    mappings.set(metadata.identificador, file_path)
-    mappings.save()
-
     return commits_created
 
 
-def commit_all(config: Config, country: str, dry_run: bool = False) -> int:
+def commit_all(
+    config: Config,
+    country: str,
+    dry_run: bool = False,
+    limit: int | None = None,
+    offset: int = 0,
+) -> int:
     """Generate commits for ALL laws in data/json/.
 
     Processes each law independently — does not interleave commits.
+    Supports --limit and --offset for batching large bootstraps.
     """
     cc = config.get_country(country)
     json_dir = Path(cc.data_dir) / "json"
@@ -277,7 +277,17 @@ def commit_all(config: Config, country: str, dry_run: bool = False) -> int:
         return 0
 
     json_files = sorted(json_dir.glob("*.json"))
-    console.print(f"[bold]Commit — generating commits for {len(json_files)} laws[/bold]\n")
+    total_available = len(json_files)
+    json_files = json_files[offset:]
+    if limit:
+        json_files = json_files[:limit]
+    if offset or limit:
+        console.print(
+            f"[bold]Commit — {len(json_files)} laws "
+            f"(of {total_available}, offset={offset})[/bold]\n"
+        )
+    else:
+        console.print(f"[bold]Commit — generating commits for {len(json_files)} laws[/bold]\n")
 
     state = StateStore(cc.state_path)
     state.load()
@@ -289,15 +299,6 @@ def commit_all(config: Config, country: str, dry_run: bool = False) -> int:
         try:
             commits = commit_one(config, country, norm_id, dry_run=dry_run)
             total += commits
-
-            if not dry_run and commits > 0:
-                norm = load_norma_from_json(json_file)
-                if norm.reforms:
-                    state.mark_norma_processed(
-                        norm.metadata.identificador,
-                        norm.reforms[-1].fecha,
-                        len(norm.reforms),
-                    )
         except (OSError, ValueError, subprocess.CalledProcessError):
             errors += 1
             logger.error("Error committing %s, continuing", norm_id, exc_info=True)
@@ -373,7 +374,6 @@ def bootstrap_from_local_xml(
         reforms=tuple(reforms),
     )
 
-    save_raw_xml(cc.data_dir, metadata.identificador, xml_bytes)
     save_structured_json(cc.data_dir, norm)
 
     return commit_one(config, country, metadata.identificador, dry_run=dry_run)

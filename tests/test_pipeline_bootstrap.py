@@ -24,7 +24,6 @@ def bootstrap_config(tmp_path) -> Config:
                 repo_path=repo_path,
                 data_dir=str(tmp_path / "data"),
                 state_path=str(tmp_path / "state.json"),
-                mappings_path=str(tmp_path / "mappings.json"),
             ),
         },
     )
@@ -96,11 +95,10 @@ class TestBootstrapPipeline:
         assert count1 == 4
         assert count2 == 0  # no new commits on second run
 
-    def test_saves_mappings(self, bootstrap_config, constitucion_metadata):
+    def test_saves_json(self, bootstrap_config, constitucion_metadata):
         xml_path = FIXTURES_DIR / "constitucion-sample.xml"
         bootstrap_from_local_xml(bootstrap_config, constitucion_metadata, xml_path)
 
-        assert Path(bootstrap_config.get_country("es").mappings_path).exists()
         assert Path(
             bootstrap_config.get_country("es").data_dir, "json", "BOE-A-1978-31229.json"
         ).exists()

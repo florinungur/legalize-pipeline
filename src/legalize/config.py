@@ -16,8 +16,8 @@ import yaml
 class GitConfig:
     """Git configuration (committer identity, branch, push)."""
 
-    committer_name: str = "leyes-bot"
-    committer_email: str = "bot@legalize.dev"
+    committer_name: str = "Legalize"
+    committer_email: str = "legalize@legalize.dev"
     branch: str = "main"
     push: bool = False
 
@@ -31,7 +31,6 @@ class CountryConfig:
     cache_dir: str = ".cache"
     max_workers: int = 1
     state_path: str = ""  # default: .pipeline/{code}/state.json
-    mappings_path: str = ""  # default: .pipeline/{code}/mappings.json
     source: dict[str, Any] = field(default_factory=dict)
 
 
@@ -52,8 +51,6 @@ class Config:
         cc = self.countries[code]
         if not cc.state_path:
             cc.state_path = f".pipeline/{code}/state.json"
-        if not cc.mappings_path:
-            cc.mappings_path = f".pipeline/{code}/mappings.json"
         return cc
 
 
@@ -84,7 +81,6 @@ def load_config(path: str | Path = "config.yaml", overrides: dict | None = None)
             cache_dir=country_raw.get("cache_dir", ".cache"),
             max_workers=country_raw.get("max_workers", 1),
             state_path=country_raw.get("state_path", ""),
-            mappings_path=country_raw.get("mappings_path", ""),
             source=country_raw.get("source", {}),
         )
 

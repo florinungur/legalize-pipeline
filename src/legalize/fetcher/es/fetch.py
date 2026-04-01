@@ -14,7 +14,7 @@ from rich.console import Console
 
 from legalize.config import Config
 from legalize.models import NormaCompleta
-from legalize.storage import load_norma_from_json, save_raw_xml, save_structured_json
+from legalize.storage import load_norma_from_json, save_structured_json
 from legalize.transformer.xml_parser import extract_reforms, parse_text_xml
 
 console = Console()
@@ -62,7 +62,6 @@ def fetch_one(config: Config, boe_id: str, force: bool = False) -> NormaCompleta
                 reforms=tuple(reforms),
             )
 
-            save_raw_xml(cc.data_dir, boe_id, text_xml)
             save_structured_json(cc.data_dir, norm)
 
             console.print(

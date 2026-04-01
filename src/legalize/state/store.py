@@ -1,7 +1,6 @@
 """State Store — pipeline state tracking.
 
-Persists in state.json which norms have been processed,
-enabling idempotent re-runs.
+Persists in state.json: last summary date and run history.
 """
 
 from __future__ import annotations
@@ -14,14 +13,6 @@ from pathlib import Path
 from typing import Optional
 
 logger = logging.getLogger(__name__)
-
-
-@dataclass
-class NormState:
-    """Processing state of an individual norm."""
-
-    last_version_applied: str  # ISO date
-    total_versions_applied: int
 
 
 @dataclass
@@ -40,7 +31,6 @@ class StateStore:
     def __init__(self, path: str | Path):
         self._path = Path(path)
         self._last_summary: Optional[str] = None
-        self._norms: dict[str, NormState] = {}
         self._runs: list[RunRecord] = []
 
     def load(self) -> None:
@@ -52,12 +42,6 @@ class StateStore:
             data = json.load(f)
 
         self._last_summary = data.get("last_summary")
-
-        for k, v in data.get("norms_processed", {}).items():
-            self._norms[k] = NormState(
-                last_version_applied=v["last_version_applied"],
-                total_versions_applied=v["total_versions_applied"],
-            )
 
         for r in data.get("runs", []):
             self._runs.append(
@@ -75,7 +59,6 @@ class StateStore:
 
         data = {
             "last_summary": self._last_summary,
-            "norms_processed": {k: asdict(v) for k, v in self._norms.items()},
             "runs": [asdict(r) for r in self._runs],
         }
 
@@ -95,13 +78,6 @@ class StateStore:
     def last_summary_date(self, value: date) -> None:
         self._last_summary = value.isoformat()
 
-    def mark_norma_processed(self, norm_id: str, target_date: date, total_versions: int) -> None:
-        """Mark a norm as processed up to a given date."""
-        self._norms[norm_id] = NormState(
-            last_version_applied=target_date.isoformat(),
-            total_versions_applied=total_versions,
-        )
-
     def record_run(
         self,
         summaries: list[str] | None = None,
@@ -117,10 +93,3 @@ class StateStore:
                 errors=errors or [],
             )
         )
-
-    def get_norm_state(self, norm_id: str) -> Optional[NormState]:
-        return self._norms.get(norm_id)
-
-    @property
-    def norms_count(self) -> int:
-        return len(self._norms)

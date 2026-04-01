@@ -1,8 +1,7 @@
 """Tests for the generic multi-country pipeline.
 
 Covers: CountryConfig, countries dispatch, storage round-trip,
-IdToFilename reverse index, StateStore persistence, and
-generic pipeline helpers.
+StateStore persistence, and generic pipeline helpers.
 """
 
 from __future__ import annotations
@@ -33,7 +32,6 @@ from legalize.models import (
     Version,
 )
 from legalize.pipeline import _extract_reforms_generic
-from legalize.state.mappings import IdToFilename
 from legalize.state.store import StateStore
 from legalize.storage import load_norma_from_json, save_structured_json
 
@@ -100,11 +98,11 @@ def _make_norma(
 class TestCountryConfig:
     def test_get_country_from_yaml(self):
         """Config with countries section returns correct CountryConfig."""
-        cc_se = CountryConfig(repo_path="../se", data_dir="../data-se")
+        cc_se = CountryConfig(repo_path="../countries/se", data_dir="../countries/data-se")
         config = Config(countries={"se": cc_se})
         result = config.get_country("se")
-        assert result.repo_path == "../se"
-        assert result.data_dir == "../data-se"
+        assert result.repo_path == "../countries/se"
+        assert result.data_dir == "../countries/data-se"
 
     def test_get_country_without_countries_section_raises(self):
         """Config without countries section raises ValueError."""
@@ -120,11 +118,12 @@ class TestCountryConfig:
 
     def test_country_config_defaults_state_path(self):
         """Empty state_path gets default .pipeline/{code}/state.json."""
-        cc = CountryConfig(repo_path="../se", data_dir="../data-se", state_path="")
+        cc = CountryConfig(
+            repo_path="../countries/se", data_dir="../countries/data-se", state_path=""
+        )
         config = Config(countries={"se": cc})
         result = config.get_country("se")
         assert result.state_path == ".pipeline/se/state.json"
-        assert result.mappings_path == ".pipeline/se/mappings.json"
 
     def test_supported_countries(self):
         """supported_countries() returns sorted list of registered codes."""
@@ -279,37 +278,6 @@ class TestStorageRoundTrip:
 
 
 # ─────────────────────────────────────────────
-# TestMappingsReverseIndex
-# ─────────────────────────────────────────────
-
-
-class TestMappingsReverseIndex:
-    def test_set_and_reverse_lookup(self, tmp_path):
-        """set(id, path) then get_by_filepath(path) returns id."""
-        m = IdToFilename(tmp_path / "mappings.json")
-        m.set("BOE-A-2024-001", "spain/BOE-A-2024-001.md")
-        assert m.get_by_filepath("spain/BOE-A-2024-001.md") == "BOE-A-2024-001"
-
-    def test_reverse_lookup_after_load(self, tmp_path):
-        """save, reload, verify reverse lookup works."""
-        path = tmp_path / "mappings.json"
-
-        m1 = IdToFilename(path)
-        m1.set("BOE-A-2024-002", "spain/BOE-A-2024-002.md")
-        m1.save()
-
-        m2 = IdToFilename(path)
-        m2.load()
-        assert m2.get_by_filepath("spain/BOE-A-2024-002.md") == "BOE-A-2024-002"
-        assert m2.get("BOE-A-2024-002") == "spain/BOE-A-2024-002.md"
-
-    def test_reverse_lookup_missing(self, tmp_path):
-        """get_by_filepath for unknown path returns None."""
-        m = IdToFilename(tmp_path / "mappings.json")
-        assert m.get_by_filepath("nonexistent/path.md") is None
-
-
-# ─────────────────────────────────────────────
 # TestStateStorePersistence
 # ─────────────────────────────────────────────
 
@@ -320,12 +288,6 @@ class TestStateStorePersistence:
         state_path = tmp_path / "state.json"
         data = {
             "last_summary": "2024-03-15",
-            "norms_processed": {
-                "BOE-A-1978-31229": {
-                    "last_version_applied": "2024-02-17",
-                    "total_versions_applied": 12,
-                }
-            },
             "runs": [
                 {
                     "timestamp": "2024-03-15T10:30:00",
@@ -341,24 +303,16 @@ class TestStateStorePersistence:
         store.load()
 
         assert store.last_summary_date == date(2024, 3, 15)
-        ns = store.get_norm_state("BOE-A-1978-31229")
-        assert ns is not None
-        assert ns.last_version_applied == "2024-02-17"
-        assert ns.total_versions_applied == 12
 
     def test_save_json_structure(self, tmp_path):
         """Save state, read raw JSON, verify key structure."""
         state_path = tmp_path / "state.json"
         store = StateStore(state_path)
         store.last_summary_date = date(2024, 6, 1)
-        store.mark_norma_processed("TEST-001", date(2024, 6, 1), 3)
         store.save()
 
         raw = json.loads(state_path.read_text(encoding="utf-8"))
         assert raw["last_summary"] == "2024-06-01"
-        assert "TEST-001" in raw["norms_processed"]
-        assert raw["norms_processed"]["TEST-001"]["last_version_applied"] == "2024-06-01"
-        assert raw["norms_processed"]["TEST-001"]["total_versions_applied"] == 3
         assert isinstance(raw["runs"], list)
 
     def test_round_trip(self, tmp_path):
@@ -367,7 +321,6 @@ class TestStateStorePersistence:
 
         store1 = StateStore(state_path)
         store1.last_summary_date = date(2024, 7, 1)
-        store1.mark_norma_processed("ROUND-001", date(2024, 7, 1), 5)
         store1.record_run(summaries=["2024-07-01"], commits=10, errors=["minor issue"])
         store1.save()
 
@@ -375,10 +328,6 @@ class TestStateStorePersistence:
         store2.load()
 
         assert store2.last_summary_date == date(2024, 7, 1)
-        assert store2.norms_count == 1
-        ns = store2.get_norm_state("ROUND-001")
-        assert ns is not None
-        assert ns.total_versions_applied == 5
 
 
 # ─────────────────────────────────────────────
