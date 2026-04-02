@@ -332,7 +332,7 @@ class TestGenericCommitMultiCountry:
         ],
         ids=["spain", "france", "sweden"],
     )
-    def test_frontmatter_has_correct_pais(self, test_config, make_norm, expected_dir):
+    def test_frontmatter_has_correct_country(self, test_config, make_norm, expected_dir):
         norm = make_norm()
         _save_norm(test_config, norm)
         commit_one(test_config, norm.metadata.country, norm.metadata.identifier)
@@ -343,7 +343,7 @@ class TestGenericCommitMultiCountry:
             / f"{norm.metadata.identifier}.md"
         )
         content = md_path.read_text(encoding="utf-8")
-        assert f'pais: "{norm.metadata.country}"' in content
+        assert f'country: "{norm.metadata.country}"' in content
 
     @pytest.mark.parametrize(
         "make_norm,expected_dir",
@@ -628,16 +628,16 @@ class TestCommitAllMultiCountry:
         repo = Path(test_config.get_country("es").repo_path)
 
         es_content = (repo / "es" / "BOE-A-2000-100.md").read_text(encoding="utf-8")
-        assert 'pais: "es"' in es_content
-        assert 'rango: "ley"' in es_content
+        assert 'country: "es"' in es_content
+        assert 'rank: "ley"' in es_content
 
         fr_content = (repo / "fr" / "LEGITEXT000006070721.md").read_text(encoding="utf-8")
-        assert 'pais: "fr"' in fr_content
-        assert 'rango: "code"' in fr_content
+        assert 'country: "fr"' in fr_content
+        assert 'rank: "code"' in fr_content
 
         se_content = (repo / "se" / "SFS-1962-700.md").read_text(encoding="utf-8")
-        assert 'pais: "se"' in se_content
-        assert 'rango: "lag"' in se_content
+        assert 'country: "se"' in se_content
+        assert 'rank: "lag"' in se_content
 
     def test_total_git_commits(self, test_config):
         norms = [_make_norm_es(), _make_norm_fr(), _make_norm_se()]

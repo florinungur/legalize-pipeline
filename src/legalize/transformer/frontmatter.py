@@ -2,14 +2,14 @@
 
 Generic multi-country format:
   ---
-  titulo: "Constitución Española"
-  identificador: "BOE-A-1978-31229"
-  pais: "es"
-  rango: "constitucion"
-  fecha_publicacion: "1978-12-29"
-  ultima_actualizacion: "2024-02-17"
-  estado: "vigente"
-  fuente: "https://www.boe.es/eli/es/c/1978/12/27/(1)"
+  title: "Constitución Española"
+  identifier: "BOE-A-1978-31229"
+  country: "es"
+  rank: "constitucion"
+  publication_date: "1978-12-29"
+  last_updated: "2024-02-17"
+  status: "vigente"
+  source: "https://www.boe.es/eli/es/c/1978/12/27/(1)"
   ---
 """
 
@@ -26,26 +26,26 @@ def render_frontmatter(metadata: NormMetadata, version_date: date) -> str:
 
     lines = [
         "---",
-        f'titulo: "{_escape_yaml(clean_title)}"',
-        f'identificador: "{metadata.identifier}"',
-        f'pais: "{metadata.country}"',
+        f'title: "{_escape_yaml(clean_title)}"',
+        f'identifier: "{metadata.identifier}"',
+        f'country: "{metadata.country}"',
     ]
 
     if metadata.jurisdiction:
-        lines.append(f'jurisdiccion: "{metadata.jurisdiction}"')
+        lines.append(f'jurisdiction: "{metadata.jurisdiction}"')
 
     lines.extend(
         [
-            f'rango: "{metadata.rank}"',
-            f'fecha_publicacion: "{metadata.publication_date.isoformat()}"',
-            f'ultima_actualizacion: "{version_date.isoformat()}"',
-            f'estado: "{metadata.status.value if isinstance(metadata.status, NormStatus) else metadata.status}"',
-            f'fuente: "{metadata.source}"',
+            f'rank: "{metadata.rank}"',
+            f'publication_date: "{metadata.publication_date.isoformat()}"',
+            f'last_updated: "{version_date.isoformat()}"',
+            f'status: "{metadata.status.value if isinstance(metadata.status, NormStatus) else metadata.status}"',
+            f'source: "{metadata.source}"',
         ]
     )
 
     if metadata.pdf_url:
-        lines.append(f'url_pdf: "{metadata.pdf_url}"')
+        lines.append(f'pdf_url: "{metadata.pdf_url}"')
 
     lines.append("---")
     lines.append("")

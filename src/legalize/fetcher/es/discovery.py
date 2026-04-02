@@ -36,8 +36,8 @@ class BOEDiscovery(NormDiscovery):
         elif self.config:
             cc = self.config.get_country("es")
             scope = ScopeConfig(
-                rangos=cc.source.get("rangos", []),
-                normas_fijas=cc.source.get("normas_fijas", []),
+                ranks=cc.source.get("rangos", []),
+                fixed_norms=cc.source.get("normas_fijas", []),
             )
         else:
             scope = ScopeConfig()

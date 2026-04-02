@@ -30,7 +30,7 @@ class BOEConfig:
 class ScopeConfig:
     """Pipeline scope: which norms to process."""
 
-    rangos: list[str] = field(default_factory=list)  # Empty = all rangos accepted
-    fecha_desde: Optional[date] = None
-    fecha_hasta: Optional[date] = None
-    normas_fijas: list[str] = field(default_factory=list)  # BOE IDs always included
+    ranks: list[str] = field(default_factory=list)  # Empty = all ranks accepted
+    date_from: Optional[date] = None
+    date_to: Optional[date] = None
+    fixed_norms: list[str] = field(default_factory=list)  # BOE IDs always included

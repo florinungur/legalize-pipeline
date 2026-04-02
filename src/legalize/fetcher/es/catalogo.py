@@ -60,8 +60,8 @@ def iter_norms_from_summaries(
     """
     cc = config.get_country("es")
     scope = ScopeConfig(
-        rangos=cc.source.get("rangos", []),
-        normas_fijas=cc.source.get("normas_fijas", []),
+        ranks=cc.source.get("rangos", []),
+        fixed_norms=cc.source.get("normas_fijas", []),
     )
     seen: set[str] = set()
     current = start_date

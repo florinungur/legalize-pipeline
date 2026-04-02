@@ -64,7 +64,7 @@ class TestParseSumario:
 
     def test_filters_by_rank(self):
         """Filters by ranks in scope."""
-        scope = ScopeConfig(rangos=[Rank.LEY_ORGANICA])
+        scope = ScopeConfig(ranks=[Rank.LEY_ORGANICA])
         result = parse_summary(SUMARIO_XML, scope)
         # Only the LO should be present
         assert len(result) >= 1

@@ -33,7 +33,7 @@ def save_structured_json(data_dir: str | Path, norm: ParsedNorm) -> Path:
 
     JSON structure:
     {
-        "metadata": { titulo, identificador, pais, rango, ... },
+        "metadata": { title, identifier, country, rank, ... },
         "articles": [
             {
                 "block_id": "a135",
@@ -78,28 +78,28 @@ def _norm_to_dict(norm: ParsedNorm) -> dict:
 
     # Metadata
     metadata_dict = {
-        "titulo": meta.title.rstrip(". "),
-        "titulo_corto": meta.short_title,
-        "identificador": meta.identifier,
-        "pais": meta.country,
-        "rango": str(meta.rank),
-        "fecha_publicacion": meta.publication_date.isoformat(),
-        "ultima_actualizacion": (
+        "title": meta.title.rstrip(". "),
+        "short_title": meta.short_title,
+        "identifier": meta.identifier,
+        "country": meta.country,
+        "rank": str(meta.rank),
+        "publication_date": meta.publication_date.isoformat(),
+        "last_updated": (
             meta.last_modified.isoformat()
             if meta.last_modified
             else meta.publication_date.isoformat()
         ),
-        "estado": meta.status.value,
-        "departamento": meta.department,
-        "fuente": meta.source,
+        "status": meta.status.value,
+        "department": meta.department,
+        "source": meta.source,
     }
 
     if meta.jurisdiction:
-        metadata_dict["jurisdiccion"] = meta.jurisdiction
+        metadata_dict["jurisdiction"] = meta.jurisdiction
     if meta.pdf_url:
-        metadata_dict["url_pdf"] = meta.pdf_url
+        metadata_dict["pdf_url"] = meta.pdf_url
     if meta.subjects:
-        metadata_dict["materias"] = list(meta.subjects)
+        metadata_dict["subjects"] = list(meta.subjects)
 
     # Articles with all their versions
     articles = []
@@ -171,17 +171,27 @@ def load_norma_from_json(json_path: Path) -> ParsedNorm:
 
     meta = data["metadata"]
     metadata = NormMetadata(
-        title=meta["titulo"],
-        short_title=meta["titulo_corto"],
-        identifier=meta["identificador"],
-        country=meta["pais"],
-        rank=Rank(meta["rango"]),
-        publication_date=date.fromisoformat(meta["fecha_publicacion"]),
-        status=NormStatus(meta["estado"]),
-        department=meta["departamento"],
-        source=meta["fuente"],
-        jurisdiction=meta.get("jurisdiccion"),
-        last_modified=date.fromisoformat(meta["ultima_actualizacion"]),
+        title=meta.get("title", meta.get("titulo", "")),
+        short_title=meta.get("short_title", meta.get("titulo_corto", "")),
+        identifier=meta.get("identifier", meta.get("identificador", "")),
+        country=meta.get("country", meta.get("pais", "")),
+        rank=Rank(meta.get("rank", meta.get("rango", "otro"))),
+        publication_date=date.fromisoformat(
+            meta.get("publication_date", meta.get("fecha_publicacion", "1970-01-01"))
+        ),
+        status=NormStatus(meta.get("status", meta.get("estado", "vigente"))),
+        department=meta.get("department", meta.get("departamento", "")),
+        source=meta.get("source", meta.get("fuente", "")),
+        jurisdiction=meta.get("jurisdiction", meta.get("jurisdiccion")),
+        last_modified=date.fromisoformat(
+            meta.get(
+                "last_updated",
+                meta.get(
+                    "ultima_actualizacion",
+                    meta.get("publication_date", meta.get("fecha_publicacion", "1970-01-01")),
+                ),
+            )
+        ),
     )
 
     blocks = []

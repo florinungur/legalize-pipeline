@@ -134,7 +134,7 @@ def _parse_item(item: etree._Element, department: str, scope: ScopeConfig) -> Di
     rank = _infer_rank_from_title(title)
 
     # Filter by ranks in scope (empty list = accept all)
-    if scope.rangos and rank is not None and rank not in scope.rangos:
+    if scope.ranks and rank is not None and rank not in scope.ranks:
         return None
 
     # If we cannot infer the rank, include it only if it's section 1

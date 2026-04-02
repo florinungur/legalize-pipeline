@@ -88,8 +88,8 @@ def daily(
         max_retries=source.get("max_retries", BOEConfig.max_retries),
     )
     scope = ScopeConfig(
-        rangos=source.get("rangos", []),
-        normas_fijas=source.get("normas_fijas", []),
+        ranks=source.get("rangos", []),
+        fixed_norms=source.get("normas_fijas", []),
     )
     cache = FileCache(cc.cache_dir)
     state = StateStore(cc.state_path)
