@@ -181,6 +181,13 @@ def daily(
                         commits_created += 1
                         console.print(f"    [green]✓[/green] {info.subject}")
 
+                except requests.HTTPError as e:
+                    if e.response is not None and e.response.status_code == 404:
+                        console.print(f"    [dim]⏭ {disp.id_boe} — not consolidated yet[/dim]")
+                    else:
+                        msg = f"Error processing {disp.id_boe}"
+                        logger.error(msg, exc_info=True)
+                        errors.append(msg)
                 except (requests.RequestException, ValueError, OSError):
                     msg = f"Error processing {disp.id_boe}"
                     logger.error(msg, exc_info=True)
