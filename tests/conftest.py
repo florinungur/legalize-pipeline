@@ -28,9 +28,9 @@ def sample_laws(tmp_path):
     json_dir.mkdir()
 
     laws = [
-        ("BOE-A-TEST-001", "Constitución de Test", "constitucion", "vigente", "es"),
-        ("BOE-A-TEST-002", "Ley Orgánica de Pruebas", "ley_organica", "vigente", "es"),
-        ("BOE-A-TEST-003", "Real Decreto Derogado", "real_decreto", "derogada", "es"),
+        ("BOE-A-TEST-001", "Constitución de Test", "constitucion", "in_force", "es"),
+        ("BOE-A-TEST-002", "Ley Orgánica de Pruebas", "ley_organica", "in_force", "es"),
+        ("BOE-A-TEST-003", "Real Decreto Derogado", "real_decreto", "repealed", "es"),
     ]
 
     for i, (lid, title, rank, status, country) in enumerate(laws):

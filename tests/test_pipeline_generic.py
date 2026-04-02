@@ -239,7 +239,7 @@ class TestStorageRoundTrip:
                 "rank": "ley",
                 "publication_date": "2020-01-01",
                 "last_updated": "2020-01-01",
-                "status": "vigente",
+                "status": "in_force",
                 "department": "Test",
                 "source": "https://example.com",
             },

@@ -224,7 +224,7 @@ def commit_one(config: Config, country: str, norm_id: str, dry_run: bool = False
     if dry_run:
         for reform in reforms:
             is_first = reform == reforms[0]
-            label = "bootstrap" if is_first else "reforma"
+            label = "bootstrap" if is_first else "reform"
             console.print(f"    [dim]{reform.date} [{label}][/dim]")
         return 0
 

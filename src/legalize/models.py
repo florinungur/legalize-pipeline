@@ -61,10 +61,10 @@ class Rank(str):
 class CommitType(str, Enum):
     """Commit type in the legislative history (generic, multi-country)."""
 
-    NEW = "nueva"
-    REFORM = "reforma"
-    REPEAL = "derogacion"
-    CORRECTION = "correccion"
+    NEW = "new"
+    REFORM = "reform"
+    REPEAL = "repeal"
+    CORRECTION = "correction"
     BOOTSTRAP = "bootstrap"
     FIX_PIPELINE = "fix-pipeline"
 
@@ -72,9 +72,9 @@ class CommitType(str, Enum):
 class NormStatus(str, Enum):
     """Validity status of a norm (generic, multi-country)."""
 
-    IN_FORCE = "vigente"
-    REPEALED = "derogada"
-    PARTIALLY_REPEALED = "parcialmente_derogada"
+    IN_FORCE = "in_force"
+    REPEALED = "repealed"
+    PARTIALLY_REPEALED = "partially_repealed"
 
 
 # ─────────────────────────────────────────────
@@ -139,7 +139,8 @@ class NormMetadata:
     last_modified: Optional[date] = None
     pdf_url: Optional[str] = None
     subjects: tuple[str, ...] = ()
-    notes: str = ""
+    summary: str = ""
+    extra: tuple[tuple[str, str], ...] = ()  # Country-specific key-value pairs for frontmatter
 
 
 # ─────────────────────────────────────────────

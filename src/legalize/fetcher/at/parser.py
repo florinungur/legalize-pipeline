@@ -305,5 +305,5 @@ class RISMetadataParser(MetadataParser):
             source=eli_url,
             last_modified=geaendert,
             subjects=subjects,
-            notes=bgbl,
+            summary=bgbl,
         )

@@ -76,8 +76,8 @@ def _norm_to_dict(norm: ParsedNorm) -> dict:
     """Convert a ParsedNorm to a serializable dict."""
     meta = norm.metadata
 
-    # Metadata
-    metadata_dict = {
+    # Core fields (same for all countries, match frontmatter)
+    metadata_dict: dict = {
         "title": meta.title.rstrip(". "),
         "short_title": meta.short_title,
         "identifier": meta.identifier,
@@ -90,16 +90,28 @@ def _norm_to_dict(norm: ParsedNorm) -> dict:
             else meta.publication_date.isoformat()
         ),
         "status": meta.status.value,
-        "department": meta.department,
         "source": meta.source,
     }
 
     if meta.jurisdiction:
         metadata_dict["jurisdiction"] = meta.jurisdiction
+
+    # Extra: country-specific fields (department, summary, pdf_url, etc.)
+    # These go into a single dict for the web's JSONB column.
+    extra_dict: dict[str, str] = {}
+    if meta.department:
+        extra_dict["department"] = meta.department
+    if meta.summary:
+        extra_dict["summary"] = meta.summary
     if meta.pdf_url:
-        metadata_dict["pdf_url"] = meta.pdf_url
+        extra_dict["pdf_url"] = meta.pdf_url
     if meta.subjects:
-        metadata_dict["subjects"] = list(meta.subjects)
+        extra_dict["subjects"] = ", ".join(meta.subjects)
+    for key, value in meta.extra:
+        if value and key not in extra_dict:
+            extra_dict[key] = value
+    if extra_dict:
+        metadata_dict["extra"] = extra_dict
 
     # Articles with all their versions
     articles = []
@@ -170,6 +182,18 @@ def load_norma_from_json(json_path: Path) -> ParsedNorm:
         data = json.load(f)
 
     meta = data["metadata"]
+
+    # Reconstruct from extra dict (department, summary, pdf_url, etc.)
+    extra_dict = dict(meta.get("extra", {}))
+    department = extra_dict.pop("department", meta.get("department", ""))
+    summary = extra_dict.pop("summary", "")
+    pdf_url = extra_dict.pop("pdf_url", None)
+    subjects_str = extra_dict.pop("subjects", "")
+    subjects = (
+        tuple(s.strip() for s in subjects_str.split(",") if s.strip()) if subjects_str else ()
+    )
+    extra = tuple(extra_dict.items())
+
     metadata = NormMetadata(
         title=meta["title"],
         short_title=meta["short_title"],
@@ -178,10 +202,14 @@ def load_norma_from_json(json_path: Path) -> ParsedNorm:
         rank=Rank(meta["rank"]),
         publication_date=date.fromisoformat(meta["publication_date"]),
         status=NormStatus(meta["status"]),
-        department=meta["department"],
+        department=department,
         source=meta["source"],
         jurisdiction=meta.get("jurisdiction"),
         last_modified=date.fromisoformat(meta["last_updated"]),
+        summary=summary,
+        pdf_url=pdf_url,
+        subjects=subjects,
+        extra=extra,
     )
 
     blocks = []
