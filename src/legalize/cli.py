@@ -310,6 +310,7 @@ def bootstrap(
 @click.option("--date", "target_date", default=None, help="Date to process (YYYY-MM-DD).")
 @click.option("--repo-path", default=None, help="Override output repo directory.")
 @click.option("--data-dir", default=None, help="Override data directory.")
+@click.option("--legi-dir", default=None, help="France only: path to LEGI dump directory.")
 @click.option("--push", is_flag=True, help="Push to remote after commits.")
 @click.option("--dry-run", is_flag=True, help="Simulate without creating commits.")
 @click.pass_context
@@ -319,6 +320,7 @@ def daily(
     target_date: str | None,
     repo_path: str | None,
     data_dir: str | None,
+    legi_dir: str | None,
     push: bool,
     dry_run: bool,
 ) -> None:
@@ -327,7 +329,7 @@ def daily(
     Examples:
         legalize daily                              # Spain, today
         legalize daily -c es --date 2026-03-28      # Spain, specific date
-        legalize daily -c se                        # Sweden, today
+        legalize daily -c fr --date 2026-04-01      # France, specific date
     """
     config = ctx.obj["config"]
     if repo_path:
@@ -336,6 +338,9 @@ def daily(
     if data_dir:
         cc = config.get_country(country)
         cc.data_dir = data_dir
+    if legi_dir:
+        cc = config.get_country(country)
+        cc.source["legi_dir"] = legi_dir
     if push:
         config.git.push = True
 

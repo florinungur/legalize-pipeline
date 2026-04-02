@@ -96,20 +96,38 @@ class LEGIDiscovery(NormDiscovery):
     def discover_daily(
         self, client: LegislativeClient, target_date: date, **kwargs
     ) -> Iterator[str]:
-        """Discovers norms from the LEGI daily increment.
+        """Discovers norms modified in the LEGI daily increment.
 
-        Daily increments are downloaded from:
-        https://echanges.dila.gouv.fr/OPENDATA/LEGI/LEGI_YYYYMMDD-HHMMSS.tar.gz
-
-        They are extracted in the same base directory. They contain the same
-        directory structure but only with the files that changed that day.
+        Daily increments are extracted to {base}/{YYYYMMDD}-{HHMMSS}/.
+        Only yields LEGITEXT IDs whose NATURE is in scope (CODE, CONSTITUTION).
+        Deduplicates results.
         """
-        # Search in the increment directory
-        # Format: {base}/{YYYYMMDD}-{HHMMSS}/legi/global/...
         date_str = target_date.strftime("%Y%m%d")
-        for increment_dir in self._base.glob(f"{date_str}-*/legi/global"):
-            for struct_path in increment_dir.rglob("texte/struct/LEGITEXT*.xml"):
-                yield struct_path.stem
+        seen: set[str] = set()
+
+        for increment_dir in sorted(self._base.glob(f"{date_str}-*")):
+            global_dir = increment_dir / "legi" / "global"
+            if not global_dir.exists():
+                global_dir = increment_dir
+
+            for struct_path in global_dir.rglob("texte/struct/LEGITEXT*.xml"):
+                norm_id = struct_path.stem
+                if norm_id in seen:
+                    continue
+                seen.add(norm_id)
+
+                try:
+                    nature, _etat = self._read_nature_etat(struct_path)
+                except (etree.XMLSyntaxError, FileNotFoundError):
+                    logger.warning("Error reading %s, skipping", struct_path)
+                    continue
+
+                if nature not in self._natures:
+                    logger.debug("Skipping %s (nature=%s)", norm_id, nature)
+                    continue
+
+                logger.info("Daily: modified %s (%s)", norm_id, nature)
+                yield norm_id
 
     @staticmethod
     def _read_nature_etat(xml_path: Path) -> tuple[str, str]:
