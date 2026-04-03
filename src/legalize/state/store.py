@@ -7,12 +7,38 @@ from __future__ import annotations
 
 import json
 import logging
+import subprocess
 from dataclasses import asdict, dataclass, field
 from datetime import date, datetime
 from pathlib import Path
 from typing import Optional
 
 logger = logging.getLogger(__name__)
+
+
+def infer_last_date_from_git(repo_path: str) -> date | None:
+    """Infer the last processed date from the most recent Source-Date trailer.
+
+    Uses ``git log --grep`` to find only pipeline commits (which carry a
+    Source-Date trailer), ignoring manual commits like README updates.
+    Works for any country — all pipeline commits use the same trailer.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "log", "-1", "--grep=Source-Date:", "--format=%B"],
+            cwd=repo_path,
+            capture_output=True,
+            text=True,
+        )
+        if result.returncode == 0 and result.stdout.strip():
+            for line in result.stdout.splitlines():
+                if line.startswith("Source-Date: "):
+                    inferred = date.fromisoformat(line[len("Source-Date: ") :].strip())
+                    logger.info("Inferred last date from git: %s", inferred)
+                    return inferred
+    except (OSError, ValueError):
+        pass
+    return None
 
 
 @dataclass

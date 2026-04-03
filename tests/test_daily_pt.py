@@ -16,9 +16,9 @@ from unittest.mock import MagicMock, patch
 from legalize.fetcher.pt.daily import (
     _MAJOR_TYPES,
     _discover_daily_http,
-    _infer_last_date_from_git,
     daily,
 )
+from legalize.state.store import infer_last_date_from_git
 
 
 # ─────────────────────────────────────────────
@@ -128,7 +128,7 @@ class TestDiscoverDailyHttp:
 
 
 # ─────────────────────────────────────────────
-# Tests: _infer_last_date_from_git (PT)
+# Tests: infer_last_date_from_git (PT)
 # ─────────────────────────────────────────────
 
 
@@ -147,14 +147,14 @@ class TestInferLastDateFromGitPT:
             capture_output=True,
         )
 
-        assert _infer_last_date_from_git(str(repo)) == date(2026, 3, 28)
+        assert infer_last_date_from_git(str(repo)) == date(2026, 3, 28)
 
     def test_returns_none_for_empty_repo(self, tmp_path):
         repo = tmp_path / "repo"
         repo.mkdir()
         subprocess.run(["git", "init"], cwd=repo, capture_output=True)
 
-        assert _infer_last_date_from_git(str(repo)) is None
+        assert infer_last_date_from_git(str(repo)) is None
 
 
 # ─────────────────────────────────────────────

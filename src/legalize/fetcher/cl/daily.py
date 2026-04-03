@@ -16,42 +16,12 @@ from legalize.committer.git_ops import GitRepo
 from legalize.committer.message import build_commit_info
 from legalize.config import Config
 from legalize.models import CommitType, Reform
-from legalize.state.store import StateStore
+from legalize.state.store import StateStore, infer_last_date_from_git
 from legalize.transformer.markdown import render_norm_at_date
 from legalize.transformer.slug import norm_to_filepath
 
 console = Console()
 logger = logging.getLogger(__name__)
-
-
-def _infer_last_date_from_git(repo_path: str) -> date | None:
-    """Infer the last processed date from git log Source-Date trailers."""
-    try:
-        result = subprocess.run(
-            ["git", "log", "-20", "--format=%B%x00"],
-            cwd=repo_path,
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode == 0:
-            for body in result.stdout.split("\0"):
-                for line in body.splitlines():
-                    if line.startswith("Source-Date: "):
-                        return date.fromisoformat(line[len("Source-Date: ") :].strip())
-    except (OSError, ValueError):
-        pass
-    try:
-        result = subprocess.run(
-            ["git", "log", "-1", "--format=%aI"],
-            cwd=repo_path,
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode == 0 and result.stdout.strip():
-            return date.fromisoformat(result.stdout.strip()[:10])
-    except (OSError, ValueError):
-        pass
-    return None
 
 
 def daily(
@@ -73,7 +43,7 @@ def daily(
     else:
         start = state.last_summary_date
         if start is None:
-            start = _infer_last_date_from_git(cc.repo_path)
+            start = infer_last_date_from_git(cc.repo_path)
         if start is None:
             console.print("[yellow]No last date found. Use --date or run bootstrap.[/yellow]")
             return 0

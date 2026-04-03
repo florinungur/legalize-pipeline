@@ -27,11 +27,11 @@ from legalize.fetcher.fr.daily import (
     _INCREMENT_RE,
     _extract_increment,
     _find_increment_for_date,
-    _infer_last_date_from_git,
     _list_increments,
     daily,
 )
 from legalize.fetcher.fr.discovery import LEGIDiscovery
+from legalize.state.store import infer_last_date_from_git
 
 
 # ─────────────────────────────────────────────
@@ -258,7 +258,7 @@ class TestExtractIncrement:
 
 
 # ─────────────────────────────────────────────
-# Tests: _infer_last_date_from_git
+# Tests: infer_last_date_from_git
 # ─────────────────────────────────────────────
 
 
@@ -278,10 +278,11 @@ class TestInferLastDateFromGit:
             capture_output=True,
         )
 
-        result = _infer_last_date_from_git(str(repo))
+        result = infer_last_date_from_git(str(repo))
         assert result == date(2026, 3, 28)
 
-    def test_falls_back_to_author_date(self, tmp_path):
+    def test_returns_none_without_source_date(self, tmp_path):
+        """Commits without Source-Date trailers are ignored (e.g. README updates)."""
         repo = tmp_path / "repo"
         repo.mkdir()
         subprocess.run(["git", "init"], cwd=repo, capture_output=True)
@@ -295,19 +296,19 @@ class TestInferLastDateFromGit:
             capture_output=True,
         )
 
-        result = _infer_last_date_from_git(str(repo))
-        assert result == date.today()
+        result = infer_last_date_from_git(str(repo))
+        assert result is None
 
     def test_returns_none_for_empty_repo(self, tmp_path):
         repo = tmp_path / "repo"
         repo.mkdir()
         subprocess.run(["git", "init"], cwd=repo, capture_output=True)
 
-        result = _infer_last_date_from_git(str(repo))
+        result = infer_last_date_from_git(str(repo))
         assert result is None
 
     def test_returns_none_for_nonexistent_dir(self, tmp_path):
-        result = _infer_last_date_from_git(str(tmp_path / "nope"))
+        result = infer_last_date_from_git(str(tmp_path / "nope"))
         assert result is None
 
 

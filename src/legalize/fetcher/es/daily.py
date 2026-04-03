@@ -19,7 +19,7 @@ from legalize.committer.git_ops import GitRepo
 from legalize.committer.message import build_commit_info
 from legalize.config import Config
 from legalize.models import CommitType, Disposition, Reform
-from legalize.state.store import StateStore
+from legalize.state.store import StateStore, infer_last_date_from_git
 from legalize.transformer.markdown import render_norm_at_date
 from legalize.transformer.slug import norm_to_filepath
 from legalize.transformer.xml_parser import parse_text_xml
@@ -51,45 +51,6 @@ def _resolve_affected_norms(client, disp: Disposition) -> list[str]:
     except (requests.RequestException, etree.XMLSyntaxError):
         logger.warning("Could not resolve affected norms for %s", disp.id_boe)
         return []
-
-
-def _infer_last_date_from_git(repo_path: str) -> date | None:
-    """Infer the last processed date from the most recent Source-Date trailer in git log.
-
-    Scans the last 20 commits for a Source-Date trailer (pipeline commits have these).
-    Falls back to the author date of the most recent commit.
-    """
-    try:
-        result = subprocess.run(
-            ["git", "log", "-20", "--format=%B%x00"],
-            cwd=repo_path,
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode == 0:
-            for body in result.stdout.split("\0"):
-                for line in body.splitlines():
-                    if line.startswith("Source-Date: "):
-                        inferred = date.fromisoformat(line[len("Source-Date: ") :].strip())
-                        logger.info("Inferred last date from git: %s", inferred)
-                        return inferred
-    except (OSError, ValueError):
-        pass
-    # Fallback: author date of most recent commit
-    try:
-        result = subprocess.run(
-            ["git", "log", "-1", "--format=%aI"],
-            cwd=repo_path,
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode == 0 and result.stdout.strip():
-            inferred = date.fromisoformat(result.stdout.strip()[:10])
-            logger.info("Inferred last date from author date: %s", inferred)
-            return inferred
-    except (OSError, ValueError):
-        pass
-    return None
 
 
 def daily(
@@ -128,12 +89,24 @@ def daily(
         start = state.last_summary_date
         if start is None:
             # Infer from the most recent commit's Source-Date trailer
-            start = _infer_last_date_from_git(cc.repo_path)
+            start = infer_last_date_from_git(cc.repo_path)
         if start is None:
             console.print("[yellow]No last summary found. Use --date or run bootstrap.[/yellow]")
             return 0
         start = start + timedelta(days=1)
         end = date.today()
+
+        # Safety cap: without an explicit --date, limit automatic lookback
+        # to 10 days to avoid processing months of history by accident
+        # (e.g., first CI run after setup, or after a long outage).
+        max_lookback = end - timedelta(days=10)
+        if start < max_lookback:
+            console.print(
+                f"[yellow]Clamping start from {start} to {max_lookback}"
+                f" (max 10 days). Use --date for older dates.[/yellow]"
+            )
+            start = max_lookback
+
         dates_to_process = []
         current = start
         while current <= end:

@@ -14,7 +14,8 @@ from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 from legalize.fetcher.at.client import RISClient
-from legalize.fetcher.at.daily import _infer_last_date_from_git, daily
+from legalize.fetcher.at.daily import daily
+from legalize.state.store import infer_last_date_from_git
 from legalize.fetcher.at.discovery import RISDiscovery
 
 
@@ -189,7 +190,7 @@ class TestRISDiscoverDaily:
 
 
 # ─────────────────────────────────────────────
-# Tests: _infer_last_date_from_git (AT)
+# Tests: infer_last_date_from_git (AT)
 # ─────────────────────────────────────────────
 
 
@@ -208,14 +209,14 @@ class TestInferLastDateFromGitAT:
             capture_output=True,
         )
 
-        assert _infer_last_date_from_git(str(repo)) == date(2026, 3, 28)
+        assert infer_last_date_from_git(str(repo)) == date(2026, 3, 28)
 
     def test_returns_none_for_empty_repo(self, tmp_path):
         repo = tmp_path / "repo"
         repo.mkdir()
         subprocess.run(["git", "init"], cwd=repo, capture_output=True)
 
-        assert _infer_last_date_from_git(str(repo)) is None
+        assert infer_last_date_from_git(str(repo)) is None
 
 
 # ─────────────────────────────────────────────
