@@ -351,6 +351,57 @@ The flow is always the same — the country-specific part is how you discover an
 - Handle `--dry-run` (print what would happen, don't commit)
 - Handle `config.git.push` (push to remote after commits)
 
+### Handling reforms (affected norms pattern)
+
+Many data sources publish reform dispositions (amendments) before updating the consolidated text of the affected law. This means fetching the reform disposition itself may return 404 or stale data. The solution: **process the affected (reformed) norms instead of the reform disposition**.
+
+The pattern:
+
+1. **Classify** each daily entry as NEW, CORRECTION, or REFORM. How you detect this depends on the source — it could be a field in the metadata, a keyword in the title, or a document type code.
+2. **New/Correction** → try to download the entry itself, skip on 404 (not consolidated yet)
+3. **Reform** → resolve which existing laws it modifies, then re-download those:
+
+```python
+# 1. Resolve affected norm IDs.
+#    How: fetch the raw entry document (not consolidated text) and parse its
+#    analysis/reference section. Each source has its own format — the key is
+#    extracting the IDs of the laws being modified.
+affected_ids = resolve_affected_norms(client, entry)
+
+# 2. For each affected norm already in the repo:
+for affected_id in affected_ids:
+    # Idempotency: use 2-arg form (Source-Id + Norm-Id pair).
+    # One reform can affect multiple norms — checking only source_id
+    # would block processing after the first one.
+    if repo.has_commit_with_source_id(entry.id, affected_id):
+        continue
+
+    # Re-download the consolidated text (bypass cache — we need the updated version)
+    meta_xml = client.get_metadata(affected_id)
+    text_xml = client.get_text(affected_id, bypass_cache=True)
+
+    # Skip norms we don't track (lower-rank regulations, etc.)
+    if not (repo_root / file_path).exists():
+        continue
+
+    # Render, compare, and commit as REFORM.
+    # Source-Id = the reform entry (what caused the change)
+    # Norm-Id = the affected law (what changed)
+    reform = Reform(date=current_date, norm_id=entry.id, affected_blocks=())
+    info = build_commit_info(CommitType.REFORM, metadata, reform, ...)
+```
+
+**Key details:**
+- `bypass_cache=True` forces a fresh download — the source may have updated the consolidated text since our last fetch
+- Idempotency uses the 2-arg `has_commit_with_source_id(source_id, norm_id)` — one reform can affect multiple norms
+- The commit's `Source-Id` trailer is the reform entry (what caused the change), `Norm-Id` is the affected law (what changed)
+- Norms not in the repo are silently skipped
+- If the source hasn't updated the consolidated text yet, `write_and_add()` detects no change — no commit is created
+
+**Data source latency:** Some sources populate the analysis/reference metadata asynchronously — fresh entries may not list affected norms for 1-2 days. In normal daily operation this is fine: today's run processes dates from a few days ago, when references are already populated. For backfill runs (processing months of past data), all references will be available.
+
+**Reference:** `fetcher/es/daily.py` implements this pattern for Spain's BOE, resolving affected norms from the raw disposition XML's `<analisis>` section.
+
 ## Step 6: Write tests
 
 Create `tests/test_parser_{code}.py` with fixture data (and optionally `tests/test_daily_{code}.py`):
@@ -419,6 +470,8 @@ legalize daily -c xx --date 2026-03-28 --dry-run
 - [ ] Tested with `legalize fetch -c {code} --all --limit 5`
 - [ ] Tested with `legalize bootstrap -c {code} --dry-run`
 - [ ] Tested with `legalize daily -c {code} --date YYYY-MM-DD --dry-run`
+- [ ] Tested daily reform path: run with a date that has reform dispositions, verify affected norms are resolved and commits created
+- [ ] Tested daily idempotency: re-run the same date, verify 0 duplicate commits
 - [ ] Full bootstrap run
 
 ## Version history strategies

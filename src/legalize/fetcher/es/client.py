@@ -154,6 +154,16 @@ class BOEClient:
         path = f"/api/legislacion-consolidada/id/{id_boe}/metadatos"
         return self._fetch(self._build_url(path))
 
+    def get_disposition_xml(self, id_boe: str) -> bytes:
+        """Fetches the raw BOE disposition XML: /diario_boe/xml.php?id={id}.
+
+        This is the full diary entry XML (not the open data API) which
+        contains an <analisis> section with references to affected norms.
+        """
+        base = self._config.base_url.rsplit("/", 1)[0]
+        url = f"{base}/diario_boe/xml.php?id={id_boe}"
+        return self._fetch(url)
+
     def close(self) -> None:
         self._session.close()
 
