@@ -32,7 +32,7 @@ class RISClient(HttpClient):
         return cls()
 
     def __init__(self) -> None:
-        super().__init__(requests_per_second=10.0)
+        super().__init__(requests_per_second=25.0)
 
     def get_text(self, gesetzesnummer: str, meta_data: bytes | None = None) -> bytes:
         """Fetch all NOR XMLs for a Gesetzesnummer and combine them.
