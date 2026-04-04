@@ -61,15 +61,13 @@ def _id_to_subpath(legi_id: str) -> str:
     return f"{prefix}/{type_code}/{groups}/{legi_id}.xml"
 
 
-def _find_text_dir(base: Path, norm_id: str) -> Path | None:
-    """Finds the directory of a LEGITEXT in the dump.
+def _build_text_dir_index(base: Path) -> dict[str, Path]:
+    """Builds an index of norm_id → text_dir for all LEGITEXTs in the dump.
 
-    The dump organizes texts in parent folders by CID (JORFTEXT or LEGITEXT).
-    Each folder contains texte/struct/, article/, section_ta/.
-
-    Searches recursively in code_en_vigueur/ and TNC_en_vigueur/.
+    Scans once at startup instead of doing rglob per norm_id.
+    With 114k+ texts in the dump, this is much faster than repeated rglobs.
     """
-    # Search directly in the structure by ID
+    index: dict[str, Path] = {}
     for pattern_dir in [
         "legi/global/code_et_TNC_en_vigueur/code_en_vigueur",
         "legi/global/code_et_TNC_en_vigueur/TNC_en_vigueur",
@@ -77,11 +75,28 @@ def _find_text_dir(base: Path, norm_id: str) -> Path | None:
         search_base = base / pattern_dir
         if not search_base.exists():
             continue
-        # The struct is at: .../LEGITEXTXXX/texte/struct/LEGITEXTXXX.xml
-        # Search by glob (the LEGITEXT can be under LEGI/TEXT/... or JORF/TEXT/...)
+        for struct_path in search_base.rglob("texte/struct/LEGITEXT*.xml"):
+            norm_id = struct_path.stem
+            # Go up 3 levels: file → struct/ → texte/ → text_dir/
+            index[norm_id] = struct_path.parent.parent.parent
+    logger.info("Built text directory index: %d entries", len(index))
+    return index
+
+
+def _find_text_dir(base: Path, norm_id: str) -> Path | None:
+    """Finds the directory of a LEGITEXT in the dump (single lookup).
+
+    Falls back to rglob for norm_ids not in the pre-built index
+    (e.g., newly extracted increments).
+    """
+    for pattern_dir in [
+        "legi/global/code_et_TNC_en_vigueur/code_en_vigueur",
+        "legi/global/code_et_TNC_en_vigueur/TNC_en_vigueur",
+    ]:
+        search_base = base / pattern_dir
+        if not search_base.exists():
+            continue
         for struct_path in search_base.rglob(f"texte/struct/{norm_id}.xml"):
-            # struct_path = .../LEGITEXTXXX/texte/struct/LEGITEXTXXX.xml
-            # Go up 3 levels: file → struct/ → texte/ → LEGITEXTXXX/
             return struct_path.parent.parent.parent
     return None
 
@@ -103,8 +118,8 @@ class LEGIClient(LegislativeClient):
 
     def __init__(self, legi_dir: str | Path):
         self._base = Path(legi_dir)
-        # Cache of found text directories
-        self._text_dir_cache: dict[str, Path | None] = {}
+        # Pre-built index: norm_id → text_dir (one rglob at startup)
+        self._text_dir_cache: dict[str, Path] = _build_text_dir_index(self._base)
 
     def get_text(self, norm_id: str) -> bytes:
         """Builds combined XML with structure + article content.
@@ -156,13 +171,17 @@ class LEGIClient(LegislativeClient):
     # ── Path resolution ──
 
     def _get_text_dir(self, norm_id: str) -> Path:
-        """Finds the text directory in the dump (with cache)."""
+        """Finds the text directory in the dump.
+
+        Uses the pre-built index (O(1) lookup). Falls back to rglob
+        for newly extracted increments not in the initial index.
+        """
         if norm_id not in self._text_dir_cache:
-            self._text_dir_cache[norm_id] = _find_text_dir(self._base, norm_id)
-        text_dir = self._text_dir_cache[norm_id]
-        if text_dir is None:
-            raise FileNotFoundError(f"Text not found in dump: {norm_id}. Base: {self._base}")
-        return text_dir
+            found = _find_text_dir(self._base, norm_id)
+            if found is None:
+                raise FileNotFoundError(f"Text not found in dump: {norm_id}. Base: {self._base}")
+            self._text_dir_cache[norm_id] = found
+        return self._text_dir_cache[norm_id]
 
     def _article_path_in_text(self, text_dir: Path, article_id: str) -> Path:
         """Article path relative to the text directory.

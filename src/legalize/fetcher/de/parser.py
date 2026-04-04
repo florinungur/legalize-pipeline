@@ -60,8 +60,171 @@ def _parse_gii_date(s: str | None) -> date | None:
 
 
 def _text_content(el: ET.Element) -> str:
-    """Extract all text, collapsing whitespace."""
+    """Extract all text, collapsing whitespace (simple fallback)."""
     return " ".join("".join(el.itertext()).split())
+
+
+def _extract_inline(el: ET.Element) -> str:
+    """Recursively extract text with inline formatting (like FR's _extract_text_legi).
+
+    Handles SP (emphasis), B (bold), I (italic), BR (newline),
+    FnR (footnote ref, skipped), and other inline elements.
+    """
+    parts: list[str] = []
+
+    if el.text:
+        parts.append(el.text)
+
+    for child in el:
+        tag = child.tag
+
+        if tag in ("B", "b", "strong"):
+            inner = _extract_inline(child)
+            if inner.strip():
+                parts.append(f"**{inner.strip()}**")
+        elif tag in ("I", "i", "em"):
+            inner = _extract_inline(child)
+            if inner.strip():
+                parts.append(f"*{inner.strip()}*")
+        elif tag == "SP":
+            inner = _extract_inline(child)
+            if inner.strip():
+                parts.append(f"*{inner.strip()}*")
+        elif tag == "BR":
+            parts.append("\n")
+        elif tag == "FnR":
+            pass  # footnote references have no visible text
+        elif tag in ("NB", "ABWFORMAT", "noindex", "kommentar", "FILE"):
+            inner = _extract_inline(child)
+            if inner:
+                parts.append(inner)
+        else:
+            # LA, SUP, SUB, other containers — recurse
+            inner = _extract_inline(child)
+            if inner:
+                parts.append(inner)
+
+        if child.tail:
+            parts.append(child.tail)
+
+    return "".join(parts)
+
+
+def _parse_dl(dl_el: ET.Element) -> list[Paragraph]:
+    """Parse a <DL> definition list into numbered/lettered list paragraphs.
+
+    Each DT/DD pair becomes a paragraph like "1. item text".
+    Handles nested DLs recursively.
+    """
+    paragraphs: list[Paragraph] = []
+    dt_text = ""
+
+    for child in dl_el:
+        tag = child.tag
+        if tag == "DT":
+            dt_text = _extract_inline(child).strip()
+        elif tag == "DD":
+            # DD may contain LA (list item text) and nested DL
+            parts: list[str] = []
+
+            # Collect inline text from DD (and its LA children)
+            for dd_child in child:
+                if dd_child.tag == "DL":
+                    pass
+                elif dd_child.tag == "LA":
+                    # LA may itself contain nested DL
+                    la_has_dl = dd_child.find("DL") is not None
+                    if la_has_dl:
+                        # Text before nested DL
+                        la_text = dd_child.text or ""
+                        if la_text.strip():
+                            parts.append(la_text.strip())
+                    else:
+                        inner = _extract_inline(dd_child)
+                        if inner.strip():
+                            parts.append(inner.strip())
+                else:
+                    inner = _extract_inline(dd_child)
+                    if inner.strip():
+                        parts.append(inner.strip())
+
+            # Direct text in DD
+            if child.text and child.text.strip():
+                parts.insert(0, child.text.strip())
+
+            item_text = " ".join(parts)
+            if dt_text and item_text:
+                full_text = f"{dt_text} {item_text}"
+            elif dt_text:
+                full_text = dt_text
+            elif item_text:
+                full_text = item_text
+            else:
+                continue
+
+            paragraphs.append(Paragraph(css_class="list_item", text=full_text))
+
+            # Handle nested DLs (sub-items like a), b), c))
+            for dd_child in child:
+                if dd_child.tag == "DL":
+                    paragraphs.extend(_parse_dl(dd_child))
+                elif dd_child.tag == "LA":
+                    for la_child in dd_child:
+                        if la_child.tag == "DL":
+                            paragraphs.extend(_parse_dl(la_child))
+
+            dt_text = ""
+
+    return paragraphs
+
+
+def _parse_p(p_el: ET.Element) -> list[Paragraph]:
+    """Parse a <P> element, handling embedded DL lists.
+
+    If the P has no DL children, returns a single paragraph.
+    If the P has DL children, splits into intro text + list items + trailing text.
+    """
+    has_dl = p_el.find(".//DL") is not None
+
+    if not has_dl:
+        text = _extract_inline(p_el)
+        clean = " ".join(text.split()) if "\n" not in text else text.strip()
+        if clean.strip():
+            return [Paragraph(css_class="abs", text=clean.strip())]
+        return []
+
+    # P with embedded DL — walk through mixed content
+    paragraphs: list[Paragraph] = []
+    accumulated: list[str] = []
+
+    def flush_text():
+        joined = " ".join(accumulated).strip()
+        if joined:
+            paragraphs.append(Paragraph(css_class="abs", text=joined))
+        accumulated.clear()
+
+    # Intro text
+    if p_el.text and p_el.text.strip():
+        accumulated.append(p_el.text.strip())
+
+    for child in p_el:
+        tag = child.tag
+        if tag == "DL":
+            flush_text()
+            paragraphs.extend(_parse_dl(child))
+        elif tag == "BR":
+            # Line break — flush current text
+            flush_text()
+        else:
+            inner = _extract_inline(child)
+            if inner.strip():
+                accumulated.append(inner.strip())
+
+        if child.tail and child.tail.strip():
+            accumulated.append(child.tail.strip())
+
+    flush_text()
+    return paragraphs
 
 
 def _infer_rank(title: str, jurabk: str) -> str:
@@ -182,31 +345,39 @@ class GIITextParser(TextParser):
         return Block(id=doknr, block_type="article", title=title, versions=(version,))
 
     def _parse_content(self, content: ET.Element) -> list[Paragraph]:
-        """Parse <Content> children into Paragraph objects."""
+        """Parse <Content> children into Paragraph objects.
+
+        Handles P (with embedded DL lists), standalone DL, tables, pre.
+        Uses recursive inline extraction for formatting (bold, italic, etc.).
+        """
         paragraphs: list[Paragraph] = []
 
         for child in content:
             tag = child.tag
-            text = _text_content(child)
-
-            if not text:
-                continue
 
             if tag == "P":
-                paragraphs.append(Paragraph(css_class="abs", text=text))
-            elif tag in ("DL", "DT", "DD"):
-                paragraphs.append(Paragraph(css_class="definition", text=text))
+                paragraphs.extend(_parse_p(child))
+            elif tag == "DL":
+                paragraphs.extend(_parse_dl(child))
+            elif tag in ("DT", "DD"):
+                text = _extract_inline(child).strip()
+                if text:
+                    paragraphs.append(Paragraph(css_class="list_item", text=text))
             elif tag == "table":
-                # Tables: extract row text
                 for row in child.findall(".//row"):
                     row_text = _text_content(row)
                     if row_text:
                         paragraphs.append(Paragraph(css_class="table_row", text=row_text))
             elif tag == "pre":
-                paragraphs.append(Paragraph(css_class="pre", text=text))
+                text = _extract_inline(child).strip()
+                if text:
+                    paragraphs.append(Paragraph(css_class="pre", text=text))
+            elif tag == "BR":
+                pass  # top-level BR between content blocks
             else:
-                # B, I, F, SP, kommentar, etc.
-                paragraphs.append(Paragraph(css_class="abs", text=text))
+                text = _extract_inline(child).strip()
+                if text:
+                    paragraphs.append(Paragraph(css_class="abs", text=text))
 
         return paragraphs
 
@@ -218,6 +389,11 @@ class GIIMetadataParser(MetadataParser):
         """Parse the law-level metadata from the first <norm>.
 
         norm_id is the URL slug (e.g., "gg", "bgb").
+
+        Extracts enriched metadata from the GII XML:
+        - Core fields: title, identifier, country, rank, dates, source
+        - Extra fields: doknr, slug, bgbl_reference, amtabk,
+          stand (current amendment), neufassung (recast), hinweis (pending)
         """
         root = ET.fromstring(data)
         norms = root.findall(".//norm")
@@ -231,6 +407,7 @@ class GIIMetadataParser(MetadataParser):
         jurabk = (meta.findtext("jurabk") or norm_id).strip()
         langue = (meta.findtext("langue") or meta.findtext("kurzue") or jurabk).strip()
         kurzue = (meta.findtext("kurzue") or "").strip()
+        amtabk = (meta.findtext("amtabk") or "").strip()
 
         # Date
         ausfertigung = meta.find("ausfertigung-datum")
@@ -242,12 +419,13 @@ class GIIMetadataParser(MetadataParser):
         zitstelle = meta.findtext("fundstelle/zitstelle") or ""
         bgbl_ref = f"{periodikum} {zitstelle}".strip()
 
-        # Standangabe (amendment status)
-        stand_kommentar = ""
+        # Standangabe — extract by type (Stand, Neuf, Hinweis, Sonst)
+        stand_by_type: dict[str, str] = {}
         for stand in meta.findall("standangabe"):
-            kommentar = stand.findtext("standkommentar")
+            standtyp = (stand.findtext("standtyp") or "").strip()
+            kommentar = (stand.findtext("standkommentar") or "").strip()
             if kommentar:
-                stand_kommentar = kommentar.strip()
+                stand_by_type[standtyp] = kommentar
 
         # Document number (BJNR...)
         doknr = root.get("doknr", "")
@@ -257,12 +435,21 @@ class GIIMetadataParser(MetadataParser):
         # Build identifier: use jurabk (abbreviation) as it's unique and stable
         identifier = jurabk.upper().replace(" ", "-")
 
+        # Extra fields — enriched metadata
         extra: list[tuple[str, str]] = []
         if doknr:
             extra.append(("doknr", doknr))
         extra.append(("slug", norm_id))
-        if stand_kommentar:
-            extra.append(("stand", stand_kommentar))
+        if bgbl_ref:
+            extra.append(("bgbl_reference", bgbl_ref))
+        if amtabk and amtabk != jurabk:
+            extra.append(("amtabk", amtabk))
+        if stand_by_type.get("Stand"):
+            extra.append(("stand", stand_by_type["Stand"]))
+        if stand_by_type.get("Neuf"):
+            extra.append(("neufassung", stand_by_type["Neuf"]))
+        if stand_by_type.get("Hinweis"):
+            extra.append(("hinweis", stand_by_type["Hinweis"]))
 
         return NormMetadata(
             title=langue,
@@ -274,6 +461,5 @@ class GIIMetadataParser(MetadataParser):
             status=NormStatus.IN_FORCE,
             department="BMJ (Bundesministerium der Justiz)",
             source=f"https://www.gesetze-im-internet.de/{norm_id}/",
-            summary=bgbl_ref,
             extra=tuple(extra),
         )

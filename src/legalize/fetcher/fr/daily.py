@@ -80,17 +80,26 @@ def _download_increment(session: requests.Session, url: str, dest_path: Path) ->
     logger.info("Downloaded %s (%.1f MB)", dest_path.name, size_mb)
 
 
-def _extract_increment(tar_path: Path, legi_dir: Path, increment_dir: Path) -> None:
-    """Extract increment tar.gz to both legi_dir and increment_dir.
+def _extract_increment(tar_path: Path, legi_dir: Path) -> set[str]:
+    """Extract increment tar.gz to legi_dir and return discovered LEGITEXT IDs.
 
-    - legi_dir: merge into existing dump (overwrites modified files)
-    - increment_dir: separate copy for discover_daily() to scan
+    Only extracts once (to legi_dir, merging into the existing dump).
+    Scans tar members to find modified LEGITEXT struct files — this is
+    much faster than extracting to a separate dir and doing rglob.
     """
+    legitext_ids: set[str] = set()
+
     with tarfile.open(tar_path, "r:gz") as tar:
-        tar.extractall(path=increment_dir, filter="data")
+        for member in tar.getmembers():
+            # Detect LEGITEXT struct files in the tar
+            if "/texte/struct/LEGITEXT" in member.name and member.name.endswith(".xml"):
+                # Extract norm_id from path: .../texte/struct/LEGITEXT000006069414.xml
+                norm_id = Path(member.name).stem
+                legitext_ids.add(norm_id)
         tar.extractall(path=legi_dir, filter="data")
 
-    logger.info("Extracted to %s and %s", increment_dir, legi_dir)
+    logger.info("Extracted %s: %d LEGITEXT(s) modified", tar_path.name, len(legitext_ids))
+    return legitext_ids
 
 
 def daily(
@@ -100,7 +109,6 @@ def daily(
 ) -> int:
     """Daily processing for France: download LEGI increment and process changes."""
     from legalize.fetcher.fr.client import LEGIClient
-    from legalize.fetcher.fr.discovery import LEGIDiscovery
     from legalize.fetcher.fr.parser import LEGIMetadataParser, LEGITextParser
 
     cc = config.get_country("fr")
@@ -149,6 +157,7 @@ def daily(
 
     text_parser = LEGITextParser()
     meta_parser = LEGIMetadataParser()
+    client = LEGIClient(legi_path)
 
     for current_date in dates_to_process:
         console.print(f"\n  [bold]{current_date}[/bold]")
@@ -160,8 +169,6 @@ def daily(
             continue
 
         filename, url = match
-        increment_name = filename.replace(".tar.gz", "").replace("LEGI_", "")
-        increment_dir = legi_path / increment_name
 
         if dry_run:
             console.print(f"    [dim]Would download {filename}[/dim]")
@@ -172,23 +179,15 @@ def daily(
             tar_path = Path(tmpdir) / filename
             try:
                 _download_increment(session, url, tar_path)
-                _extract_increment(tar_path, legi_path, increment_dir)
+                all_modified = _extract_increment(tar_path, legi_path)
             except (requests.RequestException, tarfile.TarError, OSError) as e:
                 msg = f"Error downloading/extracting {filename}: {e}"
                 logger.error(msg, exc_info=True)
                 errors.append(msg)
                 continue
 
-        discovery = LEGIDiscovery(legi_path)
-        client = LEGIClient(legi_path)
-
-        try:
-            modified_ids = list(discovery.discover_daily(client, current_date))
-        except Exception:
-            msg = f"Error discovering changes for {current_date}"
-            logger.error(msg, exc_info=True)
-            errors.append(msg)
-            continue
+        # Filter to norms we track (already in client index = in-scope codes)
+        modified_ids = [nid for nid in all_modified if nid in client._text_dir_cache]
 
         if not modified_ids:
             console.print("    No texts modified in scope")

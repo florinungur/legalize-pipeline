@@ -147,7 +147,8 @@ class TestGIIMetadataParser:
     def test_bgbl_reference(self):
         xml = (FIXTURES / "gii-gg.xml").read_bytes()
         meta = self.parser.parse(xml, "gg")
-        assert "BGBl" in meta.summary
+        extra = dict(meta.extra)
+        assert "BGBl" in extra["bgbl_reference"]
 
     def test_source_url(self):
         xml = (FIXTURES / "gii-gg.xml").read_bytes()
@@ -173,6 +174,69 @@ class TestGIIMetadataParser:
         extra = dict(meta.extra)
         assert "stand" in extra
         assert "geändert" in extra["stand"]
+
+    def test_enriched_metadata_amtabk(self):
+        """amtabk (official abbreviation) is extracted when different from jurabk."""
+        xml = b"""<dokumente doknr="BJNR001950896">
+        <norm><metadaten>
+          <jurabk>BGB</jurabk>
+          <amtabk>BGB</amtabk>
+          <ausfertigung-datum>1896-08-18</ausfertigung-datum>
+          <fundstelle><periodikum>RGBl</periodikum><zitstelle>1896, 195</zitstelle></fundstelle>
+          <langue>Buergerliches Gesetzbuch</langue>
+        </metadaten></norm></dokumente>"""
+        meta = self.parser.parse(xml, "bgb")
+        extra = dict(meta.extra)
+        # amtabk == jurabk, so it should NOT appear (no duplication)
+        assert "amtabk" not in extra
+
+    def test_enriched_metadata_neufassung(self):
+        """Neufassung (recast) standangabe is extracted."""
+        xml = b"""<dokumente doknr="BJNR001270871">
+        <norm><metadaten>
+          <jurabk>StGB</jurabk>
+          <ausfertigung-datum>1871-05-15</ausfertigung-datum>
+          <fundstelle><periodikum>RGBl</periodikum><zitstelle>1871, 127</zitstelle></fundstelle>
+          <langue>Strafgesetzbuch</langue>
+          <standangabe><standtyp>Neuf</standtyp>
+            <standkommentar>Neugefasst durch Bek. v. 13.11.1998 I 3322;</standkommentar>
+          </standangabe>
+          <standangabe><standtyp>Stand</standtyp>
+            <standkommentar>zuletzt geaendert</standkommentar>
+          </standangabe>
+        </metadaten></norm></dokumente>"""
+        meta = self.parser.parse(xml, "stgb")
+        extra = dict(meta.extra)
+        assert extra["neufassung"] == "Neugefasst durch Bek. v. 13.11.1998 I 3322;"
+        assert extra["stand"] == "zuletzt geaendert"
+
+    def test_enriched_metadata_hinweis(self):
+        """Hinweis (pending amendment) standangabe is extracted."""
+        xml = b"""<dokumente doknr="BJNR001270871">
+        <norm><metadaten>
+          <jurabk>StGB</jurabk>
+          <ausfertigung-datum>1871-05-15</ausfertigung-datum>
+          <fundstelle><periodikum>RGBl</periodikum><zitstelle>1871, 127</zitstelle></fundstelle>
+          <langue>Strafgesetzbuch</langue>
+          <standangabe><standtyp>Stand</standtyp>
+            <standkommentar>current</standkommentar>
+          </standangabe>
+          <standangabe><standtyp>Hinweis</standtyp>
+            <standkommentar>pending amendment</standkommentar>
+          </standangabe>
+        </metadaten></norm></dokumente>"""
+        meta = self.parser.parse(xml, "stgb")
+        extra = dict(meta.extra)
+        assert extra["hinweis"] == "pending amendment"
+
+    def test_enriched_bgbl_reference_in_extra(self):
+        """BGBl reference is stored in extra, not summary."""
+        xml = (FIXTURES / "gii-gg.xml").read_bytes()
+        meta = self.parser.parse(xml, "gg")
+        extra = dict(meta.extra)
+        assert "bgbl_reference" in extra
+        assert extra["bgbl_reference"] == "BGBl 1949, 1"
+        assert meta.summary == ""
 
 
 class TestCountriesDispatch:

@@ -39,7 +39,7 @@ countries:
   at:
     repo_path: "../countries/at"
     data_dir: "../countries/data-at"
-    max_workers: 1
+    max_workers: 3
     source: {}  # RIS OGD API, no config needed
 
   de:

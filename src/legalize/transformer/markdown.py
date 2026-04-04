@@ -29,6 +29,9 @@ _SIMPLE_CSS_MAP: dict[str, Callable[[str], str]] = {
     "centro_negrita": lambda t: f"# {t}\n",
     "firma_rey": lambda t: f"**{t}**\n",
     "firma_ministro": lambda t: f"{t}\n",
+    "list_item": lambda t: f"{t}\n",
+    "table_row": lambda t: f"{t}\n",
+    "pre": lambda t: f"```\n{t}\n```\n",
 }
 
 # Classes requiring lookahead (combination with the next paragraph)

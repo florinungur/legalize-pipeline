@@ -299,16 +299,20 @@ def generic_fetch_all(
 
     Uses NormDiscovery.discover_all() then fetches each norm.
     Supports --limit for testing (fetch only N norms).
+    Uses max_workers from config for parallel fetching.
     """
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+
     from legalize.countries import get_client_class, get_discovery_class
 
     cc = config.get_country(country)
     client_cls = get_client_class(country)
     discovery_cls = get_discovery_class(country)
 
-    # Discover all norm IDs
+    # Discover all norm IDs (pass data_dir for discovery cache)
+    source_with_cache = {**cc.source, "cache_dir": cc.data_dir}
     with client_cls.create(cc) as client:
-        discovery = discovery_cls.create(cc.source)
+        discovery = discovery_cls.create(source_with_cache)
         norm_ids = list(discovery.discover_all(client))
 
     if limit:
@@ -316,17 +320,47 @@ def generic_fetch_all(
 
     console.print(f"[bold]Fetch — {len(norm_ids)} norms for {country.upper()}[/bold]\n")
 
-    fetched = []
-    errors = 0
-    for i, norm_id in enumerate(norm_ids, 1):
-        norm = generic_fetch_one(config, country, norm_id, force=force)
-        if norm is not None:
-            fetched.append(norm_id)
-        else:
-            errors += 1
+    workers = getattr(cc, "max_workers", 1) or 1
 
-        if i % 50 == 0:
-            console.print(f"  [dim][{i}/{len(norm_ids)}] {len(fetched)} OK, {errors} errors[/dim]")
+    if workers <= 1:
+        # Sequential (original behavior)
+        fetched = []
+        errors = 0
+        for i, norm_id in enumerate(norm_ids, 1):
+            norm = generic_fetch_one(config, country, norm_id, force=force)
+            if norm is not None:
+                fetched.append(norm_id)
+            else:
+                errors += 1
+            if i % 50 == 0:
+                console.print(
+                    f"  [dim][{i}/{len(norm_ids)}] {len(fetched)} OK, {errors} errors[/dim]"
+                )
+    else:
+        # Parallel fetch with N workers
+        console.print(f"  [dim]Using {workers} parallel workers[/dim]\n")
+        fetched = []
+        errors = 0
+        done = 0
+
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = {
+                pool.submit(generic_fetch_one, config, country, nid, force): nid for nid in norm_ids
+            }
+            for future in as_completed(futures):
+                done += 1
+                try:
+                    norm = future.result()
+                    if norm is not None:
+                        fetched.append(futures[future])
+                    else:
+                        errors += 1
+                except Exception:
+                    errors += 1
+                if done % 50 == 0:
+                    console.print(
+                        f"  [dim][{done}/{len(norm_ids)}] {len(fetched)} OK, {errors} errors[/dim]"
+                    )
 
     console.print(f"\n[bold green]✓ {len(fetched)} norms fetched[/bold green]")
     if errors:

@@ -219,25 +219,24 @@ class TestListIncrements:
 
 
 class TestExtractIncrement:
-    def test_extracts_to_both_dirs(self, tmp_path):
+    def test_extracts_to_legi_dir_and_returns_ids(self, tmp_path):
         tar_path = _make_increment_tar(
             tmp_path, "20260401", {"LEGITEXT000006069414": STRUCT_XML_CODE}
         )
         legi_dir = tmp_path / "legi_dump"
-        increment_dir = tmp_path / "20260401-180000"
         legi_dir.mkdir()
-        increment_dir.mkdir()
 
-        _extract_increment(tar_path, legi_dir, increment_dir)
+        ids = _extract_increment(tar_path, legi_dir)
 
-        # Both dirs should have the struct file
-        for base in (legi_dir, increment_dir):
-            struct = list(base.rglob("LEGITEXT000006069414.xml"))
-            assert len(struct) == 1
-            assert "CODE" in struct[0].read_text()
+        # Should extract to legi_dir
+        struct = list(legi_dir.rglob("LEGITEXT000006069414.xml"))
+        assert len(struct) == 1
+        assert "CODE" in struct[0].read_text()
+
+        # Should return discovered LEGITEXT IDs
+        assert ids == {"LEGITEXT000006069414"}
 
     def test_merges_into_existing_legi_dir(self, tmp_path):
-        # Pre-existing file in legi_dir
         legi_dir = tmp_path / "legi_dump"
         existing = legi_dir / "legi" / "global" / "existing.txt"
         existing.parent.mkdir(parents=True)
@@ -246,15 +245,26 @@ class TestExtractIncrement:
         tar_path = _make_increment_tar(
             tmp_path, "20260401", {"LEGITEXT000006069414": STRUCT_XML_CODE}
         )
-        increment_dir = tmp_path / "20260401-180000"
-        increment_dir.mkdir()
 
-        _extract_increment(tar_path, legi_dir, increment_dir)
+        _extract_increment(tar_path, legi_dir)
 
-        # Existing file should still be there
         assert existing.read_text() == "existing"
-        # New file should be there too
         assert list(legi_dir.rglob("LEGITEXT000006069414.xml"))
+
+    def test_returns_multiple_ids(self, tmp_path):
+        tar_path = _make_increment_tar(
+            tmp_path,
+            "20260401",
+            {
+                "LEGITEXT000006069414": STRUCT_XML_CODE,
+                "LEGITEXT000006071194": STRUCT_XML_CONSTITUTION,
+            },
+        )
+        legi_dir = tmp_path / "legi_dump"
+        legi_dir.mkdir()
+
+        ids = _extract_increment(tar_path, legi_dir)
+        assert ids == {"LEGITEXT000006069414", "LEGITEXT000006071194"}
 
 
 # ─────────────────────────────────────────────
