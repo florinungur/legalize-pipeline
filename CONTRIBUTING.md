@@ -10,7 +10,7 @@ Writing a fetcher for your country's legislation is the highest-impact contribut
 git clone https://github.com/legalize-dev/legalize-pipeline.git
 cd legalize-pipeline
 pip install -e ".[dev]"
-pytest tests/ -v        # 147 tests
+pytest tests/ -v        # 459 tests
 ruff check src/ tests/  # lint
 ```
 

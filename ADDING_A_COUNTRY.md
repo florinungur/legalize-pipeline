@@ -290,9 +290,14 @@ legalize-{code}/
 
 The `norm_to_filepath()` function generates `{country}/{identifier}.md` automatically.
 
-## Step 5: Implement daily processing
+## Step 5: Daily processing
 
-Create `src/legalize/fetcher/{code}/daily.py` with a `daily()` function. The CLI dispatches to this file via dynamic import (`legalize.fetcher.{code}.daily`). Without it, `legalize daily -c {code}` will print "not yet implemented".
+Most countries use `generic_daily` from `pipeline.py`, which handles the standard flow: discover → fetch → parse → commit. **You don't need a custom daily.py** unless your country has a non-standard daily flow (e.g., Spain resolves reform dispositions, France processes incremental tar.gz dumps).
+
+Countries using `generic_daily` (no custom daily.py needed): DE, SE, AT, CL, LT, PT, UY.
+Countries with custom daily.py: ES (`fetcher/es/daily.py`), FR (`fetcher/fr/daily.py`).
+
+If you do need a custom flow, create `src/legalize/fetcher/{code}/daily.py` with a `daily()` function. The CLI dispatches to this file via dynamic import (`legalize.fetcher.{code}.daily`).
 
 ```python
 from datetime import date

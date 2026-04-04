@@ -18,6 +18,7 @@ Each law is a file. Each reform is a commit. Every country is a repo.
 |---------|------|--------|
 | Spain | [legalize-es](https://github.com/legalize-dev/legalize-es) | BOE |
 | France | [legalize-fr](https://github.com/legalize-dev/legalize-fr) | LEGI (Legifrance) |
+| Germany | [legalize-de](https://github.com/legalize-dev/legalize-de) | gesetze-im-internet.de |
 | Austria | [legalize-at](https://github.com/legalize-dev/legalize-at) | RIS (Bundeskanzleramt) |
 | Sweden | [legalize-se](https://github.com/legalize-dev/legalize-se) | SFSR (Riksdag) |
 
@@ -30,15 +31,24 @@ src/legalize/
     es/                   Spain (BOE API)
       client.py             HTTP client with rate limiting, caching
       discovery.py          Norm discovery via catalog + sumarios
-      parser.py             BOE XML -> Bloque/NormaMetadata
+      parser.py             BOE XML -> Block/NormMetadata
     fr/                   France (LEGI XML dump)
       client.py             Local XML dump reader
       discovery.py          Filesystem-based discovery
-      parser.py             LEGI XML -> Bloque/NormaMetadata
-    se/                   Sweden (SFSR)
+      parser.py             LEGI XML -> Block/NormMetadata
+    de/                   Germany (gesetze-im-internet.de)
+      client.py             GIIClient: ZIP download + XML extraction
+      discovery.py          TOC XML discovery (~6900 laws)
+      parser.py             gii-norm XML -> Block/NormMetadata
+    se/                   Sweden (SFSR / Riksdag)
       client.py             Riksdag API client
       discovery.py          SFS catalog discovery
-      parser.py             Swedish XML -> Bloque/NormaMetadata
+      parser.py             Swedish XML -> Block/NormMetadata
+    at/                   Austria (RIS OGD API)
+    cl/                   Chile (BCN / LeyChile)
+    lt/                   Lithuania (TAR / data.gov.lt)
+    pt/                   Portugal (DRE SQLite dump)
+    uy/                   Uruguay (IMPO)
   transformer/          # Generic: XML -> Markdown
     xml_parser.py         Bloque/Version extraction, reform timeline
     markdown.py           Bloque -> Markdown (CSS class mapping)
@@ -126,12 +136,13 @@ See [ADDING_A_COUNTRY.md](ADDING_A_COUNTRY.md) for the full walkthrough.
 |---------|--------|--------|------|
 | Spain | Live | [BOE](https://www.boe.es/) | [legalize-es](https://github.com/legalize-dev/legalize-es) |
 | France | Live | [Legifrance](https://www.legifrance.gouv.fr/) | [legalize-fr](https://github.com/legalize-dev/legalize-fr) |
+| Germany | Live | [gesetze-im-internet.de](https://www.gesetze-im-internet.de/) | [legalize-de](https://github.com/legalize-dev/legalize-de) |
 | Austria | Live | [RIS](https://www.ris.bka.gv.at/) | [legalize-at](https://github.com/legalize-dev/legalize-at) |
-| Sweden | Beta | [Riksdag](https://www.riksdagen.se/) | [legalize-se](https://github.com/legalize-dev/legalize-se) |
-| Germany | Wanted | [BGBL](https://www.bgbl.de/) | Help wanted! |
-| Portugal | Wanted | [DRE](https://dre.pt/) | Help wanted! |
-| Netherlands | Wanted | [Overheid.nl](https://www.overheid.nl/) | Help wanted! |
-| Brazil | Wanted | [LeXML](https://www.lexml.gov.br/) | Help wanted! |
+| Sweden | Live | [Riksdag](https://www.riksdagen.se/) | [legalize-se](https://github.com/legalize-dev/legalize-se) |
+| Chile | Fetcher ready | [BCN](https://www.leychile.cl/) | [legalize-cl](https://github.com/legalize-dev/legalize-cl) |
+| Lithuania | Fetcher ready | [TAR](https://www.e-tar.lt/) | [legalize-lt](https://github.com/legalize-dev/legalize-lt) |
+| Portugal | Fetcher ready | [DRE](https://dre.pt/) | [legalize-pt](https://github.com/legalize-dev/legalize-pt) |
+| Uruguay | Fetcher ready | [IMPO](https://www.impo.com.uy/) | [legalize-uy](https://github.com/legalize-dev/legalize-uy) |
 
 Want to add your country? See [ADDING_A_COUNTRY.md](ADDING_A_COUNTRY.md).
 

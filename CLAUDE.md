@@ -8,31 +8,27 @@ Legalize is a multi-country platform that converts official legislation into ver
 
 **Repos:**
 - `legalize-dev/legalize` -- public hub: README, index of countries, docs
-- `legalize-dev/legalize-es` -- public: Spanish laws as Markdown + git history (8,642 laws)
-- `legalize-dev/legalize-fr` -- public: French laws (80 codes)
-- `legalize-dev/legalize-se` -- public: Swedish laws (in progress)
+- `legalize-dev/legalize-es` -- public: Spanish laws (12,235 laws)
+- `legalize-dev/legalize-fr` -- public: French laws (83 codes)
+- `legalize-dev/legalize-de` -- public: German laws (5,729 laws)
+- `legalize-dev/legalize-at` -- public: Austrian laws
+- `legalize-dev/legalize-se` -- public: Swedish laws
 - `legalize-dev/legalize-pipeline` -- public: this repo. Python engine that generates the public repos.
 
 **Local structure:**
 ```
 ~/autonomo/legalize/
 ├── engine/              ← this repo (legalize-pipeline)
-├── countries/
-│   ├── es/              ← Spanish laws (legalize-es)
-│   ├── fr/              ← French laws (legalize-fr)
-│   ├── at/              ← Austrian laws (legalize-at)
-│   ├── se/              ← Swedish laws (legalize-se)
-│   ├── data-es/         ← Spain XML + JSON cache (no git)
-│   ├── data-fr/         ← France data
-│   ├── data-at/         ← Austria data
-│   └── data-se/         ← Sweden data
+├── countries/           ← may be empty (see "Local Storage" section below)
+│   ├── {code}/          ← country repos (legalize-{code}), cloned on demand
+│   └── data-{code}/     ← data caches (no git), regenerable via fetch
 ├── hub/                 ← hub repo (legalize)
 └── web/                 ← legalize.dev website
 ```
 
 **Website:** https://legalize.dev
 
-Processing Spanish (BOE), French (LEGI), and Swedish (SFSR) legislation. Architecture is multi-country with a unified pipeline.
+Processing 9 countries: ES (BOE), FR (LEGI), DE (GII), AT (RIS), SE (SFSR), CL (BCN), LT (TAR), PT (DRE), UY (IMPO). Architecture is multi-country with a unified pipeline.
 
 ## Language & Stack
 
@@ -49,7 +45,7 @@ Processing Spanish (BOE), French (LEGI), and Swedish (SFSR) legislation. Archite
 # Install
 pip install -e ".[dev]"
 
-# Run tests (147 passing)
+# Run tests (459 passing)
 pytest tests/ -v
 
 # Lint
@@ -92,21 +88,27 @@ Country-specific fetchers live in subpackages. Each implements the 4 interfaces 
 - `base.py` -- Abstract interfaces: `LegislativeClient`, `NormDiscovery`, `TextParser`, `MetadataParser`
 - `cache.py` -- `FileCache`: local XML cache with TTL
 - `es/` -- Spain (BOE API)
-  - `client.py` -- `BOEClient`: HTTP with rate limiting (2 req/s), exponential backoff, ETag/Last-Modified cache
+  - `client.py` -- `BOEClient`: HTTP with rate limiting, ETag/Last-Modified cache
   - `discovery.py` -- `BOEDiscovery`: norm discovery via catalog + sumarios
   - `parser.py` -- `BOETextParser`, `BOEMetadataParser`: BOE XML parsing
-  - `sumario.py` -- daily BOE summary parsing
-  - `catalogo.py` -- catalog-based norm discovery
-  - `metadata.py` -- BOE metadata extraction
-  - `titulos.py` -- title normalization
+  - `sumario.py`, `catalogo.py`, `metadata.py`, `titulos.py` -- support modules
 - `fr/` -- France (LEGI XML dump)
   - `client.py` -- `LEGIClient`: local XML dump reader
   - `discovery.py` -- `LEGIDiscovery`: filesystem-based discovery
   - `parser.py` -- `LEGITextParser`, `LEGIMetadataParser`: LEGI XML parsing
+- `de/` -- Germany (gesetze-im-internet.de)
+  - `client.py` -- `GIIClient(HttpClient)`: ZIP download + XML extraction
+  - `discovery.py` -- `GIIDiscovery`: TOC XML discovery (~6900 laws)
+  - `parser.py` -- `GIITextParser`, `GIIMetadataParser`: gii-norm XML parsing
 - `se/` -- Sweden (SFSR / Riksdag)
   - `client.py` -- `SwedishClient`: Riksdag API client
   - `discovery.py` -- `SwedishDiscovery`: SFS catalog discovery
   - `parser.py` -- `SwedishTextParser`, `SwedishMetadataParser`: Swedish XML parsing
+- `at/` -- Austria (RIS OGD API)
+- `cl/` -- Chile (BCN / LeyChile)
+- `lt/` -- Lithuania (TAR / data.gov.lt)
+- `pt/` -- Portugal (DRE SQLite dump)
+- `uy/` -- Uruguay (IMPO)
 
 ### Transformer (`transformer/`)
 - `xml_parser.py` -- `parse_text_xml(bytes) -> list[Block]`, `extract_reforms()`, `get_block_at_date()`
@@ -165,7 +167,7 @@ country: "es"
 rank: "constitucion"
 publication_date: "1978-12-29"
 last_updated: "2024-02-17"
-status: "vigente"
+status: "in_force"
 source: "https://www.boe.es/eli/es/c/1978/12/27/(1)"
 ---
 ```
@@ -193,6 +195,44 @@ Base: `https://www.boe.es/datosabiertos/`
 - `/api/legislacion-consolidada?limit=-1` -- full catalog (1065 norms in scope)
 - `/api/legislacion-consolidada/id/{id}/texto` -- full XML with versioned `<bloque>` elements
 - `/api/legislacion-consolidada/id/{id}/metadatos` -- norm metadata
+
+## Local Storage & Working Without Local Repos
+
+Country repos and data directories are NOT required on the developer's machine.
+All production workflows run in CI (GitHub Actions). Local copies are only needed
+for development and debugging.
+
+**What lives where:**
+- Country repos (`countries/{code}/`) → GitHub (`legalize-dev/legalize-{code}`)
+- Data caches (`countries/data-{code}/`) → regenerable via `legalize fetch`
+- Daily updates → CI workflow (`daily-update.yml`), not local
+
+**The local `countries/` directory may be empty.** Do not assume repos or data
+dirs exist locally. Always check before running commands that depend on them.
+
+**To work on a country temporarily:**
+```bash
+# Shallow clone (no history, ~10x smaller)
+git clone --depth 1 git@github.com:legalize-dev/legalize-es.git ../countries/es
+
+# Blobless clone (structure + on-demand blobs, good for git log)
+git clone --filter=blob:none git@github.com:legalize-dev/legalize-es.git ../countries/es
+
+# When done, delete to save space
+rm -rf ../countries/es
+```
+
+**To re-create a data directory:**
+```bash
+legalize fetch -c es --catalog      # Spain: ~2h, downloads from BOE API
+legalize fetch -c de --all          # Germany: ~1h, downloads from GII
+legalize fetch -c fr --all          # France: needs LEGI dump from data.gouv.fr
+```
+
+**Space reference per country (approximate):**
+- Repo: 200 MB - 1.5 GB (depends on number of laws)
+- Data cache: 400 MB - 19 GB (depends on source format)
+- At 50 countries, keeping all repos locally would exceed 30 GB
 
 ## Key Conventions
 
