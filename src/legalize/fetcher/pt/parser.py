@@ -91,17 +91,77 @@ _RE_SECCAO = re.compile(r"^(SECÇÃO\s+[IVXLCDM]+)\b(.*)$", re.IGNORECASE)
 _RE_SUBSECCAO = re.compile(r"^(SUBSECÇÃO\s+[IVXLCDM]+)\b(.*)$", re.IGNORECASE)
 
 
+def _html_table_to_markdown(table_html: str) -> str:
+    """Convert an HTML <table> block to a Markdown pipe table."""
+    rows: list[list[str]] = []
+    for tr_match in re.finditer(r"<tr[^>]*>(.*?)</tr>", table_html, re.DOTALL | re.IGNORECASE):
+        cells = re.findall(
+            r"<t[dh][^>]*>(.*?)</t[dh]>", tr_match.group(1), re.DOTALL | re.IGNORECASE
+        )
+        if cells:
+            cleaned = [
+                re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", c)).strip().replace("|", "\\|")
+                for c in cells
+            ]
+            rows.append(cleaned)
+
+    if not rows:
+        return ""
+
+    max_cols = max(len(r) for r in rows)
+    for r in rows:
+        while len(r) < max_cols:
+            r.append("")
+
+    lines = ["| " + " | ".join(rows[0]) + " |"]
+    lines.append("| " + " | ".join("---" for _ in range(max_cols)) + " |")
+    for r in rows[1:]:
+        lines.append("| " + " | ".join(r) + " |")
+    return "\n".join(lines)
+
+
 def _strip_html(text: str) -> str:
-    """Remove HTML tags and decode entities."""
+    """Convert HTML to plain text, preserving tables, lists, and inline formatting."""
+    # 1. Tables → Markdown pipe tables
+    text = re.sub(
+        r"<table[^>]*>.*?</table>",
+        lambda m: "\n" + _html_table_to_markdown(m.group(0)) + "\n",
+        text,
+        flags=re.DOTALL | re.IGNORECASE,
+    )
+
+    # 2. Inline formatting → Markdown
+    text = re.sub(r"<(b|strong)[^>]*>(.*?)</\1>", r"**\2**", text, flags=re.DOTALL | re.IGNORECASE)
+    text = re.sub(r"<(i|em)[^>]*>(.*?)</\1>", r"*\2*", text, flags=re.DOTALL | re.IGNORECASE)
+
+    # 3. List items → preserve with marker
+    text = re.sub(r"<li[^>]*>", "\n- ", text, flags=re.IGNORECASE)
+    text = re.sub(r"</li>", "", text, flags=re.IGNORECASE)
+    text = re.sub(r"</?[ou]l[^>]*>", "\n", text, flags=re.IGNORECASE)
+
+    # 4. Line breaks
     text = re.sub(r"<br\s*/?>", "\n", text, flags=re.IGNORECASE)
+    text = re.sub(r"</?p[^>]*>", "\n", text, flags=re.IGNORECASE)
+    text = re.sub(r"</?div[^>]*>", "\n", text, flags=re.IGNORECASE)
+
+    # 5. Strip remaining tags
     text = re.sub(r"<[^>]+>", "", text)
-    # Common HTML entities
+
+    # 6. HTML entities
     text = text.replace("&amp;", "&")
     text = text.replace("&lt;", "<")
     text = text.replace("&gt;", ">")
     text = text.replace("&quot;", '"')
     text = text.replace("&#39;", "'")
     text = text.replace("&nbsp;", " ")
+    text = text.replace("&mdash;", "—")
+    text = text.replace("&ndash;", "–")
+    text = text.replace("&lsquo;", "'")
+    text = text.replace("&rsquo;", "'")
+    text = text.replace("&ldquo;", "\u201c")
+    text = text.replace("&rdquo;", "\u201d")
+    text = re.sub(r"&#(\d+);", lambda m: chr(int(m.group(1))), text)
+
     return text
 
 
@@ -311,6 +371,42 @@ def _make_identifier(doc_type: str, number: str) -> str:
     return f"DRE-{code}-{safe_number}"
 
 
+def _pt_title_case(text: str) -> str:
+    """Portuguese-aware title case: lowercase prepositions and articles.
+
+    Capitalizes all words except common Portuguese particles when they
+    are not the first word.
+    """
+    _LOWERCASE_WORDS = {
+        "da",
+        "das",
+        "de",
+        "do",
+        "dos",
+        "e",
+        "em",
+        "na",
+        "nas",
+        "no",
+        "nos",
+        "o",
+        "a",
+        "os",
+        "as",
+        "um",
+        "uma",
+        "uns",
+        "umas",
+        "para",
+        "por",
+        "com",
+    }
+    words = text.title().split()
+    return " ".join(
+        w.lower() if i > 0 and w.lower() in _LOWERCASE_WORDS else w for i, w in enumerate(words)
+    )
+
+
 class DREMetadataParser(MetadataParser):
     """Parses tretas.org document metadata JSON into NormMetadata."""
 
@@ -338,15 +434,21 @@ class DREMetadataParser(MetadataParser):
         in_force = meta.get("in_force", True)
         status = NormStatus.IN_FORCE if in_force else NormStatus.REPEALED
 
-        # Build title: "Lei 39/2016, de 19 de Dezembro"
-        # The notes field from the source contains the summary/abstract
+        # Build title with "n.º" per Portuguese convention:
+        # "Lei n.º 39/2016", "Decreto-Lei n.º 10/2025"
         summary = meta.get("notes", "").strip()
-        title = f"{doc_type.title()} {number}" if number else doc_type.title()
+        type_display = _pt_title_case(doc_type)
+        if number:
+            title = f"{type_display} n.º {number}"
+        else:
+            title = type_display
         short_title = summary[:120].rstrip(".") if summary else title
 
-        # Department from emiting_body (semicolon-separated)
+        # Department from emiting_body (semicolon-separated), Portuguese title case
         emiting = meta.get("emiting_body", "").strip()
-        department = ", ".join(part.strip().title() for part in emiting.split(";") if part.strip())
+        department = ", ".join(
+            _pt_title_case(part.strip()) for part in emiting.split(";") if part.strip()
+        )
 
         # Source URL priority: ELI > dre_pdf > tretas.org fallback
         eli = meta.get("eli", "")
@@ -354,11 +456,15 @@ class DREMetadataParser(MetadataParser):
         source = eli or dre_pdf or f"https://dre.tretas.org/dre/{norm_id}/"
 
         # Portugal-specific extra fields for frontmatter
+        # (department is already a core NormMetadata field, not duplicated here)
         extra: list[tuple[str, str]] = []
-        if department:
-            extra.append(("department", department))
         if summary:
             extra.append(("summary", summary[:500]))
+        if number:
+            extra.append(("official_number", number))
+        dr_number = str(meta.get("dr_number", "")).strip()
+        if dr_number:
+            extra.append(("dr_number", dr_number))
         if eli and eli != source:
             extra.append(("eli", eli))
 
@@ -370,7 +476,7 @@ class DREMetadataParser(MetadataParser):
             rank=Rank(rank_str),
             publication_date=pub_date,
             status=status,
-            department=department or "Diario da Republica",
+            department=department or "Diário da República",
             source=source,
             summary=summary,
             pdf_url=dre_pdf if dre_pdf else None,

@@ -133,8 +133,14 @@ class TestMakeIdentifier:
 
 
 class TestStripHtml:
-    def test_removes_tags(self):
-        assert _strip_html("<strong>bold</strong>") == "bold"
+    def test_preserves_bold(self):
+        assert _strip_html("<strong>bold</strong>") == "**bold**"
+
+    def test_preserves_italic(self):
+        assert _strip_html("<em>italic</em>") == "*italic*"
+
+    def test_strips_unknown_tags(self):
+        assert _strip_html("<span>text</span>") == "text"
 
     def test_converts_br(self):
         result = _strip_html("line1<br/>line2")
@@ -144,6 +150,17 @@ class TestStripHtml:
     def test_decodes_entities(self):
         assert _strip_html("A &amp; B") == "A & B"
         assert _strip_html("&nbsp;") == " "
+
+    def test_converts_table(self):
+        html = "<table><tr><td>A</td><td>B</td></tr><tr><td>1</td><td>2</td></tr></table>"
+        result = _strip_html(html)
+        assert "| A | B |" in result
+        assert "| 1 | 2 |" in result
+
+    def test_converts_list(self):
+        result = _strip_html("<ul><li>item one</li><li>item two</li></ul>")
+        assert "- item one" in result
+        assert "- item two" in result
 
 
 # ─── Line classification tests ───
@@ -282,10 +299,39 @@ class TestDREMetadataParser:
         assert meta.rank == "decreto-lei"
         assert meta.status == NormStatus.REPEALED
 
-    def test_department(self):
+    def test_title_includes_numero(self):
+        """Title should include 'n.º' per Portuguese convention."""
+        meta = self.parser.parse(self._meta_bytes(SAMPLE_METADATA), "123456")
+        assert "n.º" in meta.title
+        assert "Lei Constitucional n.º 1/2005" == meta.title
+
+    def test_department_portuguese_capitalization(self):
+        """Portuguese prepositions should be lowercase in department names."""
         meta = self.parser.parse(self._meta_bytes(SAMPLE_META_DECRETO_LEI), "789012")
         assert "Trabalho" in meta.department
-        assert "Solidariedade" in meta.department
+        assert "Solidariedade e Segurança Social" in meta.department
+        # "e" should be lowercase (Portuguese conjunction)
+        assert ", Solidariedade e" in meta.department
+
+    def test_department_prepositions_lowercase(self):
+        """da, do, de, e should be lowercase except at start."""
+        data = {**SAMPLE_METADATA, "emiting_body": "ASSEMBLEIA DA REPÚBLICA"}
+        meta = self.parser.parse(self._meta_bytes(data), "123456")
+        assert meta.department == "Assembleia da República"
+
+    def test_extra_includes_official_number(self):
+        """Extra fields should include official_number."""
+        meta = self.parser.parse(self._meta_bytes(SAMPLE_METADATA), "123456")
+        extra_dict = dict(meta.extra)
+        assert "official_number" in extra_dict
+        assert extra_dict["official_number"] == "1/2005"
+
+    def test_extra_includes_dr_number(self):
+        """Extra fields should include dr_number when present."""
+        meta = self.parser.parse(self._meta_bytes(SAMPLE_META_DECRETO_LEI), "789012")
+        extra_dict = dict(meta.extra)
+        assert "dr_number" in extra_dict
+        assert extra_dict["dr_number"] == "168"
 
     def test_short_title(self):
         meta = self.parser.parse(self._meta_bytes(SAMPLE_METADATA), "123456")

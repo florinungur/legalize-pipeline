@@ -36,6 +36,29 @@ _DOC_DETAIL_URL = (
     "/Conteudo_Detalhe/DataActionGetConteudoDataAndApplicationSettings"
 )
 
+# Screen MVC JS files containing per-endpoint apiVersion hashes.
+# OutSystems requires a per-action apiVersion that changes on each deploy.
+_SCREEN_JS_MAP: dict[str, str] = {
+    "DataActionGetDRByDataCalendario": f"{_BASE}/scripts/dr.Home.home.mvc.js",
+    "DataActionGetDadosAndApplicationSettings": (
+        f"{_BASE}/scripts/dr.Legislacao_Conteudos.Conteudo_Det_Diario.mvc.js"
+    ),
+    "DataActionGetConteudoDataAndApplicationSettings": (
+        f"{_BASE}/scripts/dr.Legislacao_Conteudos.Conteudo_Detalhe.mvc.js"
+    ),
+}
+
+
+def _nested_get(d: dict, *keys: str, default: str = "") -> str:
+    """Safely traverse nested dicts: _nested_get(d, 'a', 'b') → d['a']['b']."""
+    current = d
+    for k in keys:
+        if isinstance(current, dict):
+            current = current.get(k, default)
+        else:
+            return default
+    return str(current) if current != default else default
+
 
 class DREHttpClient(HttpClient):
     """HTTP client for Portuguese legislation via diariodarepublica.pt.
@@ -59,22 +82,27 @@ class DREHttpClient(HttpClient):
         )
         self._csrf_token: str = ""
         self._module_version: str = ""
-        self._api_version: str = ""
+        self._api_versions: dict[str, str] = {}  # action_name → apiVersion hash
         self._request_count = 0
         self._init_session()
 
     def _init_session(self) -> None:
-        """Initialize session: fetch CSRF token and module version."""
+        """Initialize session: fetch CSRF token, module version, and API versions.
+
+        OutSystems requires a per-action apiVersion hash that changes on each
+        platform deploy. We extract these from the screen MVC JavaScript files.
+        """
         # 1. Get CSRF token from OutSystems.js
         resp = self._request("GET", _OUTSYSTEMS_JS_URL)
-        match = re.search(r'"X-CSRFToken","([^"]+)"', resp.text)
-        if match:
-            self._csrf_token = match.group(1)
-        else:
-            # Fallback: look for csrfTokenValue
-            match = re.search(r'csrfTokenValue\s*=\s*"([^"]+)"', resp.text)
+        for pattern in [
+            r'AnonymousCSRFToken\s*=\s*"([^"]+)"',  # Current format (2025+)
+            r'"X-CSRFToken","([^"]+)"',  # Legacy format
+            r'csrfTokenValue\s*=\s*"([^"]+)"',  # Older fallback
+        ]:
+            match = re.search(pattern, resp.text)
             if match:
                 self._csrf_token = match.group(1)
+                break
         logger.info(
             "CSRF token obtained: %s...", self._csrf_token[:8] if self._csrf_token else "NONE"
         )
@@ -84,14 +112,40 @@ class DREHttpClient(HttpClient):
         version_data = resp.json()
         if isinstance(version_data, dict):
             self._module_version = version_data.get("versionToken", "")
-            self._api_version = version_data.get("apiVersion", "")
         elif isinstance(version_data, list) and version_data:
             self._module_version = version_data[0].get("versionToken", "")
-            self._api_version = version_data[0].get("apiVersion", "")
-
         logger.info(
             "Module version: %s", self._module_version[:20] if self._module_version else "NONE"
         )
+
+        # 3. Extract per-action apiVersion hashes from screen MVC JS files.
+        # Each callDataAction("ActionName", "url", "apiVersionHash", ...) in the JS
+        # contains the hash required for that specific server action.
+        fetched_js: dict[str, str] = {}  # url → text (avoid duplicate fetches)
+        for action_name, js_url in _SCREEN_JS_MAP.items():
+            if js_url not in fetched_js:
+                try:
+                    js_resp = self._request("GET", js_url)
+                    fetched_js[js_url] = js_resp.text
+                except Exception:
+                    logger.warning("Failed to fetch screen JS: %s", js_url)
+                    fetched_js[js_url] = ""
+
+            js_text = fetched_js[js_url]
+            # Pattern: callDataAction("ActionName", "endpoint/url", "apiHash", ...)
+            pattern = (
+                rf'callDataAction\s*\(\s*"{re.escape(action_name)}"\s*,\s*"[^"]+"\s*,\s*"([^"]+)"'
+            )
+            match = re.search(pattern, js_text)
+            if match:
+                self._api_versions[action_name] = match.group(1)
+                logger.info("API version for %s: %s", action_name, match.group(1)[:20])
+            else:
+                logger.warning("Could not extract apiVersion for %s", action_name)
+
+    def _action_name_from_url(self, url: str) -> str:
+        """Extract the DataAction name from a full endpoint URL."""
+        return url.rsplit("/", 1)[-1] if "/" in url else url
 
     def _post(self, url: str, payload: dict) -> dict:
         """POST JSON to an OutSystems endpoint with CSRF token."""
@@ -106,15 +160,33 @@ class DREHttpClient(HttpClient):
         if self._csrf_token:
             headers["X-CSRFToken"] = self._csrf_token
 
-        # Inject version info
+        # Inject version info with per-action apiVersion
+        action_name = self._action_name_from_url(url)
+        api_version = self._api_versions.get(action_name, "")
+
         payload.setdefault("versionInfo", {})
         if self._module_version:
             payload["versionInfo"]["moduleVersion"] = self._module_version
-        if self._api_version:
-            payload["versionInfo"]["apiVersion"] = self._api_version
+        if api_version:
+            payload["versionInfo"]["apiVersion"] = api_version
+
+        # Required since DRE OutSystems migration (2025)
+        payload.setdefault("clientVariables", {})
 
         resp = self._request("POST", url, json=payload, headers=headers)
         return resp.json()
+
+    @staticmethod
+    def _parse_json_out(data: dict, key: str = "Json_Out") -> dict:
+        """Parse a Json_Out Elasticsearch response string from the API.
+
+        Since the 2025 DRE migration, many endpoints return Elasticsearch
+        results wrapped in a JSON string field instead of structured data.
+        """
+        raw = data.get(key, "")
+        if isinstance(raw, str) and raw:
+            return json.loads(raw)
+        return {}
 
     def get_journals_by_date(self, date_str: str) -> list[dict]:
         """Get journal (Diario da Republica) entries for a date.
@@ -131,24 +203,47 @@ class DREHttpClient(HttpClient):
                 "variables": {
                     "DataCalendario": date_str,
                     "_dataCalendarioInDataFetchStatus": 1,
+                    # Sentinel date required for Elasticsearch date filtering
+                    "DataUltimaPublicacao": "2099-11-26",
                     "HasSerie1": True,
                     "HasSerie2": True,
                     "IsRendered": True,
                 }
             },
+            "clientVariables": {
+                "Data": date_str,
+            },
         }
         result = self._post(_DRS_BY_DATE_URL, payload)
         data = result.get("data", {})
 
-        journals = []
-        # Extract Series I journals
+        # New format (2025+): Elasticsearch response in Json_Out
+        es_data = self._parse_json_out(data)
+        if es_data:
+            hits = es_data.get("hits", {}).get("hits", [])
+            journals = []
+            for hit in hits:
+                source = hit.get("_source", {})
+                title = source.get("conteudoTitle", "")
+                journals.append(
+                    {
+                        "Id": source.get("dbId"),
+                        "DiarioId": source.get("dbId"),
+                        "Numero": source.get("numero", ""),
+                        "DataPublicacao": source.get("dataPublicacao", ""),
+                        "conteudoTitle": title,
+                    }
+                )
+            return journals
+
+        # Legacy format: structured SerieI.List
         serie1 = data.get("SerieI", {})
         if isinstance(serie1, dict) and serie1.get("List"):
-            journals.extend(serie1["List"])
+            return serie1["List"]
         elif isinstance(serie1, list):
-            journals.extend(serie1)
+            return serie1
 
-        return journals
+        return []
 
     def get_documents_by_journal(self, journal_id: int, is_serie1: bool = True) -> list[dict]:
         """Get all documents from a journal issue.
@@ -164,24 +259,47 @@ class DREHttpClient(HttpClient):
             "viewName": "Legislacao_Conteudos.Conteudo_Detalhe",
             "screenData": {
                 "variables": {
+                    "DetalheConteudo2": {"List": [], "EmptyListItem": {}},
+                    "ParteIdAux": "0",
+                    "IsFinished": False,
+                    "DiplomaIds": {"List": [], "EmptyListItem": "0"},
+                    "NumeroDeResultadosPorPagina": 2500,
+                    "DiarioIdAux": journal_id,
                     "DiarioId": journal_id,
                     "_diarioIdInDataFetchStatus": 1,
-                    "IsSerieI": is_serie1,
-                    "_isSerieIInDataFetchStatus": 1,
-                    "NumeroDeResultadosPorPagina": 2500,
                     "ParteId": "0",
                     "_parteIdInDataFetchStatus": 1,
+                    "IsSerieI": is_serie1,
+                    "_isSerieIInDataFetchStatus": 1,
+                    "Diario_DetalheConteudo": {
+                        "Id": "",
+                        "Titulo": "",
+                        "DataPublicacao": "",
+                    },
+                    "_diario_DetalheConteudoInDataFetchStatus": 1,
                 }
+            },
+            "clientVariables": {
+                "Data": "",
+                "DiplomaConteudoId": "",
             },
         }
         result = self._post(_DOC_LIST_URL, payload)
         data = result.get("data", {})
 
-        docs = data.get("DetalheConteudo2", {})
-        if isinstance(docs, dict):
-            return docs.get("List", [])
-        elif isinstance(docs, list):
-            return docs
+        # Try structured response: DetalheConteudo.List (current format)
+        for key in ("DetalheConteudo", "DetalheConteudo2"):
+            container = data.get(key, {})
+            if isinstance(container, dict) and container.get("List"):
+                return container["List"]
+            elif isinstance(container, list):
+                return container
+
+        # Elasticsearch response fallback
+        es_data = self._parse_json_out(data)
+        if es_data:
+            hits = es_data.get("hits", {}).get("hits", [])
+            return [hit.get("_source", {}) for hit in hits]
 
         return []
 
@@ -189,16 +307,22 @@ class DREHttpClient(HttpClient):
         """Fetch full document detail including text.
 
         Args:
-            diploma_id: Internal document content ID (DiplomaConteudoId).
+            diploma_id: Internal document legislation ID (DipLegisId).
 
         Returns:
             Dict with document details including Texto/TextoFormatado.
+            Field names follow the new DRE API (2025+):
+            TipoDiploma, Emissor, ELI, Vigencia, etc.
         """
         payload = {
             "viewName": "Legislacao_Conteudos.Conteudo_Detalhe",
-            "screenData": {"variables": {}},
+            "screenData": {
+                "variables": {
+                    "DipLegisId": str(diploma_id),
+                },
+            },
             "clientVariables": {
-                "DiplomaConteudoId": str(diploma_id),
+                "DiplomaConteudoId": "",
             },
         }
         result = self._post(_DOC_DETAIL_URL, payload)
@@ -221,7 +345,7 @@ class DREHttpClient(HttpClient):
         """Fetch metadata for a document.
 
         Returns JSON bytes compatible with DREMetadataParser.
-        Includes ELI URI and vigencia status from the API.
+        Handles both legacy and new (2025+) field names from the API.
         """
         detail = self.get_document_detail(diploma_id)
 
@@ -232,17 +356,35 @@ class DREHttpClient(HttpClient):
         # ELI URI (European Legislation Identifier) — preferred source URL
         eli = detail.get("ELI", "")
 
+        # Map field names — new API (2025+) uses different names
+        # New: TipoDiploma, Emissor, Id  |  Old: TipoActo, Entidade, ConteudoId
+        doc_type = (
+            (
+                detail.get("TipoActo", "")
+                or detail.get("TipoDiploma", "")
+                or detail.get("TipoDiplomaExterno", "")
+            )
+            .strip()
+            .upper()
+        )
+
+        emiting_body = (detail.get("Entidade", "") or detail.get("Emissor", "")).strip()
+
+        dr_number = detail.get("DiarioNumero", "") or _nested_get(
+            detail, "DiarioRepublica", "Numero", default=""
+        )
+
         meta = {
-            "claint": detail.get("ConteudoId", diploma_id),
-            "doc_type": detail.get("TipoActo", "").strip().upper(),
+            "claint": detail.get("ConteudoId", detail.get("Id", diploma_id)),
+            "doc_type": doc_type,
             "number": detail.get("Numero", "").strip(),
-            "emiting_body": detail.get("Entidade", "").strip(),
+            "emiting_body": emiting_body,
             "source": "Serie I",
             "date": detail.get("DataPublicacao", "")[:10],
-            "notes": detail.get("Sumario", "").strip(),
+            "notes": (detail.get("Sumario", "") or detail.get("Resumo", "")).strip(),
             "in_force": in_force,
             "series": 1,
-            "dr_number": detail.get("DiarioNumero", ""),
+            "dr_number": dr_number,
             "dre_pdf": detail.get("URL_PDF", ""),
             "dre_key": "",
             "eli": eli,

@@ -56,15 +56,30 @@ def _discover_daily_http(client, target_date: date) -> list[dict]:
         return []
 
     for journal in journals:
+        # Filter to Serie I only (skip Serie II, III, and supplements)
+        title = journal.get("conteudoTitle", "")
+        if title and ("Série I" not in title or "Suplemento" in title):
+            continue
+
         journal_id = journal.get("Id") or journal.get("DiarioId")
         if not journal_id:
             continue
 
         docs = client.get_documents_by_journal(int(journal_id), is_serie1=True)
         for doc in docs:
-            doc_type = (doc.get("TipoActo") or doc.get("Tipo") or "").strip().upper()
+            # Handle both old (TipoActo) and new (TipoDiploma) API field names
+            doc_type = (
+                (doc.get("TipoActo") or doc.get("TipoDiploma") or doc.get("Tipo") or "")
+                .strip()
+                .upper()
+            )
             if doc_type in _MAJOR_TYPES:
-                diploma_id = doc.get("DiplomaConteudoId") or doc.get("ConteudoId") or doc.get("Id")
+                diploma_id = (
+                    doc.get("DiplomaLegisId")
+                    or doc.get("DiplomaConteudoId")
+                    or doc.get("ConteudoId")
+                    or doc.get("Id")
+                )
                 if diploma_id:
                     documents.append(
                         {
