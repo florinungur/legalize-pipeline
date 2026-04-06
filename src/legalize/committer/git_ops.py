@@ -2,13 +2,18 @@
 
 Wrapper over subprocess to control author, historical dates,
 and commit trailers.
+
+Includes FastImporter for bulk bootstrap (git fast-import),
+which is 10-50x faster than per-commit git add/commit.
 """
 
 from __future__ import annotations
 
+import calendar
 import logging
 import os
 import subprocess
+from datetime import date as date_type
 from pathlib import Path
 
 from legalize.models import CommitInfo
@@ -70,17 +75,11 @@ class GitRepo:
         file_path = self._path / rel_path
         file_path.parent.mkdir(parents=True, exist_ok=True)
 
-        # Check if content changed vs last commit
+        # Check if content changed vs what's on disk
         if file_path.exists():
             existing = file_path.read_text(encoding="utf-8")
             if existing == content:
-                # File exists with same content, but may be untracked — check git
-                status = self._run(["status", "--porcelain", "--", rel_path], check=False)
-                if not status:
-                    return False  # tracked and unchanged
-                # Untracked (??) or modified — stage it
-                self._run(["add", rel_path])
-                return True
+                return False  # unchanged — no need to stage
 
         file_path.write_text(content, encoding="utf-8")
         self._run(["add", rel_path])
@@ -98,12 +97,6 @@ class GitRepo:
         Returns:
             SHA of the created commit, or None if there were no changes.
         """
-        # Verify there are staged changes
-        status = self._run(["status", "--porcelain"])
-        if not status:
-            logger.debug("Nothing to commit")
-            return None
-
         message = format_commit_message(info)
         # Git does not accept pre-1970 dates (Unix epoch)
         from datetime import date as date_type
@@ -138,26 +131,29 @@ class GitRepo:
         """Loads all existing Source-Id+Norm-Id pairs into memory.
 
         A single git log at startup, then lookups are O(1).
+        Uses git's native trailer parsing for efficiency.
         """
         self._existing_commits: set[tuple[str, str]] = set()
         try:
+            # Try native trailer format first (git 2.40+, much faster)
             output = self._run(
-                ["log", "--all", "--format=%B%x00"],
+                [
+                    "log",
+                    "--all",
+                    "--format=%(trailers:key=Source-Id,valueonly,separator=)%x09%(trailers:key=Norm-Id,valueonly,separator=)%x00",
+                ],
                 check=False,
             )
             if not output.strip():
                 return
 
-            for body in output.split("\0"):
-                source_id = ""
-                norm_id = ""
-                for line in body.splitlines():
-                    if line.startswith("Source-Id: "):
-                        source_id = line[len("Source-Id: ") :]
-                    elif line.startswith("Norm-Id: "):
-                        norm_id = line[len("Norm-Id: ") :]
+            for entry in output.split("\0"):
+                entry = entry.strip()
+                if not entry or "\t" not in entry:
+                    continue
+                source_id, _, norm_id = entry.partition("\t")
                 if source_id and norm_id:
-                    self._existing_commits.add((source_id, norm_id))
+                    self._existing_commits.add((source_id.strip(), norm_id.strip()))
 
             logger.debug("Loaded %d existing commits", len(self._existing_commits))
         except subprocess.CalledProcessError:
@@ -191,3 +187,156 @@ class GitRepo:
         if path:
             args.extend(["--", path])
         return self._run(args, check=False)
+
+
+class FastImporter:
+    """Bulk commit generator using git fast-import.
+
+    10-50x faster than per-commit git add/commit for bootstrap.
+    Builds an in-memory stream of blobs+commits, then feeds them
+    to git fast-import in a single pass.
+
+    Usage:
+        with FastImporter(repo_path, committer_name, committer_email) as fi:
+            fi.commit(file_path, content, message, author_date, env_overrides)
+            fi.commit(...)
+        # On exit: runs git fast-import, then git checkout to populate worktree.
+    """
+
+    def __init__(self, path: str | Path, committer_name: str, committer_email: str):
+        self._path = Path(path)
+        self._committer_name = committer_name
+        self._committer_email = committer_email
+        self._commands: list[bytes] = []
+        self._mark: int = 0
+        self._commit_count: int = 0
+        # Track current tree state: rel_path -> mark number
+        self._tree: dict[str, int] = {}
+
+    def __enter__(self) -> FastImporter:
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        if exc_type is None and self._commit_count > 0:
+            self._run_fast_import()
+
+    @property
+    def commit_count(self) -> int:
+        return self._commit_count
+
+    def _next_mark(self) -> int:
+        self._mark += 1
+        return self._mark
+
+    def _date_to_epoch(self, d: date_type) -> int:
+        if d < date_type(1970, 1, 2):
+            d = date_type(1970, 1, 2)
+        return calendar.timegm(d.timetuple())
+
+    def commit(
+        self,
+        rel_path: str,
+        content: str,
+        info: CommitInfo,
+    ) -> None:
+        """Queue a commit that writes content to rel_path.
+
+        Each commit builds on top of the previous one (linear history).
+        """
+        content_bytes = content.encode("utf-8")
+        blob_mark = self._next_mark()
+        commit_mark = self._next_mark()
+
+        # Blob
+        self._commands.append(f"blob\nmark :{blob_mark}\ndata {len(content_bytes)}\n".encode())
+        self._commands.append(content_bytes)
+        self._commands.append(b"\n")
+
+        # Update tree state
+        self._tree[rel_path] = blob_mark
+
+        # Commit
+        message = format_commit_message(info)
+        message_bytes = message.encode("utf-8")
+        epoch = self._date_to_epoch(info.author_date)
+        tz = "+0000"
+
+        lines = [
+            "commit refs/heads/main",
+            f"mark :{commit_mark}",
+            f"author {info.author_name} <{info.author_email}> {epoch} {tz}",
+            f"committer {self._committer_name} <{self._committer_email}> {epoch} {tz}",
+            f"data {len(message_bytes)}",
+        ]
+        self._commands.append(("\n".join(lines) + "\n").encode())
+        self._commands.append(message_bytes)
+        self._commands.append(b"\n")
+
+        # Reference parent (all commits after the first)
+        if self._commit_count > 0:
+            self._commands.append(f"from :{commit_mark - 2}\n".encode())
+
+        # File modification
+        self._commands.append(f"M 100644 :{blob_mark} {rel_path}\n".encode())
+        self._commands.append(b"\n")
+
+        self._commit_count += 1
+
+    def _run_fast_import(self) -> None:
+        """Feed all queued commands to git fast-import."""
+        self._path.mkdir(parents=True, exist_ok=True)
+
+        # Ensure repo exists
+        git_dir = self._path / ".git"
+        if not git_dir.exists():
+            subprocess.run(
+                ["git", "init"],
+                cwd=self._path,
+                capture_output=True,
+                check=True,
+            )
+            subprocess.run(
+                ["git", "config", "user.name", self._committer_name],
+                cwd=self._path,
+                capture_output=True,
+                check=True,
+            )
+            subprocess.run(
+                ["git", "config", "user.email", self._committer_email],
+                cwd=self._path,
+                capture_output=True,
+                check=True,
+            )
+
+        stream = b"".join(self._commands)
+        logger.info(
+            "Running git fast-import: %d commits, %.1f MB stream",
+            self._commit_count,
+            len(stream) / 1_048_576,
+        )
+
+        result = subprocess.run(
+            ["git", "fast-import", "--quiet"],
+            cwd=self._path,
+            input=stream,
+            capture_output=True,
+        )
+
+        if result.returncode != 0:
+            logger.error("git fast-import failed: %s", result.stderr.decode())
+            raise subprocess.CalledProcessError(
+                result.returncode,
+                ["git", "fast-import"],
+                result.stdout,
+                result.stderr,
+            )
+
+        # Checkout to populate the working tree
+        subprocess.run(
+            ["git", "checkout", "main"],
+            cwd=self._path,
+            capture_output=True,
+            check=True,
+        )
+
+        logger.info("Fast-import completed: %d commits", self._commit_count)

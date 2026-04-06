@@ -23,7 +23,7 @@ import requests
 
 from rich.console import Console
 
-from legalize.committer.git_ops import GitRepo
+from legalize.committer.git_ops import FastImporter, GitRepo
 from legalize.committer.message import build_commit_info
 from legalize.config import Config
 from legalize.models import (
@@ -553,6 +553,106 @@ def commit_all(
             console.print(f"  ... ({len(lines) - 10} more)")
 
     return total
+
+
+# ─────────────────────────────────────────────
+# FAST COMMIT — git fast-import for bulk bootstrap
+# ─────────────────────────────────────────────
+
+
+def commit_all_fast(
+    config: Config,
+    country: str,
+    limit: int | None = None,
+    offset: int = 0,
+) -> int:
+    """Generate commits for ALL laws using git fast-import.
+
+    10-50x faster than commit_all() for bootstrap. Generates a single
+    fast-import stream with all commits in chronological order.
+
+    Does NOT support idempotency (skipping existing commits) — use only
+    for fresh bootstrap on an empty repo.
+    """
+    cc = config.get_country(country)
+    json_dir = Path(cc.data_dir) / "json"
+    if not json_dir.exists():
+        console.print("[red]No data in data/json/. Run fetch first.[/red]")
+        return 0
+
+    json_files = sorted(json_dir.glob("*.json"))
+    total_available = len(json_files)
+    json_files = json_files[offset:]
+    if limit:
+        json_files = json_files[:limit]
+
+    console.print(
+        f"[bold]Fast commit — {len(json_files)} laws "
+        f"(of {total_available}) for {country.upper()}[/bold]\n"
+    )
+
+    # Collect all (date, norm_id, reform_index, json_file) tuples, then sort by date
+    # so the git history is chronological across all laws.
+    all_reforms: list[tuple[date, str, int, Path]] = []
+
+    for json_file in json_files:
+        try:
+            norm = load_norma_from_json(json_file)
+        except (OSError, ValueError):
+            logger.error("Error loading %s, skipping", json_file, exc_info=True)
+            continue
+
+        for i, reform in enumerate(norm.reforms):
+            all_reforms.append((reform.date, json_file.stem, i, json_file))
+
+    all_reforms.sort(key=lambda x: x[0])
+
+    console.print(f"  {len(all_reforms)} total commits to generate (sorted by date)\n")
+
+    # Cache loaded norms to avoid re-reading JSON
+    norm_cache: dict[str, ParsedNorm] = {}
+    errors = 0
+
+    with FastImporter(cc.repo_path, config.git.committer_name, config.git.committer_email) as fi:
+        for idx, (reform_date, norm_id, reform_idx, json_file) in enumerate(all_reforms):
+            try:
+                if norm_id not in norm_cache:
+                    norm_cache[norm_id] = load_norma_from_json(json_file)
+
+                norm = norm_cache[norm_id]
+                metadata = norm.metadata
+                blocks = norm.blocks
+                reform = norm.reforms[reform_idx]
+
+                is_first = reform_idx == 0
+                commit_type = CommitType.BOOTSTRAP if is_first else CommitType.REFORM
+
+                markdown = render_norm_at_date(metadata, blocks, reform.date, include_all=is_first)
+                file_path = norm_to_filepath(metadata)
+
+                info = build_commit_info(commit_type, metadata, reform, blocks, file_path, markdown)
+                fi.commit(file_path, markdown, info)
+
+            except Exception:
+                errors += 1
+                logger.error("Error processing %s reform %d", norm_id, reform_idx, exc_info=True)
+
+            if (idx + 1) % 5000 == 0:
+                console.print(
+                    f"  [dim][{idx + 1}/{len(all_reforms)}] queued, {errors} errors[/dim]"
+                )
+
+            # Free norm from cache once all its reforms are queued
+            if norm_id in norm_cache:
+                remaining = sum(1 for _, nid, _, _ in all_reforms[idx + 1 :] if nid == norm_id)
+                if remaining == 0:
+                    del norm_cache[norm_id]
+
+    console.print(f"\n[bold green]✓ {fi.commit_count} commits created (fast-import)[/bold green]")
+    if errors:
+        console.print(f"[yellow]⚠ {errors} errors[/yellow]")
+
+    return fi.commit_count
 
 
 # ─────────────────────────────────────────────

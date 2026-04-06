@@ -139,6 +139,7 @@ def fetch(
 @click.argument("norm_ids", nargs=-1)
 @_country_option()
 @click.option("--all", "commit_all_flag", is_flag=True, help="Commit all from data/json/.")
+@click.option("--fast", is_flag=True, help="Use git fast-import (10-50x faster, fresh repos only).")
 @click.option("--limit", default=None, type=int, help="Max norms to process.")
 @click.option("--offset", default=0, type=int, help="Skip first N norms.")
 @click.option(
@@ -151,6 +152,7 @@ def commit(
     norm_ids: tuple[str, ...],
     country: str,
     commit_all_flag: bool,
+    fast: bool,
     limit: int | None,
     offset: int,
     batch: int | None,
@@ -160,16 +162,19 @@ def commit(
 
     Examples:
         legalize commit -c fr --all                    # All norms at once
+        legalize commit -c fr --all --fast             # Fast bootstrap (empty repo)
         legalize commit -c fr --all --batch 10         # 10 at a time, push after each
         legalize commit -c fr --all --limit 10         # Only first 10
         legalize commit -c fr --all --offset 10 --limit 10  # Norms 11-20
     """
-    from legalize.pipeline import commit_all, commit_one
+    from legalize.pipeline import commit_all, commit_all_fast, commit_one
 
     config = ctx.obj["config"]
 
     if commit_all_flag:
-        if batch:
+        if fast:
+            commit_all_fast(config, country, limit=limit, offset=offset)
+        elif batch:
             _commit_in_batches(config, country, batch, offset, limit, dry_run)
         else:
             commit_all(config, country, dry_run=dry_run, limit=limit, offset=offset)
