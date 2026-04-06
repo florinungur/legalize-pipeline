@@ -139,7 +139,11 @@ def fetch(
 @click.argument("norm_ids", nargs=-1)
 @_country_option()
 @click.option("--all", "commit_all_flag", is_flag=True, help="Commit all from data/json/.")
-@click.option("--fast", is_flag=True, help="Use git fast-import (10-50x faster, fresh repos only).")
+@click.option(
+    "--fast/--no-fast",
+    default=True,
+    help="Use git fast-import (default). --no-fast for incremental.",
+)
 @click.option("--limit", default=None, type=int, help="Max norms to process.")
 @click.option("--offset", default=0, type=int, help="Skip first N norms.")
 @click.option(
@@ -161,8 +165,8 @@ def commit(
     """Generate git commits from local data in data/ (does not download anything).
 
     Examples:
-        legalize commit -c fr --all                    # All norms at once
-        legalize commit -c fr --all --fast             # Fast bootstrap (empty repo)
+        legalize commit -c fr --all                    # Fast bootstrap (default)
+        legalize commit -c fr --all --no-fast          # Incremental (skips existing)
         legalize commit -c fr --all --batch 10         # 10 at a time, push after each
         legalize commit -c fr --all --limit 10         # Only first 10
         legalize commit -c fr --all --offset 10 --limit 10  # Norms 11-20
@@ -172,10 +176,10 @@ def commit(
     config = ctx.obj["config"]
 
     if commit_all_flag:
-        if fast:
-            commit_all_fast(config, country, limit=limit, offset=offset)
-        elif batch:
+        if batch:
             _commit_in_batches(config, country, batch, offset, limit, dry_run)
+        elif fast:
+            commit_all_fast(config, country, limit=limit, offset=offset)
         else:
             commit_all(config, country, dry_run=dry_run, limit=limit, offset=offset)
     elif norm_ids:

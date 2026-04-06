@@ -193,32 +193,49 @@ class FastImporter:
     """Bulk commit generator using git fast-import.
 
     10-50x faster than per-commit git add/commit for bootstrap.
-    Builds an in-memory stream of blobs+commits, then feeds them
-    to git fast-import in a single pass.
+    Streams commits directly to git fast-import via stdin pipe,
+    so memory usage stays constant regardless of commit count.
 
     Usage:
         with FastImporter(repo_path, committer_name, committer_email) as fi:
             fi.commit(file_path, content, message, author_date, env_overrides)
             fi.commit(...)
-        # On exit: runs git fast-import, then git checkout to populate worktree.
+        # On exit: closes stdin, waits for fast-import to finish, then checkout.
     """
 
     def __init__(self, path: str | Path, committer_name: str, committer_email: str):
         self._path = Path(path)
         self._committer_name = committer_name
         self._committer_email = committer_email
-        self._commands: list[bytes] = []
+        self._proc: subprocess.Popen | None = None
         self._mark: int = 0
         self._commit_count: int = 0
         # Track current tree state: rel_path -> mark number
         self._tree: dict[str, int] = {}
 
     def __enter__(self) -> FastImporter:
+        self._ensure_repo()
+        self._proc = subprocess.Popen(
+            ["git", "fast-import", "--quiet"],
+            cwd=self._path,
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb) -> None:
+        if self._proc is None:
+            return
+        self._proc.stdin.close()
+        self._proc.wait()
         if exc_type is None and self._commit_count > 0:
-            self._run_fast_import()
+            if self._proc.returncode != 0:
+                stderr = self._proc.stderr.read().decode() if self._proc.stderr else ""
+                logger.error("git fast-import failed: %s", stderr)
+            else:
+                logger.info("git fast-import: %d commits imported", self._commit_count)
+                self._checkout()
 
     @property
     def commit_count(self) -> int:
@@ -233,13 +250,17 @@ class FastImporter:
             d = date_type(1970, 1, 2)
         return calendar.timegm(d.timetuple())
 
+    def _write(self, data: bytes) -> None:
+        """Write data directly to git fast-import stdin."""
+        self._proc.stdin.write(data)
+
     def commit(
         self,
         rel_path: str,
         content: str,
         info: CommitInfo,
     ) -> None:
-        """Queue a commit that writes content to rel_path.
+        """Stream a commit directly to git fast-import.
 
         Each commit builds on top of the previous one (linear history).
         """
@@ -248,9 +269,9 @@ class FastImporter:
         commit_mark = self._next_mark()
 
         # Blob
-        self._commands.append(f"blob\nmark :{blob_mark}\ndata {len(content_bytes)}\n".encode())
-        self._commands.append(content_bytes)
-        self._commands.append(b"\n")
+        self._write(f"blob\nmark :{blob_mark}\ndata {len(content_bytes)}\n".encode())
+        self._write(content_bytes)
+        self._write(b"\n")
 
         # Update tree state
         self._tree[rel_path] = blob_mark
@@ -268,25 +289,23 @@ class FastImporter:
             f"committer {self._committer_name} <{self._committer_email}> {epoch} {tz}",
             f"data {len(message_bytes)}",
         ]
-        self._commands.append(("\n".join(lines) + "\n").encode())
-        self._commands.append(message_bytes)
-        self._commands.append(b"\n")
+        self._write(("\n".join(lines) + "\n").encode())
+        self._write(message_bytes)
+        self._write(b"\n")
 
         # Reference parent (all commits after the first)
         if self._commit_count > 0:
-            self._commands.append(f"from :{commit_mark - 2}\n".encode())
+            self._write(f"from :{commit_mark - 2}\n".encode())
 
         # File modification
-        self._commands.append(f"M 100644 :{blob_mark} {rel_path}\n".encode())
-        self._commands.append(b"\n")
+        self._write(f"M 100644 :{blob_mark} {rel_path}\n".encode())
+        self._write(b"\n")
 
         self._commit_count += 1
 
-    def _run_fast_import(self) -> None:
-        """Feed all queued commands to git fast-import."""
+    def _ensure_repo(self) -> None:
+        """Ensure git repo exists."""
         self._path.mkdir(parents=True, exist_ok=True)
-
-        # Ensure repo exists
         git_dir = self._path / ".git"
         if not git_dir.exists():
             subprocess.run(
@@ -308,35 +327,11 @@ class FastImporter:
                 check=True,
             )
 
-        stream = b"".join(self._commands)
-        logger.info(
-            "Running git fast-import: %d commits, %.1f MB stream",
-            self._commit_count,
-            len(stream) / 1_048_576,
-        )
-
-        result = subprocess.run(
-            ["git", "fast-import", "--quiet"],
-            cwd=self._path,
-            input=stream,
-            capture_output=True,
-        )
-
-        if result.returncode != 0:
-            logger.error("git fast-import failed: %s", result.stderr.decode())
-            raise subprocess.CalledProcessError(
-                result.returncode,
-                ["git", "fast-import"],
-                result.stdout,
-                result.stderr,
-            )
-
-        # Checkout to populate the working tree
+    def _checkout(self) -> None:
+        """Checkout main to populate the working tree after fast-import."""
         subprocess.run(
             ["git", "checkout", "main"],
             cwd=self._path,
             capture_output=True,
             check=True,
         )
-
-        logger.info("Fast-import completed: %d commits", self._commit_count)

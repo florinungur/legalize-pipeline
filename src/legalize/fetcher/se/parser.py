@@ -50,21 +50,25 @@ _RANK_FORORDNING = Rank("forordning")  # Ordinance/Regulation
 # Known fundamental laws (grundlag) by keyword in title
 _GRUNDLAG_KEYWORDS = (
     "grundlag",
-    "regeringsformen",
-    "tryckfrihetsförordningen",
-    "yttrandefrihetsgrundlagen",
-    "successionsordningen",
+    "regeringsform",
+    "tryckfrihetsförordning",
+    "yttrandefrihetsgrundlag",
+    "successionsordning",
 )
 
 
 def _detect_rank(title: str) -> Rank:
     """Detect the normative rank from a Swedish statute title.
 
+    Uses the leading word(s) of the title to determine the type,
+    not substring search (which gives false positives, e.g.
+    "Lag ... EU:s dataskyddsförordning" would match "förordning").
+
     Detection order (most specific first):
     1. Known fundamental law keywords -> grundlag
-    2. "balk" in title -> balk (code)
-    3. "förordning" in title -> forordning (ordinance)
-    4. "lag" in title -> lag (act) — default for most statutes
+    2. Title starts with Xxxbalk or contains standalone "balk" -> balk
+    3. Title starts with "Förordning" -> forordning
+    4. Everything else -> lag (default for most statutes)
     """
     title_lower = title.lower()
 
@@ -72,10 +76,12 @@ def _detect_rank(title: str) -> Rank:
         if keyword in title_lower:
             return _RANK_GRUNDLAG
 
-    if "balk" in title_lower:
+    # Match "Brottsbalk", "Jordabalk", "Handelsbalk", etc.
+    if re.match(r"^[a-zåäö]*balk\b", title_lower):
         return _RANK_BALK
 
-    if "förordning" in title_lower:
+    # Match only if title STARTS with "Förordning"
+    if re.match(r"^förordning\b", title_lower):
         return _RANK_FORORDNING
 
     # Default: lag (act) — most Swedish SFS entries are laws
@@ -262,6 +268,8 @@ def _parse_provisions(text: str) -> list[dict[str, Any]]:
                 and len(current_content) > 0
                 and remainder
                 and bool(re.match(r"^[a-zåäö]", remainder))
+                # "har upphävts" = repealed section, not an inline reference
+                and not remainder.startswith("har upphävts")
             )
 
             if is_duplicate or is_out_of_order_current or is_out_of_order_history or is_inline_ref:
@@ -586,6 +594,9 @@ class SwedishMetadataParser(MetadataParser):
         # Short title
         short_title = _short_title_se(title, norm_id)
 
+        # Department (organ)
+        department = doc.get("organ", "").strip()
+
         # Dates
         html = doc.get("html", "")
         html_meta = _extract_html_metadata(html)
@@ -600,12 +611,13 @@ class SwedishMetadataParser(MetadataParser):
             else:
                 raise ValueError(f"Could not extract publication date for SFS {norm_id}")
 
-        amended_through = html_meta.get("Ändrad t.o.m.", "")
-        modif_date = _parse_date_se(amended_through)
+        amended_through_raw = html_meta.get("Ändrad t.o.m.", "") or html_meta.get("Ändrad", "")
+        modif_date = _parse_date_se(amended_through_raw)
 
-        # Status
+        # Status + repeal info
         status = NormStatus.IN_FORCE
-        if html_meta.get("Upphävd"):
+        repeal_date_str = html_meta.get("Upphävd", "")
+        if repeal_date_str:
             status = NormStatus.REPEALED
 
         # Rank
@@ -622,6 +634,33 @@ class SwedishMetadataParser(MetadataParser):
             f"dokument/svensk-forfattningssamling/sfs-{sfs_slug}"
         )
 
+        # Extra fields (country-specific, rendered in frontmatter)
+        extra: list[tuple[str, str]] = []
+
+        # Amended through: latest SFS amendment
+        amended_through = amended_through_raw.strip()
+        if amended_through:
+            # Clean "t.o.m. SFS 2026:253" → "SFS 2026:253"
+            cleaned = re.sub(r"^t\.o\.m\.\s*", "", amended_through)
+            extra.append(("amended_through", cleaned))
+
+        # Repeal info
+        if repeal_date_str:
+            extra.append(("repeal_date", repeal_date_str.strip()))
+        repealed_by = html_meta.get("Författningen har upphävts genom", "").strip()
+        if repealed_by:
+            extra.append(("repealed_by", repealed_by))
+
+        # Reprints (Omtryck)
+        reprints = html_meta.get("Omtryck", "").strip()
+        if reprints:
+            extra.append(("reprints", reprints))
+
+        # Notes (Övrig text — errata, corrections)
+        notes = html_meta.get("Övrig text", "").strip()
+        if notes:
+            extra.append(("notes", notes))
+
         return NormMetadata(
             title=title,
             short_title=short_title,
@@ -630,9 +669,10 @@ class SwedishMetadataParser(MetadataParser):
             rank=rank,
             publication_date=pub_date,
             status=status,
-            department="",
+            department=department,
             source=source_url,
             last_modified=modif_date,
+            extra=tuple(extra),
         )
 
 

@@ -2,6 +2,13 @@
 """Pre-commit hook: verify all registered countries dispatch correctly."""
 
 import sys
+from pathlib import Path
+
+# Ensure engine's src/ takes precedence over any globally installed legalize
+_src = str(Path(__file__).resolve().parent.parent / "src")
+sys.path.insert(0, _src)
+for _k in [k for k in sys.modules if k.startswith("legalize")]:
+    del sys.modules[_k]
 
 from legalize.countries import (
     get_client_class,

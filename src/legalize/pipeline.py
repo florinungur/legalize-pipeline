@@ -52,11 +52,11 @@ logger = logging.getLogger(__name__)
 _SKIP_WEEKDAYS: dict[str, set[int]] = {
     "es": {6},  # Mon-Sat (BOE)
     "fr": {6},  # Mon-Sat (DILA)
+    "se": {5, 6},  # Mon-Fri (Riksdagen)
     "at": {5, 6},  # Mon-Fri (RIS)
     "pt": {5, 6},  # Mon-Fri (DRE)
     "cl": {6},  # Mon-Sat (BCN)
     "lt": set(),  # Every day
-    "se": {5, 6},  # Mon-Fri (Riksdag)
     "de": {5, 6},  # Mon-Fri (GII)
     "uy": {6},  # Mon-Sat (IMPO)
 }
