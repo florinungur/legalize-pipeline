@@ -364,6 +364,31 @@ class TARMetadataParser(MetadataParser):
         if not source_url:
             source_url = f"https://e-tar.lt/portal/lt/legalAct/{doc_id}"
 
+        # Extra fields → frontmatter + DB JSONB
+        extra: list[tuple[str, str]] = []
+        _extra_map = {
+            "tar_kodas": "tar_code",
+            "atv_dok_nr": "document_number",
+            "paskelbta_tar": "published_in_tar",
+            "parengusi_inst": "preparing_institution",
+            "dok_grupe": "document_group",
+            "dok_busena": "document_status",
+            "ratifikuota": "ratification_date",
+            "patvirtinta": "approval_date",
+            "isigal_sal_lt": "entry_into_force_conditions",
+        }
+        for api_key, extra_key in _extra_map.items():
+            val = item.get(api_key)
+            if val is not None and str(val).strip():
+                extra.append((extra_key, str(val).strip()))
+
+        # Boolean/numeric flags
+        es_flag = item.get("es_teises_aktas")
+        if es_flag and int(es_flag) > 0:
+            extra.append(("eu_legal_act", "true"))
+        if item.get("ar_nacionalinis") is False:
+            extra.append(("national", "false"))
+
         return NormMetadata(
             title=title,
             short_title=short_title,
@@ -375,4 +400,5 @@ class TARMetadataParser(MetadataParser):
             department=institution,
             source=source_url,
             last_modified=last_mod,
+            extra=tuple(extra),
         )

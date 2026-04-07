@@ -22,7 +22,9 @@ DEFAULT_SUVESTINE_DATASET = "datasets/gov/lrsk/teises_aktai/Suvestine"
 # Fields needed for metadata
 _META_FIELDS = (
     "dokumento_id,pavadinimas,alt_pavadinimas,rusis,galioj_busena,"
-    "priimtas,isigalioja,negalioja,priemusi_inst,nuoroda,tar_kodas,pakeista"
+    "priimtas,isigalioja,negalioja,priemusi_inst,nuoroda,tar_kodas,pakeista,"
+    "parengusi_inst,atv_dok_nr,paskelbta_tar,dok_grupe,es_teises_aktas,"
+    "ratifikuota,patvirtinta,ar_nacionalinis,isigal_sal_lt,dok_busena"
 )
 
 # Fields needed for discovery

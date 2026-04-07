@@ -151,6 +151,12 @@ class TestTARMetadataParser:
         # alt_pavadinimas is null, should fall back to pavadinimas
         assert meta.short_title == meta.title
 
+    def test_extra_fields_tar_kodas(self):
+        json_data = (FIXTURES / "tar-metadata-TAR-2000-12345.json").read_bytes()
+        meta = self.parser.parse(json_data, "TAR.47BB952431DA")
+        extra_dict = dict(meta.extra)
+        assert "tar_code" in extra_dict
+
     def test_empty_data_raises(self):
         import pytest
 
