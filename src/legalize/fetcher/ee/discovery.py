@@ -43,7 +43,7 @@ from lxml import etree
 from legalize.fetcher.base import LegislativeClient, NormDiscovery
 
 if TYPE_CHECKING:
-    from legalize.config import CountryConfig
+    pass
 
 logger = logging.getLogger(__name__)
 
@@ -98,9 +98,15 @@ class RTDiscovery(NormDiscovery):
         self._end_year = end_year
 
     @classmethod
-    def create(cls, country_config: "CountryConfig") -> "RTDiscovery":
-        source = country_config.source or {}
-        data_dir = Path(country_config.data_dir)
+    def create(cls, country_config) -> "RTDiscovery":
+        # Accept either a CountryConfig (from bootstrap.py / the custom flow)
+        # or a bare source dict (from generic_daily / generic_fetch_all).
+        if hasattr(country_config, "source"):
+            source = country_config.source or {}
+            data_dir = Path(country_config.data_dir)
+        else:
+            source = country_config or {}
+            data_dir = Path(source.get("data_dir") or "../countries/data-ee")
 
         legi_dir = Path(source.get("legi_dir") or (data_dir / "legi"))
         bulk_dir = Path(source.get("bulk_dir") or (data_dir / "bulk"))
