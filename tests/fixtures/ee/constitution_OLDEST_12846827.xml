@@ -1,0 +1,3195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oigusakt xsi:schemaLocation="tyviseadus_1_10.02.2010 http://xmlr.eesti.ee/xml/schemas/oigusakt/tyviseadus_1_10.02.2010.xsd" xmlns="tyviseadus_1_10.02.2010" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<metaandmed>
+		<valjaandja>Rahvahääletusel vastu võetud</valjaandja>
+		<dokumentLiik>seadus</dokumentLiik>
+		<tekstiliik>terviktekst</tekstiliik>
+		
+		<lyhend>PS</lyhend><marksona>põhiseadus</marksona>
+		<dokumentEtapp>avaldamine</dokumentEtapp>
+		<dokumentStaatus>avaldatud</dokumentStaatus>
+		<vastuvoetud>
+			<aktikuupaev>1992-06-28+03:00</aktikuupaev>
+			<avaldamismarge>
+				<RTosa>RT</RTosa>
+				<RTaasta>1992</RTaasta>
+				<RTnr>26</RTnr>
+				<RTartikkel>349</RTartikkel>
+				<aktViide>24304</aktViide>
+			</avaldamismarge>
+			<joustumine>1992-07-03+03:00</joustumine>
+		</vastuvoetud>
+		<avaldamismarge>
+			<RTosa>RT I</RTosa>
+			<RTaasta>2007</RTaasta>
+			<RTnr>43</RTnr>
+			<RTartikkel>311</RTartikkel>
+			<aktViide>12846827</aktViide>
+		</avaldamismarge>
+		<kehtivus>
+			<kehtivuseAlgus>2007-07-21</kehtivuseAlgus>
+			<kehtivuseLopp>2011-07-21</kehtivuseLopp>
+		</kehtivus>
+		<skeemiNimi>tyviseadus_1_10.02.2010.xsd</skeemiNimi>
+		<globaalID>12846827</globaalID>
+		<metaandmedVersioon>9</metaandmedVersioon>
+		<metaandmedVersioonKuupaev>2023-01-05</metaandmedVersioonKuupaev>
+		<metaandmedVersioonPohjustaja>Imre Sobnin</metaandmedVersioonPohjustaja>
+		<terviktekstiGrupiID>151381</terviktekstiGrupiID>
+	</metaandmed>
+	<aktinimi>
+		<nimi>
+			<pealkiri>Eesti Vabariigi põhiseadus</pealkiri>
+		</nimi>
+	</aktinimi>
+	<muutmismarge>
+		<aktikuupaev>2003-02-25+02:00</aktikuupaev>
+		<avaldamismarge>
+			<RTosa>RT I</RTosa>
+			<RTaasta>2003</RTaasta>
+			<RTnr>29</RTnr>
+			<RTartikkel>174</RTartikkel>
+			<aktViide>550572</aktViide>
+		</avaldamismarge>
+		<joustumine>2005-10-17+03:00</joustumine>
+	</muutmismarge>
+	<muutmismarge>
+		<aktikuupaev>2003-10-05+03:00</aktikuupaev>
+		<avaldamismarge>
+			<RTosa>RT I</RTosa>
+			<RTaasta>2003</RTaasta>
+			<RTnr>64</RTnr>
+			<RTartikkel>429</RTartikkel>
+			<aktViide>631119</aktViide>
+		</avaldamismarge>
+		<joustumine>2004-01-06+02:00</joustumine>
+	</muutmismarge>
+	<muutmismarge>
+		<aktikuupaev>2007-04-12+03:00</aktikuupaev>
+		<avaldamismarge>
+			<RTosa>RT I</RTosa>
+			<RTaasta>2007</RTaasta>
+			<RTnr>33</RTnr>
+			<RTartikkel>210</RTartikkel>
+			<aktViide>12820316</aktViide>
+		</avaldamismarge>
+		<joustumine>2007-07-21+03:00</joustumine>
+	</muutmismarge>
+	<sisu>
+		<sisuTekst>
+			<tavatekst>Kõikumatus usus ja vankumatus tahtes kindlustada ja arendada riiki,<reavahetus/>mis on loodud Eesti rahva riikliku enesemääramise kustumatul õigusel ja välja kuulutatud 1918. aasta 24. veebruaril,<reavahetus/>mis on rajatud vabadusele, õiglusele ja õigusele,<reavahetus/>mis on kaitseks sisemisele ja välisele rahule ning pandiks praegustele ja tulevastele põlvedele nende ühiskondlikus edus ja üldises kasus,<reavahetus/>mis peab tagama eesti rahvuse, keele ja kultuuri säilimise läbi aegade –<reavahetus/>võttis Eesti rahvas 1938. aastal jõustunud põhiseaduse § 1 alusel 1992. aasta 28. juuni rahvahääletusel vastu järgmise põhiseaduse.</tavatekst>
+			<muutmismarge>
+				<avaldamismarge>
+					<RTosa>RT I</RTosa>
+					<RTaasta>2007</RTaasta>
+					<RTnr>33</RTnr>
+					<RTartikkel>210</RTartikkel>
+					<aktViide>12820316</aktViide>
+				</avaldamismarge>
+				<joustumine>2007-07-21</joustumine>
+			</muutmismarge>
+		</sisuTekst>
+		<peatykk id="ptk1">
+			<peatykkNr>I</peatykkNr>
+			<kuvatavNr><![CDATA[I. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>ÜLDSÄTTED</peatykkPealkiri>
+			<paragrahv id="para1">
+				<paragrahvNr>1</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 1.]]></kuvatavNr>
+				<loige id="para1lg1">
+					<sisuTekst>
+						<tavatekst>Eesti on iseseisev ja sõltumatu demokraatlik vabariik, kus kõrgeima riigivõimu kandja on rahvas.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para1lg2">
+					<sisuTekst>
+						<tavatekst>Eesti iseseisvus ja sõltumatus on aegumatu ning võõrandamatu.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para2">
+				<paragrahvNr>2</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 2.]]></kuvatavNr>
+				<loige id="para2lg1">
+					<sisuTekst>
+						<tavatekst>Eesti riigi maa-ala, territoriaalveed ja õhuruum on lahutamatu ja jagamatu tervik.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para2lg2">
+					<sisuTekst>
+						<tavatekst>Eesti on riiklikult korralduselt ühtne riik, mille territooriumi haldusjaotuse sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para3">
+				<paragrahvNr>3</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 3.]]></kuvatavNr>
+				<loige id="para3lg1">
+					<sisuTekst>
+						<tavatekst>Riigivõimu teostatakse üksnes põhiseaduse ja sellega kooskõlas olevate seaduste alusel. Rahvusvahelise õiguse üldtunnustatud põhimõtted ja normid on Eesti õigussüsteemi lahutamatu osa.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para3lg2">
+					<sisuTekst>
+						<tavatekst>Seadused avaldatakse ettenähtud korras. Täitmiseks kohustuslikud saavad olla üksnes avaldatud seadused.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para4">
+				<paragrahvNr>4</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 4.]]></kuvatavNr>
+				<loige id="para4lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu, Vabariigi Presidendi, Vabariigi Valitsuse ja kohtute tegevus on korraldatud võimude lahususe ja tasakaalustatuse põhimõttel.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para5">
+				<paragrahvNr>5</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 5.]]></kuvatavNr>
+				<loige id="para5lg1">
+					<sisuTekst>
+						<tavatekst>Eesti loodusvarad ja loodusressursid on rahvuslik rikkus, mida tuleb kasutada säästlikult.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para6">
+				<paragrahvNr>6</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 6.]]></kuvatavNr>
+				<loige id="para6lg1">
+					<sisuTekst>
+						<tavatekst>Eesti riigikeel on eesti keel.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para7">
+				<paragrahvNr>7</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 7.]]></kuvatavNr>
+				<loige id="para7lg1">
+					<sisuTekst>
+						<tavatekst>Eesti riigivärvid on sinine, must ja valge. Riigilipu ja riigivapi kuju sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk2">
+			<peatykkNr>II</peatykkNr>
+			<kuvatavNr><![CDATA[II. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>PÕHIÕIGUSED, VABADUSED JA KOHUSTUSED</peatykkPealkiri>
+			<paragrahv id="para8">
+				<paragrahvNr>8</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 8.]]></kuvatavNr>
+				<loige id="para8lg1">
+					<sisuTekst>
+						<tavatekst>Igal lapsel, kelle vanematest üks on Eesti kodanik, on õigus Eesti kodakondsusele sünnilt.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para8lg2">
+					<sisuTekst>
+						<tavatekst>Igaühel, kes on alaealisena kaotanud Eesti kodakondsuse, on õigus selle taastamisele.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para8lg3">
+					<sisuTekst>
+						<tavatekst>Kelleltki ei tohi võtta sünniga omandatud Eesti kodakondsust.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para8lg4">
+					<sisuTekst>
+						<tavatekst>Kelleltki ei tohi veendumuste pärast võtta Eesti kodakondsust.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para8lg5">
+					<sisuTekst>
+						<tavatekst>Eesti kodakondsuse saamise, kaotamise ja taastamise tingimused ning korra sätestab kodakondsuse seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para9">
+				<paragrahvNr>9</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 9.]]></kuvatavNr>
+				<loige id="para9lg1">
+					<sisuTekst>
+						<tavatekst>Põhiseaduses loetletud kõigi ja igaühe õigused, vabadused ja kohustused on võrdselt nii Eesti kodanikel kui ka Eestis viibivatel välisriikide kodanikel ja kodakondsuseta isikutel.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para9lg2">
+					<sisuTekst>
+						<tavatekst>Põhiseaduses loetletud õigused, vabadused ja kohustused laienevad juriidilistele isikutele niivõrd, kui see on kooskõlas juriidiliste isikute üldiste eesmärkide ja selliste õiguste, vabaduste ja kohustuste olemusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para10">
+				<paragrahvNr>10</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 10.]]></kuvatavNr>
+				<loige id="para10lg1">
+					<sisuTekst>
+						<tavatekst>Käesolevas peatükis loetletud õigused, vabadused ja kohustused ei välista muid õigusi, vabadusi ega kohustusi, mis tulenevad põhiseaduse mõttest või on sellega kooskõlas ja vastavad inimväärikuse ning sotsiaalse ja demokraatliku õigusriigi põhimõtetele.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para11">
+				<paragrahvNr>11</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 11.]]></kuvatavNr>
+				<loige id="para11lg1">
+					<sisuTekst>
+						<tavatekst>Õigusi ja vabadusi tohib piirata ainult kooskõlas põhiseadusega. Need piirangud peavad olema demokraatlikus ühiskonnas vajalikud ega tohi moonutada piiratavate õiguste ja vabaduste olemust.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para12">
+				<paragrahvNr>12</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 12.]]></kuvatavNr>
+				<loige id="para12lg1">
+					<sisuTekst>
+						<tavatekst>Kõik on seaduse ees võrdsed. Kedagi ei tohi diskrimineerida rahvuse, rassi, nahavärvuse, soo, keele, päritolu, usutunnistuse, poliitiliste või muude veendumuste, samuti varalise ja sotsiaalse seisundi või muude asjaolude tõttu.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para12lg2">
+					<sisuTekst>
+						<tavatekst>Rahvusliku, rassilise, usulise või poliitilise vihkamise, vägivalla ja diskrimineerimise õhutamine on seadusega keelatud ja karistatav. Samuti on seadusega keelatud ja karistatav õhutada vihkamist, vägivalda ja diskrimineerimist ühiskonnakihtide vahel.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para13">
+				<paragrahvNr>13</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 13.]]></kuvatavNr>
+				<loige id="para13lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus riigi ja seaduse kaitsele. Eesti riik kaitseb oma kodanikku ka välisriikides.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para13lg2">
+					<sisuTekst>
+						<tavatekst>Seadus kaitseb igaühte riigivõimu omavoli eest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para14">
+				<paragrahvNr>14</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 14.]]></kuvatavNr>
+				<loige id="para14lg1">
+					<sisuTekst>
+						<tavatekst>Õiguste ja vabaduste tagamine on seadusandliku, täidesaatva ja kohtuvõimu ning kohalike omavalitsuste kohustus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para15">
+				<paragrahvNr>15</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 15.]]></kuvatavNr>
+				<loige id="para15lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus pöörduda oma õiguste ja vabaduste rikkumise korral kohtusse. Igaüks võib oma kohtuasja läbivaatamisel nõuda mis tahes asjassepuutuva seaduse, muu õigusakti või toimingu põhiseadusevastaseks tunnistamist.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para15lg2">
+					<sisuTekst>
+						<tavatekst>Kohus järgib põhiseadust ja tunnistab põhiseadusevastaseks mis tahes seaduse, muu õigusakti või toimingu, mis rikub põhiseaduses sätestatud õigusi ja vabadusi või on muul viisil põhiseadusega vastuolus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para16">
+				<paragrahvNr>16</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 16.]]></kuvatavNr>
+				<loige id="para16lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus elule. Seda õigust kaitseb seadus. Meelevaldselt ei tohi kelleltki elu võtta.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para17">
+				<paragrahvNr>17</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 17.]]></kuvatavNr>
+				<loige id="para17lg1">
+					<sisuTekst>
+						<tavatekst>Kellegi au ega head nime ei tohi teotada.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para18">
+				<paragrahvNr>18</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 18.]]></kuvatavNr>
+				<loige id="para18lg1">
+					<sisuTekst>
+						<tavatekst>Kedagi ei tohi piinata, julmalt või väärikust alandavalt kohelda ega karistada.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para18lg2">
+					<sisuTekst>
+						<tavatekst>Kedagi ei tohi tema vaba tahte vastaselt allutada meditsiini- ega teaduskatsetele.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para19">
+				<paragrahvNr>19</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 19.]]></kuvatavNr>
+				<loige id="para19lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus vabale eneseteostusele.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para19lg2">
+					<sisuTekst>
+						<tavatekst>Igaüks peab oma õiguste ja vabaduste kasutamisel ning kohustuste täitmisel austama ja arvestama teiste inimeste õigusi ja vabadusi ning järgima seadust.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para20">
+				<paragrahvNr>20</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 20.]]></kuvatavNr>
+				<loige id="para20lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus vabadusele ja isikupuutumatusele.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para20lg2">
+					<sisuTekst>
+						<tavatekst>Vabaduse võib võtta ainult seaduses sätestatud juhtudel ja korras:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para20lg2p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>süüdimõistva kohtuotsuse või kohtu poolt määratud aresti täitmiseks;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para20lg2p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kohtu korralduse täitmata jätmise korral või seadusega sätestatud kohustuse täitmise tagamiseks;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para20lg2p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kuriteo või haldusõiguserikkumise ärahoidmiseks, sellises õiguserikkumises põhjendatult kahtlustatava toimetamiseks pädeva riigiorgani ette või tema pakkumineku vältimiseks;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para20lg2p4">
+						<alampunktNr>4</alampunktNr>
+						<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>alaealise üle kasvatusliku järelevalve sisseseadmiseks või tema toimetamiseks pädeva riigiorgani ette, et otsustada sellise järelevalve sisseseadmine;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para20lg2p5">
+						<alampunktNr>5</alampunktNr>
+						<kuvatavNr><![CDATA[5)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nakkushaige, vaimuhaige, alkohooliku või narkomaani kinnipidamiseks, kui ta on endale või teistele ohtlik;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para20lg2p6">
+						<alampunktNr>6</alampunktNr>
+						<kuvatavNr><![CDATA[6)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>ebaseadusliku Eestisse asumise tõkestamiseks ning Eestist väljasaatmiseks või välisriigile väljaandmiseks.</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+				<loige id="para20lg3">
+					<sisuTekst>
+						<tavatekst>Kelleltki ei tohi võtta vabadust üksnes sel põhjusel, et ta ei ole suuteline täitma mingit lepingulist kohustust.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para21">
+				<paragrahvNr>21</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 21.]]></kuvatavNr>
+				<loige id="para21lg1">
+					<sisuTekst>
+						<tavatekst>Igaühele, kellelt on võetud vabadus, teatatakse viivitamatult talle arusaadavas keeles ja viisil vabaduse võtmise põhjus ja tema õigused ning antakse võimalus teatada vabaduse võtmisest oma lähedastele. Kuriteos kahtlustatavale antakse viivitamatult ka võimalus valida endale kaitsja ja kohtuda temaga. Kuriteos kahtlustatava õigust teatada vabaduse võtmisest oma lähedastele võib piirata ainult seaduses sätestatud juhtudel ja korras kuriteo tõkestamiseks või kriminaalmenetluses tõe väljaselgitamise huvides.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para21lg2">
+					<sisuTekst>
+						<tavatekst>Kedagi ei tohi vahi all pidada üle neljakümne kaheksa tunni ilma kohtu sellekohase loata. Kohtu otsus teatatakse vahistatule viivitamatult talle arusaadavas keeles ja viisil.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para22">
+				<paragrahvNr>22</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 22.]]></kuvatavNr>
+				<loige id="para22lg1">
+					<sisuTekst>
+						<tavatekst>Kedagi ei tohi käsitada kuriteos süüdi olevana enne, kui tema kohta on jõustunud süüdimõistev kohtuotsus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para22lg2">
+					<sisuTekst>
+						<tavatekst>Keegi ei ole kriminaalmenetluses kohustatud oma süütust tõendama.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para22lg3">
+					<sisuTekst>
+						<tavatekst>Kedagi ei tohi sundida tunnistama iseenda või oma lähedaste vastu.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para23">
+				<paragrahvNr>23</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 23.]]></kuvatavNr>
+				<loige id="para23lg1">
+					<sisuTekst>
+						<tavatekst>Kedagi ei tohi süüdi mõista teo eest, kui seda tegu ei tunnista kuriteoks seadus, mis oli jõus teo toimepanemise ajal.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para23lg2">
+					<sisuTekst>
+						<tavatekst>Kellelegi ei tohi mõista raskemat karistust kui see, mida võinuks talle mõista õiguserikkumise toimepanemise ajal. Kui seadus sätestab pärast õiguserikkumise toimepanemist kergema karistuse, kohaldatakse kergemat karistust.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para23lg3">
+					<sisuTekst>
+						<tavatekst>Kedagi ei tohi teist korda kohtu alla anda ega karistada teo eest, milles teda vastavalt seadusele on mõistetud lõplikult süüdi või õigeks.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para24">
+				<paragrahvNr>24</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 24.]]></kuvatavNr>
+				<loige id="para24lg1">
+					<sisuTekst>
+						<tavatekst>Kedagi ei tohi tema vaba tahte vastaselt üle viia seadusega määratud kohtu alluvusest teise kohtu alluvusse.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para24lg2">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus olla oma kohtuasja arutamise juures.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para24lg3">
+					<sisuTekst>
+						<tavatekst>Kohtuistungid on avalikud. Kohus võib seaduses sätestatud juhtudel ja korras oma istungi või osa sellest kuulutada kinniseks riigi- või ärisaladuse, kõlbluse või inimeste perekonna- ja eraelu kaitseks või kui seda nõuavad alaealise, kannatanu või õigusemõistmise huvid.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para24lg4">
+					<sisuTekst>
+						<tavatekst>Kohtuotsus kuulutatakse avalikult, välja arvatud juhud, kui alaealise, abielupoole või kannatanu huvid nõuavad teisiti.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para24lg5">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus tema kohta tehtud kohtu otsuse peale seadusega sätestatud korras edasi kaevata kõrgemalseisvale kohtule.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para25">
+				<paragrahvNr>25</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 25.]]></kuvatavNr>
+				<loige id="para25lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus talle ükskõik kelle poolt õigusvastaselt tekitatud moraalse ja materiaalse kahju hüvitamisele.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para26">
+				<paragrahvNr>26</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 26.]]></kuvatavNr>
+				<loige id="para26lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus perekonna- ja eraelu puutumatusele. Riigiasutused, kohalikud omavalitsused ja nende ametiisikud ei tohi kellegi perekonna- ega eraellu sekkuda muidu, kui seaduses sätestatud juhtudel ja korras tervise, kõlbluse, avaliku korra või teiste inimeste õiguste ja vabaduste kaitseks, kuriteo tõkestamiseks või kurjategija tabamiseks.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para27">
+				<paragrahvNr>27</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 27.]]></kuvatavNr>
+				<loige id="para27lg1">
+					<sisuTekst>
+						<tavatekst>Perekond rahva püsimise ja kasvamise ning ühiskonna alusena on riigi kaitse all.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para27lg2">
+					<sisuTekst>
+						<tavatekst>Abikaasad on võrdõiguslikud.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para27lg3">
+					<sisuTekst>
+						<tavatekst>Vanematel on õigus ja kohustus kasvatada oma lapsi ja hoolitseda nende eest.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para27lg4">
+					<sisuTekst>
+						<tavatekst>Seadus sätestab vanemate ja laste kaitse.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para27lg5">
+					<sisuTekst>
+						<tavatekst>Perekond on kohustatud hoolitsema oma abivajavate liikmete eest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para28">
+				<paragrahvNr>28</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 28.]]></kuvatavNr>
+				<loige id="para28lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus tervise kaitsele.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para28lg2">
+					<sisuTekst>
+						<tavatekst>Eesti kodanikul on õigus riigi abile vanaduse, töövõimetuse, toitjakaotuse ja puuduse korral. Abi liigid, ulatuse ning saamise tingimused ja korra sätestab seadus. Kui seadus ei sätesta teisiti, siis on see õigus võrdselt Eesti kodanikuga ka Eestis viibival välisriigi kodanikul ja kodakondsuseta isikul.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para28lg3">
+					<sisuTekst>
+						<tavatekst>Riik soodustab vabatahtlikku ja omavalitsuse hoolekannet.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para28lg4">
+					<sisuTekst>
+						<tavatekst>Lasterikkad pered ja puuetega inimesed on riigi ja kohalike omavalitsuste erilise hoole all.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para29">
+				<paragrahvNr>29</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 29.]]></kuvatavNr>
+				<loige id="para29lg1">
+					<sisuTekst>
+						<tavatekst>Eesti kodanikul on õigus vabalt valida tegevusala, elukutset ja töökohta. Seadus võib sätestada selle õiguse kasutamise tingimused ja korra. Kui seadus ei sätesta teisiti, siis on see õigus võrdselt Eesti kodanikuga ka Eestis viibival välisriigi kodanikul ja kodakondsuseta isikul.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para29lg2">
+					<sisuTekst>
+						<tavatekst>Kedagi ei tohi sundida tema vaba tahte vastaselt tööle ega teenistusse, välja arvatud kaitseväeteenistus või selle asendusteenistus, tööd nakkushaiguse leviku tõkestamisel, loodusõnnetuse ja katastroofi korral ning töö, mida seaduse alusel ja korras peab tegema süüdimõistetu.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para29lg3">
+					<sisuTekst>
+						<tavatekst>Riik korraldab kutseõpet ja abistab tööotsijaid töö leidmisel.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para29lg4">
+					<sisuTekst>
+						<tavatekst>Töötingimused on riigi kontrolli all.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para29lg5">
+					<sisuTekst>
+						<tavatekst>Töötajate ja tööandjate ühingutesse ja liitudesse kuulumine on vaba. Töötajate ja tööandjate ühingud ja liidud võivad oma õiguste ja seaduslike huvide eest seista vahenditega, mida seadus ei keela. Streigiõiguse kasutamise tingimused ja korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para29lg6">
+					<sisuTekst>
+						<tavatekst>Töövaidluste lahendamise korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para30">
+				<paragrahvNr>30</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 30.]]></kuvatavNr>
+				<loige id="para30lg1">
+					<sisuTekst>
+						<tavatekst>Ametikohad riigiasutustes ja kohalikes omavalitsustes täidetakse seaduse alusel ja korras Eesti kodanikega. Kooskõlas seadusega võib neid ametikohti erandkorras täita ka välisriigi kodanike ja kodakondsuseta isikutega.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para30lg2">
+					<sisuTekst>
+						<tavatekst>Seadus võib piirata mõne kategooria riigiteenistujate õigust tegelda ettevõtlusega ja koonduda tulundusühendustesse (§ 31) ning õigust kuuluda erakondadesse ja mõnda liiki mittetulundusühendustesse (§ 48).</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para31">
+				<paragrahvNr>31</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 31.]]></kuvatavNr>
+				<loige id="para31lg1">
+					<sisuTekst>
+						<tavatekst>Eesti kodanikel on õigus tegelda ettevõtlusega ning koonduda tulundusühingutesse ja -liitudesse. Seadus võib sätestada selle õiguse kasutamise tingimused ja korra. Kui seadus ei sätesta teisiti, siis on see õigus võrdselt Eesti kodanikega ka Eestis viibivatel välisriikide kodanikel ja kodakondsuseta isikutel.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para32">
+				<paragrahvNr>32</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 32.]]></kuvatavNr>
+				<loige id="para32lg1">
+					<sisuTekst>
+						<tavatekst>Igaühe omand on puutumatu ja võrdselt kaitstud. Omandit võib omaniku nõusolekuta võõrandada ainult seaduses sätestatud juhtudel ja korras üldistes huvides õiglase ja kohese hüvituse eest. Igaühel, kelle vara on tema nõusolekuta võõrandatud, on õigus pöörduda kohtusse ning vaidlustada vara võõrandamine, hüvitus või selle suurus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para32lg2">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus enda omandit vabalt vallata, kasutada ja käsutada. Kitsendused sätestab seadus. Omandit ei tohi kasutada üldiste huvide vastaselt.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para32lg3">
+					<sisuTekst>
+						<tavatekst>Seadus võib üldistes huvides sätestada vara liigid, mida tohivad Eestis omandada ainult Eesti kodanikud, mõnda liiki juriidilised isikud, kohalikud omavalitsused või Eesti riik.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para32lg4">
+					<sisuTekst>
+						<tavatekst>Pärimisõigus on tagatud.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para33">
+				<paragrahvNr>33</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 33.]]></kuvatavNr>
+				<loige id="para33lg1">
+					<sisuTekst>
+						<tavatekst>Kodu on puutumatu. Ei tohi tungida kellegi eluruumi, valdusse ega töökohta ega neid ka läbi otsida, välja arvatud seadusega sätestatud juhtudel ja korras avaliku korra, tervise või teiste inimeste õiguste ja vabaduste kaitseks, kuriteo tõkestamiseks, kurjategija tabamiseks või tõe väljaselgitamiseks kriminaalmenetluses.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para34">
+				<paragrahvNr>34</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 34.]]></kuvatavNr>
+				<loige id="para34lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel, kes viibib seaduslikult Eestis, on õigus vabalt liikuda ja elukohta valida. Õigust vabalt liikuda võib seaduses sätestatud juhtudel ja korras piirata teiste inimeste õiguste ja vabaduste kaitseks, riigikaitse huvides, loodusõnnetuse ja katastroofi korral, nakkushaiguse leviku tõkestamiseks, looduskeskkonna kaitseks, alaealise või vaimuhaige järelevalvetuse ärahoidmiseks ja kriminaalasja menetluse tagamiseks.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para35">
+				<paragrahvNr>35</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 35.]]></kuvatavNr>
+				<loige id="para35lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus lahkuda Eestist. Seda õigust võib seaduses sätestatud juhtudel ja korras piirata kohtu- ning kohtueelse menetluse tagamiseks ja kohtuotsuse täitmiseks.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para36">
+				<paragrahvNr>36</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 36.]]></kuvatavNr>
+				<loige id="para36lg1">
+					<sisuTekst>
+						<tavatekst>Ühtki Eesti kodanikku ei tohi Eestist välja saata ega takistada Eestisse asumast.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para36lg2">
+					<sisuTekst>
+						<tavatekst>Ühtki Eesti kodanikku ei tohi välisriigile välja anda muidu, kui välislepingus ettenähtud juhtudel ning vastavas lepingus ja seaduses sätestatud korras. Väljaandmise otsustab Vabariigi Valitsus. Igal väljaantaval on õigus vaidlustada väljaandmine Eesti kohtus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para36lg3">
+					<sisuTekst>
+						<tavatekst>Igal eestlasel on õigus asuda Eestisse.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para37">
+				<paragrahvNr>37</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 37.]]></kuvatavNr>
+				<loige id="para37lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus haridusele. Õppimine on kooliealistel lastel seadusega määratud ulatuses kohustuslik ning riigi ja kohalike omavalitsuste üldhariduskoolides õppemaksuta.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para37lg2">
+					<sisuTekst>
+						<tavatekst>Et teha haridus kättesaadavaks, peavad riik ja kohalikud omavalitsused ülal vajalikul arvul õppeasutusi. Seaduse alusel võib avada ja pidada ka muid õppeasutusi, sealhulgas erakoole.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para37lg3">
+					<sisuTekst>
+						<tavatekst>Laste hariduse valikul on otsustav sõna vanematel.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para37lg4">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus saada eestikeelset õpetust. Õppekeele vähemusrahvuse õppeasutuses valib õppeasutus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para37lg5">
+					<sisuTekst>
+						<tavatekst>Hariduse andmine on riigi järelevalve all.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para38">
+				<paragrahvNr>38</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 38.]]></kuvatavNr>
+				<loige id="para38lg1">
+					<sisuTekst>
+						<tavatekst>Teadus ja kunst ning nende õpetused on vabad.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para38lg2">
+					<sisuTekst>
+						<tavatekst>Ülikoolid ja teadusasutused on seaduses ettenähtud piires autonoomsed.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para39">
+				<paragrahvNr>39</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 39.]]></kuvatavNr>
+				<loige id="para39lg1">
+					<sisuTekst>
+						<tavatekst>Autoril on võõrandamatu õigus oma loomingule. Riik kaitseb autori õigusi.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para40">
+				<paragrahvNr>40</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 40.]]></kuvatavNr>
+				<loige id="para40lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on südametunnistuse-, usu- ja mõttevabadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para40lg2">
+					<sisuTekst>
+						<tavatekst>Kuulumine kirikutesse ja usuühingutesse on vaba. Riigikirikut ei ole.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para40lg3">
+					<sisuTekst>
+						<tavatekst>Igaühel on vabadus nii üksinda kui ka koos teistega, avalikult või eraviisiliselt täita usutalitusi, kui see ei kahjusta avalikku korda, tervist ega kõlblust.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para41">
+				<paragrahvNr>41</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 41.]]></kuvatavNr>
+				<loige id="para41lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus jääda truuks oma arvamustele ja veendumustele. Kedagi ei tohi sundida neid muutma.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para41lg2">
+					<sisuTekst>
+						<tavatekst>Veendumustega ei saa vabandada õiguserikkumist.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para41lg3">
+					<sisuTekst>
+						<tavatekst>Kedagi ei saa veendumuste pärast võtta õiguslikule vastutusele.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para42">
+				<paragrahvNr>42</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 42.]]></kuvatavNr>
+				<loige id="para42lg1">
+					<sisuTekst>
+						<tavatekst>Riigiasutused, kohalikud omavalitsused ja nende ametiisikud ei tohi Eesti kodaniku vaba tahte vastaselt koguda ega talletada andmeid tema veendumuste kohta.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para43">
+				<paragrahvNr>43</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 43.]]></kuvatavNr>
+				<loige id="para43lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus tema poolt või temale posti, telegraafi, telefoni või muul üldkasutataval teel edastatavate sõnumite saladusele. Erandeid võib kohtu loal teha kuriteo tõkestamiseks või kriminaalmenetluses tõe väljaselgitamiseks seadusega sätestatud juhtudel ja korras.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para44">
+				<paragrahvNr>44</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 44.]]></kuvatavNr>
+				<loige id="para44lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus vabalt saada üldiseks kasutamiseks levitatavat informatsiooni.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para44lg2">
+					<sisuTekst>
+						<tavatekst>Kõik riigiasutused, kohalikud omavalitsused ja nende ametiisikud on kohustatud seaduses sätestatud korras andma Eesti kodanikule tema nõudel informatsiooni oma tegevuse kohta, välja arvatud andmed, mille väljaandmine on seadusega keelatud, ja eranditult asutusesiseseks kasutamiseks mõeldud andmed.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para44lg3">
+					<sisuTekst>
+						<tavatekst>Eesti kodanikul on õigus seaduses sätestatud korras tutvuda tema kohta riigiasutustes ja kohalikes omavalitsustes ning riigi ja kohalike omavalitsuste arhiivides hoitavate andmetega. Seaduse alusel võib seda õigust piirata teiste inimeste õiguste ja vabaduste ning lapse põlvnemise saladuse kaitseks, samuti kuriteo tõkestamise, kurjategija tabamise või kriminaalmenetluses tõe väljaselgitamise huvides.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para44lg4">
+					<sisuTekst>
+						<tavatekst>Kui seadus ei sätesta teisiti, siis on käesoleva paragrahvi lõigetes kaks ja kolm nimetatud õigused võrdselt Eesti kodanikuga ka Eestis viibival välisriigi kodanikul ja kodakondsuseta isikul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para45">
+				<paragrahvNr>45</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 45.]]></kuvatavNr>
+				<loige id="para45lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus vabalt levitada ideid, arvamusi, veendumusi ja muud informatsiooni sõnas, trükis, pildis või muul viisil. Seda õigust võib seadus piirata avaliku korra, kõlbluse, teiste inimeste õiguste ja vabaduste, tervise, au ning hea nime kaitseks. Seadus võib seda õigust piirata ka riigi ja kohalike omavalitsuste teenistujatel neile ameti tõttu teatavaks saanud riigi- või ärisaladuse või konfidentsiaalsena saadud informatsiooni ning teiste inimeste perekonna- ja eraelu kaitseks, samuti õigusemõistmise huvides.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para45lg2">
+					<sisuTekst>
+						<tavatekst>Tsensuuri ei ole.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para46">
+				<paragrahvNr>46</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 46.]]></kuvatavNr>
+				<loige id="para46lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus pöörduda märgukirjade ja avaldustega riigiasutuste, kohalike omavalitsuste ja nende ametiisikute poole. Vastamise korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para47">
+				<paragrahvNr>47</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 47.]]></kuvatavNr>
+				<loige id="para47lg1">
+					<sisuTekst>
+						<tavatekst>Kõigil on õigus ilma eelneva loata rahumeelselt koguneda ja koosolekuid pidada. Seda õigust võib seaduses sätestatud juhtudel ja korras piirata riigi julgeoleku, avaliku korra, kõlbluse, liiklusohutuse ja koosolekust osavõtjate ohutuse tagamiseks ning nakkushaiguse leviku tõkestamiseks.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para48">
+				<paragrahvNr>48</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 48.]]></kuvatavNr>
+				<loige id="para48lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus koonduda mittetulundusühingutesse ja -liitudesse. Erakondadesse võivad kuuluda ainult Eesti kodanikud.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para48lg2">
+					<sisuTekst>
+						<tavatekst>Relvi valdavate, samuti sõjaväeliselt korraldatud või sõjalisi harjutusi harrastavate ühingute ja liitude loomiseks on nõutav eelnev luba, mille andmise tingimused ja korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para48lg3">
+					<sisuTekst>
+						<tavatekst>Keelatud on ühingud, liidud ja erakonnad, kelle eesmärgid või tegevus on suunatud Eesti põhiseadusliku korra vägivaldsele muutmisele või on muul viisil vastuolus kriminaalvastutust sätestava seadusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para48lg4">
+					<sisuTekst>
+						<tavatekst>Ainult kohus võib õiguserikkumise eest ühingu, liidu või erakonna tegevuse lõpetada või peatada, samuti teda trahvida.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para49">
+				<paragrahvNr>49</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 49.]]></kuvatavNr>
+				<loige id="para49lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus säilitada oma rahvuskuuluvus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para50">
+				<paragrahvNr>50</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 50.]]></kuvatavNr>
+				<loige id="para50lg1">
+					<sisuTekst>
+						<tavatekst>Vähemusrahvustel on õigus luua rahvuskultuuri huvides omavalitsusasutusi vähemusrahvuste kultuurautonoomia seaduses sätestatud tingimustel ja korras.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para51">
+				<paragrahvNr>51</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 51.]]></kuvatavNr>
+				<loige id="para51lg1">
+					<sisuTekst>
+						<tavatekst>Igaühel on õigus pöörduda riigiasutuste, kohalike omavalitsuste ja nende ametiisikute poole eesti keeles ja saada eestikeelseid vastuseid.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para51lg2">
+					<sisuTekst>
+						<tavatekst>Paikkondades, kus vähemalt pooled püsielanikest on vähemusrahvusest, on igaühel õigus saada riigiasutustelt ja kohalikelt omavalitsustelt ning nende ametiisikutelt vastuseid ka selle vähemusrahvuse keeles.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para52">
+				<paragrahvNr>52</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 52.]]></kuvatavNr>
+				<loige id="para52lg1">
+					<sisuTekst>
+						<tavatekst>Riigiasutuste ja kohalike omavalitsuste asjaajamiskeel on eesti keel.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para52lg2">
+					<sisuTekst>
+						<tavatekst>Paikkondades, kus elanike enamiku keel ei ole eesti keel, võivad kohalikud omavalitsused seaduses sätestatud ulatuses ja korras kasutada sisemise asjaajamiskeelena selle paikkonna püsielanike enamiku keelt.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para52lg3">
+					<sisuTekst>
+						<tavatekst>Võõrkeelte, sealhulgas vähemusrahvuste keelte kasutamise riigiasutuses ning kohtu- ja kohtueelses menetluses sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para53">
+				<paragrahvNr>53</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 53.]]></kuvatavNr>
+				<loige id="para53lg1">
+					<sisuTekst>
+						<tavatekst>Igaüks on kohustatud säästma elu- ja looduskeskkonda ning hüvitama kahju, mis ta on keskkonnale tekitanud. Hüvitamise korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para54">
+				<paragrahvNr>54</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 54.]]></kuvatavNr>
+				<loige id="para54lg1">
+					<sisuTekst>
+						<tavatekst>Eesti kodaniku kohus on olla ustav põhiseaduslikule korrale ning kaitsta Eesti iseseisvust.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para54lg2">
+					<sisuTekst>
+						<tavatekst>Kui muid vahendeid ei leidu, on igal Eesti kodanikul õigus osutada põhiseadusliku korra vägivaldsele muutmisele omaalgatuslikku vastupanu.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para55">
+				<paragrahvNr>55</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 55.]]></kuvatavNr>
+				<loige id="para55lg1">
+					<sisuTekst>
+						<tavatekst>Eestis viibivad teiste riikide kodanikud ja kodakondsuseta isikud on kohustatud järgima Eesti põhiseaduslikku korda.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk3">
+			<peatykkNr>III</peatykkNr>
+			<kuvatavNr><![CDATA[III. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>RAHVAS</peatykkPealkiri>
+			<paragrahv id="para56">
+				<paragrahvNr>56</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 56.]]></kuvatavNr>
+				<loige id="para56lg1">
+					<sisuTekst>
+						<tavatekst>Kõrgeimat riigivõimu teostab rahvas hääleõiguslike kodanike kaudu:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para56lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Riigikogu valimisega;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para56lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>rahvahääletusega.</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para57">
+				<paragrahvNr>57</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 57.]]></kuvatavNr>
+				<loige id="para57lg1">
+					<sisuTekst>
+						<tavatekst>Hääleõiguslik on Eesti kodanik, kes on saanud kaheksateist aastat vanaks.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para57lg2">
+					<sisuTekst>
+						<tavatekst>Hääleõiguslik ei ole Eesti kodanik, kes on kohtu poolt tunnistatud teovõimetuks.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para58">
+				<paragrahvNr>58</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 58.]]></kuvatavNr>
+				<loige id="para58lg1">
+					<sisuTekst>
+						<tavatekst>Seadusega võib piirata nende Eesti kodanike osavõttu hääletamisest, kes on kohtu poolt süüdi mõistetud ja kannavad karistust kinnipidamiskohtades.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk4">
+			<peatykkNr>IV</peatykkNr>
+			<kuvatavNr><![CDATA[IV. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>RIIGIKOGU</peatykkPealkiri>
+			<paragrahv id="para59">
+				<paragrahvNr>59</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 59.]]></kuvatavNr>
+				<loige id="para59lg1">
+					<sisuTekst>
+						<tavatekst>Seadusandlik võim kuulub Riigikogule.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para60">
+				<paragrahvNr>60</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 60.]]></kuvatavNr>
+				<loige id="para60lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogul on sada üks liiget. Riigikogu liikmed valitakse vabadel valimistel proportsionaalsuse põhimõtte alusel. Valimised on üldised, ühetaolised ja otsesed. Hääletamine on salajane.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para60lg2">
+					<sisuTekst>
+						<tavatekst>Riigikogusse võib kandideerida iga vähemalt kahekümne ühe aastane hääleõiguslik Eesti kodanik.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para60lg3">
+					<sisuTekst>
+						<tavatekst>Riigikogu korralised valimised toimuvad märtsikuu esimesel pühapäeval neljandal aastal, mis järgneb Riigikogu eelmiste valimiste aastale.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para60lg4">
+					<sisuTekst>
+						<tavatekst>Riigikogu erakorralised valimised toimuvad põhiseaduse §-des 89, 97, 105 ja 119 ettenähtud juhtudel varemalt kakskümmend ja hiljemalt nelikümmend päeva pärast valimiste väljakuulutamist.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para60lg5">
+					<sisuTekst>
+						<tavatekst>Riigikogu valimise korra sätestab Riigikogu valimise seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para61">
+				<paragrahvNr>61</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 61.]]></kuvatavNr>
+				<loige id="para61lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu liikmete volitused algavad valimistulemuste väljakuulutamise päevast. Samast päevast lõpevad Riigikogu eelmise koosseisu liikmete volitused.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para61lg2">
+					<sisuTekst>
+						<tavatekst>Riigikogu liige annab enne oma kohustuste täitmisele asumist ametivande jääda ustavaks Eesti Vabariigile ja tema põhiseaduslikule korrale.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para62">
+				<paragrahvNr>62</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 62.]]></kuvatavNr>
+				<loige id="para62lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu liige ei ole seotud mandaadiga ega kanna õiguslikku vastutust hääletamise ja poliitiliste avalduste eest Riigikogus või selle organites.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para63">
+				<paragrahvNr>63</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 63.]]></kuvatavNr>
+				<loige id="para63lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu liige ei tohi olla üheski muus riigiametis.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para63lg2">
+					<sisuTekst>
+						<tavatekst>Riigikogu liige on oma volituste ajaks vabastatud kaitseväeteenistuse kohustusest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para64">
+				<paragrahvNr>64</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 64.]]></kuvatavNr>
+				<loige id="para64lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu liikme volitused peatuvad tema nimetamisel Vabariigi Valitsuse liikmeks ja taastuvad tema vabastamisel valitsuse liikme kohustustest.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para64lg2">
+					<sisuTekst>
+						<tavatekst>Riigikogu liikme volitused lõpevad enne tähtaega:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para64lg2p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>tema asumisega mõnda teise riigiametisse;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para64lg2p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>teda süüdi mõistva kohtuotsuse jõustumisel;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para64lg2p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>tema tagasiastumisega seaduses sätestatud korras;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para64lg2p4">
+						<alampunktNr>4</alampunktNr>
+						<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kui Riigikohus on otsustanud, et ta on kestvalt võimetu oma ülesandeid täitma;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para64lg2p5">
+						<alampunktNr>5</alampunktNr>
+						<kuvatavNr><![CDATA[5)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>tema surma korral.</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+				<loige id="para64lg3">
+					<sisuTekst>
+						<tavatekst>Riigikogu liikme volituste peatumisel või ennetähtaegsel lõppemisel astub seaduses sätestatud korras tema asemele asendusliige. Asendusliikmel on kõik Riigikogu liikme õigused ja kohustused.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para64lg4">
+					<sisuTekst>
+						<tavatekst>Riigikogu liikme volituste taastumisel lõpevad asendusliikme volitused.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para65">
+				<paragrahvNr>65</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 65.]]></kuvatavNr>
+				<loige id="para65lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para65lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>võtab vastu seadusi ja otsuseid; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>otsustab rahvahääletuse korraldamise; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>valib Vabariigi Presidendi vastavalt põhiseaduse §-le 79; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p4">
+						<alampunktNr>4</alampunktNr>
+						<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>ratifitseerib ja denonsseerib välislepinguid vastavalt põhiseaduse §-le 121; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p5">
+						<alampunktNr>5</alampunktNr>
+						<kuvatavNr><![CDATA[5)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>annab peaministrikandidaadile volitused Vabariigi Valitsuse moodustamiseks; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p6">
+						<alampunktNr>6</alampunktNr>
+						<kuvatavNr><![CDATA[6)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>võtab vastu riigieelarve ja kinnitab selle täitmise aruande; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p7">
+						<alampunktNr>7</alampunktNr>
+						<kuvatavNr><![CDATA[7)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nimetab Vabariigi Presidendi ettepanekul ametisse Riigikohtu esimehe, Eesti Panga nõukogu esimehe, riigikontrolöri, õiguskantsleri ja kaitseväe juhataja või ülemjuhataja;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p8">
+						<alampunktNr>8</alampunktNr>
+						<kuvatavNr><![CDATA[8)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nimetab Riigikohtu esimehe ettepanekul ametisse Riigikohtu liikmed; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p9">
+						<alampunktNr>9</alampunktNr>
+						<kuvatavNr><![CDATA[9)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nimetab Eesti Panga nõukogu liikmed; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p10">
+						<alampunktNr>10</alampunktNr>
+						<kuvatavNr><![CDATA[10)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>otsustab Vabariigi Valitsuse ettepanekul riigilaenude tegemise ja riigile muude varaliste kohustuste võtmise; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p11">
+						<alampunktNr>11</alampunktNr>
+						<kuvatavNr><![CDATA[11)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>esineb avalduste ja deklaratsioonidega ning pöördumistega Eesti rahva, teiste riikide ning rahvusvaheliste organisatsioonide poole; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p12">
+						<alampunktNr>12</alampunktNr>
+						<kuvatavNr><![CDATA[12)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kehtestab riiklikud autasud, sõjaväelised ja diplomaatilised auastmed; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p13">
+						<alampunktNr>13</alampunktNr>
+						<kuvatavNr><![CDATA[13)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>otsustab umbusalduse avaldamise Vabariigi Valitsusele, peaministrile või  ministrile; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p14">
+						<alampunktNr>14</alampunktNr>
+						<kuvatavNr><![CDATA[14)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kuulutab riigis välja erakorralise seisukorra vastavalt põhiseaduse §-le 129; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p15">
+						<alampunktNr>15</alampunktNr>
+						<kuvatavNr><![CDATA[15)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kuulutab Vabariigi Presidendi ettepanekul välja sõjaseisukorra, mobilisatsiooni ja demobilisatsiooni; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para65lg1p16">
+						<alampunktNr>16</alampunktNr>
+						<kuvatavNr><![CDATA[16)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>lahendab muid riigielu küsimusi, mis ei ole põhiseadusega antud Vabariigi Presidendi, Vabariigi Valitsuse, teiste riigiorganite või kohalike omavalitsuste otsustada. </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para66">
+				<paragrahvNr>66</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 66.]]></kuvatavNr>
+				<loige id="para66lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu uue koosseisu esimene istung toimub kümne päeva jooksul arvates Riigikogu valimise tulemuste väljakuulutamisest. Esimeseks istungiks kutsub Riigikogu kokku Vabariigi President.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para67">
+				<paragrahvNr>67</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 67.]]></kuvatavNr>
+				<loige id="para67lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu korralised istungjärgud toimuvad jaanuarikuu teisest esmaspäevast juunikuu kolmanda neljapäevani ning septembrikuu teisest esmaspäevast detsembrikuu kolmanda neljapäevani.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para68">
+				<paragrahvNr>68</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 68.]]></kuvatavNr>
+				<loige id="para68lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu erakorralised istungjärgud kutsub kokku Riigikogu esimees Vabariigi Presidendi, Vabariigi Valitsuse või vähemalt viiendiku Riigikogu koosseisu ettepanekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para69">
+				<paragrahvNr>69</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 69.]]></kuvatavNr>
+				<loige id="para69lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu valib oma liikmete hulgast Riigikogu esimehe ja kaks aseesimeest, kes korraldavad Riigikogu tööd vastavalt Riigikogu kodukorra seadusele ja Riigikogu töökorra seadusele.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para70">
+				<paragrahvNr>70</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 70.]]></kuvatavNr>
+				<loige id="para70lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu otsustusvõimelisuse sätestab Riigikogu kodukorra seadus. Erakorralisel istungjärgul on Riigikogu otsustusvõimeline, kui kohal on üle poole Riigikogu koosseisust.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para71">
+				<paragrahvNr>71</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 71.]]></kuvatavNr>
+				<loige id="para71lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu moodustab komisjone.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para71lg2">
+					<sisuTekst>
+						<tavatekst>Riigikogu liikmetel on õigus ühineda fraktsioonidesse.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para71lg3">
+					<sisuTekst>
+						<tavatekst>Komisjonide ja fraktsioonide moodustamise korra ning õigused sätestab Riigikogu kodukorra seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para72">
+				<paragrahvNr>72</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 72.]]></kuvatavNr>
+				<loige id="para72lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu istungid on avalikud, kui Riigikogu ei otsusta kahekolmandikulise häälteenamusega teisiti.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para72lg2">
+					<sisuTekst>
+						<tavatekst>Hääletamine Riigikogus on avalik. Salajast hääletamist korraldatakse põhiseaduses või Riigikogu kodukorra seaduses ettenähtud juhtudel ainult ametiisikute valimisel või nimetamisel.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para73">
+				<paragrahvNr>73</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 73.]]></kuvatavNr>
+				<loige id="para73lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu aktid võetakse vastu poolthäälte enamusega, kui põhiseadus ei näe ette teisiti.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para74">
+				<paragrahvNr>74</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 74.]]></kuvatavNr>
+				<loige id="para74lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu liikmel on õigus pöörduda arupärimisega Vabariigi Valitsuse ja tema liikmete, Eesti Panga nõukogu esimehe, Eesti Panga presidendi, riigikontrolöri, õiguskantsleri ja kaitseväe juhataja või ülemjuhataja poole.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para74lg2">
+					<sisuTekst>
+						<tavatekst>Arupärimisele tuleb vastata Riigikogu istungil kahekümne istungipäeva jooksul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para75">
+				<paragrahvNr>75</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 75.]]></kuvatavNr>
+				<loige id="para75lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu liikme tasu ning piirangud muu töötulu saamisel sätestab seadus, mida tohib muuta Riigikogu järgmise koosseisu kohta.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para76">
+				<paragrahvNr>76</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 76.]]></kuvatavNr>
+				<loige id="para76lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu liige on puutumatu. Teda saab kriminaalvastutusele võtta ainult õiguskantsleri ettepanekul Riigikogu koosseisu enamuse nõusolekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk5">
+			<peatykkNr>V</peatykkNr>
+			<kuvatavNr><![CDATA[V. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>VABARIIGI PRESIDENT</peatykkPealkiri>
+			<paragrahv id="para77">
+				<paragrahvNr>77</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 77.]]></kuvatavNr>
+				<loige id="para77lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi President on Eesti riigipea.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para78">
+				<paragrahvNr>78</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 78.]]></kuvatavNr>
+				<loige id="para78lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi President:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para78lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>esindab Eesti Vabariiki rahvusvahelises suhtlemises;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nimetab ja kutsub tagasi Vabariigi Valitsuse ettepanekul Eesti Vabariigi diplomaatilised esindajad ning võtab vastu Eestisse akrediteeritud diplomaatiliste esindajate volikirjad;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kuulutab välja Riigikogu korralised valimised ja vastavalt põhiseaduse §-dele 89, 97, 105 ja 119 Riigikogu erakorralised valimised;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p4">
+						<alampunktNr>4</alampunktNr>
+						<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kutsub kokku Riigikogu uue koosseisu vastavalt põhiseaduse §-le 66 ja avab selle esimese istungi;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p5">
+						<alampunktNr>5</alampunktNr>
+						<kuvatavNr><![CDATA[5)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>teeb Riigikogu esimehele ettepaneku Riigikogu erakorralise istungjärgu kokkukutsumiseks vastavalt põhiseaduse §-le 68;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p6">
+						<alampunktNr>6</alampunktNr>
+						<kuvatavNr><![CDATA[6)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kuulutab välja seadused vastavalt põhiseaduse §-dele 105 ja 107 ning kirjutab alla ratifitseerimiskirjadele;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p7">
+						<alampunktNr>7</alampunktNr>
+						<kuvatavNr><![CDATA[7)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>annab seadlusi vastavalt põhiseaduse §-dele 109 ja 110;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p8">
+						<alampunktNr>8</alampunktNr>
+						<kuvatavNr><![CDATA[8)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>algatab põhiseaduse muutmist;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p9">
+						<alampunktNr>9</alampunktNr>
+						<kuvatavNr><![CDATA[9)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>määrab peaministrikandidaadi vastavalt põhiseaduse §-le 89;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p10">
+						<alampunktNr>10</alampunktNr>
+						<kuvatavNr><![CDATA[10)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nimetab ametisse ja vabastab ametist valitsuse liikmed vastavalt põhiseaduse §-dele 89, 90 ja 92;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p11">
+						<alampunktNr>11</alampunktNr>
+						<kuvatavNr><![CDATA[11)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>teeb Riigikogule ettepaneku Riigikohtu esimehe, Eesti Panga nõukogu esimehe, riigikontrolöri, õiguskantsleri ning kaitseväe juhataja või ülemjuhataja ametissenimetamiseks;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p12">
+						<alampunktNr>12</alampunktNr>
+						<kuvatavNr><![CDATA[12)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nimetab Eesti Panga nõukogu ettepanekul ametisse Eesti Panga presidendi;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p13">
+						<alampunktNr>13</alampunktNr>
+						<kuvatavNr><![CDATA[13)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nimetab Riigikohtu ettepanekul kohtunikud;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p14">
+						<alampunktNr>14</alampunktNr>
+						<kuvatavNr><![CDATA[14)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nimetab ja vabastab ametist Vabariigi Valitsuse ja kaitseväe juhataja ettepanekul kaitseväe juhtkonna; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p15">
+						<alampunktNr>15</alampunktNr>
+						<kuvatavNr><![CDATA[15)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>annab riiklikke autasusid, sõjaväelisi ja diplomaatilisi auastmeid;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p16">
+						<alampunktNr>16</alampunktNr>
+						<kuvatavNr><![CDATA[16)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>on Eesti riigikaitse kõrgeim juht;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p17">
+						<alampunktNr>17</alampunktNr>
+						<kuvatavNr><![CDATA[17)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>teeb Riigikogule ettepanekud sõjaseisukorra, mobilisatsiooni ja demobilisatsiooni ning vastavalt põhiseaduse §-le 129 erakorralise seisukorra väljakuulutamiseks;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p18">
+						<alampunktNr>18</alampunktNr>
+						<kuvatavNr><![CDATA[18)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kuulutab Eesti vastu suunatud agressiooni korral välja sõjaseisukorra ja mobilisatsiooni ning nimetab ametisse kaitseväe ülemjuhataja vastavalt põhiseaduse §-le 128;</tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p19">
+						<alampunktNr>19</alampunktNr>
+						<kuvatavNr><![CDATA[19)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>vabastab süüdimõistetuid nende palvel armuandmise korras karistuse  kandmisest või kergendab karistust;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para78lg1p20">
+						<alampunktNr>20</alampunktNr>
+						<kuvatavNr><![CDATA[20)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>algatab õiguskantsleri kriminaalvastutusele võtmise vastavalt põhiseaduse §-le 145.  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para79">
+				<paragrahvNr>79</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 79.]]></kuvatavNr>
+				<loige id="para79lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi valib Riigikogu või käesoleva paragrahvi neljandas lõikes sätestatud juhul valimiskogu.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para79lg2">
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi kandidaadi ülesseadmise õigus on vähemalt viiendikul Riigikogu koosseisust.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para79lg3">
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi kandidaadiks võib seada sünnilt Eesti kodaniku, kes on vähemalt nelikümmend aastat vana.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para79lg4">
+					<sisuTekst>
+						<tavatekst>Vabariigi President valitakse salajasel hääletusel. Igal Riigikogu liikmel on üks hääl. Valituks tunnistatakse kandidaat, kelle poolt hääletab Riigikogu koosseisu kahekolmandikuline enamus. Kui ükski kandidaat ei saa nõutavat häälteenamust, siis korraldatakse järgmisel päeval uus hääletusvoor. Enne teist hääletusvooru toimub uus kandidaatide ülesseadmine. Kui teises hääletusvoorus ei saa ükski kandidaat nõutavat häälteenamust, siis korraldatakse kahe teises voorus enim hääli saanud kandidaadi vahel samal päeval kolmas hääletusvoor. Kui Vabariigi Presidenti ei valita ka kolmandas hääletusvoorus, kutsub Riigikogu esimees ühe kuu jooksul Vabariigi Presidendi valimiseks kokku valimiskogu.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para79lg5">
+					<sisuTekst>
+						<tavatekst>Valimiskogu koosneb Riigikogu liikmetest ja kohalike omavalitsuste volikogude esindajatest. Iga kohaliku omavalitsuse volikogu valib valimiskogusse vähemalt ühe esindaja, kes peab olema Eesti kodanik.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para79lg6">
+					<sisuTekst>
+						<tavatekst>Riigikogu esitab valimiskogule presidendikandidaadiks kaks Riigikogus enim hääli saanud kandidaati. Presidendikandidaadi ülesseadmise õigus on ka vähemalt kahekümne ühel valimiskogu liikmel.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para79lg7">
+					<sisuTekst>
+						<tavatekst>Valimiskogu valib Vabariigi Presidendi hääletamisest osavõtnud valimiskogu liikmete häälteenamusega. Kui esimeses voorus ükski kandidaat ei osutu valituks, korraldatakse samal päeval kahe enim hääli saanud kandidaadi vahel teine hääletusvoor.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para79lg8">
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi valimise täpsema korra sätestab Vabariigi Presidendi valimise seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para80">
+				<paragrahvNr>80</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 80.]]></kuvatavNr>
+				<loige id="para80lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi President valitakse ametisse viieks aastaks. Kedagi ei tohi valida Vabariigi Presidendiks rohkem kui kaheks ametiajaks järjestikku.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para80lg2">
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi korralised valimised toimuvad varemalt kuuskümmend ja hiljemalt kümme päeva enne Vabariigi Presidendi ametiaja lõppemist.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para81">
+				<paragrahvNr>81</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 81.]]></kuvatavNr>
+				<loige id="para81lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi President astub ametisse järgmise ametivande andmisega Eesti rahvale Riigikogu ees: "Astudes Vabariigi Presidendi ametisse, annan mina, (ees- ja perekonnanimi), pühaliku tõotuse kaitsta vankumata Eesti Vabariigi põhiseadust ja seadusi, õiglaselt ja erapooletult kasutada minule antud võimu ning täita ustavalt oma kohuseid kõigi oma võimete ja parima arusaamisega Eesti rahva ja Vabariigi kasuks."</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para82">
+				<paragrahvNr>82</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 82.]]></kuvatavNr>
+				<loige id="para82lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi volitused lõpevad:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para82lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>ametist tagasiastumisega;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para82lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>teda süüdi mõistva kohtuotsuse jõustumisega;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para82lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>tema surma korral;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para82lg1p4">
+						<alampunktNr>4</alampunktNr>
+						<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>uue Vabariigi Presidendi ametisseastumisega.   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para83">
+				<paragrahvNr>83</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 83.]]></kuvatavNr>
+				<loige id="para83lg1">
+					<sisuTekst>
+						<tavatekst>Kui Vabariigi President on Riigikohtu otsusel kestvalt võimetu oma ülesandeid täitma või ei saa ta neid seaduses nimetatud juhtudel ajutiselt täita või on tema volitused enne tähtaega lõppenud, lähevad tema ülesanded ajutiselt üle Riigikogu esimehele.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para83lg2">
+					<sisuTekst>
+						<tavatekst>Ajaks, mil Riigikogu esimees täidab Vabariigi Presidendi ülesandeid, peatuvad tema volitused Riigikogu liikmena.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para83lg3">
+					<sisuTekst>
+						<tavatekst>Riigikogu esimehel Vabariigi Presidendi ülesannetes ei ole õigust Riigikohtu nõusolekuta välja kuulutada Riigikogu erakorralisi valimisi ega keelduda seadusi välja kuulutamast.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para83lg4">
+					<sisuTekst>
+						<tavatekst>Kui Vabariigi President ei saa oma ametikohustusi täita üle kolme kuu järjest või kui tema volitused on enne tähtaega lõppenud, valib Riigikogu neljateistkümne päeva jooksul uue Vabariigi Presidendi vastavalt põhiseaduse §-le 79.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para84">
+				<paragrahvNr>84</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 84.]]></kuvatavNr>
+				<loige id="para84lg1">
+					<sisuTekst>
+						<tavatekst>Ametisseastumisega lõpevad Vabariigi Presidendi volitused ja ülesanded kõigis valitavates ja nimetatavates ametites ning ta peatab ametisoleku ajaks oma erakondliku kuuluvuse.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para85">
+				<paragrahvNr>85</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 85.]]></kuvatavNr>
+				<loige id="para85lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidenti saab kriminaalvastutusele võtta ainult õiguskantsleri ettepanekul Riigikogu koosseisu enamuse nõusolekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk6">
+			<peatykkNr>VI</peatykkNr>
+			<kuvatavNr><![CDATA[VI. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>VABARIIGI VALITSUS</peatykkPealkiri>
+			<paragrahv id="para86">
+				<paragrahvNr>86</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 86.]]></kuvatavNr>
+				<loige id="para86lg1">
+					<sisuTekst>
+						<tavatekst>Täidesaatev riigivõim kuulub Vabariigi Valitsusele.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para87">
+				<paragrahvNr>87</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 87.]]></kuvatavNr>
+				<loige id="para87lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsus:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para87lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>viib ellu riigi sise- ja välispoliitikat;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para87lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>suunab ja koordineerib valitsusasutuste tegevust;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para87lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>korraldab seaduste, Riigikogu otsuste ja Vabariigi Presidendi aktide täitmist;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para87lg1p4">
+						<alampunktNr>4</alampunktNr>
+						<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>esitab Riigikogule seaduseelnõusid ning ratifitseerimiseks ja denonsseerimiseks välislepinguid;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para87lg1p5">
+						<alampunktNr>5</alampunktNr>
+						<kuvatavNr><![CDATA[5)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>koostab riigieelarve eelnõu ja esitab selle Riigikogule, korraldab riigieelarve täitmist ning esitab Riigikogule riigieelarve täitmise aruande;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para87lg1p6">
+						<alampunktNr>6</alampunktNr>
+						<kuvatavNr><![CDATA[6)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>annab seaduse alusel ja täitmiseks määrusi ja korraldusi;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para87lg1p7">
+						<alampunktNr>7</alampunktNr>
+						<kuvatavNr><![CDATA[7)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>korraldab suhtlemist teiste riikidega;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para87lg1p8">
+						<alampunktNr>8</alampunktNr>
+						<kuvatavNr><![CDATA[8)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kuulutab loodusõnnetuse ja katastroofi korral või nakkushaiguse leviku tõkestamiseks välja eriolukorra riigis või selle osas;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para87lg1p9">
+						<alampunktNr>9</alampunktNr>
+						<kuvatavNr><![CDATA[9)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>täidab muid ülesandeid, mis põhiseaduse ja seadustega on antud Vabariigi Valitsuse otsustada.   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para88">
+				<paragrahvNr>88</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 88.]]></kuvatavNr>
+				<loige id="para88lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsusse kuuluvad peaminister ja ministrid.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para89">
+				<paragrahvNr>89</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 89.]]></kuvatavNr>
+				<loige id="para89lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi President määrab neljateistkümne päeva jooksul Vabariigi Valitsuse tagasiastumisest peaministrikandidaadi, kellele teeb ülesandeks uue valitsuse moodustamise.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para89lg2">
+					<sisuTekst>
+						<tavatekst>Peaministrikandidaat esitab neljateistkümne päeva jooksul, arvates valitsuse moodustamise ülesande saamisest, Riigikogule ettekande tulevase valitsuse moodustamise aluste kohta, mille järel Riigikogu otsustab läbirääkimisteta avalikul hääletusel peaministrikandidaadile volituste andmise valitsuse moodustamiseks.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para89lg3">
+					<sisuTekst>
+						<tavatekst>Riigikogult valitsuse moodustamiseks volitused saanud peaministrikandidaat esitab seitsme päeva jooksul valitsuse koosseisu Vabariigi Presidendile, kes nimetab kolme päeva jooksul valitsuse ametisse.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para89lg4">
+					<sisuTekst>
+						<tavatekst>Kui Vabariigi Presidendi määratud peaministrikandidaat ei saa Riigikogu poolthäälte enamust või ei suuda valitsust moodustada või loobub selle moodustamisest, on Vabariigi Presidendil õigus seitsme päeva jooksul esitada teine peaministrikandidaat.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para89lg5">
+					<sisuTekst>
+						<tavatekst>Kui Vabariigi President ei esita seitsme päeva jooksul teist peaministrikandidaati või loobub selle esitamisest või kui teine kandidaat käesoleva paragrahvi lõigete kaks ja kolm tingimustel ja tähtaegadel ei saa Riigikogult volitusi või ei suuda valitsust moodustada või loobub selle moodustamisest, läheb peaministrikandidaadi ülesseadmise õigus üle Riigikogule.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para89lg6">
+					<sisuTekst>
+						<tavatekst>Riigikogu seab üles peaministrikandidaadi, kes esitab valitsuse koosseisu Vabariigi Presidendile. Kui neljateistkümne päeva jooksul, arvates peaministrikandidaadi ülesseadmise õiguse üleminekust Riigikogule, on valitsuse koosseis Vabariigi Presidendile esitamata, kuulutab Vabariigi President välja Riigikogu erakorralised valimised.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para90">
+				<paragrahvNr>90</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 90.]]></kuvatavNr>
+				<loige id="para90lg1">
+					<sisuTekst>
+						<tavatekst>Muudatusi ametisse nimetatud Vabariigi Valitsuse koosseisus teeb Vabariigi President peaministri ettepanekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para91">
+				<paragrahvNr>91</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 91.]]></kuvatavNr>
+				<loige id="para91lg1">
+					<sisuTekst>
+						<tavatekst>Valitsus astub ametisse ametivande andmisega Riigikogu ees.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para92">
+				<paragrahvNr>92</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 92.]]></kuvatavNr>
+				<loige id="para92lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsus astub tagasi:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para92lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Riigikogu uue koosseisu kokkuastumisel;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para92lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>peaministri tagasiastumise või surma korral;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para92lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kui Riigikogu avaldab Vabariigi Valitsusele või peaministrile umbusaldust.    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+				<loige id="para92lg2">
+					<sisuTekst>
+						<tavatekst>Vabariigi President vabastab Vabariigi Valitsuse ametist uue valitsuse ametisseastumisel.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para93">
+				<paragrahvNr>93</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 93.]]></kuvatavNr>
+				<loige id="para93lg1">
+					<sisuTekst>
+						<tavatekst>Peaminister esindab Vabariigi Valitsust ja juhib selle tegevust.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para93lg2">
+					<sisuTekst>
+						<tavatekst>Peaminister nimetab kaks ministrit, kellel on õigus asendada peaministrit tema äraolekul. Asendamise korra määrab peaminister.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para94">
+				<paragrahvNr>94</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 94.]]></kuvatavNr>
+				<loige id="para94lg1">
+					<sisuTekst>
+						<tavatekst>Valitsemisalade korraldamiseks moodustatakse seaduse alusel vastavad ministeeriumid.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para94lg2">
+					<sisuTekst>
+						<tavatekst>Minister juhib ministeeriumi, korraldab ministeeriumi valitsemisalasse kuuluvaid küsimusi, annab seaduse alusel ja täitmiseks määrusi ja käskkirju ning täidab muid ülesandeid, mis talle on pandud seadusega sätestatud alustel ja korras.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para94lg3">
+					<sisuTekst>
+						<tavatekst>Kui minister ei saa haiguse või muude takistuste tõttu ajutiselt oma ülesandeid täita, paneb peaminister tema ülesanded selleks ajaks mõnele teisele ministrile.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para94lg4">
+					<sisuTekst>
+						<tavatekst>Vabariigi President võib peaministri ettepanekul nimetada ametisse ministreid, kes ei juhi ministeeriumi.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para95">
+				<paragrahvNr>95</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 95.]]></kuvatavNr>
+				<loige id="para95lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsuse juures on riigikantselei, mida juhib riigisekretär.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para95lg2">
+					<sisuTekst>
+						<tavatekst>Riigisekretäri nimetab ametisse ja vabastab ametist peaminister.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para95lg3">
+					<sisuTekst>
+						<tavatekst>Riigisekretär võtab sõnaõigusega osa valitsuse istungitest.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para95lg4">
+					<sisuTekst>
+						<tavatekst>Riigisekretäril on riigikantselei juhina samad õigused, mis on seadusega antud ministrile ministeeriumi juhtimisel.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para96">
+				<paragrahvNr>96</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 96.]]></kuvatavNr>
+				<loige id="para96lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsuse istungid on kinnised, kui valitsus ei otsusta teisiti.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para96lg2">
+					<sisuTekst>
+						<tavatekst>Valitsus teeb oma otsused peaministri või asjaomase ministri ettepanekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para96lg3">
+					<sisuTekst>
+						<tavatekst>Valitsuse määrused kehtivad, kui nad kannavad peaministri, asjaomase ministri ja riigisekretäri allkirja.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para97">
+				<paragrahvNr>97</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 97.]]></kuvatavNr>
+				<loige id="para97lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu võib avaldada Vabariigi Valitsusele, peaministrile või ministrile umbusaldust otsusega, mille poolt hääletab Riigikogu koosseisu enamus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para97lg2">
+					<sisuTekst>
+						<tavatekst>Umbusalduse avaldamise võib algatada vähemalt viiendik Riigikogu koosseisust kirjaliku nõude esitamisega Riigikogu istungil.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para97lg3">
+					<sisuTekst>
+						<tavatekst>Umbusalduse avaldamine võib tulla otsustamisele kõige varem ülejärgmisel päeval pärast selle algatamist, kui valitsus ei nõua kiiremat otsustamist.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para97lg4">
+					<sisuTekst>
+						<tavatekst>Valitsusele või peaministrile umbusalduse avaldamise korral võib Vabariigi President kolme päeva jooksul valitsuse ettepanekul välja kuulutada Riigikogu erakorralised valimised.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para97lg5">
+					<sisuTekst>
+						<tavatekst>Ministrile umbusalduse avaldamise korral teatab Riigikogu esimees sellest Vabariigi Presidendile, kes vabastab ministri ametist.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para97lg6">
+					<sisuTekst>
+						<tavatekst>Umbusalduse avaldamist võib samal alusel uuesti algatada kõige varem kolme kuu möödumisel eelmisest umbusaldushääletamisest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para98">
+				<paragrahvNr>98</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 98.]]></kuvatavNr>
+				<loige id="para98lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsus võib siduda tema poolt Riigikogule esitatud eelnõu vastuvõtmise usaldusküsimusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para98lg2">
+					<sisuTekst>
+						<tavatekst>Hääletamine ei saa toimuda varem kui ülejärgmisel päeval pärast eelnõu sidumist usaldusküsimusega. Kui Riigikogu ei võta eelnõu vastu, astub valitsus tagasi.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para99">
+				<paragrahvNr>99</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 99.]]></kuvatavNr>
+				<loige id="para99lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsuse liikmed ei tohi olla üheski muus riigiametis ega kuuluda tulundusettevõtte juhatusse või nõukogusse.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para100">
+				<paragrahvNr>100</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 100.]]></kuvatavNr>
+				<loige id="para100lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsuse liikmed võivad sõnaõigusega osaleda Riigikogu ja tema komisjonide istungitel.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para101">
+				<paragrahvNr>101</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 101.]]></kuvatavNr>
+				<loige id="para101lg1">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsuse liiget saab kriminaalvastutusele võtta ainult õiguskantsleri ettepanekul Riigikogu koosseisu enamuse nõusolekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para101lg2">
+					<sisuTekst>
+						<tavatekst>Valitsuse liiget süüdi mõistva kohtuotsuse jõustumisega lõpevad tema volitused.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk7">
+			<peatykkNr>VII</peatykkNr>
+			<kuvatavNr><![CDATA[VII. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>SEADUSANDLUS</peatykkPealkiri>
+			<paragrahv id="para102">
+				<paragrahvNr>102</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 102.]]></kuvatavNr>
+				<loige id="para102lg1">
+					<sisuTekst>
+						<tavatekst>Seadusi võetakse vastu kooskõlas põhiseadusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para103">
+				<paragrahvNr>103</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 103.]]></kuvatavNr>
+				<loige id="para103lg1">
+					<sisuTekst>
+						<tavatekst>Seaduste algatamise õigus on:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para103lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Riigikogu liikmel;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para103lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Riigikogu fraktsioonil;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para103lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Riigikogu komisjonil;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para103lg1p4">
+						<alampunktNr>4</alampunktNr>
+						<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Vabariigi Valitsusel;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para103lg1p5">
+						<alampunktNr>5</alampunktNr>
+						<kuvatavNr><![CDATA[5)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Vabariigi Presidendil põhiseaduse muutmiseks.    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+				<loige id="para103lg2">
+					<sisuTekst>
+						<tavatekst>Riigikogul on õigus koosseisu häälteenamusega tehtud otsuse alusel pöörduda Vabariigi Valitsuse poole ettepanekuga algatada Riigikogu poolt soovitav eelnõu.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<paragrahv id="para104">
+			<paragrahvNr>104</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 104.]]></kuvatavNr>
+			<loige id="para104lg1">
+				<sisuTekst>
+					<tavatekst>Seaduste vastuvõtmise korra sätestab Riigikogu kodukorra seadus.</tavatekst>
+				</sisuTekst>
+			</loige>
+			<loige id="para104lg2">
+				<sisuTekst>
+					<tavatekst>Ainult Riigikogu koosseisu häälteenamusega saab vastu võtta ja muuta järgmisi seadusi:</tavatekst>
+				</sisuTekst>
+				<alampunkt id="para104lg2p1">
+					<alampunktNr>1</alampunktNr>
+					<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>kodakondsuse seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p2">
+					<alampunktNr>2</alampunktNr>
+					<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>Riigikogu valimise seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p3">
+					<alampunktNr>3</alampunktNr>
+					<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi valimise seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p4">
+					<alampunktNr>4</alampunktNr>
+					<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>kohaliku omavalitsuse valimise seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p5">
+					<alampunktNr>5</alampunktNr>
+					<kuvatavNr><![CDATA[5)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>rahvahääletuse seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p6">
+					<alampunktNr>6</alampunktNr>
+					<kuvatavNr><![CDATA[6)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>Riigikogu kodukorra seadus ja Riigikogu töökorra seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p7">
+					<alampunktNr>7</alampunktNr>
+					<kuvatavNr><![CDATA[7)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi ja Riigikogu liikmete tasu seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p8">
+					<alampunktNr>8</alampunktNr>
+					<kuvatavNr><![CDATA[8)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsuse seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p9">
+					<alampunktNr>9</alampunktNr>
+					<kuvatavNr><![CDATA[9)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi ja Vabariigi Valitsuse liikmete kohtulikule vastutusele võtmise seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p10">
+					<alampunktNr>10</alampunktNr>
+					<kuvatavNr><![CDATA[10)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>vähemusrahvuste kultuurautonoomia seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p11">
+					<alampunktNr>11</alampunktNr>
+					<kuvatavNr><![CDATA[11)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>riigieelarve seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p12">
+					<alampunktNr>12</alampunktNr>
+					<kuvatavNr><![CDATA[12)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>Eesti Panga seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p13">
+					<alampunktNr>13</alampunktNr>
+					<kuvatavNr><![CDATA[13)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>riigikontrolli seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p14">
+					<alampunktNr>14</alampunktNr>
+					<kuvatavNr><![CDATA[14)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>kohtukorralduse seadus ja kohtumenetluse seadused;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p15">
+					<alampunktNr>15</alampunktNr>
+					<kuvatavNr><![CDATA[15)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>välis- ja siselaenudesse ning riigi varalistesse kohustustesse puutuvad seadused;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p16">
+					<alampunktNr>16</alampunktNr>
+					<kuvatavNr><![CDATA[16)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>erakorralise seisukorra seadus;</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+				<alampunkt id="para104lg2p17">
+					<alampunktNr>17</alampunktNr>
+					<kuvatavNr><![CDATA[17)]]></kuvatavNr>
+					<sisuTekst>
+						<tavatekst>rahuaja riigikaitse seadus ja sõjaaja riigikaitse seadus.</tavatekst>
+					</sisuTekst>
+				</alampunkt>
+			</loige>
+		</paragrahv>
+		<paragrahv id="para105">
+			<paragrahvNr>105</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 105.]]></kuvatavNr>
+			<loige id="para105lg1">
+				<sisuTekst>
+					<tavatekst>Riigikogul on õigus panna seaduseelnõu või muu riigielu küsimus rahvahääletusele.</tavatekst>
+				</sisuTekst>
+			</loige>
+			<loige id="para105lg2">
+				<sisuTekst>
+					<tavatekst>Rahva otsus tehakse hääletamisest osavõtnute häälteenamusega.</tavatekst>
+				</sisuTekst>
+			</loige>
+			<loige id="para105lg3">
+				<sisuTekst>
+					<tavatekst>Rahvahääletusel vastuvõetud seaduse kuulutab Vabariigi President viivitamatult välja. Rahvahääletuse otsus on riigiorganitele kohustuslik.</tavatekst>
+				</sisuTekst>
+			</loige>
+			<loige id="para105lg4">
+				<sisuTekst>
+					<tavatekst>Kui rahvahääletusele pandud seaduseelnõu ei saa poolthäälte enamust, kuulutab Vabariigi President välja Riigikogu erakorralised valimised.</tavatekst>
+				</sisuTekst>
+			</loige>
+		</paragrahv>
+		<paragrahv id="para106">
+			<paragrahvNr>106</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 106.]]></kuvatavNr>
+			<loige id="para106lg1">
+				<sisuTekst>
+					<tavatekst>Rahvahääletusele ei saa panna eelarve, maksude, riigi rahaliste kohustuste, välislepingute ratifitseerimise ja denonsseerimise, erakorralise seisukorra kehtestamise ja lõpetamise ning riigikaitse küsimusi.</tavatekst>
+				</sisuTekst>
+			</loige>
+			<loige id="para106lg2">
+				<sisuTekst>
+					<tavatekst>Rahvahääletuse korra sätestab rahvahääletuse seadus.</tavatekst>
+				</sisuTekst>
+			</loige>
+		</paragrahv>
+		<paragrahv id="para107">
+			<paragrahvNr>107</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 107.]]></kuvatavNr>
+			<loige id="para107lg1">
+				<sisuTekst>
+					<tavatekst>Seadused kuulutab välja Vabariigi President.</tavatekst>
+				</sisuTekst>
+			</loige>
+			<loige id="para107lg2">
+				<sisuTekst>
+					<tavatekst>Vabariigi President võib jätta Riigikogu poolt vastuvõetud seaduse välja kuulutamata ja saata selle koos motiveeritud otsusega neljateistkümne päeva jooksul, arvates saamise päevast, Riigikogule uueks arutamiseks ja otsustamiseks. Kui Riigikogu võtab Vabariigi Presidendi poolt tagasi saadetud seaduse muutmata kujul uuesti vastu, kuulutab Vabariigi President seaduse välja või pöördub Riigikohtu poole ettepanekuga tunnistada seadus põhiseadusega vastuolus olevaks. Kui Riigikohus tunnistab seaduse põhiseadusega kooskõlas olevaks, kuulutab Vabariigi President seaduse välja.</tavatekst>
+				</sisuTekst>
+			</loige>
+		</paragrahv>
+		<paragrahv id="para108">
+			<paragrahvNr>108</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 108.]]></kuvatavNr>
+			<loige id="para108lg1">
+				<sisuTekst>
+					<tavatekst>Seadus jõustub kümnendal päeval pärast Riigi Teatajas avaldamist, kui seaduses eneses ei sätestata teist tähtaega.</tavatekst>
+				</sisuTekst>
+			</loige>
+		</paragrahv>
+		<paragrahv id="para109">
+			<paragrahvNr>109</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 109.]]></kuvatavNr>
+			<loige id="para109lg1">
+				<sisuTekst>
+					<tavatekst>Kui Riigikogu ei saa kokku tulla, võib Vabariigi President edasilükkamatute riiklike vajaduste korral anda seaduse jõuga seadlusi, mis kannavad Riigikogu esimehe ja peaministri kaasallkirja.</tavatekst>
+				</sisuTekst>
+			</loige>
+			<loige id="para109lg2">
+				<sisuTekst>
+					<tavatekst>Kui Riigikogu on kokku tulnud, esitab Vabariigi President seadlused Riigikogule, kes võtab viivitamatult vastu nende kinnitamise või tühistamise seaduse.</tavatekst>
+				</sisuTekst>
+			</loige>
+		</paragrahv>
+		<paragrahv id="para110">
+			<paragrahvNr>110</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 110.]]></kuvatavNr>
+			<loige id="para110lg1">
+				<sisuTekst>
+					<tavatekst>Vabariigi Presidendi seadlusega ei saa kehtestada, muuta ega tühistada põhiseadust ega põhiseaduse §-s 104 loetletud seadusi, riiklikke makse kehtestavaid seadusi ega riigieelarvet.</tavatekst>
+				</sisuTekst>
+			</loige>
+		</paragrahv>
+		<peatykk id="ptk8">
+			<peatykkNr>VIII</peatykkNr>
+			<kuvatavNr><![CDATA[VIII. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>RAHANDUS JA RIIGIEELARVE</peatykkPealkiri>
+			<paragrahv id="para111">
+				<paragrahvNr>111</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 111.]]></kuvatavNr>
+				<loige id="para111lg1">
+					<sisuTekst>
+						<tavatekst>Eesti raha emissiooni ainuõigus on Eesti Pangal. Eesti Pank korraldab raharinglust ja seisab hea riigi vääringu stabiilsuse eest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para112">
+				<paragrahvNr>112</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 112.]]></kuvatavNr>
+				<loige id="para112lg1">
+					<sisuTekst>
+						<tavatekst>Eesti Pank tegutseb seaduse alusel ja annab aru Riigikogule.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para113">
+				<paragrahvNr>113</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 113.]]></kuvatavNr>
+				<loige id="para113lg1">
+					<sisuTekst>
+						<tavatekst>Riiklikud maksud, koormised, lõivud, trahvid ja sundkindlustuse maksed sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para114">
+				<paragrahvNr>114</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 114.]]></kuvatavNr>
+				<loige id="para114lg1">
+					<sisuTekst>
+						<tavatekst>Riigi vara valdamise, kasutamise ja käsutamise korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para115">
+				<paragrahvNr>115</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 115.]]></kuvatavNr>
+				<loige id="para115lg1">
+					<sisuTekst>
+						<tavatekst>Iga aasta kohta võtab Riigikogu seadusena vastu riigi kõigi tulude ja kulude eelarve.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para115lg2">
+					<sisuTekst>
+						<tavatekst>Vabariigi Valitsus esitab riigieelarve eelnõu Riigikogule hiljemalt kolm kuud enne eelarveaasta algust.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para115lg3">
+					<sisuTekst>
+						<tavatekst>Valitsuse ettepanekul võib Riigikogu eelarveaasta kestel vastu võtta lisaeelarve.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para116">
+				<paragrahvNr>116</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 116.]]></kuvatavNr>
+				<loige id="para116lg1">
+					<sisuTekst>
+						<tavatekst>Riigieelarve või selle eelnõu muutmise ettepanekule, mis tingib nendes ettenähtud tulude vähendamise, kulude suurendamise või kulude ümberjaotamise, tuleb algatajal lisada rahalised arvestused, mis näitavad ära kulude katteks vajalikud tuluallikad.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para116lg2">
+					<sisuTekst>
+						<tavatekst>Riigikogu ei tohi kustutada ega vähendada riigieelarvesse või selle eelnõusse võetud kulusid, mis on ette nähtud muude seadustega.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para117">
+				<paragrahvNr>117</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 117.]]></kuvatavNr>
+				<loige id="para117lg1">
+					<sisuTekst>
+						<tavatekst>Riigieelarve koostamise ja vastuvõtmise korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para118">
+				<paragrahvNr>118</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 118.]]></kuvatavNr>
+				<loige id="para118lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu poolt vastuvõetud riigieelarve jõustub eelarveaasta algusest. Kui Riigikogu ei võta riigieelarvet eelarveaasta alguseks vastu, võib iga kuu teha kulutusi ühe kaheteistkümnendikuni eelmise eelarveaasta kulutustest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para119">
+				<paragrahvNr>119</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 119.]]></kuvatavNr>
+				<loige id="para119lg1">
+					<sisuTekst>
+						<tavatekst>Kui Riigikogu ei ole riigieelarvet vastu võtnud kahe kuu jooksul pärast eelarveaasta algust, kuulutab Vabariigi President välja Riigikogu erakorralised valimised.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk9">
+			<peatykkNr>IX</peatykkNr>
+			<kuvatavNr><![CDATA[IX. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>VÄLISSUHTED JA VÄLISLEPINGUD</peatykkPealkiri>
+			<paragrahv id="para120">
+				<paragrahvNr>120</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 120.]]></kuvatavNr>
+				<loige id="para120lg1">
+					<sisuTekst>
+						<tavatekst>Eesti Vabariigi suhtlemise korra teiste riikide ja rahvusvaheliste organisatsioonidega sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para121">
+				<paragrahvNr>121</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 121.]]></kuvatavNr>
+				<loige id="para121lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu ratifitseerib ja denonsseerib Eesti Vabariigi lepingud:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para121lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>mis muudavad riigipiire;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para121lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>mille rakendamiseks on tarvis Eesti seaduste vastuvõtmist, muutmist või tühistamist;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para121lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>mille kohaselt Eesti Vabariik ühineb rahvusvaheliste organisatsioonide või liitudega;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para121lg1p4">
+						<alampunktNr>4</alampunktNr>
+						<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>millega Eesti Vabariik võtab endale sõjalisi või varalisi kohustusi;    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para121lg1p5">
+						<alampunktNr>5</alampunktNr>
+						<kuvatavNr><![CDATA[5)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>milles ratifitseerimine on ette nähtud.    </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para122">
+				<paragrahvNr>122</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 122.]]></kuvatavNr>
+				<loige id="para122lg1">
+					<sisuTekst>
+						<tavatekst>Eesti maismaapiir on määratud 1920. aasta 2. veebruari Tartu rahulepinguga ja teiste riikidevaheliste piirilepingutega. Eesti mere- ja õhupiir määratakse rahvusvaheliste konventsioonide alusel.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para122lg2">
+					<sisuTekst>
+						<tavatekst>Eesti riigipiire muutvate lepingute ratifitseerimiseks on nõutav Riigikogu koosseisu kahekolmandikuline häälteenamus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para123">
+				<paragrahvNr>123</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 123.]]></kuvatavNr>
+				<loige id="para123lg1">
+					<sisuTekst>
+						<tavatekst>Eesti Vabariik ei sõlmi välislepinguid, mis on vastuolus põhiseadusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para123lg2">
+					<sisuTekst>
+						<tavatekst>Kui Eesti seadused või muud aktid on vastuolus Riigikogu poolt ratifitseeritud välislepingutega, kohaldatakse välislepingu sätteid.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk10">
+			<peatykkNr>X</peatykkNr>
+			<kuvatavNr><![CDATA[X. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>RIIGIKAITSE</peatykkPealkiri>
+			<paragrahv id="para124">
+				<paragrahvNr>124</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 124.]]></kuvatavNr>
+				<loige id="para124lg1">
+					<sisuTekst>
+						<tavatekst>Eesti kodanikud on kohustatud osa võtma riigikaitsest seaduse sätestatud alustel ja korras.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para124lg2">
+					<sisuTekst>
+						<tavatekst>Usulistel või kõlbelistel põhjustel kaitseväeteenistusest keelduja on kohustatud läbi tegema asendusteenistuse seaduses ettenähtud korras.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para124lg3">
+					<sisuTekst>
+						<tavatekst>Kui seadus ei näe teenistuse erilaadi huvides ette teisiti, on kaitseväes ja asendusteenistuses olevatel isikutel kõik põhiseaduslikud õigused, vabadused ja kohustused. Piirata ei tohi põhiseaduse §-des 8 lõiked 3 ja 4, 11-18, 20 lõige 3, 21-28, 32, 33, 36-43, 44 lõiked 1 ja 2 ning 49-51 ettenähtud õigusi ja vabadusi. Kaitseväes ja asendusteenistuses olevate isikute õigusliku seisundi sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para125">
+				<paragrahvNr>125</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 125.]]></kuvatavNr>
+				<loige id="para125lg1">
+					<sisuTekst>
+						<tavatekst>Tegevteenistuses olev isik ei tohi olla muus valitavas ega nimetatavas ametis ega osa võtta ühegi erakonna tegevusest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para126">
+				<paragrahvNr>126</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 126.]]></kuvatavNr>
+				<loige id="para126lg1">
+					<sisuTekst>
+						<tavatekst>Riigikaitse korralduse sätestavad rahuaja riigikaitse seadus ja sõjaaja riigikaitse seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para126lg2">
+					<sisuTekst>
+						<tavatekst>Eesti kaitseväe ja riigikaitseorganisatsioonide korralduse sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para127">
+				<paragrahvNr>127</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 127.]]></kuvatavNr>
+				<loige id="para127lg1">
+					<sisuTekst>
+						<tavatekst>Riigikaitse kõrgeimaks juhiks on Vabariigi President.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para127lg2">
+					<sisuTekst>
+						<tavatekst>Vabariigi Presidendi juures on nõuandva organina Riigikaitse Nõukogu, kelle koosseisu ja ülesandeid sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para127lg3">
+					<sisuTekst>
+						<tavatekst>Eesti kaitseväge ja riigikaitseorganisatsioone juhib rahuajal kaitseväe juhataja, sõjaajal kaitseväe ülemjuhataja. Kaitseväe juhataja ja ülemjuhataja nimetab ametisse ning vabastab ametist Riigikogu Vabariigi Presidendi ettepanekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para128">
+				<paragrahvNr>128</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 128.]]></kuvatavNr>
+				<loige id="para128lg1">
+					<sisuTekst>
+						<tavatekst>Riigikogu kuulutab Vabariigi Presidendi ettepanekul välja sõjaseisukorra, mobilisatsiooni ja demobilisatsiooni ning otsustab kaitseväe kasutamise Eesti riigi rahvusvaheliste kohustuste täitmisel.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para128lg2">
+					<sisuTekst>
+						<tavatekst>Eesti Vabariigi vastu suunatud agressiooni korral kuulutab Vabariigi President välja sõjaseisukorra ja mobilisatsiooni ning nimetab kaitseväe ülemjuhataja, ootamata ära Riigikogu otsust.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para129">
+				<paragrahvNr>129</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 129.]]></kuvatavNr>
+				<loige id="para129lg1">
+					<sisuTekst>
+						<tavatekst>Eesti põhiseaduslikku korda ähvardava ohu puhul võib Riigikogu Vabariigi Presidendi või Vabariigi Valitsuse ettepanekul oma koosseisu häälteenamusega välja kuulutada erakorralise seisukorra kogu riigis, kuid kõige kauem kolmeks kuuks.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para129lg2">
+					<sisuTekst>
+						<tavatekst>Erakorralise seisukorra korralduse sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para130">
+				<paragrahvNr>130</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 130.]]></kuvatavNr>
+				<loige id="para130lg1">
+					<sisuTekst>
+						<tavatekst>Erakorralise või sõjaseisukorra ajal võib riigi julgeoleku ja avaliku korra huvides seadusega ettenähtud juhtudel ja korras piirata isikute õigusi ja vabadusi ning panna neile kohustusi. Piirata ei tohi õigusi ja vabadusi, mis on sätestatud põhiseaduse §-des 8, 11-18, 20 lõige 3, 22, 23, 24 lõiked 2 ja 4, 25, 27, 28, 36 lõige 2, 40, 41, 49 ja 51 lõige 1.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para131">
+				<paragrahvNr>131</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 131.]]></kuvatavNr>
+				<loige id="para131lg1">
+					<sisuTekst>
+						<tavatekst>Erakorralise või sõjaseisukorra ajal ei valita Riigikogu, Vabariigi Presidenti ega kohalike omavalitsuste esinduskogusid ega lõpetata ka nende volitusi.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para131lg2">
+					<sisuTekst>
+						<tavatekst>Riigikogu, Vabariigi Presidendi ja kohaliku omavalitsuse esinduskogude volitused pikenevad, kui nad lõpeksid erakorralise või sõjaseisukorra ajal või kolme kuu jooksul, arvates erakorralise või sõjaseisukorra lõppemisest. Nendel juhtudel kuulutatakse välja uued valimised kolme kuu jooksul, arvates erakorralise või sõjaseisukorra lõppemisest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk11">
+			<peatykkNr>XI</peatykkNr>
+			<kuvatavNr><![CDATA[XI. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>RIIGIKONTROLL</peatykkPealkiri>
+			<paragrahv id="para132">
+				<paragrahvNr>132</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 132.]]></kuvatavNr>
+				<loige id="para132lg1">
+					<sisuTekst>
+						<tavatekst>Riigikontroll on oma tegevuses sõltumatu majanduskontrolli teostav riigiorgan.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para133">
+				<paragrahvNr>133</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 133.]]></kuvatavNr>
+				<loige id="para133lg1">
+					<sisuTekst>
+						<tavatekst>Riigikontroll kontrollib:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para133lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>riigiasutuste, riigiettevõtete ja muude riiklike organisatsioonide majandustegevust;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para133lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>riigi vara kasutamist ja säilimist;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para133lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>kohalike omavalitsuste valdusse antud riigivara kasutamist ja käsutamist;  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para133lg1p4">
+						<alampunktNr>4</alampunktNr>
+						<kuvatavNr><![CDATA[4)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>nende ettevõtete majandustegevust, kus riigil on üle poole osakute või aktsiatega määratud häältest või kelle laene või lepinguliste kohustuste täitmist tagab riik.  </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para134">
+				<paragrahvNr>134</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 134.]]></kuvatavNr>
+				<loige id="para134lg1">
+					<sisuTekst>
+						<tavatekst>Riigikontrolli juhib riigikontrolör, kelle nimetab ametisse ja vabastab ametist Riigikogu Vabariigi Presidendi ettepanekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para134lg2">
+					<sisuTekst>
+						<tavatekst>Riigikontrolöri volituste kestus on viis aastat.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para135">
+				<paragrahvNr>135</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 135.]]></kuvatavNr>
+				<loige id="para135lg1">
+					<sisuTekst>
+						<tavatekst>Riigikontrolör esitab Riigikogule ülevaate riigi vara kasutamise ja säilimise kohta eelmisel eelarveaastal üheaegselt riigieelarve täitmise aruande arutamisega Riigikogus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para136">
+				<paragrahvNr>136</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 136.]]></kuvatavNr>
+				<loige id="para136lg1">
+					<sisuTekst>
+						<tavatekst>Riigikontrolör võib oma ülesannetesse kuuluvais asjus võtta sõnaõigusega osa Vabariigi Valitsuse istungitest.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para136lg2">
+					<sisuTekst>
+						<tavatekst>Riigikontrolöril on oma ametkonna juhina samad õigused, mis on seadusega antud ministrile ministeeriumi juhina.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para137">
+				<paragrahvNr>137</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 137.]]></kuvatavNr>
+				<loige id="para137lg1">
+					<sisuTekst>
+						<tavatekst>Riigikontrolli korralduse sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para138">
+				<paragrahvNr>138</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 138.]]></kuvatavNr>
+				<loige id="para138lg1">
+					<sisuTekst>
+						<tavatekst>Riigikontrolöri saab kriminaalvastutusele võtta ainult õiguskantsleri ettepanekul Riigikogu koosseisu enamuse nõusolekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk12">
+			<peatykkNr>XII</peatykkNr>
+			<kuvatavNr><![CDATA[XII. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>ÕIGUSKANTSLER</peatykkPealkiri>
+			<paragrahv id="para139">
+				<paragrahvNr>139</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 139.]]></kuvatavNr>
+				<loige id="para139lg1">
+					<sisuTekst>
+						<tavatekst>Õiguskantsler on oma tegevuses sõltumatu ametiisik, kes teostab järelevalvet seadusandliku ja täidesaatva riigivõimu ning kohaliku omavalitsuse õigustloovate aktide põhiseadusele ja seadustele vastavuse üle.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para139lg2">
+					<sisuTekst>
+						<tavatekst>Õiguskantsler analüüsib seaduste muutmise, uute seaduste vastuvõtmise ja riigiasutuste töö kohta talle tehtud ettepanekuid ning esitab vajaduse korral Riigikogule ettekande.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para139lg3">
+					<sisuTekst>
+						<tavatekst>Õiguskantsler teeb Riigikogule põhiseaduse §-des 76, 85, 101, 138, 153 ettenähtud juhtudel ettepaneku Riigikogu liikme, Vabariigi Presidendi, Vabariigi Valitsuse liikme, riigikontrolöri, Riigikohtu esimehe või Riigikohtu liikme kriminaalvastutusele võtmiseks.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para140">
+				<paragrahvNr>140</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 140.]]></kuvatavNr>
+				<loige id="para140lg1">
+					<sisuTekst>
+						<tavatekst>Õiguskantsleri nimetab ametisse Riigikogu Vabariigi Presidendi ettepanekul seitsmeks aastaks.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para140lg2">
+					<sisuTekst>
+						<tavatekst>Õiguskantslerit saab ametist tagandada üksnes kohtuotsusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para141">
+				<paragrahvNr>141</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 141.]]></kuvatavNr>
+				<loige id="para141lg1">
+					<sisuTekst>
+						<tavatekst>Õiguskantsleril on oma kantselei juhtimisel samad õigused, mis on seadusega antud ministrile ministeeriumi juhtimiseks.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para141lg2">
+					<sisuTekst>
+						<tavatekst>Õiguskantsler võib sõnaõigusega osa võtta Riigikogu ja Vabariigi Valitsuse istungitest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para142">
+				<paragrahvNr>142</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 142.]]></kuvatavNr>
+				<loige id="para142lg1">
+					<sisuTekst>
+						<tavatekst>Kui õiguskantsler leiab, et seadusandliku või täidesaatva riigivõimu või kohaliku omavalitsuse õigustloov akt on põhiseaduse või seadusega vastuolus, teeb ta akti vastuvõtnud organile ettepaneku viia see kahekümne päeva jooksul põhiseaduse või seadusega kooskõlla.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para142lg2">
+					<sisuTekst>
+						<tavatekst>Kui akt ei ole kahekümne päeva jooksul põhiseaduse või seadusega kooskõlla viidud, teeb õiguskantsler Riigikohtule ettepaneku tunnistada see akt kehtetuks.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para143">
+				<paragrahvNr>143</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 143.]]></kuvatavNr>
+				<loige id="para143lg1">
+					<sisuTekst>
+						<tavatekst>Õiguskantsler esitab kord aastas Riigikogule ülevaate seadusandliku ja täidesaatva riigivõimu ning kohalike omavalitsuste õigustloovate aktide kooskõlast põhiseaduse ja seadustega.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para144">
+				<paragrahvNr>144</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 144.]]></kuvatavNr>
+				<loige id="para144lg1">
+					<sisuTekst>
+						<tavatekst>Õiguskantsleri õigusliku seisundi ja tema kantselei töökorralduse sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para145">
+				<paragrahvNr>145</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 145.]]></kuvatavNr>
+				<loige id="para145lg1">
+					<sisuTekst>
+						<tavatekst>Õiguskantslerit saab kriminaalvastutusele võtta ainult Vabariigi Presidendi ettepanekul Riigikogu koosseisu enamuse nõusolekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk13">
+			<peatykkNr>XIII</peatykkNr>
+			<kuvatavNr><![CDATA[XIII. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>KOHUS</peatykkPealkiri>
+			<paragrahv id="para146">
+				<paragrahvNr>146</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 146.]]></kuvatavNr>
+				<loige id="para146lg1">
+					<sisuTekst>
+						<tavatekst>Õigust mõistab ainult kohus. Kohus on oma tegevuses sõltumatu ja mõistab õigust kooskõlas põhiseaduse ja seadustega.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para147">
+				<paragrahvNr>147</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 147.]]></kuvatavNr>
+				<loige id="para147lg1">
+					<sisuTekst>
+						<tavatekst>Kohtunikud nimetatakse ametisse eluaegsetena. Kohtunike ametist vabastamise alused ja korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para147lg2">
+					<sisuTekst>
+						<tavatekst>Kohtunikku saab ametist tagandada üksnes kohtuotsusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para147lg3">
+					<sisuTekst>
+						<tavatekst>Kohtunikud ei tohi peale seaduses ettenähtud juhtude olla üheski muus valitavas ega nimetatavas ametis.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para147lg4">
+					<sisuTekst>
+						<tavatekst>Kohtunike sõltumatuse tagatised ja õigusliku seisundi sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para148">
+				<paragrahvNr>148</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 148.]]></kuvatavNr>
+				<loige id="para148lg1">
+					<sisuTekst>
+						<tavatekst>Kohtusüsteem koosneb:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para148lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>maa- ja linnakohtutest ning halduskohtutest;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para148lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>ringkonnakohtutest;   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para148lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Riigikohtust.   </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+				<loige id="para148lg2">
+					<sisuTekst>
+						<tavatekst>Erikohtute loomise mõnda liiki kohtuasjade jaoks sätestab seadus. </tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para148lg3">
+					<sisuTekst>
+						<tavatekst>Erakorraliste kohtute moodustamine on keelatud. </tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para149">
+				<paragrahvNr>149</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 149.]]></kuvatavNr>
+				<loige id="para149lg1">
+					<sisuTekst>
+						<tavatekst>Maa- ja linnakohtud ning halduskohtud on esimese astme kohtud.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para149lg2">
+					<sisuTekst>
+						<tavatekst>Ringkonnakohtud on teise astme kohtud ning nad vaatavad apellatsiooni korras läbi esimese astme kohtu lahendeid.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para149lg3">
+					<sisuTekst>
+						<tavatekst>Riigikohus on riigi kõrgeim kohus, kes vaatab kohtulahendeid läbi kassatsiooni korras. Riigikohus on ühtlasi põhiseadusliku järelevalve kohus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para149lg4">
+					<sisuTekst>
+						<tavatekst>Kohtukorralduse ja kohtumenetluse korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para150">
+				<paragrahvNr>150</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 150.]]></kuvatavNr>
+				<loige id="para150lg1">
+					<sisuTekst>
+						<tavatekst>Riigikohtu esimehe nimetab ametisse Riigikogu Vabariigi Presidendi ettepanekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para150lg2">
+					<sisuTekst>
+						<tavatekst>Riigikohtu liikmed nimetab ametisse Riigikogu Riigikohtu esimehe ettepanekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para150lg3">
+					<sisuTekst>
+						<tavatekst>Muud kohtunikud nimetab ametisse Vabariigi President Riigikohtu ettepanekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para151">
+				<paragrahvNr>151</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 151.]]></kuvatavNr>
+				<loige id="para151lg1">
+					<sisuTekst>
+						<tavatekst>Esinduse, kaitse, riikliku süüdistuse ja seaduslikkuse järelevalve korralduse kohtumenetluses sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para152">
+				<paragrahvNr>152</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 152.]]></kuvatavNr>
+				<loige id="para152lg1">
+					<sisuTekst>
+						<tavatekst>Kohus jätab kohtuasja lahendamisel kohaldamata mis tahes seaduse või muu õigusakti, kui see on vastuolus põhiseadusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para152lg2">
+					<sisuTekst>
+						<tavatekst>Riigikohus tunnistab kehtetuks mis tahes seaduse või muu õigusakti, kui see on vastuolus põhiseaduse sätte ja mõttega.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para153">
+				<paragrahvNr>153</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 153.]]></kuvatavNr>
+				<loige id="para153lg1">
+					<sisuTekst>
+						<tavatekst>Kohtunikku saab ametisoleku ajal kriminaalvastutusele võtta ainult Riigikohtu ettepanekul Vabariigi Presidendi nõusolekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para153lg2">
+					<sisuTekst>
+						<tavatekst>Riigikohtu esimeest ja liikmeid saab kriminaalvastutusele võtta ainult õiguskantsleri ettepanekul Riigikogu koosseisu enamuse nõusolekul.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk14">
+			<peatykkNr>XIV</peatykkNr>
+			<kuvatavNr><![CDATA[XIV. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>KOHALIK OMAVALITSUS</peatykkPealkiri>
+			<paragrahv id="para154">
+				<paragrahvNr>154</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 154.]]></kuvatavNr>
+				<loige id="para154lg1">
+					<sisuTekst>
+						<tavatekst>Kõiki kohaliku elu küsimusi otsustavad ja korraldavad kohalikud omavalitsused, kes tegutsevad seaduste alusel iseseisvalt.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para154lg2">
+					<sisuTekst>
+						<tavatekst>Kohalikule omavalitsusele võib panna kohustusi ainult seaduse alusel või kokkuleppel kohaliku omavalitsusega. Seadusega kohalikule omavalitsusele pandud riiklike kohustustega seotud kulud kaetakse riigieelarvest.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para155">
+				<paragrahvNr>155</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 155.]]></kuvatavNr>
+				<loige id="para155lg1">
+					<sisuTekst>
+						<tavatekst>Kohaliku omavalitsuse üksused on vallad ja linnad.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para155lg2">
+					<sisuTekst>
+						<tavatekst>Muid kohaliku omavalitsuse üksusi võib moodustada seaduses sätestatud alustel ja korras.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para156">
+				<paragrahvNr>156</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 156.]]></kuvatavNr>
+				<loige id="para156lg1">
+					<sisuTekst>
+						<tavatekst>Kohaliku omavalitsuse esinduskogu on volikogu, kes valitakse vabadel valimistel neljaks aastaks. Seadusega võib volikogu volituste perioodi lühendada seoses kohaliku omavalitsuse üksuste ühinemise või jagunemisega või volikogu tegutsemisvõimetusega. Valimised on üldised, ühetaolised ja otsesed. Hääletamine on salajane.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para156lg2">
+					<sisuTekst>
+						<tavatekst>Kohaliku omavalitsuse volikogu valimistel on seaduses ettenähtud tingimustel hääleõiguslikud selle omavalitsuse maa-alal püsivalt elavad isikud, kes on vähemalt kaheksateist aastat vanad.</tavatekst>
+						<muutmismarge>
+							<avaldamismarge>
+								<RTosa>RT I</RTosa>
+								<RTaasta>2003</RTaasta>
+								<RTnr>29</RTnr>
+								<RTartikkel>174</RTartikkel>
+								<aktViide>550572</aktViide>
+							</avaldamismarge>
+							<joustumine>2005-10-17</joustumine>
+						</muutmismarge>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para157">
+				<paragrahvNr>157</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 157.]]></kuvatavNr>
+				<loige id="para157lg1">
+					<sisuTekst>
+						<tavatekst>Kohalikul omavalitsusel on iseseisev eelarve, mille kujundamise alused ja korra sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para157lg2">
+					<sisuTekst>
+						<tavatekst>Kohalikul omavalitsusel on seaduse alusel õigus kehtestada ja koguda makse ning panna peale koormisi.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para158">
+				<paragrahvNr>158</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 158.]]></kuvatavNr>
+				<loige id="para158lg1">
+					<sisuTekst>
+						<tavatekst>Kohaliku omavalitsuse üksuste piire ei tohi muuta vastavate omavalitsuste arvamust ära kuulamata.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para159">
+				<paragrahvNr>159</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 159.]]></kuvatavNr>
+				<loige id="para159lg1">
+					<sisuTekst>
+						<tavatekst>Kohalikul omavalitsusel on õigus moodustada teiste kohalike omavalitsustega liite ja ühisasutusi.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para160">
+				<paragrahvNr>160</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 160.]]></kuvatavNr>
+				<loige id="para160lg1">
+					<sisuTekst>
+						<tavatekst>Kohalike omavalitsuste korralduse ja järelevalve nende tegevuse üle sätestab seadus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+		<peatykk id="ptk15">
+			<peatykkNr>XV</peatykkNr>
+			<kuvatavNr><![CDATA[XV. peatükk]]></kuvatavNr>
+			<peatykkPealkiri>PÕHISEADUSE MUUTMINE</peatykkPealkiri>
+			<paragrahv id="para161">
+				<paragrahvNr>161</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 161.]]></kuvatavNr>
+				<loige id="para161lg1">
+					<sisuTekst>
+						<tavatekst>Õigus algatada põhiseaduse muutmist on vähemalt viiendikul Riigikogu koosseisust ja Vabariigi Presidendil.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para161lg2">
+					<sisuTekst>
+						<tavatekst>Põhiseaduse muutmist ei saa algatada ega põhiseadust muuta erakorralise seisukorra ega sõjaseisukorra ajal.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para162">
+				<paragrahvNr>162</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 162.]]></kuvatavNr>
+				<loige id="para162lg1">
+					<sisuTekst>
+						<tavatekst>Põhiseaduse I peatükki "Üldsätted" ja XV peatükki "Põhiseaduse muutmine" saab muuta ainult rahvahääletusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para163">
+				<paragrahvNr>163</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 163.]]></kuvatavNr>
+				<loige id="para163lg1">
+					<sisuTekst>
+						<tavatekst>Põhiseadust saab muuta seadusega, mis on vastu võetud:</tavatekst>
+					</sisuTekst>
+					<alampunkt id="para163lg1p1">
+						<alampunktNr>1</alampunktNr>
+						<kuvatavNr><![CDATA[1)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>rahvahääletusel; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para163lg1p2">
+						<alampunktNr>2</alampunktNr>
+						<kuvatavNr><![CDATA[2)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Riigikogu kahe järjestikuse koosseisu poolt; </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+					<alampunkt id="para163lg1p3">
+						<alampunktNr>3</alampunktNr>
+						<kuvatavNr><![CDATA[3)]]></kuvatavNr>
+						<sisuTekst>
+							<tavatekst>Riigikogu poolt kiireloomulisena. </tavatekst>
+						</sisuTekst>
+					</alampunkt>
+				</loige>
+				<loige id="para163lg2">
+					<sisuTekst>
+						<tavatekst>Põhiseaduse muutmise seaduse eelnõu arutatakse Riigikogus kolmel lugemisel, kusjuures esimese ja teise lugemise vahet on vähemalt kolm kuud ning teise ja kolmanda lugemise vahet vähemalt üks kuu. Põhiseaduse muutmise viis otsustatakse kolmandal lugemisel.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para164">
+				<paragrahvNr>164</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 164.]]></kuvatavNr>
+				<loige id="para164lg1">
+					<sisuTekst>
+						<tavatekst>Põhiseaduse muutmise seaduse eelnõu rahvahääletusele panekuks on nõutav Riigikogu koosseisu kolmeviiendikuline häälteenamus. Rahvahääletus toimub kõige varem kolme kuu pärast, arvates sellekohase otsuse vastuvõtmisest Riigikogus.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para165">
+				<paragrahvNr>165</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 165.]]></kuvatavNr>
+				<loige id="para165lg1">
+					<sisuTekst>
+						<tavatekst>Põhiseaduse muutmiseks Riigikogu kahe järjestikuse koosseisu poolt peab põhiseaduse muutmise seaduse eelnõu saama Riigikogu koosseisu enamuse toetuse.</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige id="para165lg2">
+					<sisuTekst>
+						<tavatekst>Kui Riigikogu järgmine koosseis võtab esimesel lugemisel oma koosseisu kolmeviiendikulise häälteenamusega muutmatult vastu põhiseaduse muutmise seaduse eelnõu, mis sai eelmise koosseisu enamuse toetuse, siis on põhiseaduse muutmise seadus vastu võetud.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para166">
+				<paragrahvNr>166</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 166.]]></kuvatavNr>
+				<loige id="para166lg1">
+					<sisuTekst>
+						<tavatekst>Otsus põhiseaduse muutmise seaduse eelnõu käsitlemiseks kiireloomulisena võetakse vastu Riigikogu neljaviiendikulise häälteenamusega. Põhiseaduse muutmise seadus võetakse sel juhul vastu Riigikogu koosseisu kahekolmandikulise häälteenamusega.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para167">
+				<paragrahvNr>167</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 167.]]></kuvatavNr>
+				<loige id="para167lg1">
+					<sisuTekst>
+						<tavatekst>Põhiseaduse muutmise seaduse kuulutab välja Vabariigi President ja see jõustub seaduses eneses määratud tähtajal, kuid mitte varem kui kolm kuud pärast väljakuulutamist.</tavatekst>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+			<paragrahv id="para168">
+				<paragrahvNr>168</paragrahvNr>
+				<kuvatavNr><![CDATA[§ 168.]]></kuvatavNr>
+				<loige id="para168lg1">
+					<sisuTekst>
+						<tavatekst>Põhiseaduse muutmist ei saa samas küsimuses algatada ühe aasta jooksul, arvates vastava eelnõu tagasilükkamisest rahvahääletusel või Riigikogus.<reavahetus/>
+							<reavahetus/>
+						</tavatekst>
+					</sisuTekst>
+				</loige>
+				<loige>
+					<sisuTekst>
+						<tavatekst>Õiend<reavahetus/>
+							<reavahetus/>Käesolev tekst vastab 28. mail 1992. aastal rahvahääletusele pandud ja ajalehes «Rahva Hääl» avaldatud Eesti Vabariigi põhiseaduse eelnõu tekstile. Vastavalt riigisekretäri 19. juuni 2007. a resolutsioonile nr 07-02990 on parandatud vead seni elektroonilises Riigi Teatajas avaldatud Eesti Vabariigi põhiseaduse tekstides. «Rahva Hääles» avaldatud tekstiga võrreldes on parandatud viis ilmset trükiviga. Paragrahvis 53 on välja jäetud sõnade kordus «keskkonnale tekitatud», § 60 lõikes 5 on sõna «Riigikoguvalimise» lahku kirjutatud ning erinevalt «Rahva Hääles» ilmunud tekstist on § 64 lõikes 3 ja §-s 70 Riigikogu kirjutatud suure algustähega ja § 78 punktis 3 põhiseadus kirjutatud väikese algustähega.</tavatekst>
+					</sisuTekst>
+					<sisuTekst>
+						<HTMLKonteiner><![CDATA[ <hr/><p>Põhiseaduse ja põhiseaduse rakendamise seaduse jõustumise kuupäev on Riigi Teataja väljaandja poolt märgitud Vabariigi Valimiskomisjoni 2.07.1992 otsuse „1992. aasta 28. juunil toimunud rahvahääletuse tulemuste ja rahvahääletusel vastuvõetud Eesti Vabariigi põhiseaduse ning Eesti Vabariigi põhiseaduse rakendamise seaduse kohta“ (<a href="https://www.riigiteataja.ee/akt/13079640">RT 1992, 26, 348</a>) alusel. </p> ]]></HTMLKonteiner>
+					</sisuTekst>
+				</loige>
+			</paragrahv>
+		</peatykk>
+	</sisu>
+</oigusakt>

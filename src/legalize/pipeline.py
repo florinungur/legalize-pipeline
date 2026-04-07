@@ -390,7 +390,25 @@ def generic_bootstrap(
     dry_run: bool = False,
     limit: int | None = None,
 ) -> int:
-    """Full bootstrap for any country: discover + fetch + commit."""
+    """Full bootstrap for any country: discover + fetch + commit.
+
+    Countries with a non-standard history model (e.g. Estonia, which
+    reconstructs the timeline by walking an ``Eelmine`` HTML chain rather
+    than by extracting reforms from the XML body) can provide a custom
+    ``fetcher/{country}/bootstrap.py`` module exposing a ``bootstrap()``
+    function. If present, it is called instead of the standard flow.
+    """
+    # Country-specific hook
+    try:
+        from importlib import import_module
+
+        custom = import_module(f"legalize.fetcher.{country}.bootstrap")
+    except ImportError:
+        custom = None
+
+    if custom is not None and hasattr(custom, "bootstrap"):
+        return custom.bootstrap(config, dry_run=dry_run, limit=limit)
+
     cc = config.get_country(country)
 
     console.print(f"[bold]Bootstrap {country.upper()}[/bold]\n")

@@ -53,6 +53,25 @@ countries:
       max_retries: 5
       requests_per_second: 2.0
 
+  ee:
+    repo_path: "../countries/ee"
+    data_dir: "../countries/data-ee"
+    cache_dir: ".cache"
+    max_workers: 4
+    source:
+      base_url: "https://www.riigiteataja.ee"
+      bulk_url: "https://www.riigiteataja.ee/avaandmed/ERT"
+      legi_dir: "../countries/data-ee/legi"
+      request_timeout: 60
+      max_retries: 5
+      requests_per_second: 2.0
+      document_types:
+        - "seadus"
+        - "määrus"
+      text_types:
+        - "terviktekst"
+        - "algtekst-terviktekst"
+
   cl:
     repo_path: "../countries/cl"
     data_dir: "../countries/data-cl"

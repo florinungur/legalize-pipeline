@@ -24,6 +24,12 @@ if TYPE_CHECKING:
 # This avoids importing all country modules at startup.
 
 REGISTRY: dict[str, dict[str, tuple[str, str]]] = {
+    "ad": {
+        "client": ("legalize.fetcher.ad.client", "BOPAClient"),
+        "discovery": ("legalize.fetcher.ad.discovery", "BOPADiscovery"),
+        "text_parser": ("legalize.fetcher.ad.parser", "BOPATextParser"),
+        "metadata_parser": ("legalize.fetcher.ad.parser", "BOPAMetadataParser"),
+    },
     "es": {
         "client": ("legalize.fetcher.es.client", "BOEClient"),
         "discovery": ("legalize.fetcher.es.discovery", "BOEDiscovery"),
@@ -53,6 +59,12 @@ REGISTRY: dict[str, dict[str, tuple[str, str]]] = {
         "discovery": ("legalize.fetcher.de.discovery", "GIIDiscovery"),
         "text_parser": ("legalize.fetcher.de.parser", "GIITextParser"),
         "metadata_parser": ("legalize.fetcher.de.parser", "GIIMetadataParser"),
+    },
+    "ee": {
+        "client": ("legalize.fetcher.ee.client", "RTClient"),
+        "discovery": ("legalize.fetcher.ee.discovery", "RTDiscovery"),
+        "text_parser": ("legalize.fetcher.ee.parser", "RTTextParser"),
+        "metadata_parser": ("legalize.fetcher.ee.parser", "RTMetadataParser"),
     },
     "cl": {
         "client": ("legalize.fetcher.cl.client", "BCNClient"),

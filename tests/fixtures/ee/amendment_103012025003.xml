@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oigusakt id="a62db90f-a22e-4a2a-a177-2418da6a5eb4" xsi:schemaLocation="muutmismaarus_1_10.02.2010 http://xmlr.eesti.ee/xml/schemas/oigusakt/muutmismaarus_1_10.02.2010.xsd" xmlns="muutmismaarus_1_10.02.2010" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<metaandmed>
+		<valjaandja>Terviseminister</valjaandja>
+		<dokumentLiik>määrus</dokumentLiik>
+		<tekstiliik>algtekst</tekstiliik>
+		<dokumentEtapp>avaldamine</dokumentEtapp>
+		<dokumentStaatus>avaldatud</dokumentStaatus>
+		<vastuvoetud>
+			<aktikuupaev>2024-12-17</aktikuupaev>
+			<aktiNr>57</aktiNr>
+		</vastuvoetud>
+		<avaldamismarge><RTosa>RT I</RTosa><avaldamineKuupaev>2025-01-03</avaldamineKuupaev><RTaasta>2025</RTaasta><RTartikkel>3</RTartikkel><aktViide>103012025003</aktViide></avaldamismarge><kehtivus><kehtivuseAlgus>2025-01-06+02:00</kehtivuseAlgus></kehtivus><versioon>
+			<dokumentVersioon>1</dokumentVersioon>
+			<dokumentVersioonKuupaev>2024-12-19</dokumentVersioonKuupaev>
+		</versioon>
+		<skeemiNimi>muutmismaarus_1_10.02.2010.xsd</skeemiNimi>
+		<globaalID>103012025003</globaalID>
+		<metaandmedVersioon>6</metaandmedVersioon>
+		<metaandmedVersioonKuupaev>2025-01-02</metaandmedVersioonKuupaev>
+		<metaandmedVersioonPohjustaja>Maret Mauer</metaandmedVersioonPohjustaja>
+		<eesmark>Muutmismääruse raamskeem XML struktuuri koostamiseks</eesmark>
+	</metaandmed>
+	<aktinimi>
+		<nimi>
+			<pealkiri>Tervise- ja tööministri 6. märtsi 2019. a määruse nr 14 „Tervisekassa andmekogu pidamise põhimäärus” muutmine</pealkiri>
+		</nimi>
+	</aktinimi>
+	<sisu>
+		<preambul>
+			<tavatekst>Määrus kehtestatakse tervisekassa seaduse § 46<sup>5</sup> lõike 1 alusel.</tavatekst>
+		</preambul>
+		<sisuTekst>
+			<HTMLKonteiner><![CDATA[<p>Tervise- ja tööministri 6. märtsi 2019. a määruse nr 14 „Tervisekassa andmekogu pidamise põhimäärus” muutmine</p>
+<p>Tervise- ja tööministri 6. märtsi 2019. a määruses nr 14 „Tervisekassa andmekogu pidamise põhimäärus” tehakse järgmised muudatused:</p>
+<p><b>1)</b> paragrahvi 7 lõike 1 punkt 7 sõnastatakse järgmiselt:</p>
+<p>„7) kodakondsus;”;</p>
+<p><b>2)</b> paragrahvi 7 täiendatakse lõikega 8<sup>1</sup> järgmises sõnastuses:</p>
+<p>„(8<sup>1</sup>) Andmekogusse kantakse vanglas ja arestimajas kinni peetavate isikute ja väljasaadetava järgmised andmed:<br/>
+1) käesoleva paragrahvi lõike 1 punktides 1–3 nimetatud andmed;<br/>
+2) vanglas ja arestimajas kinni peetavate isikute ja väljasaadetavaks olemise alguskuupäev;<br/>
+3) vanglas ja arestimajas kinni peetavate isikute ja väljasaadetavaks olemise lõppkuupäev või eeldatav lõppkuupäev;<br/>
+4) kinnipidamisasutus või kinnipidamiskeskus;<br/>
+5) teave isiku vanglast, arestimajast või kinnipidamiskeskusest väljaspool viibimise kohta tervishoiuteenuse osutamise ajal;<br/>
+6) osutatud tervishoiuteenuse hüvitise osas käesoleva paragrahvi 7 lõikes 4 toodud andmed.”;</p>
+<p><b>3)</b> paragrahvi 8 täiendatakse lõikega 8<sup>3</sup> järgmises sõnastuses:</p>
+<p>„(8<sup>3</sup>) Kinnipeetavate, vahistatute, arestialuste ja kriminaalhooldusaluste andmekogu ning politsei andmekogu edastab andmekogule §&#160;7 lõikes&#160;8<sup>1</sup> nimetatud andmed.”;</p>
+<p><b>4)</b> paragrahvi 11 lõige 5 sõnastatakse järgmiselt:</p>
+<p>„(5) Tervishoiuteenuse osutajale, kes osutab kindlustatud isikule, vanglas ja arestimajas kinni peetavale isikule või väljasaadetavale tervishoiuteenust, kirjutab välja ravimi või meditsiiniseadme, võimaldatakse juurdepääs Tervisekassa tasu ülevõtmise aluste kontrollimiseks ja töövõimetuslehe väljakirjutamiseks vajalikele andmetele, sealhulgas isiku kindlustusliigile.”;</p>
+<p><b>5)</b> paragrahvi 12 täiendatakse lõikega 4 järgmises sõnastuses:</p>
+<p>„(4) Kui määruse § 7 lõikes 8<sup>1</sup> punktis 6 nimetatud andmeid ei ole esitatud vanglas või arestimajas kinni peetud isiku või väljasaadetava kohta, säilitatakse §&#160;7 lõikes&#160;8<sup>1</sup> punktides&#160;1–4 nimetatud andmeid kolm aastat isiku kinnipidamisasutusest vabastamisest alates.”;</p>
+<p><b>6)</b> paragrahv 16 loetakse §-ks 17 ning määrust täiendatakse §-ga&#160;16 järgmises sõnastuses:</p>
+<p>„<b>§ 16. Vanglas ja arestimajas kinni peetavate isikute ning väljasaadetava andmed</b></p>
+<p>Tehnilise lahenduse valmimisel, hiljemalt 1. juulil 2025. a, edastatakse § 7 lõikes&#160;8<sup>1</sup> nimetatud andmed tagasiulatuvalt alates 1.&#160;juulist 2024.&#160;a.”.</p>]]></HTMLKonteiner>
+		</sisuTekst>
+	</sisu>
+	<allkiri>
+		<allkiriKoht/>
+		<allkirjastaja>
+			<ametinimetus>Terviseminister</ametinimetus>
+			<eesnimi>Riina</eesnimi>
+			<perekonnanimi>Sikkut</perekonnanimi>
+		</allkirjastaja>
+	</allkiri>
+	<allkiri>
+		<allkiriKoht/>
+		<allkirjastaja>
+			<ametinimetus>Kantsler</ametinimetus>
+			<eesnimi>Maarjo</eesnimi>
+			<perekonnanimi>Mändmaa</perekonnanimi>
+		</allkirjastaja>
+	</allkiri>
+</oigusakt>

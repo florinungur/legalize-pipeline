@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oigusakt id="27c1aa8b-ed93-413f-96c2-b146faadd5b8" xsi:schemaLocation="muutmisseadus_1_10.02.2010 http://xmlr.eesti.ee/xml/schemas/oigusakt/muutmisseadus_1_10.02.2010.xsd" xmlns="muutmisseadus_1_10.02.2010" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<metaandmed>
+		<valjaandja>Riigikogu</valjaandja>
+		<dokumentLiik>seadus</dokumentLiik>
+		<tekstiliik>algtekst</tekstiliik>
+		<dokumentEtapp>avaldamine</dokumentEtapp>
+		<dokumentStaatus>avaldatud</dokumentStaatus>
+		<vastuvoetud>
+			<aktikuupaev>2024-11-13</aktikuupaev>
+		</vastuvoetud>
+		<valjakuulutamine>
+			<valjakuulutatud>
+				<kellepoolt>Vabariigi President</kellepoolt>
+				<kuupaev>2024-11-25</kuupaev>
+				<otsusnr>476</otsusnr>
+			</valjakuulutatud>
+		</valjakuulutamine>
+		<avaldamismarge><RTosa>RT I</RTosa><avaldamineKuupaev>2024-12-03</avaldamineKuupaev><RTaasta>2024</RTaasta><RTartikkel>3</RTartikkel><aktViide>103122024003</aktViide></avaldamismarge><kehtivus><kehtivuseAlgus>2024-12-13+02:00</kehtivuseAlgus></kehtivus><versioon>
+			<dokumentVersioon>1</dokumentVersioon>
+			<dokumentVersioonKuupaev>2024-11-25</dokumentVersioonKuupaev>
+		</versioon>
+		<skeemiNimi>muutmisseadus_1_10.02.2010.xsd</skeemiNimi>
+		<globaalID>103122024003</globaalID>
+		<metaandmedVersioon>5</metaandmedVersioon>
+		<metaandmedVersioonKuupaev>2024-12-02</metaandmedVersioonKuupaev>
+		<metaandmedVersioonPohjustaja>Maret Mauer</metaandmedVersioonPohjustaja>
+		<eesmark>Muutmisseaduse raamskeem XML struktuuri koostamiseks</eesmark>
+	</metaandmed>
+	<aktinimi>
+		<nimi>
+			<pealkiri>Kogumispensionide seaduse ja teiste seaduste muutmise seadus</pealkiri>
+		</nimi>
+	</aktinimi>
+	<sisu>
+		<paragrahv id="para1">
+			<paragrahvNr>1</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 1.]]></kuvatavNr>
+			<paragrahvPealkiri>Kogumispensionide seaduse muutmine</paragrahvPealkiri>
+			<sisuTekst>
+				<HTMLKonteiner><![CDATA[<p>Kogumispensionide seaduses tehakse järgmised muudatused:</p>
+<p><b>1)</b> paragrahvi 3<sup>1</sup> lõige 7 muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(7) Pensioni investeerimiskonto ja finantsvaraga seotud tasud ja kulud makstakse pensioni investeerimiskontol olevast rahast. Kui pensioni investeerimiskontol ei ole raha nimetatud tasude ja kulude maksmiseks, on krediidiasutusel õigus lubada puuduoleva summa ulatuses pensioni investeerimiskonto jääki ületada ning arvestada sellelt viivitusintressi, kasutada selleks pensioni investeerimiskonto kaudu soetatud finantsvara võõrandamist, sealhulgas finantsvara soetamisel sõlmitud lepingu lõpetamist, või realiseerida muul viisil finantsvarast tulenev väärtus.”;</p>
+<p><b>2)</b> paragrahvi 3<sup>1</sup> täiendatakse lõikega 7<sup>1</sup> järgmises sõnastuses:</p>
+<p>„(7<sup>1</sup>) Kui käesoleva paragrahvi lõikes 7 sätestatud meetmeid ei saa rakendada, on krediidiasutusel õigus katta pensioni investeerimiskonto ja finantsvaraga seotud tasusid ja kulusid, sealhulgas viivitusintressi, isiku samas krediidiasutuses oleval muul pangakontol oleva raha arvelt.”;</p>
+<p><b>3)</b> paragrahvi 17<sup>1</sup> täiendatakse lõikega 2<sup>1</sup> järgmises sõnastuses:</p>
+<p>„(2<sup>1</sup>) Kui väärtpaberituru seaduse §-s 3 määratletud kauplemiskoht on väärtpaberiga kauplemise lõpetanud või käesoleva seaduse §&#160;52<sup>6</sup> lõikes&#160;6 sätestatud menetluse või režiimi lõppemise järel ei ole pensioni investeerimiskonto kaudu soetatud väärtpaberite võõrandamine endiselt võimalik, on lubatud pensioni investeerimiskonto sulgemiseks väärtpaberid ümber registreerida pensioni investeerimiskontoga seotud väärtpaberikontolt sama krediidiasutuse kaudu avatud isiku muule väärtpaberikontole.”;</p>
+<p><b>4)</b> paragrahvi 17<sup>1</sup> täiendatakse lõigetega 4–6 järgmises sõnastuses:</p>
+<p>„(4) Kui pärast pensioni investeerimiskonto sulgemist laekub tulu selle konto kaudu varem soetatud finantsvaralt, kannab krediidiasutus selle registripidajale. Kui isik omandab pärast pensioni investeerimiskonto sulgemist finantsvara, mis tuleks registreerida nimetatud pensioni investeerimiskontoga seotud väärtpaberikontol, on krediidiasutusel õigus nimetatud finantsvara võõrandada ja kanda selle tulemusel saadud summa registripidajale.</p>
+<p>(5) Käesoleva paragrahvi lõike 4 kohaselt registripidajale laekuv summa kantakse isiku pensionikontole ja selle suhtes kohaldatakse:<br/>
+1) käesoleva seaduse § 43 lõike 3 esimeses lauses sätestatut, kui isikule on tehtud samas paragrahvis sätestatud ühekordne väljamakse, mille käigus võeti tagasi kõik temale kuulunud pensionifondide osakud ning maksti neile vastav summa ja tema kõigil pensioni investeerimiskontodel olevad summad välja;<br/>
+2) käesoleva seaduse § 52<sup>1</sup> lõikes 4<sup>1</sup> sätestatut, kui isik on sõlminud §-s 45 sätestatud pensionilepingu, mille kindlustusmakse tasumiseks kasutati kõiki kindlustusvõtjale kuulunud pensionifondide osakuid ja tema kõigil pensioni investeerimiskontodel olnud summasid;<br/>
+3) käesoleva seaduse § 52<sup>6</sup> lõikes 7 sätestatut, kui isikule on tehtud §-s 43<sup>1</sup> sätestatud väljamakse.</p>
+<p>(6) Käesoleva paragrahvi lõikes 5 nimetamata juhtudel korraldab registripidaja isiku pensionikontole laekunud summa ulatuses talle osakute väljalaskmise sellises pensionifondis või kannab summa sellisele pensioni investeerimiskontole, kuhu laekub või peaks laekuma isiku kohustusliku kogumispensioni makse.”;</p>
+<p><b>5)</b> paragrahvi 18 lõiget 1 täiendatakse punktiga 3<sup>1</sup> järgmises sõnastuses:</p>
+<p>„3<sup>1</sup>) osakute omandamisel käesoleva seaduse § 17<sup>1</sup> lõigete 4 ja 6 kohaselt;”;</p>
+<p><b>6)</b> paragrahvi 18 lõiget 1 täiendatakse punktiga 3<sup>2</sup> järgmises sõnastuses:</p>
+<p>„3<sup>2</sup>) osakute omandamisel käesoleva seaduse § 46<sup>2</sup> lõike 3 kohaselt;”;</p>
+<p><b>7)</b> paragrahvi 18 lõiget 2 täiendatakse punktiga 4<sup>1</sup> järgmises sõnastuses:</p>
+<p>„4<sup>1</sup>) raha pensioni investeerimiskontole kandmisel käesoleva seaduse § 17<sup>1</sup> lõigete&#160;4 ja&#160;6 kohaselt;”;</p>
+<p><b>8)</b> paragrahvi 18 lõiget 2 täiendatakse punktiga 4<sup>2</sup> järgmises sõnastuses:</p>
+<p>„4<sup>2</sup>) raha pensioni investeerimiskontole kandmisel käesoleva seaduse § 46<sup>2</sup> lõike 3 kohaselt;”;</p>
+<p><b>9)</b> paragrahvi 28 lõige 2 muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(2) Pärijal on käesolevas seaduses sätestatud tingimustel ja korras õigus:<br/>
+1) kanda päritud osakud oma pensionikontole;<br/>
+2) vahetada päritud osakud sellise pensionifondi osakute vastu või kanda päritud osakute tagasivõtmisel saadud summa sellisele pensioni investeerimiskontole, kuhu laekub või peaks laekuma tema kohustusliku kogumispensioni makse (edaspidi käesolevas jaos <i>vahetamine</i>);<br/>
+3) võtta päritud osakud tagasi;<br/>
+4) omandada pensioni investeerimiskontol oleva päritud raha eest sellise pensionifondi osakuid või kanda raha oma sellisele pensioni investeerimiskontole, kuhu laekub või peaks laekuma tema kohustusliku kogumispensioni makse;<br/>
+5) võtta pensioni investeerimiskontol olev päritud raha välja.”;</p>
+<p><b>10)</b> paragrahvi 28 täiendatakse lõikega 2<sup>1</sup> järgmises sõnastuses:</p>
+<p>„(2<sup>1</sup>) Avaldus käesoleva paragrahvi lõikes 2 nimetatud tehingute tegemiseks on ühepoolne tehing tsiviilseadustiku üldosa seaduse tähenduses.”;</p>
+<p><b>11)</b> paragrahvi 28 lõige 3 muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(3) Pensioni investeerimiskonto kaudu soetatud finantsvara puhul on pärijal pensioni investeerimiskonto avanud krediidiasutusega sõlmitud lepingus, finantsvara soetamisel sõlmitud lepingus ning seaduses sätestatud tingimustel ja korras õigus päritud finantsvara võõrandada ja finantsvara soetamisel sõlmitud leping lõpetada või registreerida see finantsvara kokkuleppel pärandajale ja pärijale pensioni investeerimiskontod avanud krediidiasutustega oma pensioni investeerimiskontoga seotud väärtpaberikontole.”;</p>
+<p><b>12)</b> paragrahvi 28 täiendatakse lõikega 3<sup>1</sup> järgmises sõnastuses:</p>
+<p>„(3<sup>1</sup>) Kui selle pensionifondi, kuhu laekub või peaks laekuma pärija kohustusliku kogumispensioni makse, osakute väljalaskmine on investeerimisfondide seaduse §&#160;57 või&#160;173 alusel peatatud, ei kohaldu käesoleva paragrahvi lõike&#160;2 punktis&#160;2 ega punktis&#160;4 sätestatud pärija õigus vahetada päritud osakud nimetatud pensionifondi osakute vastu või omandada selle pensionifondi osakuid pensioni investeerimiskontol oleva päritud raha eest.”;</p>
+<p><b>13)</b> paragrahvi 29 lõige 1 muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(1) Päritud kohustusliku kogumispensioni vara ülekandmist võib taotleda pärija, kellele on avatud käesoleva seaduse §&#160;17 kohaselt pensionikonto.”;</p>
+<p><b>14)</b> paragrahvi 31 pealkiri muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„<b>§ 31. Pensionifondi osakute ülekandmise ja vahetamise, päritud raha ülekandmise ja selle eest pensionifondi osakute omandamise ning väljamakse tegemise kord</b>”;</p>
+<p><b>15)</b> paragrahvi 31 lõike 1 sissejuhatavas lauseosas asendatakse sõnad „pensionikontole või nende tagasivõtmiseks” sõnadega „pensionikontole või nende vahetamiseks või tagasivõtmiseks”;</p>
+<p><b>16)</b> paragrahvi 31 lõiget 1 täiendatakse punktiga 5<sup>1</sup> järgmises sõnastuses:</p>
+<p>„5<sup>1</sup>) iga pensionifondi nimetus, mille osakuid füüsilisest isikust pärija soovib vahetada, ja nende osakute arv;”;</p>
+<p><b>17)</b> paragrahvi 31 lõike 3 esimeses lauses asendatakse sõna „tagasivõtmise” sõnadega „tagasivõtmise, vahetamise”;</p>
+<p><b>18)</b> paragrahvi 31 täiendatakse lõikega 3<sup>1</sup> järgmises sõnastuses:</p>
+<p>„(3<sup>1</sup>) Kui selle pensionifondi, mille päritud osakute vahetamist või tagasivõtmist osakuomanik käesoleva seaduse §&#160;28 lõike&#160;2 punkti&#160;2 või&#160;3 kohaselt soovib, osakute tagasivõtmine on investeerimisfondide seaduse §&#160;57 või&#160;173 alusel peatatud, korraldab registripidaja osakute tagasivõtmise või vahetamise esimesel võimalusel pärast takistavate asjaolude äralangemist.”;</p>
+<p><b>19)</b> paragrahvi 31 lõike 4 neljandas lauses asendatakse sõnad „tagasivõtmiseks või oma pensionikontole kandmiseks” sõnadega „tagasivõtmiseks, oma pensionikontole kandmiseks või vahetamiseks”;</p>
+<p><b>20)</b> paragrahvi 31 lõiked 4<sup>1</sup> ja 4<sup>2</sup> muudetakse ning sõnastatakse järgmiselt:</p>
+<p>„(4<sup>1</sup>) Kui pärandvara sisaldab pensioni investeerimiskontol olevat raha, korraldab sellise pensionifondi osakute väljalaskmise või raha pärija sellisele pensioni investeerimiskontole kandmise, kuhu laekub või peaks laekuma pärija kohustusliku kogumispensioni makse, või raha pärijale väljamaksmise registripidaja viie tööpäeva jooksul pensioni investeerimiskonto avanud krediidiasutuselt käesoleva paragrahvi lõikes&#160;4<sup>2</sup> nimetatud andmete saamisest arvates vastavalt käesolevale seadusele ja selle alusel kehtestatud õigusaktidele ning registripidaja ja pärandajale pensioni investeerimiskonto avanud krediidiasutuse vahel sõlmitud lepingule.</p>
+<p>(4<sup>2</sup>) Viivitamata pärast pärijalt vastava korralduse saamist esitab pärandajale pensioni investeerimiskonto avanud krediidiasutus registripidajale avalduse pensioni investeerimiskontol oleva raha väljamaksmiseks pärijale, selle pärija pensioni investeerimiskontole kandmiseks või pärijale pensionifondi osakute väljalaskmiseks ning kannab vastava summa registripidajale. Avaldusel peavad olema märgitud käesoleva paragrahvi lõike&#160;1 punktides&#160;1–3, 7 ja&#160;10 nimetatud andmed ning summa, mille pärija soovib välja võtta, mille eest ta soovib omandada pensionifondi osakuid või mille oma pensioni investeerimiskontole kanda, koos pensioni investeerimiskonto numbri ja selle avanud krediidiasutuse ärinimega.”;</p>
+<p><b>21)</b> paragrahvi 31 täiendatakse lõikega 4<sup>3</sup> järgmises sõnastuses:</p>
+<p>„(4<sup>3</sup>) Kui sellise pensionifondi, kuhu laekub või peaks laekuma pärija kohustusliku kogumispensioni makse, osakute väljalaskmine on käesoleva paragrahvi lõikes&#160;3 sätestatud osakute vahetamise või lõikes&#160;4<sup>1</sup> sätestatud osakute väljalaskmise päeval investeerimisfondide seaduse §&#160;57 või&#160;173 alusel peatatud, keeldub registripidaja tehingu tegemisest ja teavitab sellest viivitamata kontohaldurit või pensioni investeerimiskonto avanud krediidiasutust. Kontohaldur või pensioni investeerimiskonto avanud krediidiasutus teavitab tehingu tegemisest keeldumisest viivitamata avalduse esitanud isikut.”;</p>
+<p><b>22)</b> seadust täiendatakse §-ga 46<sup>2</sup> järgmises sõnastuses:</p>
+<p>„<b>§ 46<sup>2</sup>. Garantiiperioodiga pensionilepingu soodustatud isiku õigused</b></p>
+<p>(1) Kui garantiiperioodiga pensionilepingu kindlustusvõtja sureb garantiiperioodi jooksul, on nimetatud perioodi lõpuni tegemata jäävale pensionimaksele vastavas summas väljamaksele õigus soodustatud isikul.</p>
+<p>(2) Garantiiperioodiga pensionilepingu soodustatud isikul, kellele on avatud pensionikonto käesoleva seaduse §&#160;17 alusel, on käesoleva paragrahvi lõikes&#160;1 nimetatud summat õigus kasutada ka sissemakse tegemiseks pensionifondi või pensioni investeerimiskontole, kuhu laekub või viimati laekus tema kogumispensioni makse. Sellise pensionifondi või pensioni investeerimiskonto puudumise korral tuleb soodustatud isikul esitada valikuavaldus käesoleva seaduse §&#160;16 kohaselt.</p>
+<p>(3) Käesoleva paragrahvi lõikes 2 sätestatud juhul kannab kindlustusandja vastava summa registripidajale, kes korraldab käesoleva seaduse §&#160;22 alusel soodustatud isikule pensionifondi osakute väljalaskmise või raha kandmise tema pensioni investeerimiskontole.</p>
+<p>(4) Kui soodustatud isikul on sõlmitud pensionileping, on tal käesoleva paragrahvi lõikes&#160;1 nimetatud summat õigus kasutada ka käesoleva seaduse §&#160;52<sup>1</sup> lõike&#160;6 kohaselt täiendava kindlustusmakse tasumiseks.”;</p>
+<p><b>23)</b> paragrahvi 52<sup>6</sup> lõike 6 esimene lause muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„Käesoleva paragrahvi lõikes 5 sätestatud tingimust ei kohaldata pensioni investeerimiskonto kaudu soetatud finantsvara suhtes, mille võõrandamine, sealhulgas finantsvara soetamisel sõlmitud lepingu lõpetamine, ei ole väärtpaberituru seaduse §-s&#160;3 määratletud kauplemiskoha poolt kauplemise peatamise või lõpetamise tõttu, investeerimisfondi osakute või aktsiate tagasivõtmise peatamise tõttu, finantsvara teise osapoole või tehingu tegemiseks vajaliku finantsvahendaja suhtes pankrotimenetluse algatamise tõttu, krediidiasutuse suhtes väljakuulutatud moratooriumi või kriisilahendusmenetluse algatamise tõttu, kindlustusandjale kehtestatud erirežiimi tõttu või kohtu või muu pädeva haldusorgani tagajärgedelt sarnase otsuse tõttu seaduse kohaselt võimalik.”;</p>
+<p><b>24)</b> paragrahvi 63 lõiget 5<sup>1</sup> täiendatakse punktiga 3 järgmises sõnastuses:</p>
+<p>„3) kasutada lepingu osalist väljamakset kindlustusvõtja teise lepingu või uue sõlmitud lepingu kindlustusmakse tasumiseks või vabatahtliku pensionifondi osakute omandamiseks, kui lepingu tingimuste kohaselt kindlustusvõtjale sellist osalist väljamakset võimaldatakse.”;</p>
+<p><b>25)</b> paragrahvi 63 lõige 5<sup>2</sup> muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(5<sup>2</sup>) Käesoleva paragrahvi lõikes 5<sup>1</sup> nimetatud summasid kindlustusvõtjale välja ei maksta ja kindlustusandja tasub lepingu osalise väljamakse, tagastusväärtuse või osa sellest lepingus ettenähtud tähtaja jooksul, kuid lepingu ülesütlemise korral hiljemalt kaks kuud pärast lepingu ülesütlemise avalduse saamist, kindlustusvõtja sõlmitud teise lepingu kindlustusmaksena selle lepingu sõlminud kindlustusandjale või kooskõlastatult kindlustusvõtja valitud vabatahtliku pensionifondi valitsejaga kindlustusvõtja sissemaksena vabatahtlikku pensionifondi.”.</p>]]></HTMLKonteiner>
+			</sisuTekst>
+		</paragrahv>
+		<paragrahv id="para2">
+			<paragrahvNr>2</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 2.]]></kuvatavNr>
+			<paragrahvPealkiri>Investeerimisfondide seaduse muutmine</paragrahvPealkiri>
+			<sisuTekst>
+				<HTMLKonteiner><![CDATA[<p>Investeerimisfondide seaduses tehakse järgmised muudatused:</p>
+<p><b>1)</b> paragrahvi 37 lõike 3 punktis 1 asendatakse tekstiosa „muudatusi, mis ei mõjuta osakuomanike või aktsionäride õigusi ja kohustusi või” tekstiosaga „redaktsioonilisi muudatusi või muudatusi,”;</p>
+<p><b>2)</b> paragrahvi 91<sup>1</sup> lõike 1 punktis 3 ja § 270<sup>1</sup> lõike 1 punktis 3 asendatakse sõnad „alternatiivfondi investeerimisest” sõnadega „alternatiivfondi turustamise kohaks olevas lepinguriigis alternatiivfondi investeerimisest”;</p>
+<p><b>3)</b> paragrahvi 91<sup>1</sup> lõike 1 punktis 4 ja § 270<sup>1</sup> lõike 1 punktis 4 asendatakse sõnad „investorile kättesaadavaks” sõnadega „investorile tutvumiseks ja kopeerimiseks kättesaadavaks”;</p>
+<p><b>4)</b> paragrahvi 91<sup>1</sup> lõige 3 muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(3) Käesoleva paragrahvi lõikes 1 nimetatud ülesandeid võivad täita fondivalitseja, kolmas isik või mõlemad. Kui fondivalitseja annab lõikes&#160;1 nimetatud ülesannete täitmise edasi kolmandale isikule, sõlmitakse selleks kirjalik leping. Lepingus täpsustatakse ülesannete jaotus ning sätestatakse kolmanda isiku õigus saada fondivalitsejalt ülesannete täitmiseks vajalikku teavet ja asjakohaseid dokumente.”;</p>
+<p><b>5)</b> paragrahvi 103 lõikes 4 asendatakse tekstiosa „ja väärtpaberitesse, mille alusvaraks on väärismetall või mille hind sõltub väärismetallist” tekstiosaga „ega neid esindavatesse sertifikaatidesse”;</p>
+<p><b>6)</b> paragrahvi 120 lõike 2 punkt 2 muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„2) väärismetallidesse ja neid esindavatesse sertifikaatidesse.”;</p>
+<p><b>7)</b> paragrahvi 121 lõike 2 punktid 2 ja 3 muudetakse ning sõnastatakse järgmiselt:</p>
+<p>„2) väärismetallidesse ja neid või toormeid esindavatesse sertifikaatidesse;<br/>
+3) väärtpaberituru seaduse §-s 2 nimetatud väärtpaberitesse, sealhulgas väärtpaberitesse, mille alusvaraks on väärismetall või toore;”;</p>
+<p><b>8)</b> paragrahvi 123 tekst muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„Pensionifondi vara võib väärismetallidesse, väärtpaberitesse, mille alusvaraks on toore, ning väärismetalle ja toormeid esindavatesse sertifikaatidesse paigutada kokku kuni 25&#160;protsendi ulatuses pensionifondi vara väärtusest.”;</p>
+<p><b>9)</b> paragrahvi 128 lõikest 4 jäetakse välja sõnad „või kaudselt”;</p>
+<p><b>10)</b> paragrahvi 270<sup>1</sup> lõige 3 muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(3) Käesoleva paragrahvi lõikes 1 nimetatud ülesandeid võivad täita fondivalitseja, kolmas isik või mõlemad. Kui fondivalitseja annab lõikes&#160;1 nimetatud ülesannete täitmise edasi kolmandale isikule, sõlmitakse selleks kirjalik leping. Lepingus täpsustatakse ülesannete jaotus ning sätestatakse kolmanda isiku õigus saada fondivalitsejalt ülesannete täitmiseks vajalikku teavet ja asjakohaseid dokumente.”;</p>
+<p><b>11)</b> paragrahvi 349 lõiget 2 täiendatakse pärast esimest lauset lausega järgmises sõnastuses:</p>
+<p>„Siseaudiitorile kohaldatakse audiitortegevuse seaduses atesteeritud siseaudiitorile sätestatud nõudeid ja tegevuse õiguslikke aluseid.”;</p>
+<p><b>12)</b> paragrahvi 363 täiendatakse lõikega 4 järgmises sõnastuses:</p>
+<p>„(4) Kohustusliku pensionifondi valitseja on kohustatud fondi vara investeerimise ja riskide juhtimisega seoses avaldama jätkusuutlikkust käsitlevat teavet, järgides Euroopa Parlamendi ja nõukogu määruses (EL) 2019/2088 sätestatut.”;</p>
+<p><b>13)</b> paragrahvi 408 lõige 1<sup>2</sup> muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(1<sup>2</sup>) Käesoleva paragrahvi lõikes 1 nimetatud ülesandeid võivad täita fondivalitseja, kolmas isik või mõlemad. Kui fondivalitseja annab lõikes&#160;1 nimetatud ülesannete täitmise edasi kolmandale isikule, sõlmitakse selleks kirjalik leping. Lepingus täpsustatakse ülesannete jaotus ning sätestatakse kolmanda isiku õigus saada fondilt ülesannete täitmiseks vajalikku teavet ja asjakohaseid dokumente.”;</p>
+<p><b>14)</b> paragrahvi 414<sup>1</sup> lõikes 6 asendatakse sõnad „muid selliseid investeerimisstrateegiaid” sõnadega „muid sarnaseid investeerimisstrateegiaid ega -ideid”;</p>
+<p><b>15)</b> paragrahvi 503<sup>3</sup> lõikes 1 asendatakse tekstiosa „300 trahviühikut” tekstiosaga „700&#160;000&#160;eurot või kuni kahekordses väärteo tulemusel teenitud kasule või ära hoitud kahjule vastavas summas”;</p>
+<p><b>16)</b> paragrahvi 503<sup>3</sup> lõikes 2 asendatakse tekstiosa „400 000 eurot” tekstiosaga „5&#160;000&#160;000&#160;eurot või kuni kahekordses väärteo tulemusel teenitud kasule või ära hoitud kahjule vastavas summas või kuni kümme protsenti juriidilise isiku või tema konsolideerimisgrupi konsolideeritud käibest”;</p>
+<p><b>17)</b> paragrahv 513<sup>2</sup> tunnistatakse kehtetuks;</p>
+<p><b>18)</b> paragrahv 514 muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„<b>§ 514. Menetlus</b></p>
+<p>(1) Käesoleva seaduse 31. peatükis sätestatud väärtegude kohtuväline menetleja on Finantsinspektsioon.</p>
+<p>(2) Käesoleva seaduse 31. peatükis sätestatud väärtegude aegumistähtaeg on kolm aastat.”;</p>
+<p><b>19)</b> seaduse normitehnilist märkust täiendatakse järgmise tekstiosaga:</p>
+<p>„komisjoni delegeeritud direktiiv (EL) 2021/1270, millega muudetakse direktiivi 2010/43/EL seoses jätkusuutlikkusriskide ja -teguritega, millega vabalt võõrandatavatesse väärtpaberitesse ühiseks investeerimiseks loodud ettevõtjad (eurofondid) peavad arvestama (ELT&#160;L&#160;277, 02.08.2021, lk&#160;141–144).”.</p>]]></HTMLKonteiner>
+			</sisuTekst>
+		</paragrahv>
+		<paragrahv id="para3">
+			<paragrahvNr>3</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 3.]]></kuvatavNr>
+			<paragrahvPealkiri>Kindlustustegevuse seaduse muutmine</paragrahvPealkiri>
+			<sisuTekst>
+				<HTMLKonteiner><![CDATA[<p>Kindlustustegevuse seaduses tehakse järgmised muudatused:</p>
+<p><b>1)</b> paragrahvi 263<sup>2</sup> lõikes 1 asendatakse tekstiosa „300 trahviühikut” tekstiosaga „700&#160;000&#160;eurot või kuni kahekordses väärteo tulemusel teenitud kasule või ära hoitud kahjule vastavas summas”;</p>
+<p><b>2)</b> paragrahvi 263<sup>2</sup> lõikes 2 asendatakse tekstiosa „400 000 eurot” tekstiosaga „5&#160;000&#160;000&#160;eurot või kuni kahekordses väärteo tulemusel teenitud kasule või ära hoitud kahjule vastavas summas või kuni kümme protsenti juriidilise isiku või tema konsolideerimisgrupi konsolideeritud käibest”;</p>
+<p><b>3)</b> paragrahv 263<sup>4</sup> tunnistatakse kehtetuks;</p>
+<p><b>4)</b> paragrahvi 264 tekst muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(1) Käesolevas peatükis sätestatud väärtegude kohtuväline menetleja on Finantsinspektsioon.</p>
+<p>(2) Käesolevas peatükis sätestatud väärtegude aegumistähtaeg on kolm aastat.”.</p>]]></HTMLKonteiner>
+			</sisuTekst>
+		</paragrahv>
+		<paragrahv id="para4">
+			<paragrahvNr>4</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 4.]]></kuvatavNr>
+			<paragrahvPealkiri>Krediidiasutuste seaduse muutmine</paragrahvPealkiri>
+			<sisuTekst>
+				<HTMLKonteiner><![CDATA[<p>Krediidiasutuste seaduses tehakse järgmised muudatused:</p>
+<p><b>1)</b> paragrahvi 134<sup>20</sup> lõikes 1 asendatakse tekstiosa „300 trahviühikut” tekstiosaga „700&#160;000&#160;eurot või kuni kahekordses väärteo tulemusel teenitud kasule või ära hoitud kahjule vastavas summas”;</p>
+<p><b>2)</b> paragrahvi 134<sup>20</sup> lõikes 2 asendatakse tekstiosa „400 000 eurot” tekstiosaga „5&#160;000&#160;000&#160;eurot või kuni kahekordses väärteo tulemusel teenitud kasule või ära hoitud kahjule vastavas summas või kuni kümme protsenti juriidilise isiku või tema konsolideerimisgrupi konsolideeritud käibest”.</p>]]></HTMLKonteiner>
+			</sisuTekst>
+		</paragrahv>
+		<paragrahv id="para5">
+			<paragrahvNr>5</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 5.]]></kuvatavNr>
+			<paragrahvPealkiri>Tulumaksuseaduse muutmine</paragrahvPealkiri>
+			<sisuTekst>
+				<HTMLKonteiner><![CDATA[<p>Tulumaksuseaduses tehakse järgmised muudatused:</p>
+<p><b>1)</b> paragrahvi 21 lõike 1<sup>1</sup> punkt 1 muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„1) kogumispensionide seaduse § 63 lõikes 5<sup>2</sup> sätestatud tingimustele vastavaid täiendava kogumispensioni kindlustuslepingu osalist väljamakset ja ülesöeldud lepingu tagastusväärtust;”;</p>
+<p><b>2)</b> paragrahvi 21 lõike 2<sup>1</sup> esimeses lauses asendatakse tekstiosa „ülesöeldud täiendava kogumispensioni kindlustuslepingu tagastusväärtust kogumispensionide seaduse §&#160;63 lõike&#160;5<sup>2</sup> kohaselt” tekstiosaga „kogumispensionide seaduse §&#160;63 lõike&#160;5<sup>2</sup> kohaselt teise lepingu osalist väljamakset või ülesöeldud lepingu tagastusväärtust”;</p>
+<p><b>3)</b> paragrahvi 21 lõige 3<sup>1</sup> muudetakse ja sõnastatakse järgmiselt:</p>
+<p>„(3<sup>1</sup>) Kui vabatahtliku pensionifondi osakud on omandatud kogumispensionide seaduse §&#160;63 lõike&#160;5<sup>2</sup> kohaselt täiendava kogumispensioni kindlustuslepingu osalise väljamakse või ülesöeldud lepingu tagastusväärtuse eest, arvestatakse viieaastast tähtaega selle lepingu sõlmimisest arvates, kui osakuomanik sõlmis lepingu vabatahtliku pensionifondi osakute esmasest omandamisest varem.”.</p>]]></HTMLKonteiner>
+			</sisuTekst>
+		</paragrahv>
+		<paragrahv id="para6">
+			<paragrahvNr>6</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 6.]]></kuvatavNr>
+			<paragrahvPealkiri>Väärtpaberituru seaduse muutmine</paragrahvPealkiri>
+			<sisuTekst>
+				<HTMLKonteiner><![CDATA[<p>Väärtpaberituru seaduses tehakse järgmised muudatused:</p>
+<p><b>1)</b> paragrahvi 237<sup>88</sup> lõikes 1 asendatakse tekstiosa „300 trahviühikut” tekstiosaga „700&#160;000&#160;eurot või kuni kahekordses väärteo tulemusel teenitud kasule või ära hoitud kahjule vastavas summas”;</p>
+<p><b>2)</b> paragrahvi 237<sup>88</sup> lõikes 2 asendatakse tekstiosa „400 000 eurot” tekstiosaga „5&#160;000&#160;000&#160;eurot või kuni kahekordses väärteo tulemusel teenitud kasule või ära hoitud kahjule vastavas summas või kuni kümme protsenti juriidilise isiku või tema konsolideerimisgrupi konsolideeritud käibest”;</p>
+<p><b>3)</b> seaduse normitehnilist märkust täiendatakse järgmise tekstiosaga:</p>
+<p>„komisjoni delegeeritud direktiiv (EL) 2021/1269, millega muudetakse delegeeritud direktiivi (EL) 2017/593 seoses jätkusuutlikkustegurite arvestamise lõimimisega tootejuhtimiskohustustesse (ELT&#160;L&#160;277, 02.08.2021, lk&#160;137–140).”.</p>]]></HTMLKonteiner>
+			</sisuTekst>
+		</paragrahv>
+		<paragrahv id="para7">
+			<paragrahvNr>7</paragrahvNr>
+			<kuvatavNr><![CDATA[§ 7.]]></kuvatavNr>
+			<paragrahvPealkiri>Seaduse jõustumine</paragrahvPealkiri>
+			<sisuTekst>
+				<tavatekst>Käesoleva seaduse § 1 punktid 6 ja 8–22 jõustuvad 2025. aasta 1. juunil.</tavatekst>
+			</sisuTekst>
+		</paragrahv>
+	</sisu>
+	<allkiri>
+		<allkiriKoht/>
+		<allkirjastaja>
+			<ametinimetus>Riigikogu esimees</ametinimetus>
+			<eesnimi>Lauri</eesnimi>
+			<perekonnanimi>Hussar</perekonnanimi>
+		</allkirjastaja>
+	</allkiri>
+</oigusakt>
