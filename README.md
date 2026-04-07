@@ -21,6 +21,7 @@ Each law is a file. Each reform is a commit. Every country is a repo.
 | Germany | [legalize-de](https://github.com/legalize-dev/legalize-de) | gesetze-im-internet.de |
 | Austria | [legalize-at](https://github.com/legalize-dev/legalize-at) | RIS (Bundeskanzleramt) |
 | Sweden | [legalize-se](https://github.com/legalize-dev/legalize-se) | SFSR (Riksdag) |
+| Latvia | [legalize-lv](https://github.com/legalize-dev/legalize-lv) | likumi.lv (Latvijas Vēstnesis) |
 
 ## Architecture
 
@@ -49,6 +50,7 @@ src/legalize/
     lt/                   Lithuania (TAR / data.gov.lt)
     pt/                   Portugal (DRE SQLite dump)
     uy/                   Uruguay (IMPO)
+    lv/                   Latvia (likumi.lv HTML scraping with sitemap discovery)
   transformer/          # Generic: XML -> Markdown
     xml_parser.py         Bloque/Version extraction, reform timeline
     markdown.py           Bloque -> Markdown (CSS class mapping)

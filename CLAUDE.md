@@ -13,6 +13,7 @@ Legalize is a multi-country platform that converts official legislation into ver
 - `legalize-dev/legalize-de` -- public: German laws (5,729 laws)
 - `legalize-dev/legalize-at` -- public: Austrian laws
 - `legalize-dev/legalize-se` -- public: Swedish laws
+- `legalize-dev/legalize-lv` -- public: Latvian laws (15,006 consolidated norms)
 - `legalize-dev/legalize-pipeline` -- public: this repo. Python engine that generates the public repos.
 
 **Local structure:**
@@ -28,7 +29,7 @@ Legalize is a multi-country platform that converts official legislation into ver
 
 **Website:** https://legalize.dev
 
-Processing 9 countries: ES (BOE), FR (LEGI), DE (GII), AT (RIS), SE (SFSR), CL (BCN), LT (TAR), PT (DRE), UY (IMPO). Architecture is multi-country with a unified pipeline.
+Processing 10 countries: ES (BOE), FR (LEGI), DE (GII), AT (RIS), SE (SFSR), CL (BCN), LT (TAR), PT (DRE), UY (IMPO), LV (likumi.lv). Architecture is multi-country with a unified pipeline.
 
 ## Language & Stack
 
@@ -109,6 +110,10 @@ Country-specific fetchers live in subpackages. Each implements the 4 interfaces 
 - `lt/` -- Lithuania (TAR / data.gov.lt)
 - `pt/` -- Portugal (DRE SQLite dump)
 - `uy/` -- Uruguay (IMPO)
+- `lv/` -- Latvia (likumi.lv HTML scraping)
+  - `client.py` -- `LikumiClient(HttpClient)`: single HTML page per law (text + metadata)
+  - `discovery.py` -- `LikumiDiscovery`: parses sitemap-1.xml + sitemap-2.xml (~76K URLs), filters out amendment slugs and ~483 robots.txt-disallowed IDs → ~48K consolidated laws
+  - `parser.py` -- `LikumiTextParser`, `LikumiMetadataParser`: lxml HTML parsing of `TV*` CSS classes, handles tables (`TV444` → Markdown pipe tables with rowspan/colspan), forces UTF-8 to avoid mojibake, strips C0/C1 control chars
 
 ### Transformer (`transformer/`)
 - `xml_parser.py` -- `parse_text_xml(bytes) -> list[Block]`, `extract_reforms()`, `get_block_at_date()`

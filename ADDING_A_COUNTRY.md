@@ -518,9 +518,12 @@ Reference benchmarks from existing countries:
 | DE | 5,729 | ZIP download | 1 | 2 | ~1h |
 | AT | 4,000+ | REST (RIS) | 8 | 2 | ~30min |
 | LT | 14,957 | REST (data.gov.lt) | 8 | 2 | ~1-2h |
+| LV | 48,490 (15K with content) | HTML scraping (likumi.lv) | 12 | 2 | ~70min |
 
 Government open data APIs typically handle 10-20 req/sec without issues.
 Commercial/rate-limited APIs may need `max_workers: 1`.
+
+**HTML scraping note** (Latvia case): when the source has no API and you must scrape HTML pages, the parser becomes CPU-bound on lxml HTML parsing instead of network-bound. With `max_workers: 12 × requests_per_second: 2`, Latvia hit ~9 req/s effective (CPU was the bottleneck, not the server). The `robots.txt` `Crawl-delay: 1` directive is a politeness baseline; many state publishers tolerate higher rates without errors. Always test conservatively first and back off if the server returns 429/503 or starts dropping connections.
 
 ## Checklist
 
