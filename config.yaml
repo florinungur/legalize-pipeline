@@ -127,3 +127,17 @@ countries:
         - "decretos-ley"
         - "constitucion"
       law_number_max: 20500
+
+  lv:
+    repo_path: "../countries/lv"
+    data_dir: "../countries/data-lv"
+    max_workers: 12
+    source:
+      # likumi.lv robots.txt has Crawl-delay: 1, but the server tolerates
+      # 11+ req/s without errors (tested 2026-04-07). Tuned for local bootstrap:
+      # 12 workers x 2 req/s = 24 req/s max (~10 req/s effective after HTTP
+      # latency). Full ~48K bootstrap: ~1.5h.
+      base_url: "https://likumi.lv"
+      request_timeout: 30
+      max_retries: 5
+      requests_per_second: 2.0
