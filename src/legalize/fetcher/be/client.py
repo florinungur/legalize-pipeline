@@ -32,6 +32,7 @@ import base64
 import json
 import logging
 import re
+from datetime import date
 from typing import TYPE_CHECKING
 
 from lxml import html as lxml_html
@@ -492,10 +493,15 @@ def _parse_version_sidebar(archive_html: bytes, newest_version: int) -> list[dic
         else:
             # Try end_date first, fall back to amending_law_pub_date, then
             # to the last known-good date. At each step, reject values that
-            # would move the timeline backwards.
+            # would move the timeline backwards OR are sentinel dates that
+            # Justel uses for "far future / indeterminate" (e.g. 01-01-2201).
+            _max_plausible = f"{date.today().year + 10}-12-31"
+
             def _valid(candidate: str | None) -> str | None:
                 if not candidate:
                     return None
+                if candidate > _max_plausible:
+                    return None  # sentinel like 2201-01-01
                 if last_good_effective is not None and candidate < last_good_effective:
                     return None
                 return candidate
