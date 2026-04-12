@@ -36,7 +36,6 @@ from legalize.committer.git_ops import GitRepo
 from legalize.committer.message import build_commit_info
 from legalize.config import Config
 from legalize.fetcher.cz.client import ESbirkaClient
-from legalize.fetcher.cz.discovery import ESbirkaDiscovery
 from legalize.fetcher.cz.parser import ESbirkaMetadataParser, ESbirkaTextParser
 from legalize.models import CommitType, NormMetadata, Reform
 from legalize.transformer.markdown import render_norm_at_date
@@ -47,6 +46,64 @@ logger = logging.getLogger(__name__)
 
 # Regex for extracting amendment numbers from full citation text.
 _AMENDMENT_RE = re.compile(r"č\.\s*(\d+)/(\d+)\s*Sb\.")
+
+
+_MIN_YEAR = 1945
+_MAX_LAW_NUMBER = 800
+
+
+def _discover_year(cc, year: int) -> list[str]:
+    """Probe all law numbers for a single year. Runs in its own thread."""
+    found: list[str] = []
+    consecutive_misses = 0
+
+    with ESbirkaClient.create(cc) as client:
+        for n in range(1, _MAX_LAW_NUMBER + 1):
+            stale_url = f"/sb/{year}/{n}"
+            try:
+                client.get_metadata(stale_url)
+                consecutive_misses = 0
+                found.append(stale_url)
+            except requests.HTTPError:
+                consecutive_misses += 1
+                if consecutive_misses >= 5:
+                    break
+
+    return found
+
+
+def _discover_parallel(
+    cc,
+    workers: int = 4,
+    limit: int | None = None,
+) -> list[str]:
+    """Discover all laws by probing years in parallel."""
+    current_year = date.today().year
+    years = list(range(current_year, _MIN_YEAR - 1, -1))
+
+    all_ids: list[str] = []
+
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        futures = {pool.submit(_discover_year, cc, y): y for y in years}
+
+        for future in as_completed(futures):
+            year = futures[future]
+            try:
+                ids = future.result()
+                all_ids.extend(ids)
+                if ids:
+                    console.print(f"  {year}: {len(ids)} laws (total: {len(all_ids)})")
+            except Exception as e:
+                logger.error("Discovery error for %d: %s", year, e)
+
+            if limit and len(all_ids) >= limit:
+                # Cancel remaining futures
+                for f in futures:
+                    f.cancel()
+                all_ids = all_ids[:limit]
+                break
+
+    return all_ids
 
 
 @dataclass
@@ -87,17 +144,12 @@ def bootstrap(
     console.print(f"  Repo: {cc.repo_path}")
     console.print(f"  Workers: {workers}\n")
 
-    # 1. Discovery
-    console.print("[bold]Phase 1: Discovery[/bold]")
-    with ESbirkaClient.create(cc) as client:
-        discovery = ESbirkaDiscovery()
-        all_ids: list[str] = []
-        for stale_url in discovery.discover_all(client):
-            all_ids.append(stale_url)
-            if limit and len(all_ids) >= limit:
-                break
-
-    console.print(f"  Found {len(all_ids)} laws\n")
+    # 1. Discovery — parallel by year (much faster than sequential)
+    console.print("[bold]Phase 1: Discovery (parallel by year)[/bold]")
+    disc_start = time.monotonic()
+    all_ids = _discover_parallel(cc, workers=workers, limit=limit)
+    disc_time = time.monotonic() - disc_start
+    console.print(f"  Found {len(all_ids)} laws in {disc_time:.0f}s\n")
 
     if not all_ids:
         return 0
