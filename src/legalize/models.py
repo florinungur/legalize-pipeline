@@ -62,6 +62,12 @@ class Rank(str):
     DECRET = "decret"
     CONSTITUTION_FR = "constitution_fr"
 
+    # Argentina — national
+    DECRETO_NECESIDAD_URGENCIA = "decreto_necesidad_urgencia"
+    DECISION_ADMINISTRATIVA = "decision_administrativa"
+    COMUNICACION = "comunicacion"
+    ACORDADA = "acordada"
+
     OTRO = "otro"
 
 

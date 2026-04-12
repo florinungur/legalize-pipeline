@@ -21,6 +21,19 @@ countries:
       max_retries: 5
       requests_per_second: 4.0
 
+  ar:
+    repo_path: "../countries/ar"
+    data_dir: "../countries/data-ar"
+    cache_dir: ".cache"
+    max_workers: 2
+    source:
+      base_url: "http://servicios.infoleg.gob.ar/infolegInternet"
+      catalog_url: "https://datos.jus.gob.ar/dataset/d9a963ea-8b1d-4ca3-9dd9-07a4773e8c23/resource/bf0ec116-ad4e-4572-a476-e57167a84403/download/base-infoleg-normativa-nacional.zip"
+      modifications_url: "https://datos.jus.gob.ar/dataset/d9a963ea-8b1d-4ca3-9dd9-07a4773e8c23/resource/0c4fdafe-f4e8-4ac2-bc2e-acf50c27066d/download/base-complementaria-infoleg-normas-modificadas.zip"
+      request_timeout: 60
+      max_retries: 5
+      requests_per_second: 1.0
+
   es:
     repo_path: "../countries/es"
     data_dir: "../countries/data-es"
