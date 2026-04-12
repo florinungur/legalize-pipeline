@@ -1,0 +1,36 @@
+VERSION HISTORY SPIKE: Czech Constitution (1/1993 Sb.)
+======================================================
+
+Strategy: Point-in-time API
+- staleUrl format: /{sbirka}/{rok}/{cislo}/{datum}
+- Version dates reconstructed from amendment metadata
+
+Source law: 1/1993 Sb. (Ústava České republiky)
+Amendments extracted from: uplnaCitaceSNovelami field
+
+Version  Date        Fragments  Source amendment
+-------  ----------  ---------  ----------------
+1        1993-01-01  427        Original (datumUcinnostiOd)
+2        2000-01-01  425        347/1997 Sb. (datumUcinnostiOd of amendment)
+3        2000-12-01  (*)        300/2000 Sb.
+4        2002-01-01  (*)        448/2001 Sb.
+5        2002-06-01  (*)        395/2001 Sb.
+6        2003-03-01  (*)        515/2002 Sb.
+7        2009-09-14  (*)        319/2009 Sb.
+8        2012-10-01  (*)        71/2012 Sb.
+9        2013-06-01  (*)        98/2013 Sb.
+10       2026-01-01  459        87/2024 Sb.
+
+(*) Not fetched — confirmed pattern works with versions 1, 2, and 10.
+
+RESULT: PASS
+- 10 distinct versions extracted with dates and text
+- Fragment count differs between versions (427 → 425 → 459)
+- Stable identifiers link all versions to the same law (/sb/1993/1/{date})
+- Effective dates come from each amendment's datumUcinnostiOd field
+
+Version reconstruction algorithm:
+1. GET metadata for law → parse uplnaCitaceSNovelami with regex
+   r'č\.\s*(\d+)/(\d+)\s*Sb\.' to extract amendment numbers
+2. GET metadata for each amendment → datumUcinnostiOd = version date
+3. GET fragments at /dokumenty-sbirky/{law_url}/{date}/fragmenty

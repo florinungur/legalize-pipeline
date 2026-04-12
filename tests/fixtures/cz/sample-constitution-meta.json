@@ -1,0 +1,42 @@
+{
+  "datumUcinnostiZneniOd": "2026-01-01",
+  "datumCasVyhlaseni": "1992-12-28T00:00:00.000+01:00",
+  "staleUrl": "/sb/1993/1/2026-01-01",
+  "typZneni": "AKTUALNI",
+  "novely": [
+    {
+      "staleUrl": "/sb/2024/87",
+      "kodDokumentuSbirky": "87/2024 Sb."
+    }
+  ],
+  "zkracenaCitace": "Ústavní zákon České národní rady č. 1/1993 Sb.",
+  "zobrazitCitizenSummary": false,
+  "uplnaCitace": "Ústavní zákon České národní rady č. 1/1993 Sb., Ústava České republiky",
+  "zobrazitSouvislosti": true,
+  "nazev": "Ústava České republiky",
+  "zobrazitDuvodovouZpravu": false,
+  "cisloCastky": "1",
+  "datumUcinnostiOd": "1993-01-01",
+  "zobrazitVykladovaStanoviska": false,
+  "rokCastky": 1993,
+  "kodDokumentuSbirky": "1/1993 Sb.",
+  "eli": "/eli/cz/sb/1993/1/2026-01-01",
+  "ustanoveniNikdyNebylaUcinna": false,
+  "nikdyNebylUcinny": false,
+  "odkazovaneFragmenty": [],
+  "sbirkaKod": "sb",
+  "sadaDokumentuKod": "sb6",
+  "jeMezinarodniSmlouva": false,
+  "maOduvodneni": false,
+  "poRedakcniOprave": false,
+  "neucinnaCasovaVerze": false,
+  "dokumentBaseId": 30123,
+  "uplnaCitaceSNovelami": "Ústavní zákon České národní rady č. 1/1993 Sb., Ústava České republiky ve znění ústavního zákona č. 347/1997 Sb., ústavního zákona č. 300/2000 Sb., ústavního zákona č. 395/2001 Sb., ústavního zákona č. 448/2001 Sb., ústavního zákona č. 515/2002 Sb., ústavního zákona č. 319/2009 Sb., ústavního zákona č. 71/2012 Sb., ústavního zákona č. 98/2013 Sb. a ústavního zákona č. 87/2024 Sb.",
+  "zobrazitVerejnopravniPovinnosti": false,
+  "zobrazitRegistrPravAPovinnosti": true,
+  "druhPravnihoAktuKod": "NOPRAKT",
+  "sablonaHierarchieKod": "SABL_NOVY_PA_ZAKON_UST",
+  "typAktuKod": "PRAVPRED",
+  "zobrazitVybranaUstanoveni": true,
+  "zobrazitDisclaimer": false
+}

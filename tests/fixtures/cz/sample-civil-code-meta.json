@@ -1,0 +1,58 @@
+{
+  "datumUcinnostiZneniOd": "2026-01-01",
+  "datumCasVyhlaseni": "2012-03-22T00:00:00.000+01:00",
+  "staleUrl": "/sb/2012/89/2026-01-01",
+  "typZneni": "AKTUALNI",
+  "novely": [
+    {
+      "staleUrl": "/sb/2025/176",
+      "kodDokumentuSbirky": "176/2025 Sb."
+    },
+    {
+      "staleUrl": "/sb/2025/268",
+      "kodDokumentuSbirky": "268/2025 Sb."
+    },
+    {
+      "staleUrl": "/sb/2025/270",
+      "kodDokumentuSbirky": "270/2025 Sb."
+    },
+    {
+      "staleUrl": "/sb/2025/290",
+      "kodDokumentuSbirky": "290/2025 Sb."
+    },
+    {
+      "staleUrl": "/sb/2025/333",
+      "kodDokumentuSbirky": "333/2025 Sb."
+    }
+  ],
+  "zkracenaCitace": "Zákon č. 89/2012 Sb.",
+  "zobrazitCitizenSummary": false,
+  "uplnaCitace": "Zákon č. 89/2012 Sb., občanský zákoník",
+  "zobrazitSouvislosti": true,
+  "nazev": "Zákon občanský zákoník",
+  "zobrazitDuvodovouZpravu": false,
+  "cisloCastky": "33",
+  "datumUcinnostiOd": "2014-01-01",
+  "zobrazitVykladovaStanoviska": false,
+  "rokCastky": 2012,
+  "kodDokumentuSbirky": "89/2012 Sb.",
+  "eli": "/eli/cz/sb/2012/89/2026-01-01",
+  "ustanoveniNikdyNebylaUcinna": false,
+  "nikdyNebylUcinny": false,
+  "odkazovaneFragmenty": [],
+  "sbirkaKod": "sb",
+  "sadaDokumentuKod": "sb7",
+  "jeMezinarodniSmlouva": false,
+  "maOduvodneni": false,
+  "poRedakcniOprave": false,
+  "neucinnaCasovaVerze": false,
+  "dokumentBaseId": 48945,
+  "uplnaCitaceSNovelami": "Zákon č. 89/2012 Sb., občanský zákoník ve znění zákona č. 460/2016 Sb., zákona č. 303/2017 Sb., zákona č. 111/2018 Sb., zákona č. 171/2018 Sb., zákona č. 33/2020 Sb., zákona č. 163/2020 Sb., zákona č. 192/2021 Sb., zákona č. 374/2022 Sb., zákona č. 429/2022 Sb., zákona č. 414/2023 Sb., zákona č. 31/2024 Sb., zákona č. 123/2024 Sb., nálezu Ústavního soudu, vyhlášeného pod č. 144/2024 Sb., zákona č. 32/2025 Sb., zákona č. 78/2025 Sb., zákona č. 120/2025 Sb., zákona č. 176/2025 Sb., zákona č. 268/2025 Sb., zákona č. 270/2025 Sb., zákona č. 290/2025 Sb. a zákona č. 333/2025 Sb.",
+  "zobrazitVerejnopravniPovinnosti": false,
+  "zobrazitRegistrPravAPovinnosti": true,
+  "druhPravnihoAktuKod": "NOPRAKT",
+  "sablonaHierarchieKod": "SABL_NOVY_PA_ZAKON",
+  "typAktuKod": "PRAVPRED",
+  "zobrazitVybranaUstanoveni": false,
+  "zobrazitDisclaimer": false
+}

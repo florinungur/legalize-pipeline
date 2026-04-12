@@ -280,3 +280,14 @@ countries:
       request_timeout: 30
       max_retries: 5
       requests_per_second: 2.0
+
+  cz:
+    repo_path: "../countries/cz"
+    data_dir: "../countries/data-cz"
+    cache_dir: ".cache"
+    max_workers: 1
+    source:
+      base_url: "https://e-sbirka.gov.cz/sbr-cache"
+      request_timeout: 30
+      max_retries: 3
+      requests_per_second: 2.0
