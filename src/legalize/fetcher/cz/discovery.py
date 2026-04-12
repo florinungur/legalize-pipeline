@@ -1,15 +1,13 @@
 """Norm discovery for Czech Republic via e-Sbírka API.
 
-The e-Sbírka search API does not support facet filtering (the
-fazetovyFiltr field in the request is ignored). Discovery uses two
-strategies:
+The e-Sbírka search API does not support pagination beyond the first
+page (returns 400 on start > 0) and ignores facet filters. Both
+discovery methods use sequential probing of law numbers instead:
 
-- discover_all: paginated search yielding all staleUrls in the Sbírka
-  zákonů collection (prefix /sb/). Type filtering happens downstream
-  when metadata is fetched.
-- discover_daily: sequential probe of law numbers for the target year,
-  checking publication dates against the target date. Czech laws are
-  numbered sequentially per year (/sb/{year}/1, /sb/{year}/2, ...).
+- discover_all: probes /sb/{year}/{n} for every year from present back
+  to 1945. Stops each year after 5 consecutive 404s.
+- discover_daily: probes /sb/{year}/{n} for the target year, filtering
+  by publication date from metadata.
 """
 
 from __future__ import annotations
@@ -29,12 +27,12 @@ if TYPE_CHECKING:
 
 logger = logging.getLogger(__name__)
 
-# Search page size.
-_PAGE_SIZE = 100
-
 # Maximum law number to probe per year before giving up.
 # Czech Republic publishes ~400-700 acts per year.
 _MAX_LAW_NUMBER = 800
+
+# Oldest year to scan in discover_all. e-Sbírka has laws from 1945.
+_MIN_YEAR = 1945
 
 
 class ESbirkaDiscovery(NormDiscovery):
@@ -43,34 +41,46 @@ class ESbirkaDiscovery(NormDiscovery):
     def discover_all(self, client: LegislativeClient, **kwargs) -> Iterator[str]:
         """Yield staleUrls for all acts in the Sbírka zákonů.
 
-        Paginates through the search results. Since the API ignores
-        facet filters, we yield all results and filter by collection
-        prefix (/sb/) to exclude treaties (/sm/) and official gazette
-        (/ul/) entries.
+        The search API does not support pagination beyond the first page
+        (returns 400 on start > 0). Instead, we probe sequential law
+        numbers /sb/{year}/{n} for every year from 1945 to present.
+
+        Czech laws are numbered sequentially per year within the
+        collection. A run of 5 consecutive 400/404 responses signals
+        the end of that year's sequence.
         """
         esbirka: ESbirkaClient = client  # type: ignore[assignment]
-        start = 0
-        total = None
+        current_year = date.today().year
+        total = 0
 
-        while total is None or start < total:
-            result = esbirka.search(start=start, count=_PAGE_SIZE)
-            total = result.get("pocetCelkem", 0)
-            items = result.get("seznam", [])
+        for year in range(current_year, _MIN_YEAR - 1, -1):
+            consecutive_misses = 0
+            year_count = 0
 
-            if not items:
-                break
-
-            for item in items:
-                stale_url = item.get("staleUrl", "")
-                # Only yield Sbírka zákonů entries
-                if stale_url.startswith("/sb/"):
+            for n in range(1, _MAX_LAW_NUMBER + 1):
+                stale_url = f"/sb/{year}/{n}"
+                try:
+                    esbirka.get_metadata(stale_url)
+                    consecutive_misses = 0
+                    year_count += 1
+                    total += 1
                     yield stale_url
+                except requests.HTTPError:
+                    consecutive_misses += 1
+                    if consecutive_misses >= 5:
+                        break
 
-            start += len(items)
-            if start % 1000 == 0:
-                logger.info("Discovery progress: %d / %d", start, total)
+            if year_count > 0:
+                logger.info(
+                    "Discovery %d: %d laws (total so far: %d)",
+                    year,
+                    year_count,
+                    total,
+                )
 
-        logger.info("Discovery complete: %d items scanned", start)
+        logger.info(
+            "Discovery complete: %d laws found across %d-%d", total, _MIN_YEAR, current_year
+        )
 
     def discover_daily(
         self, client: LegislativeClient, target_date: date, **kwargs

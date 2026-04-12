@@ -11,6 +11,8 @@ import logging
 import urllib.parse
 from typing import TYPE_CHECKING, Any
 
+import requests
+
 from legalize.fetcher.base import HttpClient
 
 if TYPE_CHECKING:
@@ -144,5 +146,20 @@ class ESbirkaClient(HttpClient):
             body["fazetovyFiltr"] = facet_filter
 
         url = f"{self._base_url}/jednoducha-vyhledavani"
-        resp = self._request("POST", url, json=body)
-        return resp.json()
+        # The search endpoint occasionally returns 400 on transient
+        # server-side issues. Retry up to 3 times with backoff.
+        last_exc: Exception | None = None
+        for attempt in range(3):
+            try:
+                resp = self._request("POST", url, json=body)
+                return resp.json()
+            except requests.HTTPError as e:
+                if e.response is not None and e.response.status_code == 400 and attempt < 2:
+                    import time as _time
+
+                    _time.sleep(2**attempt)
+                    self._wait_rate_limit()
+                    last_exc = e
+                    continue
+                raise
+        raise last_exc  # type: ignore[misc]
