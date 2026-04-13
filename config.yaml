@@ -97,6 +97,16 @@ countries:
         - "terviktekst"
         - "algtekst-terviktekst"
 
+  it:
+    repo_path: "../countries/it"
+    data_dir: "../countries/data-it"
+    cache_dir: ".cache"
+    max_workers: 4
+    source:
+      api_base: "https://api.normattiva.it/t/normattiva.api"
+      web_base: "https://www.normattiva.it"
+      request_timeout: 30
+
   cl:
     repo_path: "../countries/cl"
     data_dir: "../countries/data-cl"

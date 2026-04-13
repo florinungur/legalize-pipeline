@@ -114,6 +114,12 @@ REGISTRY: dict[str, dict[str, tuple[str, str]]] = {
         "text_parser": ("legalize.fetcher.gr.parser", "GreekTextParser"),
         "metadata_parser": ("legalize.fetcher.gr.parser", "GreekMetadataParser"),
     },
+    "it": {
+        "client": ("legalize.fetcher.it.client", "NormattivaClient"),
+        "discovery": ("legalize.fetcher.it.discovery", "NormattivaDiscovery"),
+        "text_parser": ("legalize.fetcher.it.parser", "NormattivaTextParser"),
+        "metadata_parser": ("legalize.fetcher.it.parser", "NormattivaMetadataParser"),
+    },
     "nl": {
         "client": ("legalize.fetcher.nl.client", "BWBClient"),
         "discovery": ("legalize.fetcher.nl.discovery", "BWBDiscovery"),
