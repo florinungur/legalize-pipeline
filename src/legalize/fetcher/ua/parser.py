@@ -8,6 +8,7 @@ Metadata parser:  extracts structured metadata from ``.xml`` endpoint
 
 from __future__ import annotations
 
+import json
 import logging
 import re
 from datetime import date, datetime
@@ -104,6 +105,63 @@ _AMENDMENT_REF_RE = re.compile(
     r"№\s+([\w/\-]+(?:-[IVXLCDM]+)?)\s+від\s+(\d{2})\.(\d{2})\.(\d{4})",
     re.UNICODE,
 )
+
+
+def _int_to_date(d: int) -> date | None:
+    """Convert YYYYMMDD int to date. Returns None for 0 or invalid."""
+    if not d:
+        return None
+    try:
+        return date(d // 10000, (d // 100) % 100, d % 100)
+    except ValueError:
+        return None
+
+
+# ── Organ ID → name mapping (from Rada API conventions) ──
+_ORGAN_MAP: dict[int, str] = {
+    1: "Верховна Рада України",
+    2: "Президент України",
+    3: "Кабінет Міністрів України",
+}
+
+
+def _resolve_organ(organs_str: str) -> str:
+    """Parse organs field like '1:20070531:1103-V' → organ name."""
+    if not organs_str:
+        return ""
+    try:
+        org_id = int(organs_str.split(":")[0])
+        return _ORGAN_MAP.get(org_id, f"Орган {org_id}")
+    except (ValueError, IndexError):
+        return ""
+
+
+def extract_reforms_from_card(card: dict) -> list[Reform]:
+    """Extract reform timeline from card JSON's eds[] array.
+
+    Each edition in eds[] has:
+    - datred: edition date as YYYYMMDD int
+    - pidstava: nreg of the amending law (empty for original)
+
+    Returns Reform objects sorted chronologically, skipping the original
+    version (podid=4) which becomes the bootstrap commit.
+    """
+    reforms: list[Reform] = []
+    for ed in card.get("eds", []):
+        datred = ed.get("datred", 0)
+        pidstava = ed.get("pidstava", "")
+        podid = ed.get("podid", 0)
+
+        # Skip the original version (podid=4) — that's the bootstrap
+        if podid == 4 or not pidstava:
+            continue
+
+        d = _int_to_date(datred)
+        if d:
+            reforms.append(Reform(date=d, norm_id=pidstava, affected_blocks=()))
+
+    reforms.sort(key=lambda r: r.date)
+    return reforms
 
 
 def _try_ua_date(day: int, month_name: str, year: int) -> date | None:
@@ -564,9 +622,98 @@ def _resolve_rank(types_str: str) -> Rank:
 
 
 class RadaMetadataParser(MetadataParser):
-    """Parse metadata from the ``.xml`` endpoint (HTML with ``<meta>`` tags)."""
+    """Parse metadata from the card JSON endpoint or .xml fallback.
+
+    Accepts either:
+    - Card JSON bytes (from /laws/card/{nreg}.json) — preferred
+    - HTML bytes (from /laws/show/{nreg}.xml) — fallback
+    """
+
+    # ── Status codes from card JSON ──
+    _STATUS_MAP: dict[int, NormStatus] = {
+        5: NormStatus.IN_FORCE,  # чинний
+        3: NormStatus.REPEALED,  # нечинний / втратив чинність
+    }
+
+    # ── Type codes from card JSON (typ field) ──
+    _TYPE_MAP: dict[int, str] = {
+        1: "zakon",
+        2: "ukaz",
+        3: "postanova",
+        4: "rozporiadzhennia",
+        5: "dekret",
+    }
 
     def parse(self, data: bytes, norm_id: str) -> NormMetadata:
+        # Try card JSON first
+        try:
+            card = json.loads(data)
+            if isinstance(card, dict) and "nazva" in card:
+                return self._parse_card(card, norm_id)
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            pass
+
+        # Fallback to XML/HTML parsing
+        return self._parse_xml(data, norm_id)
+
+    def _parse_card(self, card: dict, norm_id: str) -> NormMetadata:
+        """Parse structured card JSON into NormMetadata."""
+        title = card.get("nazva", "")
+        nreg = card.get("nreg", norm_id)
+
+        # Publication date from orgdat (YYYYMMDD int)
+        orgdat = card.get("orgdat", 0)
+        pub_date = _int_to_date(orgdat) or date(2000, 1, 1)
+
+        # Last modified from datred (latest edition date)
+        datred = card.get("datred", 0)
+        last_modified = _int_to_date(datred)
+
+        # Status
+        status_code = card.get("status", 5)
+        status = self._STATUS_MAP.get(status_code, NormStatus.IN_FORCE)
+
+        # Rank — try typ field, then fall back to klasy
+        typ = card.get("typ", 0)
+        rank = Rank(self._TYPE_MAP.get(typ, "zakon"))
+
+        # Department from organs field (format: "orgid:date:number")
+        organs_str = card.get("organs", "")
+        department = _resolve_organ(organs_str)
+
+        # Official number
+        official_number = card.get("n_vlas") or card.get("orgnum", "")
+
+        source = f"https://zakon.rada.gov.ua/laws/show/{norm_id}"
+        identifier = nreg_to_identifier(nreg)
+
+        # Extra — capture everything useful
+        extra: list[tuple[str, str]] = []
+        if official_number:
+            extra.append(("official_number", official_number))
+        if nreg:
+            extra.append(("nreg", nreg))
+        extra.append(("edition_count", str(card.get("edcnt", 0))))
+        publics = card.get("publics", "")
+        if publics:
+            extra.append(("publications", publics))
+
+        return NormMetadata(
+            title=title,
+            short_title=title,
+            identifier=identifier,
+            country="ua",
+            rank=rank,
+            publication_date=pub_date,
+            status=status,
+            department=department,
+            source=source,
+            last_modified=last_modified,
+            extra=tuple(extra),
+        )
+
+    def _parse_xml(self, data: bytes, norm_id: str) -> NormMetadata:
+        """Fallback: parse metadata from .xml endpoint (HTML with <meta> tags)."""
         doc = lxml.html.fromstring(data)
 
         def meta(name: str) -> str:
@@ -583,25 +730,15 @@ class RadaMetadataParser(MetadataParser):
         numbers = meta("Numbers")
         doc_date = meta("DocumentDate")
 
-        # Publication date from Dates field (DD.MM.YYYY)
         pub_date = _parse_dotted_date(dates)
         if pub_date is None:
-            # Fallback to Created meta
             pub_date = _parse_rfc2822_date(meta("Created")) or date(2000, 1, 1)
 
-        # Last modified from DocumentDate
         last_modified = _parse_rfc2822_date(doc_date)
-
-        # Status
         status = STAN_MAP.get(stan.strip(), NormStatus.IN_FORCE)
-
-        # Rank
         rank = _resolve_rank(types)
-
-        # Build source URL
         source = f"https://zakon.rada.gov.ua/laws/show/{norm_id}"
 
-        # Extra fields — capture everything the source exposes
         nreg = meta("Nreg")
         description = meta("Description")
 

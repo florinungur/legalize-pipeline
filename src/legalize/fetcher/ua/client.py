@@ -1,9 +1,17 @@
-"""Ukraine legislative client — data.rada.gov.ua / zakon.rada.gov.ua.
+"""Ukraine legislative client — data.rada.gov.ua.
 
-Uses .txt for full law text and .xml for metadata (HTML with <meta> tags).
-JSON endpoints for per-document access are unreliable, so we avoid them.
-The /laws/main/r/page{N}.json endpoint (recently updated) does work and
-is used for daily discovery.
+Primary endpoints:
+- /laws/card/{nreg}.json — structured metadata + edition list (1 req per law)
+- /laws/show/{nreg}/ed{YYYYMMDD}.txt — historical version text at a specific date
+- /laws/show/{nreg}.txt — current consolidated text (fallback)
+
+Discovery:
+- zakon.rada.gov.ua/laws/main/t{N}.txt — type lists (laws, codes, etc.)
+- data.rada.gov.ua/ogd/zak/laws/data/csv/perv1.txt — curated primary acts
+- /laws/main/r/page{N}.json — recently updated documents (daily)
+
+Rate limit: 60 req/min, 100K req/day. Token from /api/token required for
+JSON endpoints (sent as User-Agent header).
 """
 
 from __future__ import annotations
@@ -24,12 +32,7 @@ _OPEN_DATA_UA = "OpenData"
 
 
 class RadaClient(HttpClient):
-    """HTTP client for the Verkhovna Rada legislative portal.
-
-    Two base URLs are used:
-    - data.rada.gov.ua — open data API (discovery lists, .txt, .xml, daily JSON)
-    - zakon.rada.gov.ua — web portal (type lists like t1.txt, t21.txt)
-    """
+    """HTTP client for the Verkhovna Rada legislative portal."""
 
     def __init__(
         self,
@@ -79,15 +82,60 @@ class RadaClient(HttpClient):
             logger.warning("Failed to obtain API token, JSON endpoints may fail")
             self._token = _OPEN_DATA_UA
 
+    def _get_json(self, url: str) -> bytes:
+        """GET a JSON endpoint using the API token as User-Agent."""
+        self._ensure_token()
+        old_ua = self._session.headers.get("User-Agent")
+        try:
+            self._session.headers["User-Agent"] = self._token or _OPEN_DATA_UA
+            return self._get(url)
+        finally:
+            self._session.headers["User-Agent"] = old_ua or _OPEN_DATA_UA
+
+    # ── Card endpoint (metadata + edition list) ──
+
+    def get_card(self, norm_id: str) -> dict:
+        """Fetch structured metadata via /laws/card/{nreg}.json.
+
+        Returns a dict with keys including:
+        - nazva: title
+        - nreg: registration number
+        - orgdat: original date (YYYYMMDD int)
+        - status: status code (5 = in force)
+        - edcnt: number of editions
+        - eds[]: array of editions with datred, pidstava, size
+        - hist[]: history entries with poddat, pidstava, podid
+        - organs, n_vlas, typ, publics, etc.
+        """
+        url = f"{self._base_url}/laws/card/{self._encode_nreg(norm_id)}.json"
+        raw = self._get_json(url)
+        return json.loads(raw)
+
+    # ── Text endpoints ──
+
     def get_text(self, norm_id: str) -> bytes:
-        """Fetch plain-text law content via /laws/show/{nreg}.txt."""
+        """Fetch current consolidated text via /laws/show/{nreg}.txt."""
         url = f"{self._base_url}/laws/show/{self._encode_nreg(norm_id)}.txt"
         return self._get(url)
 
+    def get_text_at_edition(self, norm_id: str, edition_date: int) -> bytes:
+        """Fetch historical text at a specific edition date.
+
+        edition_date is YYYYMMDD as int (e.g. 20200101).
+        Uses /laws/show/{nreg}/ed{YYYYMMDD}.txt.
+        """
+        url = f"{self._base_url}/laws/show/{self._encode_nreg(norm_id)}/ed{edition_date}.txt"
+        return self._get(url)
+
     def get_metadata(self, norm_id: str) -> bytes:
-        """Fetch metadata via /laws/show/{nreg}.xml (HTML with <meta> tags)."""
+        """Fetch metadata via /laws/show/{nreg}.xml (HTML with <meta> tags).
+
+        Used as fallback when card endpoint is unavailable.
+        """
         url = f"{self._base_url}/laws/show/{self._encode_nreg(norm_id)}.xml"
         return self._get(url)
+
+    # ── Discovery endpoints ──
 
     def get_discovery_list(self, list_name: str) -> bytes:
         """Fetch a discovery list (perv0/1/2.txt). Returns CP1251-encoded bytes."""
@@ -101,11 +149,5 @@ class RadaClient(HttpClient):
 
     def get_recent_page(self, page: int) -> bytes:
         """Fetch recently updated documents (JSON). Requires API token."""
-        self._ensure_token()
         url = f"{self._base_url}/laws/main/r/page{page}.json"
-        old_ua = self._session.headers.get("User-Agent")
-        try:
-            self._session.headers["User-Agent"] = self._token or _OPEN_DATA_UA
-            return self._get(url)
-        finally:
-            self._session.headers["User-Agent"] = old_ua or _OPEN_DATA_UA
+        return self._get_json(url)

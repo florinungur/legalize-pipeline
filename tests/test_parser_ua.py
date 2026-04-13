@@ -12,7 +12,7 @@ from legalize.fetcher.ua.discovery import (
     parse_discovery_list,
     parse_type_list,
 )
-from legalize.fetcher.ua.parser import RadaMetadataParser, RadaTextParser
+from legalize.fetcher.ua.parser import RadaMetadataParser, RadaTextParser, extract_reforms_from_card
 from legalize.models import NormStatus
 from legalize.transformer.markdown import render_norm_at_date
 from legalize.transformer.slug import norm_to_filepath
@@ -189,6 +189,88 @@ class TestRadaMetadataParser:
         extra_dict = dict(meta.extra)
         assert "official_number" in extra_dict
         assert "254к/96-ВР" in extra_dict["official_number"]
+
+
+# ─── Card JSON Metadata Parser ───
+
+
+class TestRadaCardParser:
+    """Test metadata extraction from card JSON endpoint."""
+
+    parser = RadaMetadataParser()
+
+    def test_card_title(self):
+        meta = self.parser.parse(_read("card-1103-16.json"), "1103-16")
+        assert "біобезпеки" in meta.title
+
+    def test_card_publication_date(self):
+        meta = self.parser.parse(_read("card-1103-16.json"), "1103-16")
+        assert meta.publication_date == date(2007, 5, 31)
+
+    def test_card_identifier(self):
+        meta = self.parser.parse(_read("card-1103-16.json"), "1103-16")
+        assert meta.identifier == "1103-16"
+
+    def test_card_country(self):
+        meta = self.parser.parse(_read("card-1103-16.json"), "1103-16")
+        assert meta.country == "ua"
+
+    def test_card_rank(self):
+        meta = self.parser.parse(_read("card-1103-16.json"), "1103-16")
+        assert meta.rank == "zakon"
+
+    def test_card_department(self):
+        meta = self.parser.parse(_read("card-1103-16.json"), "1103-16")
+        assert "Верховна Рада" in meta.department
+
+    def test_card_official_number_in_extra(self):
+        meta = self.parser.parse(_read("card-1103-16.json"), "1103-16")
+        extra_dict = dict(meta.extra)
+        assert extra_dict.get("official_number") == "1103-V"
+
+    def test_card_edition_count_in_extra(self):
+        meta = self.parser.parse(_read("card-1103-16.json"), "1103-16")
+        extra_dict = dict(meta.extra)
+        assert extra_dict.get("edition_count") == "18"
+
+
+class TestCardReformExtraction:
+    """Test reform extraction from card JSON eds[] array."""
+
+    def test_biosafety_reforms_count(self):
+        import json
+
+        card = json.loads(_read("card-1103-16.json"))
+        reforms = extract_reforms_from_card(card)
+        # 18 editions minus the original (podid=4) = 17 reforms
+        # But the current edition (datred=20260302) also has pidstava, so ~17
+        assert len(reforms) >= 16
+
+    def test_reforms_sorted_chronologically(self):
+        import json
+
+        card = json.loads(_read("card-1103-16.json"))
+        reforms = extract_reforms_from_card(card)
+        dates = [r.date for r in reforms]
+        assert dates == sorted(dates)
+
+    def test_reforms_have_source_ids(self):
+        import json
+
+        card = json.loads(_read("card-1103-16.json"))
+        reforms = extract_reforms_from_card(card)
+        for r in reforms:
+            assert r.norm_id, f"Reform at {r.date} has no source ID"
+
+    def test_original_version_excluded(self):
+        """The original version (podid=4, no pidstava) should not be a reform."""
+        import json
+
+        card = json.loads(_read("card-1103-16.json"))
+        reforms = extract_reforms_from_card(card)
+        # First reform should NOT be 2007-05-31 (the original)
+        if reforms:
+            assert reforms[0].date > date(2007, 5, 31)
 
 
 # ─── Discovery ───
