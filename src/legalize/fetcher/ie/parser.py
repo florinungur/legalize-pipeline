@@ -625,6 +625,149 @@ class ISBTextParser(TextParser):
         return [block]
 
 
+# ── Revised Acts parser ──────────────────────────────────────────────
+
+
+def parse_revised_html(data: bytes) -> tuple[list[Paragraph], date | None]:
+    """Parse Revised Acts HTML into paragraphs + updated_to date.
+
+    The Revised Acts HTML has a clean structure:
+    <div class="body"> → <section class="part"> → <section class="sect">
+    Each sect has <div class="number">, <div class="title">, <p> body.
+    Annotations (<div class="annotations">) are skipped.
+
+    Returns (paragraphs, updated_to_date) or ([], None) on failure.
+    """
+    from lxml import html as lxml_html
+
+    doc = lxml_html.fromstring(data)
+
+    # Extract "Updated to" date
+    updated_to = None
+    for p in doc.iter("p"):
+        try:
+            text = p.text_content().strip()
+        except (ValueError, AttributeError):
+            continue
+        m = re.match(r"Updated to (\d{1,2}) (\w+) (\d{4})", text)
+        if m:
+            updated_to = _parse_date_from_parts(int(m.group(1)), m.group(2), int(m.group(3)))
+            break
+
+    # Find body div
+    body = doc.find('.//div[@class="body"]')
+    if body is None:
+        return [], None
+
+    paragraphs: list[Paragraph] = []
+
+    for section in body.iter():
+        if not isinstance(section.tag, str):
+            continue
+        cls = section.get("class", "")
+
+        # Part heading
+        if section.tag == "section" and cls == "part":
+            title_div = section.find("div[@class='title']")
+            if title_div is not None:
+                text = _html_text(title_div)
+                if text:
+                    paragraphs.append(Paragraph(css_class="titulo_tit", text=text))
+
+        # Chapter heading
+        elif section.tag == "section" and cls == "chapter":
+            try:
+                text = section.text_content().strip()[:80]
+            except (ValueError, AttributeError):
+                text = ""
+            # Only take the first line (chapter title)
+            first_line = text.split("\n")[0].strip() if text else ""
+            if first_line:
+                paragraphs.append(Paragraph(css_class="capitulo_tit", text=first_line))
+
+        # Section
+        elif section.tag == "section" and cls == "sect":
+            num_div = section.find("div[@class='number']")
+            title_div = section.find("div[@class='title']")
+
+            sec_num = _html_text(num_div) if num_div is not None else ""
+            sec_title = ""
+            if title_div is not None:
+                # Title is in <b> inside <p> inside the title div
+                b = title_div.find(".//b")
+                if b is not None:
+                    sec_title = _html_text(b)
+                else:
+                    sec_title = _html_text(title_div)
+
+            if sec_num and sec_title:
+                paragraphs.append(
+                    Paragraph(css_class="articulo", text=f"{sec_num}. **{sec_title}**")
+                )
+            elif sec_num:
+                paragraphs.append(Paragraph(css_class="articulo", text=f"{sec_num}."))
+
+            # Body paragraphs (skip annotations)
+            for child in section:
+                if not isinstance(child.tag, str):
+                    continue
+                if child.get("class", "") == "annotations":
+                    continue
+                if child.tag == "p":
+                    text = _revised_inline_text(child)
+                    if text:
+                        paragraphs.append(Paragraph(css_class="parrafo", text=text))
+
+    return paragraphs, updated_to
+
+
+def _revised_inline_text(elem) -> str:
+    """Extract text from a Revised Acts <p> with bold/italic/link preservation."""
+    parts: list[str] = []
+
+    if elem.text:
+        parts.append(elem.text)
+
+    for child in elem:
+        tag = child.tag if isinstance(child.tag, str) else ""
+
+        if tag in ("b", "strong"):
+            inner = _html_text(child)
+            if inner:
+                parts.append(f"**{inner}**")
+        elif tag in ("i", "em"):
+            inner = _html_text(child)
+            if inner:
+                parts.append(f"*{inner}*")
+        elif tag == "a":
+            inner = _html_text(child)
+            if inner:
+                parts.append(inner)
+        elif tag == "sup":
+            inner = _html_text(child)
+            if inner:
+                parts.append(f"^{inner}")
+        elif tag in ("br", "img", "hr"):
+            pass
+        elif tag == "span":
+            # F-annotations inline markers — skip
+            cls = child.get("class", "")
+            if "annotation" in cls.lower() or "fn" in cls.lower():
+                pass
+            else:
+                parts.append(_html_text(child))
+        else:
+            parts.append(_html_text(child))
+
+        if child.tail:
+            parts.append(child.tail)
+
+    text = "".join(parts)
+    text = _CTRL.sub("", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
 def _flush_heading(
     paragraphs: list[Paragraph],
     heading: str | None,
