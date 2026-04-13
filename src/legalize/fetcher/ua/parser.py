@@ -587,10 +587,21 @@ class RadaMetadataParser(MetadataParser):
         # Build source URL
         source = f"https://zakon.rada.gov.ua/laws/show/{norm_id}"
 
-        # Extra fields
+        # Extra fields — capture everything the source exposes
+        nreg = meta("Nreg")
+        description = meta("Description")
+
         extra: list[tuple[str, str]] = []
         if numbers:
             extra.append(("official_number", numbers))
+        if nreg:
+            extra.append(("nreg", nreg))
+        if types:
+            extra.append(("types", types))
+        if stan:
+            extra.append(("stan", stan))
+        if description:
+            extra.append(("description", description))
 
         identifier = nreg_to_identifier(norm_id)
 
