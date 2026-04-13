@@ -1,7 +1,9 @@
 """Irish Statute Book (ISB) + Oireachtas API HTTP client.
 
-Text source: https://www.irishstatutebook.ie/eli/{year}/act/{number}/enacted/en/xml
+Text source (XML): https://www.irishstatutebook.ie/eli/{year}/act/{number}/enacted/en/xml
+Text source (HTML fallback): https://www.irishstatutebook.ie/eli/{year}/act/{number}/enacted/en/print
 Metadata source: https://api.oireachtas.ie/v1/legislation
+Revised Acts: https://revisedacts.lawreform.ie/eli/{year}/act/{number}/revised/en/html
 """
 
 from __future__ import annotations
@@ -9,6 +11,8 @@ from __future__ import annotations
 import json
 import logging
 from typing import TYPE_CHECKING
+
+import requests
 
 from legalize.fetcher.base import HttpClient
 
@@ -19,6 +23,7 @@ logger = logging.getLogger(__name__)
 
 _ISB_BASE = "https://www.irishstatutebook.ie"
 _OIREACHTAS_API = "https://api.oireachtas.ie"
+_REVISED_ACTS_BASE = "https://revisedacts.lawreform.ie"
 
 
 def _parse_norm_id(norm_id: str) -> tuple[int, int]:
@@ -64,13 +69,31 @@ class ISBClient(HttpClient):
         self._api_base = api_base.rstrip("/")
 
     def get_text(self, norm_id: str) -> bytes:
-        """Fetch the Act XML from ISB.
+        """Fetch the Act text from ISB.
 
-        URL: /eli/{year}/act/{number}/enacted/en/xml
+        Tries XML first (/enacted/en/xml). If 404, falls back to
+        the print HTML view (/enacted/en/print) — pre-1995 acts
+        only have HTML, not XML.
+
+        The response bytes are prefixed with b'<act' for XML or
+        b'<!DOCTYPE' / b'<html' for HTML so the parser can detect
+        the format.
         """
         year, number = _parse_norm_id(norm_id)
-        url = f"{self._base_url}/eli/{year}/act/{number}/enacted/en/xml"
-        return self._get(url)
+
+        # Try XML first (available for ~1995+)
+        xml_url = f"{self._base_url}/eli/{year}/act/{number}/enacted/en/xml"
+        try:
+            return self._get(xml_url)
+        except requests.HTTPError as e:
+            if e.response is not None and e.response.status_code == 404:
+                logger.debug("No XML for %s, falling back to HTML print view", norm_id)
+            else:
+                raise
+
+        # Fallback to HTML print view (available for all acts)
+        html_url = f"{self._base_url}/eli/{year}/act/{number}/enacted/en/print"
+        return self._get(html_url)
 
     def get_metadata(self, norm_id: str) -> bytes:
         """Fetch Act metadata from Oireachtas API.
@@ -112,3 +135,18 @@ class ISBClient(HttpClient):
         since_date: ISO date string, e.g. '2026-04-01'.
         """
         return self.get_legislation_page(last_updated=since_date, **params)
+
+    def get_revised_text(self, norm_id: str) -> bytes | None:
+        """Fetch consolidated text from Revised Acts (revisedacts.lawreform.ie).
+
+        Returns HTML bytes if the act has a revised version, None if 404.
+        Only ~560 acts have revised versions.
+        """
+        year, number = _parse_norm_id(norm_id)
+        url = f"{_REVISED_ACTS_BASE}/eli/{year}/act/{number}/revised/en/html"
+        try:
+            return self._get(url)
+        except requests.HTTPError as e:
+            if e.response is not None and e.response.status_code == 404:
+                return None
+            raise

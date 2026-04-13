@@ -236,36 +236,25 @@ def _table_to_markdown(table_elem: etree._Element) -> str:
 
 
 class ISBTextParser(TextParser):
-    """Parse ISB XML into Block objects."""
+    """Parse ISB XML or HTML into Block objects."""
 
     def parse_text(self, data: bytes) -> list[Any]:
-        """Parse Act XML into a list of Blocks.
+        """Parse Act text into a list of Blocks.
 
-        ISB XML structure:
-          <act>
-            <metadata>...</metadata>
-            <frontmatter>...</frontmatter>
-            <body>
-              <part>
-                <title>PART 1 ...</title>
-                <chapter>
-                  <title>Chapter 1 ...</title>
-                  <sect>
-                    <number>1.</number>
-                    <title>Short title</title>
-                    <p>...</p>
-                  </sect>
-                </chapter>
-              </part>
-              <schedule>...</schedule>
-            </body>
-            <backmatter>...</backmatter>
-          </act>
+        Auto-detects XML vs HTML:
+        - XML: ISB custom format (<act>, <body>, <part>, <sect>)
+        - HTML: ISB print view (<div class="act-content">, <tr>, <td>)
 
         All content is flattened into a single Block with one Version.
-        Structural elements (part, chapter, section) become heading
-        paragraphs; body <p> elements become body paragraphs.
         """
+        # Detect format: XML starts with <?xml or <act, HTML with <!DOCTYPE or <html
+        stripped = data.lstrip()
+        if stripped.startswith(b"<?xml") or stripped.startswith(b"<act"):
+            return self._parse_xml(data)
+        return self._parse_html(data)
+
+    def _parse_xml(self, data: bytes) -> list[Any]:
+        """Parse ISB XML format (acts with XML available, ~1995+)."""
         root = etree.fromstring(data)
         paragraphs: list[Paragraph] = []
         images_dropped = 0
@@ -470,6 +459,261 @@ class ISBTextParser(TextParser):
                 return
 
         paragraphs.append(Paragraph(css_class="parrafo", text=text))
+
+    # ── HTML parser (print view) ────────────────────────────────────
+
+    def _parse_html(self, data: bytes) -> list[Any]:
+        """Parse ISB HTML print view for acts without XML (pre-1995).
+
+        Strategy: collect all <p> elements from the act-content div,
+        classify each as heading/section/body based on style + context,
+        and emit paragraphs matching the XML parser's output structure.
+        """
+        from lxml import html as lxml_html
+
+        doc = lxml_html.fromstring(data)
+        act_div = doc.find('.//div[@id="act"]')
+        if act_div is None:
+            return []
+
+        pub_date = date(1970, 1, 1)
+
+        # Extract date from enactment line: "[26th July, 1960.]"
+        all_text_content = act_div.text_content()
+        date_match = re.search(r"\[(\d{1,2})\w*\s+(\w+),?\s+(\d{4})\.\]", all_text_content)
+        if date_match:
+            day, month_str, year = date_match.groups()
+            pub_date = _parse_date_from_parts(int(day), month_str, int(year))
+
+        # Build sec_number → title map AND a set of title texts to suppress.
+        section_num_to_title: dict[str, str] = {}  # "1" → "Short title..."
+        section_title_texts: set[str] = set()  # lowercase titles to suppress
+        for a_tag in act_div.findall(".//a[@name]"):
+            name = a_tag.get("name", "")
+            if not name.startswith("sec"):
+                continue
+            sec_num = name[3:]  # "sec1" → "1"
+            parent = a_tag.getparent()
+            if parent is None:
+                continue
+            title = ""
+            # <small> in same td (older acts)
+            small = parent.find(".//small")
+            if small is not None:
+                title = _html_text(small).strip()
+            else:
+                # <b> in sibling td of same row (newer acts)
+                parent_tr = parent.getparent()
+                if parent_tr is not None:
+                    for td in parent_tr.findall("td"):
+                        b = td.find(".//b")
+                        if b is not None:
+                            bt = _html_text(b).strip()
+                            if bt and not re.match(r"^\d+[A-Z]?\.$", bt):
+                                title = bt
+                                break
+            if title:
+                section_num_to_title[sec_num] = title
+                section_title_texts.add(title.lower())
+
+        # Walk all <p> in document order. Detect body start after
+        # the second bold ACT title, then classify each <p>.
+        paragraphs: list[Paragraph] = []
+        title_count = 0
+        in_body = False
+        _pending_heading: str | None = None
+        _pending_css: str | None = None
+        for p in act_div.iter("p"):
+            style = p.get("style", "")
+            text = _html_inline_text(p)
+            if not text:
+                continue
+
+            # Detect body start: second bold ACT title
+            if not in_body:
+                b_el = p.find(".//b")
+                if b_el is not None:
+                    b_text = _html_text(b_el).strip()
+                    if b_text and "ACT" in b_text.upper():
+                        title_count += 1
+                        if title_count >= 2:
+                            in_body = True
+                continue
+
+            # Skip redundant section title that appears as bold-only <p>
+            # (these are the sidebar titles duplicated in the body)
+            plain = re.sub(r"\*+", "", text).strip()
+            if plain.lower() in section_title_texts:
+                _last_was_section_heading = False
+                continue
+
+            # Centered text → structural headings
+            if "text-align:center" in style:
+                part_match = re.match(r"^(PART\s+\S+)$", text.strip())
+                if part_match:
+                    _flush_heading(paragraphs, _pending_heading, _pending_css)
+                    _pending_heading = text.strip()
+                    _pending_css = "titulo_tit"
+                    continue
+                chapter_match = re.match(r"^(Chapter\s+\d+)$", text.strip())
+                if chapter_match:
+                    _flush_heading(paragraphs, _pending_heading, _pending_css)
+                    _pending_heading = text.strip()
+                    _pending_css = "capitulo_tit"
+                    continue
+                if _pending_heading:
+                    paragraphs.append(
+                        Paragraph(
+                            css_class=_pending_css or "titulo_tit",
+                            text=f"{_pending_heading} {text.strip()}",
+                        )
+                    )
+                    _pending_heading = None
+                    _pending_css = None
+                    continue
+                # Skip decorative centered text
+                stripped = text.strip()
+                if stripped in ("CONTENTS", "ARRANGEMENT OF SECTIONS", "Section", "Sections"):
+                    continue
+                # Skip smallcaps centered titles in TOC area
+                continue
+
+            # Flush pending heading before body text
+            if _pending_heading:
+                paragraphs.append(
+                    Paragraph(css_class=_pending_css or "titulo_tit", text=_pending_heading)
+                )
+                _pending_heading = None
+                _pending_css = None
+
+            # Detect section start: "**N.**—text" or "**N.** (1) text"
+            sec_match = re.match(r"\*\*(\d+[A-Z]?)\.\*\*", text)
+            if sec_match:
+                sec_num = sec_match.group(1)
+                sec_title = section_num_to_title.get(sec_num, "")
+                if sec_title:
+                    heading = f"{sec_num}. **{sec_title}**"
+                    paragraphs.append(Paragraph(css_class="articulo", text=heading))
+                else:
+                    paragraphs.append(Paragraph(css_class="articulo", text=f"{sec_num}."))
+
+            # Fix trailing space before punctuation
+            text = re.sub(r"\s+([;:.,])", r"\1", text)
+            paragraphs.append(Paragraph(css_class="parrafo", text=text))
+
+        if _pending_heading:
+            paragraphs.append(
+                Paragraph(css_class=_pending_css or "titulo_tit", text=_pending_heading)
+            )
+
+        if not paragraphs:
+            return []
+
+        block = Block(
+            id="full-text",
+            block_type="document",
+            title="",
+            versions=(
+                Version(
+                    norm_id="",
+                    publication_date=pub_date,
+                    effective_date=pub_date,
+                    paragraphs=tuple(paragraphs),
+                ),
+            ),
+        )
+        return [block]
+
+
+def _flush_heading(
+    paragraphs: list[Paragraph],
+    heading: str | None,
+    css: str | None,
+) -> None:
+    """Emit a buffered heading if present."""
+    if heading:
+        paragraphs.append(Paragraph(css_class=css or "titulo_tit", text=heading))
+
+
+def _html_text(elem) -> str:
+    """Extract plain text from an lxml.html element."""
+    try:
+        text = elem.text_content()
+    except (ValueError, AttributeError):
+        return ""
+    text = _CTRL.sub("", text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _html_inline_text(elem) -> str:
+    """Extract text from an HTML <p> with bold/italic/link preservation."""
+    parts: list[str] = []
+
+    if elem.text:
+        parts.append(elem.text)
+
+    for child in elem:
+        tag = child.tag if isinstance(child.tag, str) else ""
+
+        if tag in ("b", "strong"):
+            inner = _html_text(child)
+            if inner:
+                parts.append(f"**{inner}**")
+        elif tag in ("i", "em"):
+            inner = _html_text(child)
+            if inner:
+                parts.append(f"*{inner}*")
+        elif tag == "a":
+            inner = _html_text(child)
+            if inner:
+                parts.append(inner)
+        elif tag == "small":
+            inner = _html_text(child)
+            if inner:
+                parts.append(inner)
+        elif tag == "sup":
+            inner = _html_text(child)
+            if inner:
+                parts.append(f"^{inner}")
+        elif tag == "br":
+            pass  # skip line breaks
+        elif tag == "img":
+            pass  # skip images
+        elif tag == "hr":
+            pass  # skip horizontal rules
+        else:
+            parts.append(_html_text(child))
+
+        if child.tail:
+            parts.append(child.tail)
+
+    text = "".join(parts)
+    text = _CTRL.sub("", text)
+    text = re.sub(r"\s+", " ", text).strip()
+    return text
+
+
+def _parse_date_from_parts(day: int, month_str: str, year: int) -> date:
+    """Parse date from day + month name + year."""
+    months = {
+        "january": 1,
+        "february": 2,
+        "march": 3,
+        "april": 4,
+        "may": 5,
+        "june": 6,
+        "july": 7,
+        "august": 8,
+        "september": 9,
+        "october": 10,
+        "november": 11,
+        "december": 12,
+    }
+    month = months.get(month_str.lower(), 1)
+    try:
+        return date(year, month, day)
+    except ValueError:
+        return date(year, month, 1)
 
 
 # ── Metadata parser ─────────────────────────────────────────────────

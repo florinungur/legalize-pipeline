@@ -197,6 +197,112 @@ class TestISBTextParser:
                 assert char not in unsafe, f"Unsafe char '{char}' in {norm_id}"
 
 
+class TestHTMLParser:
+    """Test HTML print view parser."""
+
+    @pytest.fixture
+    def parser(self):
+        return ISBTextParser()
+
+    def test_parse_html_1960_act(self, parser):
+        data = (FIXTURES / "sample-criminal-justice-1960.html").read_bytes()
+        blocks = parser.parse_text(data)
+
+        assert len(blocks) == 1
+        paras = blocks[0].versions[0].paragraphs
+        assert len(paras) > 30
+
+        version = blocks[0].versions[0]
+        assert version.publication_date.year == 1960
+        assert version.publication_date.month == 7
+
+    def test_html_section_headings(self, parser):
+        """HTML parser must produce articulo headings with section titles."""
+        data = (FIXTURES / "sample-criminal-justice-1960.html").read_bytes()
+        blocks = parser.parse_text(data)
+        paras = blocks[0].versions[0].paragraphs
+
+        articles = [p for p in paras if p.css_class == "articulo"]
+        assert len(articles) > 5
+        # Section titles should be present
+        titles = [a.text for a in articles]
+        assert any("Definitions" in t for t in titles)
+
+    def test_html_bold_preserved(self, parser):
+        data = (FIXTURES / "sample-criminal-justice-1960.html").read_bytes()
+        blocks = parser.parse_text(data)
+        all_text = " ".join(p.text for p in blocks[0].versions[0].paragraphs)
+
+        # Section numbers are bold: **1.**
+        assert "**1.**" in all_text
+
+    def test_html_no_raw_tags(self, parser):
+        data = (FIXTURES / "sample-criminal-justice-1960.html").read_bytes()
+        blocks = parser.parse_text(data)
+        for p in blocks[0].versions[0].paragraphs:
+            assert "<td" not in p.text
+            assert "<tr" not in p.text
+            assert "<div" not in p.text
+
+    def test_html_format_detection(self, parser):
+        """XML data routes to XML parser, HTML data to HTML parser."""
+        xml_data = (FIXTURES / "sample-environment-2015.xml").read_bytes()
+        html_data = (FIXTURES / "sample-environment-2015-print.html").read_bytes()
+
+        xml_blocks = parser.parse_text(xml_data)
+        html_blocks = parser.parse_text(html_data)
+
+        # Both should produce blocks
+        assert len(xml_blocks) == 1
+        assert len(html_blocks) == 1
+
+        xml_paras = xml_blocks[0].versions[0].paragraphs
+        html_paras = html_blocks[0].versions[0].paragraphs
+
+        # Core body content should be very similar in length
+        # (HTML may have slightly more due to preamble)
+        assert abs(len(xml_paras) - len(html_paras)) < 50
+
+        # Both should have articulo headings
+        xml_articles = [p for p in xml_paras if p.css_class == "articulo"]
+        html_articles = [p for p in html_paras if p.css_class == "articulo"]
+        assert len(xml_articles) > 20
+        assert len(html_articles) > 20
+        # Similar number of sections (HTML may detect a few extra
+        # due to schedule/annex sections that XML handles differently)
+        assert abs(len(xml_articles) - len(html_articles)) < 15
+
+    def test_xml_html_body_text_similarity(self, parser):
+        """The plain body text from XML and HTML should be nearly identical."""
+        from legalize.transformer.markdown import render_paragraphs
+
+        xml_data = (FIXTURES / "sample-environment-2015.xml").read_bytes()
+        html_data = (FIXTURES / "sample-environment-2015-print.html").read_bytes()
+
+        xml_md = render_paragraphs(parser.parse_text(xml_data)[0].versions[0].paragraphs)
+        html_md = render_paragraphs(parser.parse_text(html_data)[0].versions[0].paragraphs)
+
+        # Strip headings and compare body text only
+        import re
+
+        def body_only(md: str) -> str:
+            lines = md.split("\n")
+            body = [line for line in lines if line and not line.startswith("#")]
+            text = "\n".join(body)
+            # Normalize whitespace
+            text = re.sub(r"\s+", " ", text).strip()
+            return text
+
+        xml_body = body_only(xml_md)
+        html_body = body_only(html_md)
+
+        # Calculate similarity (should be >95%)
+        from difflib import SequenceMatcher
+
+        ratio = SequenceMatcher(None, xml_body, html_body).ratio()
+        assert ratio > 0.95, f"Body text similarity {ratio:.1%} is too low (expected >95%)"
+
+
 class TestISBMetadataParser:
     """Test metadata parser against Oireachtas API JSON."""
 
