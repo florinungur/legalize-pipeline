@@ -1,0 +1,1183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Dokument id="iddf6a9101-8f62-45d8-8215-42e7832667c6" SchemaLocation="http://www.retsinformation.dk/offentlig/xml/schemas/2022/05/17/BEKH.Retsinfo.LexDania_2.1.xsd">
+  <Meta id="idc16e86e5-efec-4917-ba58-ca4ef5a836f6">
+    <DocumentType>BEK H#LOKDOK04</DocumentType>
+    <Rank>B</Rank>
+    <AccessionNumber>B20240170905</AccessionNumber>
+    <DocumentId>BE010068</DocumentId>
+    <UniqueDocumentId>246275</UniqueDocumentId>
+    <DocumentTitle>Bekendtgørelse om opgørelse af beskæftigelseskrav og beregning af sygedagpenge m.v.</DocumentTitle>
+    <Year>2024</Year>
+    <DiesSigni>2024-12-30</DiesSigni>
+    <DateOfSubmit id="submit_1" />
+    <StartDate REFid="submit_1">2024-12-30</StartDate>
+    <EndDate REFid="submit_1">2025-06-21</EndDate>
+    <Status>Historic</Status>
+    <Number>1709</Number>
+    <AnnouncedIn>Lovtidende A</AnnouncedIn>
+    <DiesEdicti>2024-12-30</DiesEdicti>
+    <DateOfHistoricMark>2025-06-20</DateOfHistoricMark>
+    <Concerns id="concerns_1" />
+    <Ref_Accn REFid="concerns_1">A20250009729</Ref_Accn>
+    <Ref_Af REFid="concerns_1">2025-01-29</Ref_Af>
+    <Ref_Text REFid="concerns_1">Bekendtgørelse af lov om sygedagpenge</Ref_Text>
+    <Republished>Nej</Republished>
+    <Sign id="sign" />
+    <Signature REFid="sign">Jens Erik Zebis</Signature>
+    <Sub-Sign id="subsign" />
+    <Signature REFid="subsign">Kirsten Brix Pedersen</Signature>
+    <PlaceOfSignature>Styrelsen for Arbejdsmarked og Rekruttering</PlaceOfSignature>
+    <JournalNumber>Beskæftigelsesmin., \n Styrelsen for Arbejdsmarked og Rekruttering, j.nr. 2024-335</JournalNumber>
+    <Ministry>Beskæftigelsesministeriet</Ministry>
+    <AdministrativeAuthority>Styrelsen for Arbejdsmarked og Rekruttering</AdministrativeAuthority>
+  </Meta>
+  <TitelGruppe id="id102c0b95-73ed-497f-9418-9f967691fe80">
+    <Titel id="idf864857b-aaa7-405c-8354-a38f98ba75a9">
+      <Linea>
+        <Char>Bekendtgørelse om opgørelse af beskæftigelseskrav og beregning af sygedagpenge m.v.</Char>
+      </Linea>
+    </Titel>
+  </TitelGruppe>
+  <DokumentIndhold id="id0f870f85-f5f1-4e2e-af86-39c8a2ea4072">
+    <Indledning id="id4fd1b3e4-aa18-494a-9dbb-d484b3c4df5d">
+      <Exitus>
+        <Linea>
+          <Char>I medfør af § 6, stk. 2, § 24 c, stk. 2, § 32, stk. 5, § 46, stk. 2, § 47, stk. 2, § 49, § 51, stk. 4, § 51 a, § 68, stk. 2, og § 68 b, stk. 2, i lov om sygedagpenge, jf. lovbekendtgørelse nr. 994 af 22. august 2024, fastsættes efter bemyndigelse:</Char>
+        </Linea>
+      </Exitus>
+    </Indledning>
+    <Afsnit id="idf22e7376-c11b-4260-96e2-9e10965c7572" localId="1">
+      <Kapitel id="id5edc5322-9e31-42d9-9581-616541c5fb73" localId="1">
+        <Explicatus>Kapitel 1</Explicatus>
+        <Rubrica id="id3a24afbb-3904-404a-a280-0fe3dc1773f5">
+          <Linea>
+            <Char formaChar="Italic">Anvendelsesområde</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="iddd435692-6a01-4e31-8837-72a3791ce950" localId="1">
+            <Explicatus>§ 1.</Explicatus>
+            <Stk id="id9ffaf208-dfcd-474f-b73f-8a1393403983">
+              <Exitus>
+                <Linea>
+                  <Char>Reglerne i bekendtgørelsen anvendes ved behandling af sager om sygedagpenge efter lov om sygedagpenge (loven), herunder ved opgørelse af beskæftigelseskravet og beregning af sygedagpenge.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="id5b849c63-384c-44f3-b5bd-e048dbea1909" localId="2">
+        <Explicatus>Kapitel 2</Explicatus>
+        <Rubrica id="idf30880f7-ad1d-47e8-b5b0-a402bb9b8dbf">
+          <Linea>
+            <Char formaChar="Italic">Beskæftigelseskrav i forhold til arbejdsgiver</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="id86d604bb-adc9-46bb-93eb-d36a0978d9d7" localId="2">
+            <Explicatus>§ 2.</Explicatus>
+            <Stk id="id665aee96-3c4e-4aff-a40f-0af247cde764">
+              <Exitus>
+                <Linea>
+                  <Char>Ved anmeldelsen af sygefraværet til kommunen for en lønmodtager, som har været ansat i under 8 uger hos arbejdsgiveren, skal den arbejdsgiver, hos hvem den aktuelle sygemelding fandt sted, oplyse,</Char>
+                </Linea>
+              </Exitus>
+              <Exitus id="id287a19d7-3e05-4d49-b905-1de6e0a95ba2">
+                <Index>
+                  <Indentatio id="id3fcc046d-364d-4e66-98ff-12859f738be9" formaInd="Nummer">
+                    <Explicatus>1)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>hvornår lønmodtageren blev ansat i virksomheden,</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="ide1ec95aa-5306-42a9-9b68-5b9cede3110d" formaInd="Nummer">
+                    <Explicatus>2)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>omfanget af lønmodtagerens beskæftigelse angivet i timer, og</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="idb41d471e-1668-46d8-ba65-ae5a27cba6d6" formaInd="Nummer">
+                    <Explicatus>3)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>om lønmodtageren tidligere inden for de seneste 8 uger har været ansat hos arbejdsgiveren og i hvor mange timer.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                </Index>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="id006d113b-c899-4299-af73-4b76f5e021e6" localId="3">
+        <Explicatus>Kapitel 3</Explicatus>
+        <Rubrica id="id3f6cd74e-548f-4309-bd00-798454299e7c">
+          <Linea>
+            <Char formaChar="Italic">Beskæftigelseskrav i forhold til kommunen</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="id6483264a-cd47-4189-8338-1d6c1b543d20" localId="3">
+            <Explicatus>§ 3.</Explicatus>
+            <Stk id="id93e9e2ec-1aad-4052-9bb6-bb0af58a581d">
+              <Exitus>
+                <Linea>
+                  <Char>Opgørelse af beskæftigelseskravet i lovens § 32, stk. 1, nr. 1, foretages som udgangspunkt på baggrund af indberetninger om timer med lønindkomster i henhold til lov om et indkomstregister, jf. dog § 4.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="ide5737afb-8404-4c1c-a088-94ef3babf14b">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Er der indberettet lønindkomst, uden at der foreligger oplysninger om løntimer, som indkomsten vedrører, beregnes et timetal på baggrund af indkomsten på samme beregningsmåde som i § 3, stk. 7, i bekendtgørelse om medlemskab, bidragspligt, beregning og indberetning af bidrag til Arbejdsmarkedets Tillægspension.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id075b26ca-b69d-44e5-9004-8773b1fa273c">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Kan beskæftigelseskravet ikke opfyldes alene på baggrund af timer med beskæftigelse i perioden, medregnes timer med arbejdsløshedsdagpenge, midlertidig arbejdsmarkedsydelse og syge- og barselsdagpenge.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Dernæst medregnes timer med udbetaling fra Lønmodtagernes Garantifond samt timer med udbetalt feriegodtgørelse.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="iddffa626f-3924-443c-b0c1-d79e0e2a9aca">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Indkomster og timer i en indberetningsperiode, som ligger hen over flere kalendermåneder, skal fordeles således, at de medregnes forholdsmæssigt i forhold til antallet af kalenderdage i månederne.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+        <ParagrafGruppe>
+          <Rubrica id="idcb086ee4-9f93-4f56-b299-0f8f9e4adbef">
+            <Linea>
+              <Char formaChar="Italic">Beskæftigelse og indkomster, som ikke er indberettet til indkomstregistret</Char>
+            </Linea>
+          </Rubrica>
+          <Paragraf id="id093f14c9-0d6d-414e-a246-df90a384e3ea" localId="4">
+            <Explicatus>§ 4.</Explicatus>
+            <Stk id="id887120b7-7018-49a7-8760-100fa1585d7f">
+              <Exitus>
+                <Linea>
+                  <Char>I opgørelsen af beskæftigelseskravet efter lovens § 32, stk. 1, nr. 1, medregnes timer efter lovens § 32, stk. 2, som ikke er indberettet til indkomstregistret, i det omfang lønmodtageren kan fremlægge dokumentation for timerne.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id4b3168ea-fcdd-4b98-a1ad-4d9b48de6c20">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Lønindtægter, jf. § 5, som efter lovens § 32, stk. 1, nr. 1, og stk. 2, medregnes til beskæftigelseskravet, og som ikke er indberettet i indkomstregistret, medregnes ved opgørelsen af beskæftigelseskravet.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Det forudsætter, at lønmodtageren kan fremlægge dokumentation for indtægten, og den periode indtægten vedrører.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idb42c6702-5d37-4d14-ae69-33b615a2ba0f">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Ved medregning af perioder som selvstændig erhvervsdrivende, jf. lovens § 32, stk. 2, nr. 2, medregnes som udgangspunkt 18½ time pr. uge.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Der kan dog medregnes yderligere timer, såfremt timetallet i virksomheden kan dokumenteres af lønmodtageren.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="id5d644d31-fd45-487f-b877-3a390483a18e" localId="4">
+        <Explicatus>Kapitel 4</Explicatus>
+        <Rubrica id="ide79288e3-2ce1-440f-95b0-c0c05ac57648">
+          <Linea>
+            <Char formaChar="Italic">Lønindtægt og selvstændig erhvervsindtægt</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="id7a1e7200-ad87-4dda-b2c1-572102776f75" localId="5">
+            <Explicatus>§ 5.</Explicatus>
+            <Stk id="idb7e57445-0442-49d1-a02e-95443044d81d">
+              <Exitus>
+                <Linea>
+                  <Char>Til lønindtægt regnes:</Char>
+                </Linea>
+              </Exitus>
+              <Exitus id="idfcb97599-3a58-4edb-8f8c-2575fe7b3ef3">
+                <Index>
+                  <Indentatio id="idacd86fd1-000e-4baa-8069-d17a42a3a6f0" formaInd="Nummer">
+                    <Explicatus>1)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>De indkomster, der efter kildeskatteloven anses for A-indkomst og er indtjent i et lønmodtagerforhold i arbejdsretlig forstand.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="id020aa826-3d1d-4a93-9ca4-3297efa50695" formaInd="Nummer">
+                    <Explicatus>2)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Arbejdsløshedsdagpenge eller en ydelse, der træder i stedet herfor, jf. lov om arbejdsløshedsforsikring m.v.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="id13a9388f-5b8c-4025-a40c-2c539fe5242d" formaInd="Nummer">
+                    <Explicatus>3)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>A-indkomst, som en aktionær eller anpartshaver har indtjent ved arbejde for selskabet.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                </Index>
+              </Exitus>
+            </Stk>
+            <Stk id="id7ea9d01c-d836-4650-a6e5-1f41c82d2858">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Til lønindtægt regnes endvidere følgende indkomster, selv om de ikke anses for A-indkomst, jf. stk. 1:</Char>
+                </Linea>
+              </Exitus>
+              <Exitus id="id8d11df90-81df-48cd-ab1d-5e806a77ea45">
+                <Index>
+                  <Indentatio id="id600a9587-2df7-4725-8558-88dadbdfc0f1" formaInd="Nummer">
+                    <Explicatus>1)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Løn m.v. til hushjælp og anden medhjælp i privat husholdning.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="id6d9437e2-37c5-4e14-9711-0025282c9dd4" formaInd="Nummer">
+                    <Explicatus>2)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Værdi af fri kost og andre naturalydelser, der ydes som vederlag i et tjenesteforhold.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="id662a0ef1-6b63-44a0-b53a-a10fa7706209" formaInd="Nummer">
+                    <Explicatus>3)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Løn udbetalt af fremmede stater, af internationale organisationer, herværende diplomatiske repræsentationer og medlemmer af sådanne, samt af fremmede staters herværende udsendte konsuler.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="id63a9759b-bf23-4970-9132-6ccfeb390804" formaInd="Nummer">
+                    <Explicatus>4)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Anden B-indkomst, som er indtjent i et lønmodtagerforhold i arbejdsretlig forstand.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                </Index>
+              </Exitus>
+            </Stk>
+            <Stk id="id99fcd56c-56d8-4187-82d8-aa5a25aa8e4b">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Værnepligtsløn ved forsvaret og civilforsvaret samt rådighedsvederlag inden for hjemmeværnet er omfattet af de bestemmelser, der er fastsat for lønindtægt.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idcc3d484f-effa-47f8-94d6-041caa3fa554">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Til indtægt som selvstændig erhvervsdrivende regnes erhvervsindtægter, som i væsentlig grad skyldes den pågældendes egen arbejdsindsats ved selvstændig erhvervsvirksomhed, og som ikke efter stk. 1-3 regnes for lønindtægt.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="ida38083c5-aede-4979-956f-b2b69e92f93f">
+              <Explicatus>Stk. 5.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Indtægt som medarbejdende ægtefælle regnes som selvstændig erhvervsindtægt, medmindre der er tale om en lønaftale efter kildeskattelovens § 25 A.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id5fdec60b-890b-426f-92c9-7efe6a57291d">
+              <Explicatus>Stk. 6.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Godtgørelser for medlemskab af eller som medhjælp for bestyrelse, udvalg, kommissioner, råd og lignende, som i væsentlig grad skyldes den pågældendes egen arbejdsindsats, regnes til selvstændig erhvervsindtægt.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="id9602e7ef-214a-441f-832c-55d20b82e822" localId="5">
+        <Explicatus>Kapitel 5</Explicatus>
+        <Rubrica id="ida0ed3919-c9bf-4426-a856-eb024be7ec7c">
+          <Linea>
+            <Char formaChar="Italic">Beregning af sygedagpenge til lønmodtagere</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Rubrica id="id32e97011-1f16-460b-9d1c-e3f8a953bd11">
+            <Linea>
+              <Char formaChar="Italic">Opgørelse af timefortjeneste til brug for kommunens udbetaling af sygedagpenge</Char>
+            </Linea>
+          </Rubrica>
+          <Paragraf id="id204b547d-284d-4c85-8e79-70f15b9cc58b" localId="6">
+            <Explicatus>§ 6.</Explicatus>
+            <Stk id="idbd0daaf3-acfb-4a51-adaa-ed9effd002c3">
+              <Exitus>
+                <Linea>
+                  <Char>Opgørelse af timefortjenesten efter lovens § 47, stk. 1, første og andet pkt., sker på baggrund af indberetninger fra den aktuelle arbejdsgiver i henhold til lov om et indkomstregister i de seneste 3 afsluttede kalendermåneder forud for første fraværsdag.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Timefortjenesten beregnes for hvert aktuelle arbejdsforhold som et gennemsnit af den samlede løn, der er indberettet i forhold til de dertil anførte løntimer.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Feriegodtgørelse, søgnehelligdagsbetaling, pensionsbidrag, ATP-bidrag og arbejdsmarkedsbidrag efter lov om arbejdsmarkedsfonde indgår ikke ved beregningen af timefortjenesten, jf. stk. 6.</Char>
+                </Linea>
+                <Linea>
+                  <Char>For lønmodtagere, hvor arbejdsgiveren hensætter til feriegodtgørelse, søgnehelligdagsopsparing eller feriefridagsopsparing, forhøjes beregningsgrundlaget for så vidt angår feriegodtgørelse, søgnehelligdagsopsparing eller feriefridagsopsparing med 4 pct.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id23f3fed2-9bd7-4c15-871f-25054c9d1e8d">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Lønindkomster og løntimer i en indberetningsperiode, som ligger hen over flere kalendermåneder, skal fordeles således, at de medregnes forholdsmæssigt i forhold til antallet af kalenderdage i månederne.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id4838e3e0-3760-4e29-8d57-d7d3620463eb">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Lønindkomster fra den aktuelle arbejdsgiver, jf. § 5, som ikke er indberettet i indkomstregisteret, kan medregnes ved beregningen, hvis lønmodtageren kan fremlægge dokumentation for indkomsten og den periode, indkomsten vedrører.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id9559b3ac-d375-42e8-9b8d-f3dd9482fd2c">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Hvis der er indberettet lønindkomst fra aktuelle arbejdsgiver, men der ikke er oplysninger om timer, som indkomsten vedrører, beregnes til brug for kommunens opgørelse af timefortjeneste et timetal på baggrund af indkomsten på samme beregningsmåde som i § 3, stk. 7, i bekendtgørelse om medlemskab, bidragspligt, beregning og indberetning af bidrag til Arbejdsmarkedets Tillægspension.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="ida65be351-7fc1-40c4-b1a8-12de122f90af">
+              <Explicatus>Stk. 5.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>For lønmodtagere, der har været ansat i mindre end 8 uger hos den aktuelle arbejdsgiver, oplyser arbejdsgiver den aftalte løn til brug for kommunens opgørelse af timefortjeneste.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="ide0e969e1-57e9-426b-8f51-de03980877e9">
+              <Explicatus>Stk. 6.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Kommunen beregner feriegodtgørelse, der efter stk. 1 fratrækkes ved beregningen af timefortjenesten, ved at lægge lønmodtagerens eget bidrag til ATP og indbetaling til fradragsberettiget arbejdsgiveradministreret pensionsordning til den A-indkomst, som lønmodtageren ifølge indkomstregisteret skal betale am-bidrag af, og gange resultatet med 11,11 pct. Lønmodtagere, der får mindre end det maksimale timebeløb, jf. lovens § 50, stk. 1, har ret til omberegning af timefortjenesten, hvis lønmodtageren eller arbejdsgiveren kan fremlægge dokumentation for, at den feriegodtgørelse, der er lagt til grund for beregningen af timefortjenesten, udgør over 5 pct. mere end feriegodtgørelsen som opgjort af arbejdsgiver.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="id6e858ff1-3427-4dbb-ace8-90721da000dc" localId="7">
+            <Explicatus>§ 7.</Explicatus>
+            <Stk id="id09da9fe0-00a1-4785-b777-a0e37cc20564">
+              <Exitus>
+                <Linea>
+                  <Char>Lønmodtagere, der får mindre end det maksimale timebeløb, jf. lovens § 50, stk. 1, har i særlige tilfælde ret til omberegning af timefortjenesten, hvis lønmodtageren eller arbejdsgiveren kan fremlægge dokumentation for en væsentlig ændring i timelønnen i forhold til beregningsgrundlaget.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id87cc640c-f3c9-4b64-ad7b-67dae6ef5ced">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Lønmodtagere, der får mindre end det maksimale timebeløb, jf. lovens § 50, stk. 1, har ret til omberegning af timefortjenesten, hvis lønmodtageren eller arbejdsgiveren kan fremlægge dokumentation for ekstra indbetaling til en arbejdsgiveradministreret pensionsopsparing.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Omberegningen sker med udgangspunkt i den pensionsindbetaling, der er aftalt i ansættelseskontrakt eller lignende.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Hvis der ikke er oplysninger herom i ansættelseskontrakt eller lignende, sker beregningen ud fra overenskomsten for det pågældende område.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+        <ParagrafGruppe>
+          <Rubrica id="id030f4760-d55c-44d8-b2a6-ea5424f561b4">
+            <Linea>
+              <Char formaChar="Italic">Særlige regler om opgørelse af timetal og timefortjeneste for personer, der har ret til sygedagpenge efter lovens § 24 a, stk. 6, eller lovens § 24 b, stk. 1, og som har fået løn fra arbejdsgiver i kort tid, eller arbejder færre timer end i sidste sygeforløb med sygedagpenge fra kommunen</Char>
+            </Linea>
+          </Rubrica>
+          <Paragraf id="id701977c4-ad25-410d-8761-3d71a1a471b9" localId="8">
+            <Explicatus>§ 8.</Explicatus>
+            <Stk id="id55cc2227-bf0c-4424-b342-c344165a5d97">
+              <Exitus>
+                <Linea>
+                  <Char>For lønmodtagere, der har ret til sygedagpenge efter lovens § 24 a, stk. 6, hvor timefortjenesten ikke kan beregnes efter § 6, oplyser arbejdsgiver den aftalte løn til brug for kommunens opgørelse af timefortjeneste.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="id28e5c3ff-aca5-4f44-9e30-cc15c276d8de" localId="9">
+            <Explicatus>§ 9.</Explicatus>
+            <Stk id="ida5c7b570-83c1-4fca-8f7a-be4a761151b2">
+              <Exitus>
+                <Linea>
+                  <Char>For lønmodtagere, der har ret til sygedagpenge efter lovens § 24 b, stk. 1, beregnes sygedagpenge fra kommunen på grundlag af timetallet under det sygeforløb, hvor lønmodtageren senest fik udbetalt sygedagpenge fra kommunen, hvis dette timetal er højere end det aktuelle timetal.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+        <ParagrafGruppe>
+          <Rubrica id="id1bcf67ea-4cc0-41eb-bcd8-2ff656be9582">
+            <Linea>
+              <Char formaChar="Italic">Opgørelse af timetal og timefortjeneste for lønmodtagere med ikke på forhånd fastsat arbejdstid eller timefortjeneste</Char>
+            </Linea>
+          </Rubrica>
+          <Paragraf id="idba4d4836-b95a-44bc-9da2-a1594ac22fa3" localId="10">
+            <Explicatus>§ 10.</Explicatus>
+            <Stk id="id7033faa2-0385-4224-ad2a-0dc3342a6e8d">
+              <Exitus>
+                <Linea>
+                  <Char>Til lønmodtagere med ikke på forhånd fastsat arbejdstid eller timefortjeneste beregnes sygedagpenge fra arbejdsgiver under sygefraværet på grundlag af det gennemsnitlige antal arbejdstimer og den gennemsnitlige timefortjeneste hos arbejdsgiver i de seneste 4 uger før sygdommens indtræden.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id0f2bafb1-8743-40f8-ac57-7f7b00f37951">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Samme beregningsmåde kan anvendes for lønmodtagere, hvis beskæftigelse ved sygdommens indtræden er eller under sygeperioden midlertidigt ville have været afbrudt på grund af produktionsstop som følge af råvaremangel, vejrlig og lignende, såfremt timefortjenesten ikke kan fastslås.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id6ca9130b-db30-43dd-9877-7efe0d1daffd">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Hvis antallet af arbejdstimer i 4-ugers perioden ikke kan anses for sædvanligt, anvendes det gennemsnitlige antal arbejdstimer og den gennemsnitlige timefortjeneste inden for de seneste 13 uger før sygdommens indtræden.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id6988635d-cc3f-4485-9001-6f782cc59d57">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Til lønmodtagere med ikke på forhånd fastsat arbejdstid beregnes sygedagpenge fra kommunen under sygefraværet på grundlag af det gennemsnitlige antal arbejdstimer i de seneste 4 uger før sygdommens indtræden, som oplyst af arbejdsgiver.</Char>
+                </Linea>
+                <Linea>
+                  <Char>En lønmodtager med ikke på forhånd fastsat arbejdstid, der kan dokumentere, at antallet af arbejdstimer i 4-ugers perioden ikke kan anses for sædvanligt, har efter anmodning ret til at få beregnet sygedagpengene fra kommunen ud fra det gennemsnitlige antal arbejdstimer og den gennemsnitlige timefortjeneste i de seneste 3 afsluttede kalendermåneder forud for første fraværsdag.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Kommunen beregner sygedagpengene efter principperne i § 6.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+        <ParagrafGruppe>
+          <Rubrica id="id00c6ee67-4834-4ff7-ba60-533c581911d4">
+            <Linea>
+              <Char formaChar="Italic">Opgørelse af timetal og timefortjeneste for lønmodtager med ukendt arbejdstid</Char>
+            </Linea>
+          </Rubrica>
+          <Paragraf id="id4b8cc6e7-e19d-4659-8c57-bab7edb2fd34" localId="11">
+            <Explicatus>§ 11.</Explicatus>
+            <Stk id="idf88bdd5d-dbdc-4bfc-9e64-0bddd0b393e8">
+              <Exitus>
+                <Linea>
+                  <Char>Til lønmodtagere med ukendt arbejdstid beregnes sygedagpenge fra arbejdsgiver under sygefraværet med samme beregningsmåde som efter ATP-loven.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Der opgøres et gennemsnitligt ugentligt timetal for de seneste 4 uger før sygdommens indtræden.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Timetallet lægges til grund for arbejdsgivers beregning og udbetaling af sygedagpenge.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Hvis indtægten i 4-ugers perioden ikke kan anses for sædvanlig, anvendes i stedet indtægten i de seneste 13 uger forud for sygdommens indtræden.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id70be98b6-8fea-472e-ae76-be0390273803">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Til lønmodtagere med ukendt arbejdstid beregnes sygedagpenge fra kommunen under sygefraværet på grundlag af det gennemsnitlige beregnede antal arbejdstimer i de seneste 4 uger før sygdommens indtræden som oplyst af arbejdsgiver.</Char>
+                </Linea>
+                <Linea>
+                  <Char>En lønmodtager med ukendt arbejdstid, der kan dokumentere, at indkomsten i 4-ugers perioden ikke kan anses for sædvanlig, har efter anmodning ret til at få beregnet sygedagpengene fra kommunen ud fra indkomsten i de seneste 3 afsluttede kalendermåneder forud for første fraværsdag.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Kommunen beregner sygedagpengene efter principperne i § 6.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id9efe24cd-f5cd-4a02-b8c5-130b754f5df0">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>For provisionslønnede sælgere foretages beregningen af det timetal, der udbetales sygedagpenge for, dog på grundlag af indkomsten i de seneste 9 måneder før sygdommens indtræden.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id9f78ac6f-f1c3-47c1-bcd7-19e71c0dfc8a">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpengebeløbet udgør det timebeløb, der er beregnet efter lovens § 50, stk. 1, ganget med det gennemsnitlige antal timer opgjort efter stk. 1-3, jf. dog lovens § 50, stk. 2.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+        <ParagrafGruppe>
+          <Rubrica id="ida270f85c-4d5b-4a13-91a4-aa0865991614">
+            <Linea>
+              <Char formaChar="Italic">Beregning ved turnus, weekend m.v.</Char>
+            </Linea>
+          </Rubrica>
+          <Paragraf id="id0ad96566-22a0-4b7d-aebc-348acc5f8fb9" localId="12">
+            <Explicatus>§ 12.</Explicatus>
+            <Stk id="id499ae45c-d2b2-4ad0-8abd-f6a386a48f7a">
+              <Exitus>
+                <Linea>
+                  <Char>Ved skiftende arbejdstid i en på forhånd fastlagt turnus, hvor arbejdstiden i enkelte uger i turnusperioden overstiger normaltimetallet, kan der udbetales mere end det beløb, der er nævnt i lovens § 50, stk. 1.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id346ed09a-4ba4-4401-8c36-680ab5647b5f">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>For hele turnusperioden kan der pr. arbejdstime højst udbetales det ugebeløb, der er nævnt i lovens § 50, stk. 1, divideret med det gennemsnitlige antal arbejdstimer pr. uge i turnusperioden.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="ide5807edb-c61c-4d7d-b6e6-0775b45f4525">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Ved arbejde i holddrift, hvor den normale overenskomstmæssige arbejdstid på 2. og 3. skift afviger fra den normale overenskomstmæssige arbejdstid ved dagarbejde, beregnes sygedagpengene pr. time på grundlag af et særligt timebeløb.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Dette fås ved at dividere den normale overenskomstmæssige arbejdstid ved dagarbejde med den normale overenskomstmæssige arbejdstid for arbejde på 2. henholdsvis 3. skift.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Den derved fremkomne omregningsfaktor ganges med det maksimale timebeløb efter lovens § 50, stk. 1.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Når sygedagpengene udbetales af kommunen, beregnes dagpengene dog på grundlag af den normale overenskomstmæssige arbejdstid ved dagarbejde.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id0fe4cabc-72c3-4a87-8dff-0c068d3e11b0">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Ved weekendarbejde, hvorved forstås arbejde, der i henhold til gældende overenskomst som udgangspunkt alene udføres på lørdage eller søndage, og hvorved den overenskomstmæssige arbejdsforpligtelse herved er opfyldt, beregnes et særligt timebeløb ved at dividere den normale overenskomstmæssige arbejdstid ved dagarbejde med den normale overenskomstmæssige arbejdstid for weekendarbejde og gange med det maksimale timebeløb efter lovens § 50, stk. 1.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id310944e5-261f-4d5c-8de6-3dc47c3651d9">
+              <Explicatus>Stk. 5.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Hvis sygdommen indtræder under aftalt arbejdsfordeling, beregnes sygedagpengene på grundlag af henholdsvis mistet timeindtægt og mistede arbejdsløshedsdagpenge.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Ved ophør af arbejdsfordeling beregnes sygedagpengene alene på grundlag af den mistede timeindtægt.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+        <ParagrafGruppe>
+          <Rubrica id="idc847b376-9099-4d23-a583-09c4e129e8c5">
+            <Linea>
+              <Char formaChar="Italic">Beregning af sygedagpenge til delvist ledige medlemmer af en arbejdsløshedskasse, nyuddannede m.fl. samt ændring af satsen for ledige medlemmer af en arbejdsløshedskasse</Char>
+            </Linea>
+          </Rubrica>
+          <Paragraf id="id2efbfc36-8c4f-4366-8ee3-3524148cf538" localId="13">
+            <Explicatus>§ 13.</Explicatus>
+            <Stk id="id1735b974-144d-4393-98d9-6abc2f55b119">
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge på grundlag af supplerende arbejdsløshedsdagpenge til medlemmer af en arbejdsløshedskasse, der er delvist arbejdsledige, beregnes for en fuldtidsforsikret ud fra 37 timer pr. uge, fratrukket det antal timer, som den pågældende skulle have arbejdet under fraværet.</Char>
+                </Linea>
+                <Linea>
+                  <Char>For en deltidsforsikret beregnes sygedagpenge for de supplerende arbejdsløshedsdagpenge ud fra 30 timer pr. uge, fratrukket det antal timer, som den pågældende skulle have arbejdet under fraværet.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idfb9198cc-ed8b-4891-b18c-41a527d95163">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Til medlemmer af en arbejdsløshedskasse, der er delvist arbejdsledige og har et ukendt eller varierende antal arbejdstimer pr. uge, beregnes sygedagpenge på grundlag af supplerende arbejdsløshedsdagpenge ud fra 37 eller 30 timer pr. uge, jf. stk. 1, fratrukket det gennemsnitlige antal arbejdstimer, jf. § 10, stk. 4, eller § 11, stk. 2 eller 3.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idb742aebe-14b3-4ceb-8cde-7c47f7979f84">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Hvis medlemmet har været delvist ledig i mindre end 4 uger og har et ukendt eller varierende antal arbejdstimer pr. uge, beregnes sygedagpengene på grundlag af supplerende arbejdsløshedsdagpenge ud fra 37 eller 30 timer pr. uge, jf. stk. 1, fratrukket det gennemsnitlige antal arbejdstimer, jf. § 10, stk. 4, eller § 11, stk. 2 eller 3, i den tid, den pågældende har været ledig.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="idab4bef0b-dd0d-4c2f-9c12-6971fe684d51" localId="14">
+            <Explicatus>§ 14.</Explicatus>
+            <Stk id="id8a558ccf-9d1f-4db9-8399-9318b9951d3c">
+              <Exitus>
+                <Linea>
+                  <Char>Et medlem af en arbejdsløshedskasse kan anmode kommunen om ændring af den sats, der ligger til grund for udbetalingen af sygedagpenge, jf. lovens § 51, når den pågældende ville være blevet berettiget til en højere sats efter lov om arbejdsløshedsforsikring m.v. Ændringen har virkning fra mandagen efter anmodningstidspunktet.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="id6a2364cc-cbe5-4396-94a8-5c30cc79034b" localId="15">
+            <Explicatus>§ 15.</Explicatus>
+            <Stk id="id1ea86364-f617-4116-83f5-82239fc0badb">
+              <Exitus>
+                <Linea>
+                  <Char>Den sats, der ligger til grund for udbetalingen af sygedagpenge til et medlem af en arbejdsløshedskasse, reguleres én gang om året pr. den første mandag i januar med satsreguleringsprocenten på samme måde som efter lov om arbejdsløshedsforsikring m.v.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="id125efeff-c824-49b0-9387-d0d95b5ca33d" localId="16">
+            <Explicatus>§ 16.</Explicatus>
+            <Stk id="id21fcf73b-e2a9-4fba-b19e-a1a5c15be3ab">
+              <Exitus>
+                <Linea>
+                  <Char>Kommunens anmodning til arbejdsløshedskassen om at opgøre, hvorvidt et medlem af arbejdsløshedskassen ville have haft ret til arbejdsløshedsdagpenge og med hvilken sats, jf. lovens § 68 b, sker på blanket DP 235 A.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="id0aa4209d-fa84-4307-9a19-4ac34513cd2b" localId="17">
+            <Explicatus>§ 17.</Explicatus>
+            <Stk id="idb9150de7-7106-4c4d-8582-5826c47f2653">
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til nyuddannede, jf. lovens § 32, stk. 1, nr. 3, udbetales med den sats, som personen på første fraværsdag kunne have modtaget arbejdsløshedsdagpenge med pr. dag, hvis betingelserne herfor i øvrigt var opfyldt.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="id44add600-0c4b-4e7c-9a7c-03fbe8ed6224" localId="18">
+            <Explicatus>§ 18.</Explicatus>
+            <Stk id="id34610a73-a438-4980-bcb6-91bf6d6592dd">
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til personer, der ved sygedagpengeperiodens begyndelse modtog godtgørelse for tabt arbejdsfortjeneste efter § 42 i lov om social service og § 87 i barnets lov, plejevederlag efter § 120 i lov om social service og § 90, nr. 11, i barnets lov eller dagpenge til forældre med alvorligt syge børn efter barselsloven, beregnes på grundlag af den beskæftigelse, som de pågældende ville have haft, hvis de havde været i arbejde.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="iddd8d6e62-a5c4-4f03-a6fa-0cfc4177edcc">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til personer, der ved sygedagpengeperiodens begyndelse modtog barselsdagpenge, beregnes ud fra de seneste lønindkomster, jf. dog lovens § 51.</Char>
+                </Linea>
+                <Linea>
+                  <Char>For lønmodtagere, der har været ansat i mindre end 8 uger hos den aktuelle arbejdsgiver, oplyser arbejdsgiver dog timeantallet og den aftalte løn til brug for kommunens opgørelse af timefortjeneste.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="idb8be1692-8d9a-4784-8208-7a1390578841" localId="19">
+            <Explicatus>§ 19.</Explicatus>
+            <Stk id="id27b62705-e9d9-43dc-ac0f-3172bf4ba3ef">
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til personer, der har været beskæftiget om bord på et skib, der er registreret i Dansk Internationalt Skibsregister, beregnes på samme måde som efter bekendtgørelse om beregning af dagpengesatsen for lønmodtagere.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="id401cf5aa-9a69-40cc-bdac-07811eced324" localId="6">
+        <Explicatus>Kapitel 6</Explicatus>
+        <Rubrica id="idc1d7547f-95c0-4924-b94a-2a9a4c7a14c4">
+          <Linea>
+            <Char formaChar="Italic">Beregning af sygedagpenge til personer ansat i fleksjob og selvstændige erhvervsdrivende, som får tilskud til bevarelse af beskæftigelsen i egen virksomhed efter kapitel 20 i lov om en aktiv beskæftigelsesindsats</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="id6d72f06b-f037-4171-8045-41ec4e78e572" localId="20">
+            <Explicatus>§ 20.</Explicatus>
+            <Stk id="id11bb8b26-7158-4f16-a31a-e7fcbd491b98">
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til en lønmodtager, som er ansat i et fleksjob før 1. januar 2013, beregnes på grundlag af det timetal, som er lagt til grund ved beregningen af kommunens tilskud til arbejdsgiveren.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Kommunen beregner timefortjenesten efter principperne i § 6.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id4ff58fc8-c20e-43a6-9185-c04566db8986">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til en lønmodtager, som ansættes i et fleksjob efter § 120 i lov om en aktiv beskæftigelsesindsats, beregnes efter principperne i §§ 6, 8 og 9.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Det samme gælder for en selvstændig erhvervsdrivende, der får tilskud til bevarelse af beskæftigelsen i egen virksomhed efter kapitel 20 i lov om en aktiv beskæftigelsesindsats, men som i forhold til beregningen af sygedagpenge anses som lønmodtager.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="id51072a65-b962-4e45-ae9a-2037e45a1d44" localId="21">
+            <Explicatus>§ 21.</Explicatus>
+            <Stk id="id66e97030-7ffc-44d1-9124-8807035b5f03">
+              <Exitus>
+                <Linea>
+                  <Char>For en lønmodtager i fleksjob, der har ret til sygedagpenge efter lovens § 24 b, stk. 1, og ikke har fået løn fra aktuelle arbejdsgiver efter det seneste sygeforløb med sygedagpenge fra kommunen, beregnes sygedagpengene på grundlag af samme timetal og timefortjeneste som i seneste sygeforløb med sygedagpenge fra kommunen.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="id0713be31-6e22-43f8-8149-f49446540636" localId="22">
+            <Explicatus>§ 22.</Explicatus>
+            <Stk id="id166eb4ca-2f85-42c9-9d61-af81fea79229">
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til en selvstændig erhvervsdrivende, som får tilskud til bevarelse af beskæftigelsen i egen virksomhed efter kapitel 20 i lov om en aktiv beskæftigelsesindsats, beregnes efter §§ 23-25, jf. dog § 20, stk. 2, og kan højst udgøre det beløb, der er nævnt i lovens § 50, stk. 1.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Tilskuddet, som den selvstændige erhvervsdrivende modtager, medregnes ikke i arbejdsfortjenesten ved virksomheden.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Tilskuddet medfører ikke fradrag i de beregnede sygedagpenge.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="idb9e3d838-5e5d-46b9-a6d8-b3dca7a275a7" localId="7">
+        <Explicatus>Kapitel 7</Explicatus>
+        <Rubrica id="idab9546f1-342e-4262-bb00-9f90f5d8b822">
+          <Linea>
+            <Char formaChar="Italic">Beregning af sygedagpenge til selvstændige erhvervsdrivende</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="id44703058-42af-4486-862d-031b3de57faf" localId="23">
+            <Explicatus>§ 23.</Explicatus>
+            <Stk id="id9da0e0e1-611b-44f9-b960-c186d98acb57">
+              <Exitus>
+                <Linea>
+                  <Char>Personer, der har indtægt ved selvstændig erhvervsvirksomhed, har ret til sygedagpenge på grundlag af arbejdsfortjenesten ved virksomheden, dog højst det beløb, der er nævnt i lovens § 50, stk. 1.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idcbfb51c7-4b91-48a1-aeb2-4a78ab107ff3">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Som dokumentation for arbejdsfortjenesten anvendes skattemyndighedernes årsopgørelse for det seneste regnskabsår på grundlag af indgivet selvangivelse.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Hvis selvangivelse er indgivet rettidigt, men årsopgørelsen på grundlag heraf endnu ikke foreligger, anvendes årsopgørelsen for det seneste forudgående regnskabsår.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Det samme gælder, hvis der er bevilget udsættelse med indsendelse af selvangivelsen.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id45945775-00b3-41b1-ac5a-63f01096a009">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Hvis den selvstændige erhvervsdrivende har drevet virksomhed i en kortere periode, således at selvangivelse som selvstændig for et helt regnskabsår ikke er indgivet, anvendes i stedet</Char>
+                </Linea>
+              </Exitus>
+              <Exitus id="ida6040f7a-6b87-41e5-b433-5d460e0277ce">
+                <Index>
+                  <Indentatio id="id55cebd96-4451-4f03-bf3b-d6d50a542783" formaInd="Nummer">
+                    <Explicatus>1)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>den seneste årsopgørelse som lønmodtager, eller</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="id6a8add61-24a3-4b10-931b-76c867974916" formaInd="Nummer">
+                    <Explicatus>2)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>et revisorattesteret regnskab for virksomheden for et helt år opgjort efter samme principper som årsopgørelsen.</Char>
+                      </Linea>
+                      <Linea>
+                        <Char>Regnskabet skal senest være kommunen i hænde 6 uger efter anmodningen om sygedagpenge.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                </Index>
+              </Exitus>
+            </Stk>
+            <Stk id="ida9ae38b8-7b60-473b-9e1d-2357acb3d6e1">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Det er en betingelse for retten til sygedagpenge, at den selvstændige erhvervsdrivende afleverer dokumentation i overensstemmelse med stk. 2 og 3.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idc9b8106f-4ee9-40fc-a571-7c1e46222cd5">
+              <Explicatus>Stk. 5.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>En selvstændig erhvervsdrivende, der har tilmeldt sig forsikringsordningen efter lovens § 45, er berettiget til mindst 2/3 af det beløb, der er nævnt i lovens § 50, stk. 1, uanset om der kan dokumenteres en arbejdsfortjeneste.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="ida9d9a9a2-76c0-4913-967e-fd6cb3e0be72" localId="24">
+            <Explicatus>§ 24.</Explicatus>
+            <Stk id="id63fda65a-92e3-45e1-9ba8-b3809c91e7d9">
+              <Exitus>
+                <Linea>
+                  <Char>Som beregningsgrundlag for en selvstændig erhvervsdrivende, jf. § 23, stk. 1, anvendes årsopgørelsens oplysninger om:</Char>
+                </Linea>
+              </Exitus>
+              <Exitus id="idf7e78c65-38a2-45e0-98d8-f77a99fcc736">
+                <Index>
+                  <Indentatio id="id74709097-01f3-4106-bf70-06a774619c1d" formaInd="Nummer">
+                    <Explicatus>1)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Overskud af virksomhed og udlejningsejendom.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="idf05149e0-f970-40bc-bad7-97b21c5a85fc" formaInd="Nummer">
+                    <Explicatus>2)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Indtægt overført til medarbejdende ægtefælle.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="id5f1c36f5-1fc9-482b-918e-4228937e912d" formaInd="Nummer">
+                    <Explicatus>3)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Egne sygedagpenge, barselsdagpenge, kompensation efter barselsudligningsloven og andre indtægter, jf. § 5, stk. 4 og 6.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                </Index>
+              </Exitus>
+            </Stk>
+            <Stk id="id72cb87ab-0d10-479a-b1a3-f43bd9361636">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Som beregningsgrundlag for en medarbejdende ægtefælle, jf. § 23, stk. 1, anvendes årsopgørelsens oplysninger om:</Char>
+                </Linea>
+              </Exitus>
+              <Exitus id="id40e36503-b704-4ca3-87f1-8a008bdca98c">
+                <Index>
+                  <Indentatio id="idbfd2bc3a-6384-4f9d-8d94-93bbf375999d" formaInd="Nummer">
+                    <Explicatus>1)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Indtægt overført til medarbejdende ægtefælle.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="ide2b1e21c-1057-419f-9537-dfb13780d8de" formaInd="Nummer">
+                    <Explicatus>2)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>Egne sygedagpenge, barselsdagpenge, kompensation efter barselsudligningsloven og andre indtægter, jf. § 5, stk. 4 og 6.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                </Index>
+              </Exitus>
+            </Stk>
+            <Stk id="id3d94a38e-322c-40be-b961-1c1bc5a4b01e">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge udbetalt efter § 23, stk. 5, og sygedagpengebeløbet beregnet efter stk. 1 og 2, kan ikke reguleres som følge af senere ændring af arbejdsfortjenesten.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idd27f552a-95e6-42ae-a537-59198470468f">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Ved beregning af sygedagpenge til personer, der ved sygedagpengeperiodens begyndelse modtog godtgørelse for tabt arbejdsfortjeneste efter § 42 i lov om social service og § 87 i barnets lov, plejevederlag efter § 120 i lov om social service og § 90, nr. 11, i barnets lov eller dagpenge til forældre med alvorligt syge børn efter barselsloven, anvendes årsopgørelsen for det senest forudgående regnskabsår eller et revisorattesteret regnskab, jf. § 23, stk. 3, nr. 2.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="id37bff54f-8f75-4945-bfdf-61816785b844" localId="25">
+            <Explicatus>§ 25.</Explicatus>
+            <Stk id="ida9ea5e21-5468-4a17-873c-a4bb872095ad">
+              <Exitus>
+                <Linea>
+                  <Char>For en selvstændig erhvervsdrivende, der har ret til sygedagpenge efter lovens § 24 b, stk. 1, og hvis arbejdsfortjeneste ved virksomheden efter §§ 23 og 24 er lavere end i seneste sygeforløb med sygedagpenge, lægges arbejdsfortjenesten ved virksomheden fra seneste sygeforløb med sygedagpenge til grund for beregningen af sygedagpenge.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idf5f108b8-95d8-4535-85f0-2c48941eee17">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>For en selvstændig erhvervsdrivende, der har ret til sygedagpenge efter lovens § 24 a, stk. 6, eller lovens § 24 b, stk. 1, og som har en sygedagpengeforsikring, jf. lovens § 45, udgør sygedagpengene fra første fraværsdag mindst 2/3 af det beløb, der er nævnt i lovens § 50, stk. 1.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Sygedagpengene kan udgøre et højere beløb, hvis indtægten berettiger til det.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="id8df86027-6a04-42af-8087-b3966c875470" localId="8">
+        <Explicatus>Kapitel 8</Explicatus>
+        <Rubrica id="id81a033d4-d1d5-461e-a3e2-30b3defae105">
+          <Linea>
+            <Char formaChar="Italic">Beregning af sygedagpenge til personer, der på grund af længerevarende sygdom afbryder en påbegyndt uddannelse med uddannelsesgodtgørelse, jf. lovens § 34, stk. 2</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="id6310d1bc-0a6f-4ed4-b538-6c542f5e1adc" localId="26">
+            <Explicatus>§ 26.</Explicatus>
+            <Stk id="id478a7069-42de-4bb6-a366-92d870260a5a">
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til en person, der på grund af længerevarende sygdom afbryder en påbegyndt uddannelse, hvor personen modtager uddannelsesgodtgørelse, udbetales med det beløb, der er nævnt i lovens § 50, jf. dog stk. 2.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idfe687bae-de92-4d3f-9c89-d840190f968e">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til en person, der er omfattet af stk. 1, og som samtidig opfylder beskæftigelseskravet i lovens § 32, stk. 1, nr. 1 eller 4, fordi personen er elev, beregnes ud fra personens løn, dog maksimalt det beløb, der er nævnt i lovens § 50.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id43216a3c-71fa-462c-a99e-54baf710576c">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Sygedagpenge til en person, der er omfattet af stk. 1, og som samtidig, med en deltidsansættelse, opfylder beskæftigelseskravet som lønmodtager efter lovens § 32, stk. 1, nr. 1, beregnes dels på grundlag af lønnen og dels på grundlag af uddannelsesgodtgørelsen, så sygedagpengene i alt udbetales med det beløb, der er nævnt i lovens § 50.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="iddf7cb64b-f1fb-41d2-a4e7-54b2077dd418">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Udbetalingen reguleres efter lovens § 64.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="idd309b63e-720c-4d7d-bb47-08e1387c2714" localId="9">
+        <Explicatus>Kapitel 9</Explicatus>
+        <Rubrica id="idac0f95b7-d6b4-47e9-9c51-b3937809f80d">
+          <Linea>
+            <Char formaChar="Italic">Sygedagpenge i forbindelse med uddannelse</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="id37f406ce-e029-4375-b43c-ae1786903418" localId="27">
+            <Explicatus>§ 27.</Explicatus>
+            <Stk id="idba0b1312-2a12-425b-bd76-5468c25f2e56">
+              <Exitus>
+                <Linea>
+                  <Char>Til personer, der er uarbejdsdygtige på grund af sygdom, kan der ydes sygedagpenge uanset deltagelse i erhvervsmæssig uddannelse, når uddannelse og erhvervsarbejde før sygefraværet er foregået sideløbende.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idb7351225-1052-470c-904a-a7426930fd3e">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Der kan endvidere ydes sygedagpenge, hvis en erhvervsmæssig uddannelse påbegyndes under sygefraværet,</Char>
+                </Linea>
+              </Exitus>
+              <Exitus id="ide7b68eac-8ce2-4794-a9b4-dac526f94bc8">
+                <Index>
+                  <Indentatio id="id1b56794b-ec21-46ef-a63f-6c2fdeb7a661" formaInd="Nummer">
+                    <Explicatus>1)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>når der højst er 6 timers undervisning pr. uge,</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="id23ff6e32-d696-45f1-bcf6-d663fd53e9e3" formaInd="Nummer">
+                    <Explicatus>2)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>når uddannelsen er forenelig med sygebehandlingen og ikke forhaler helbredelsen, og</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                  <Indentatio id="id1bf15faf-7e4c-48a6-9fe0-0d07d0f803ae" formaInd="Nummer">
+                    <Explicatus>3)</Explicatus>
+                    <Exitus>
+                      <Linea>
+                        <Char>når uddannelsen ikke udskyder iværksættelse af erhvervsmæssig revalidering.</Char>
+                      </Linea>
+                    </Exitus>
+                  </Indentatio>
+                </Index>
+              </Exitus>
+            </Stk>
+            <Stk id="idac661b30-d66e-4cae-9469-2c93a2e48840">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Sker deltagelse i erhvervsmæssig uddannelse efter lov om en aktiv beskæftigelsesindsats kapitel 14 som led i kommunens opfølgningsindsats, jf. sygedagpengelovens §§ 13 a og 13 c, fastsættes det ugentlige timetal ud fra en konkret vurdering i den enkelte sag.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+          <Paragraf id="idc95ac984-97e5-4b06-bdb4-19ae334ed690" localId="28">
+            <Explicatus>§ 28.</Explicatus>
+            <Stk id="id3a46918b-f8bd-4b31-b20d-a57e9d287f12">
+              <Exitus>
+                <Linea>
+                  <Char>Til personer, der er uarbejdsdygtige på grund af sygdom, og hvor der efter § 6 i repatrieringsloven er givet tilladelse til deltagelse i praktik eller uddannelsesforløb i hjemlandet eller det tidligere opholdsland, kan der i en periode på op til 8 uger ydes sygedagpenge under deltagelsen.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="id5530a805-f1cf-4b77-867c-2aff67ee087d" localId="10">
+        <Explicatus>Kapitel 10</Explicatus>
+        <Rubrica id="idcd74b6a0-d796-4375-be8a-b8b0e76e2034">
+          <Linea>
+            <Char formaChar="Italic">Regler om hvilken kommune, der har handleforpligtelsen i sager om sygedagpenge til personer med ophold i udlandet</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="idd534479d-4807-41d9-b0a9-fd9cf1a00b52" localId="29">
+            <Explicatus>§ 29.</Explicatus>
+            <Stk id="idf1adcbef-5d82-45ac-9c8a-c9911f610b6c">
+              <Exitus>
+                <Linea>
+                  <Char>Sager om sygedagpenge til en person, som ved en fraværsperiodes start opholder sig i Danmark, og som inden fraværsperiodens ophør tager ophold i udlandet, behandles under opholdet i udlandet af den seneste handlekommune i Danmark efter § 9, stk. 1, i lov om retssikkerhed og administration på det sociale område.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id940606ed-6326-4b4d-a53d-96baf36db9cf">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>En person, som ikke har en handlekommune i Danmark efter § 9, stk. 1, i lov om retssikkerhed og administration på det sociale område, og som udfører beskæftigelse på dansk område, har handlekommune i den kommune, hvor beskæftigelsen udføres, jf. stk. 3-4.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id892d7c8f-956b-4086-8654-0d9ead582f1a">
+              <Explicatus>Stk. 3.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>For lønmodtagere anses beskæftigelsen for udført i den kommune, hvor lønmodtageren sædvanligvis udfører hele eller hovedparten af sit arbejde.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="idc2ef796b-d3ce-4c72-9d01-72b6eedbf392">
+              <Explicatus>Stk. 4.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>For selvstændige erhvervsdrivende anses beskæftigelsen for udført i den kommune, hvor den selvstændige virksomhed eller virksomhedens repræsentant har hjemsted.</Char>
+                </Linea>
+                <Linea>
+                  <Char>Hvis virksomheden eller dennes repræsentant ikke har hjemsted i Danmark, har den selvstændige erhvervsdrivende handlekommune i den kommune, hvor hovedparten af arbejdet udføres.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id61eb33d8-c962-4942-8642-e297a279d1f6">
+              <Explicatus>Stk. 5.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Sager om sygedagpenge til personer, der under ophold i udlandet udfører arbejde i udlandet for en dansk virksomhed, behandles af den kommune i Danmark, hvor virksomheden har hjemsted.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id43484f36-adac-47fb-9006-916c4550522c">
+              <Explicatus>Stk. 6.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Hvis der ikke kan udpeges nogen handlekommune efter stk. 1-5, behandles sagen af den kommune, som personen ud fra en samlet vurdering af de geografiske og økonomiske forhold har stærkest tilknytning til.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+      <Kapitel id="ide39590be-b7e7-43ad-892d-ef41c632c237" localId="11">
+        <Explicatus>Kapitel 11</Explicatus>
+        <Rubrica id="id757789e2-77fc-4b28-b846-a335ef54452a">
+          <Linea>
+            <Char formaChar="Italic">Ikrafttræden m.v.</Char>
+          </Linea>
+        </Rubrica>
+        <ParagrafGruppe>
+          <Paragraf id="id9bd91833-9aa5-4868-bbc4-60147803d62e" localId="30">
+            <Explicatus>§ 30.</Explicatus>
+            <Stk id="id7d7d959b-6214-4536-9e84-ff139decfd1b">
+              <Exitus>
+                <Linea>
+                  <Char>Bekendtgørelsen træder i kraft den 1. januar 2025.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+            <Stk id="id9b857f07-6a2d-4590-916d-4547caeebb99">
+              <Explicatus>Stk. 2.</Explicatus>
+              <Exitus>
+                <Linea>
+                  <Char>Bekendtgørelse nr. 937 af 24. juli 2024 om opgørelse af beskæftigelseskrav og beregning af sygedagpenge m.v. ophæves.</Char>
+                </Linea>
+              </Exitus>
+            </Stk>
+          </Paragraf>
+        </ParagrafGruppe>
+      </Kapitel>
+    </Afsnit>
+  </DokumentIndhold>
+  <UnderskriftGruppe id="id55624262-c8f2-4c57-b87d-1e5347f8d86b">
+    <UnderskriftStedDato />
+    <Underskriver />
+  </UnderskriftGruppe>
+</Dokument>

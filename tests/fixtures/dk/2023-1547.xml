@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Dokument id="ide9dff762-e316-4ced-8fdc-e4eaf3464c54" SchemaLocation="http://www.retsinformation.dk/offentlig/xml/schemas/2022/05/17/LOVC.Retsinfo.LexDania_2.1.xsd">
+  <Meta id="id502b058c-b41d-4803-92ec-101a07da5e04">
+    <DocumentType>LOV Æ#LOKDOK02</DocumentType>
+    <Rank>A</Rank>
+    <AccessionNumber>A20230154730</AccessionNumber>
+    <DocumentId>DC001375</DocumentId>
+    <UniqueDocumentId>240371</UniqueDocumentId>
+    <DocumentTitle>Lov om ændring af lov om hold af dyr, dyrevelfærdsloven, lov om dyrlæger, lov om dyreforsøg og lov om foderstoffer  (Indarbejdelse af tekstanmærkninger og delegation af sagsforberedelse til private fysiske eller juridiske personer)</DocumentTitle>
+    <Year>2023</Year>
+    <DiesSigni>2023-12-12</DiesSigni>
+    <DateOfSubmit id="submit_1" />
+    <StartDate REFid="submit_1">2023-12-12</StartDate>
+    <EndDate REFid="submit_1">2024-10-05</EndDate>
+    <Status>Historic</Status>
+    <Number>1547</Number>
+    <AnnouncedIn>Lovtidende A</AnnouncedIn>
+    <DiesEdicti>2023-12-12</DiesEdicti>
+    <DateOfHistoricMark>2024-01-23</DateOfHistoricMark>
+    <Republished>Nej</Republished>
+    <Sign id="sign" />
+    <Signature REFid="sign">MARGRETHE R.</Signature>
+    <Sub-Sign id="subsign" />
+    <Signature REFid="subsign">Jacob Jensen</Signature>
+    <PlaceOfSignature>Givet på Christiansborg Slot</PlaceOfSignature>
+    <JournalNumber>Ministeriet for Fødevarer, Landbrug og Fiskeri,\nFødevarestyrelsen, j.nr. 2023-24-30-00133</JournalNumber>
+    <Ministry>Ministeriet for Fødevarer, Landbrug og Fiskeri</Ministry>
+    <AdministrativeAuthority>Fødevarestyrelsen</AdministrativeAuthority>
+  </Meta>
+  <TitelGruppe id="id336725c2-8e3b-4975-828c-f626abf7487f">
+    <Titel id="id50330fa8-2565-44ee-8c5d-d2480f8f5907">
+      <Linea>
+        <Char>Lov om ændring af lov om hold af dyr, dyrevelfærdsloven, lov om dyrlæger, lov om dyreforsøg og lov om foderstoffer</Char>
+      </Linea>
+    </Titel>
+    <UnderTitel id="id1f09f2a0-d162-4990-9dbe-6d98221959cc">
+      <Linea>
+        <Char>(Indarbejdelse af tekstanmærkninger og delegation af sagsforberedelse til private fysiske eller juridiske personer)</Char>
+      </Linea>
+    </UnderTitel>
+  </TitelGruppe>
+  <DokumentIndhold id="ide76f1a80-ccdc-4283-ab26-d299080c5b26">
+    <Hymne id="idc2cf1f87-0106-45b7-ad6b-4f128d51e928">
+      <Exitus>
+        <Linea>
+          <Char>VI MARGRETHE DEN ANDEN, af Guds Nåde Danmarks Dronning, gør vitterligt:</Char>
+        </Linea>
+      </Exitus>
+      <Exitus>
+        <Linea>
+          <Char>Folketinget har vedtaget og Vi ved Vort samtykke stadfæstet følgende lov:</Char>
+        </Linea>
+      </Exitus>
+    </Hymne>
+    <AendringCentreretParagraf id="idd489e42a-d987-4f8c-83d7-2de36358436d" localId="1">
+      <Explicatus>§ 1</Explicatus>
+      <Exitus>
+        <Linea>
+          <Char>I lov om hold af dyr, jf. lovbekendtgørelse nr. 9 af 6. januar 2022, foretages følgende ændringer:</Char>
+        </Linea>
+      </Exitus>
+      <AendringsNummer id="id00abf36e-7d0f-4785-bf2b-f40e56c603dc">
+        <Explicatus>1.</Explicatus>
+        <Aendring id="id33dcb53e-e4a5-4579-8960-95a57c999f78">
+          <AendringDefinition id="id06038ba7-d1f3-4a66-8062-62c04027143d">
+            <Exitus>
+              <Linea>
+                <Char>Efter § 53 indsættes:</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="id8afa13c6-7228-4513-b212-1453f3131c72">
+            <AendringNyTekst>
+              <Paragraf id="ida536cdff-443e-4bec-862d-d3da7a417e8a" localId="53a">
+                <Explicatus>§ 53 a.</Explicatus>
+                <Stk id="id1367ae81-a90e-4e84-8ec1-97f8206832b6">
+                  <Exitus>
+                    <Linea>
+                      <Char>Ejere af grisebesætninger, som pr. 1. februar er registreret i Det Centrale Husdyrbrugsregister (CHR) med en besætningsstørrelse på mere end 10 dyr i kategorien søer, gylte og orner eller mere end 100 grise i alt, betaler til dækning af omkostninger til kontrol af besætningsejeres efterlevelse af tiltag i reduktionsstrategien for grisesygdommen porcin reproduktions- og respirationssygdom (PRRS) et årligt beløb på 529 kr. pr. besætning.</Char>
+                    </Linea>
+                  </Exitus>
+                </Stk>
+                <Stk id="idcc270a57-74f0-4609-92d9-4c021637a09f">
+                  <Explicatus>Stk. 2.</Explicatus>
+                  <Exitus>
+                    <Linea>
+                      <Char>Beløbet i stk. 1 bliver årligt pr. 1. januar pris- og lønreguleret med den sats for det generelle pris- og lønindeks, der er fastsat af Finansministeriet.</Char>
+                    </Linea>
+                    <Linea>
+                      <Char>Det regulerede beløb afrundes til nærmeste hele kronebeløb og offentliggøres ved bekendtgørelse.</Char>
+                    </Linea>
+                  </Exitus>
+                </Stk>
+                <Stk id="id4779d246-be17-405b-9f0c-caa8afe6b6d6">
+                  <Explicatus>Stk. 3.</Explicatus>
+                  <Exitus>
+                    <Linea>
+                      <Char>Ministeren for fødevarer, landbrug og fiskeri kan fastsætte regler om opkrævning efter stk. 1.</Char>
+                    </Linea>
+                    <Linea>
+                      <Char>Ministeren kan endvidere fastsætte regler om helt eller delvis at undlade opkrævning efter stk. 1.</Char>
+                    </Linea>
+                  </Exitus>
+                </Stk>
+              </Paragraf>
+            </AendringNyTekst>
+          </AendringAktion>
+        </Aendring>
+      </AendringsNummer>
+      <AendringsNummer id="id352455c3-c17f-44ab-bfd3-7711c17a7445">
+        <Explicatus>2.</Explicatus>
+        <Aendring id="id818f8d26-5a8d-4666-af36-0fd849ce9833">
+          <AendringDefinition id="id08485493-418c-45fd-9d8a-ee51e94cc115">
+            <Exitus>
+              <Linea>
+                <Char>I </Char>
+                <Char formaChar="Italic">§ 66</Char>
+                <Char> indsættes efter stk. 2 som nyt stykke:</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="idb4b6b9c1-57f0-4e2b-a184-702284ef1c9f">
+            <AendringNyTekst>
+              <Stk id="id3cdb1e9a-446e-4ae3-9882-c93bdc1e2719">
+                <Explicatus>Stk. 3.</Explicatus>
+                <Exitus>
+                  <Linea>
+                    <Char>Ministeren kan delegere sagsforberedende opgaver inden for lovens kapitel 6 til private fysiske eller juridiske personer.</Char>
+                  </Linea>
+                </Exitus>
+              </Stk>
+            </AendringNyTekst>
+          </AendringAktion>
+        </Aendring>
+        <Rykningsklausul id="id3c24a5d6-c84b-46ae-9b3b-350dad2d8797">
+          <Exitus>
+            <Linea>
+              <Char>Stk. 3-6 bliver herefter stk. 4-7.</Char>
+            </Linea>
+          </Exitus>
+        </Rykningsklausul>
+      </AendringsNummer>
+    </AendringCentreretParagraf>
+    <AendringCentreretParagraf id="id4f7b9dcd-aa4e-48bf-953b-8ba89443531b" localId="2">
+      <Explicatus>§ 2</Explicatus>
+      <Exitus>
+        <Linea>
+          <Char>I dyrevelfærdsloven, jf. lovbekendtgørelse nr. 1597 af 8. juli 2021, foretages følgende ændringer:</Char>
+        </Linea>
+      </Exitus>
+      <AendringsNummer id="id8d916ae5-c26a-4246-a145-dadf8fc126fa">
+        <Explicatus>1.</Explicatus>
+        <Aendring id="id94944bc4-44a1-4e34-b6b9-42c40995ed9a">
+          <AendringDefinition id="idc770d526-7c14-4439-8bfc-1619584f8329">
+            <Exitus>
+              <Linea>
+                <Char formaChar="Italic">§ 43, stk. 3-5, </Char>
+                <Char>ophæves, og i stedet indsættes:</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="idd0968964-6533-4137-9fe6-f92e40d6b23b">
+            <AendringNyTekst>
+              <Stk id="idc274d600-dfc2-483d-be36-8719be8d875d">
+                <Explicatus>Stk. 3.</Explicatus>
+                <Exitus>
+                  <Linea>
+                    <Char>For den ordinære kontrol af dyrevelfærd i besætninger betaler ejere af dyrehold, som pr. 1. februar er registreret i Det Centrale Husdyrbrugsregister (CHR), et årligt beløb på:</Char>
+                  </Linea>
+                </Exitus>
+                <Exitus id="idd5c9f1a7-b0d9-4181-9f68-70b5d7e3a7cd">
+                  <Index>
+                    <Indentatio id="id0e6b37e3-99ba-48ef-9dfd-350eac7c7ce7" formaInd="Nummer">
+                      <Explicatus>1)</Explicatus>
+                      <Exitus>
+                        <Linea>
+                          <Char>3.168 kr. for ejere af dyrehold, hvor mindst én besætning er en kvægbesætning af en størrelse på over 40 dyr.</Char>
+                        </Linea>
+                      </Exitus>
+                    </Indentatio>
+                    <Indentatio id="idd7fc6bd2-0595-4d17-9468-ad16f34b2e39" formaInd="Nummer">
+                      <Explicatus>2)</Explicatus>
+                      <Exitus>
+                        <Linea>
+                          <Char>3.128 kr. for ejere af dyrehold, som ikke er omfattet af nr. 1, og hvor mindst én besætning er en grisebesætning af en størrelse på over 40 dyr.</Char>
+                        </Linea>
+                      </Exitus>
+                    </Indentatio>
+                    <Indentatio id="ide0da0dfd-50e7-451e-8deb-667fd286ded9" formaInd="Nummer">
+                      <Explicatus>3)</Explicatus>
+                      <Exitus>
+                        <Linea>
+                          <Char>1.962 kr. for ejere af dyrehold, som ikke er omfattet af nr. 1 eller 2, og hvor mindst én besætning har en størrelse på over 40 dyr, for fjerkræ dog 2.000 dyr.</Char>
+                        </Linea>
+                        <Linea>
+                          <Char>1. pkt. gælder ikke for akvakultur, kameler, heste, kaniner, humlebier, hønsehold, der alene producerer æg til anvendelse i egen husholdning, eller slagtefjerkræ, der ikke leveres til fjerkræslagteri.</Char>
+                        </Linea>
+                      </Exitus>
+                    </Indentatio>
+                    <Indentatio id="id747fec8c-e771-4a2b-8946-c63152073996" formaInd="Nummer">
+                      <Explicatus>4)</Explicatus>
+                      <Exitus>
+                        <Linea>
+                          <Char>1.145 kr. for ejere af dyrehold, som ikke er omfattet af nr. 1-3, og hvor mindst én besætning er en kvægbesætning af en størrelse på mindst 10 dyr.</Char>
+                        </Linea>
+                      </Exitus>
+                    </Indentatio>
+                    <Indentatio id="id6b1eafc4-86d7-449a-b0f2-af8d872fbd87" formaInd="Nummer">
+                      <Explicatus>5)</Explicatus>
+                      <Exitus>
+                        <Linea>
+                          <Char>1.131 kr. for ejere af dyrehold, som ikke er omfattet af nr. 1-4, og hvor mindst én besætning er en grisebesætning af en størrelse på mindst 10 dyr.</Char>
+                        </Linea>
+                      </Exitus>
+                    </Indentatio>
+                    <Indentatio id="idfd8dea6c-f99a-4b8e-b766-8bf464eec7c6" formaInd="Nummer">
+                      <Explicatus>6)</Explicatus>
+                      <Exitus>
+                        <Linea>
+                          <Char>710 kr. for ejere af dyrehold, som ikke er omfattet af nr. 1-5, og hvor mindst én besætning har en størrelse på mindst 10 dyr.</Char>
+                        </Linea>
+                        <Linea>
+                          <Char>1. pkt. gælder ikke for akvakultur, kameler, heste, kaniner, humlebier, hønsehold, der alene producerer æg til anvendelse i egen husholdning, eller slagtefjerkræ, der ikke leveres til fjerkræslagteri.</Char>
+                        </Linea>
+                      </Exitus>
+                    </Indentatio>
+                  </Index>
+                </Exitus>
+              </Stk>
+              <Stk id="id7e173a45-06f9-46b5-80d0-26f7c3e5abd0">
+                <Explicatus>Stk. 4.</Explicatus>
+                <Exitus>
+                  <Linea>
+                    <Char>Virksomheder, som beskæftiger sig med sammenbringning, og besætningsejere m.v., som opkræves gebyr for syn af dyr ved udførsel, jf. bekendtgørelse om betaling for kontrol af fødevarer, foder og levende dyr m.v., betaler et beløb på 33 kr. pr. kvarters faktureret kontroltid i forbindelse med syn af dyr til finansiering af omkostninger til stikprøvekontrol ved pålæsning og aflæsning af dyr samt dybdegående kontroller i forbindelse med udførsel af levende dyr.</Char>
+                  </Linea>
+                </Exitus>
+              </Stk>
+            </AendringNyTekst>
+          </AendringAktion>
+        </Aendring>
+        <Rykningsklausul id="id30af1073-0ecf-48bd-bf41-ea26e812b715">
+          <Exitus>
+            <Linea>
+              <Char>Stk. 6 og 7 bliver herefter stk. 5 og 6.</Char>
+            </Linea>
+          </Exitus>
+        </Rykningsklausul>
+      </AendringsNummer>
+      <AendringsNummer id="ide65cce6b-4d7c-4b68-98c0-d1aed536db9d">
+        <Explicatus>2.</Explicatus>
+        <Aendring id="id00488091-1630-4748-8dbb-9c60c5e8b756">
+          <AendringDefinition id="id62240ddd-b70e-4772-a58b-94ce2feb31a2">
+            <Exitus>
+              <Linea>
+                <Char>I </Char>
+                <Char formaChar="Italic">§ 43,</Char>
+                <Char></Char>
+                <Char formaChar="Italic">stk. 6,</Char>
+                <Char> som bliver stk. 5, ændres</Char>
+                <Char formaChar="Bold"></Char>
+                <Char>»stk. 3 og 5« til: »stk. 3 og 4«, og som </Char>
+                <Char formaChar="Italic">2. pkt. </Char>
+                <Char>indsættes:</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="idfbbfbbbc-26b9-4603-86e1-41e9006ec8d4">
+            <AendringNyTekst>
+              <Exitus>
+                <Linea>
+                  <Char>Ministeren kan endvidere fastsætte regler om helt eller delvis at undlade opkrævning efter stk. 3 og 4.</Char>
+                </Linea>
+              </Exitus>
+            </AendringNyTekst>
+          </AendringAktion>
+          <AendringAktion id="id82e3a23e-6d71-4c62-a063-4f419c0da1f5">
+            <AendringNyTekst />
+          </AendringAktion>
+        </Aendring>
+      </AendringsNummer>
+      <AendringsNummer id="id97509197-23b0-4df5-9faf-95f61e05aa32">
+        <Explicatus>3.</Explicatus>
+        <Aendring id="id09f01e57-5129-49ff-8d59-d51aa659c27f">
+          <AendringDefinition id="id2e956de6-8b71-4e93-a627-3920c3c33947">
+            <Exitus>
+              <Linea>
+                <Char>I </Char>
+                <Char formaChar="Italic">§ 43</Char>
+                <Char> indsættes som </Char>
+                <Char formaChar="Italic">stk. 7:</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="id4be40dd3-83bb-4402-ac6a-9f7ce760f090">
+            <AendringNyTekst>
+              <Stk id="id8db5876e-d895-4efa-8294-c38fe7778835">
+                <Explicatus>Stk. 7.</Explicatus>
+                <Exitus>
+                  <Linea>
+                    <Char>Beløbene i stk. 3 og 4 bliver årligt pr. 1. januar pris- og lønreguleret med den sats for det generelle pris- og lønindeks, der er fastsat af Finansministeriet.</Char>
+                  </Linea>
+                  <Linea>
+                    <Char>Det regulerede beløb afrundes til nærmeste hele kronebeløb og offentliggøres ved bekendtgørelse.</Char>
+                  </Linea>
+                </Exitus>
+              </Stk>
+            </AendringNyTekst>
+          </AendringAktion>
+        </Aendring>
+      </AendringsNummer>
+    </AendringCentreretParagraf>
+    <AendringCentreretParagraf id="idfe532df4-0c67-44e1-9eb4-7a714bd1090a" localId="3">
+      <Explicatus>§ 3</Explicatus>
+      <Exitus>
+        <Linea>
+          <Char>I lov om dyrlæger, jf. lovbekendtgørelse nr. 1523 af 26. oktober 2020, foretages følgende ændring:</Char>
+        </Linea>
+      </Exitus>
+      <AendringsNummer id="idac781b5c-53f6-4fbe-a99d-49a0e35f631f">
+        <Explicatus>1.</Explicatus>
+        <Aendring id="id380b47ae-82f6-4e66-af4b-b7a1da31ef61">
+          <AendringDefinition id="id67511ab2-8bf2-4200-acef-d7ae7fc891bc">
+            <Exitus>
+              <Linea>
+                <Char>Efter § 36 b indsættes:</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="ide19f215c-232f-4417-964d-d5f60d411765">
+            <AendringNyTekst>
+              <Paragraf id="id98a174fe-d549-4742-bc66-16e10987735a" localId="36c">
+                <Explicatus>§ 36 c.</Explicatus>
+                <Stk id="idf523e77f-1e0c-4457-88d8-ad9fb14b131a">
+                  <Exitus>
+                    <Linea>
+                      <Char>Dyrlæger betaler til dækning af omkostninger ved kontrol med overholdelse af dyrlægers anmeldepligt vedrørende smitsomme husdyrsygdomme et årligt beløb på 2.063 kr., hvis dyrlægen pr. 1. juli er registreret i VetStat (Dyrlægeregistret) med mindst én sundhedsrådgivningsaftale eller pr. 1. juli er registreret i VetStat som tilknyttet en dyrlægepraksis og inden for perioden fra den 1. januar til og med den 30. juni er registreret med mindst ti ordinationer i VetStat til andre dyregrupper end dyregrupperne »hest« og »kæledyr«.</Char>
+                    </Linea>
+                  </Exitus>
+                </Stk>
+                <Stk id="idf7b26ff9-404e-447e-9a8a-ec113a484d65">
+                  <Explicatus>Stk. 2.</Explicatus>
+                  <Exitus>
+                    <Linea>
+                      <Char>Beløbet i stk. 1 bliver årligt pr. 1. januar pris- og lønreguleret med den sats for det generelle pris- og lønindeks, der er fastsat af Finansministeriet.</Char>
+                    </Linea>
+                    <Linea>
+                      <Char>Det regulerede beløb afrundes til nærmeste hele kronebeløb og offentliggøres ved bekendtgørelse.</Char>
+                    </Linea>
+                  </Exitus>
+                </Stk>
+                <Stk id="id55c358db-d4db-4b5f-a6f0-8f0bfa461ad3">
+                  <Explicatus>Stk. 3.</Explicatus>
+                  <Exitus>
+                    <Linea>
+                      <Char>Ministeren for fødevarer, landbrug og fiskeri kan fastsætte regler om opkrævning efter stk. 1.</Char>
+                    </Linea>
+                    <Linea>
+                      <Char>Ministeren kan endvidere fastsætte regler om helt eller delvis at undlade opkrævning efter stk. 1.</Char>
+                    </Linea>
+                  </Exitus>
+                </Stk>
+              </Paragraf>
+            </AendringNyTekst>
+          </AendringAktion>
+        </Aendring>
+      </AendringsNummer>
+    </AendringCentreretParagraf>
+    <AendringCentreretParagraf id="idd47eeb35-391c-4bcd-b374-20038f889852" localId="4">
+      <Explicatus>§ 4</Explicatus>
+      <Exitus>
+        <Linea>
+          <Char>I lov om dyreforsøg, jf. lovbekendtgørelse nr. 1107 af 1. juli 2022, foretages følgende ændringer:</Char>
+        </Linea>
+      </Exitus>
+      <AendringsNummer id="id9c42c2d6-5eed-4c4b-bef2-e4fee660b698">
+        <Explicatus>1.</Explicatus>
+        <Aendring id="id4ec1b36d-9f85-42ef-8615-408ed481720c">
+          <AendringDefinition id="idaad04f04-bbdd-4256-aabf-a32fba2c4564">
+            <Exitus>
+              <Linea>
+                <Char>I </Char>
+                <Char formaChar="Italic">§ 15, stk. 1,</Char>
+                <Char> ændres »4.374 kr.« til: »6.515 kr.«, og »883 kr.« ændres til: »1.315 kr.«</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="id0f2f1524-bdc8-427d-9686-1c20596b6a3d">
+            <AendringNyTekst />
+          </AendringAktion>
+        </Aendring>
+      </AendringsNummer>
+      <AendringsNummer id="idb1c12f32-2062-4ad9-9bb2-f854ca0c7222">
+        <Explicatus>2.</Explicatus>
+        <Aendring id="id047fa174-7649-481c-a1bc-3b548a3a1c20">
+          <AendringDefinition id="id03582e99-a65e-4f77-ab0a-74fb1735d9b3">
+            <Exitus>
+              <Linea>
+                <Char>I </Char>
+                <Char formaChar="Italic">§ 15</Char>
+                <Char> indsættes efter stk. 1 som nyt stykke:</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="id555133b2-52ff-48b1-a0d7-63e859d0b044">
+            <AendringNyTekst>
+              <Stk id="idae5c8959-d6bc-402e-8f4c-485a32e033d7">
+                <Explicatus>Stk. 2.</Explicatus>
+                <Exitus>
+                  <Linea>
+                    <Char>Beløbene i stk. 1 bliver årligt pr. 1. januar pris- og lønreguleret med den sats for det generelle pris- og lønindeks, der er fastsat af Finansministeriet.</Char>
+                  </Linea>
+                  <Linea>
+                    <Char>Det regulerede beløb afrundes til nærmeste hele kronebeløb og offentliggøres ved bekendtgørelse.</Char>
+                  </Linea>
+                </Exitus>
+              </Stk>
+            </AendringNyTekst>
+          </AendringAktion>
+        </Aendring>
+        <Rykningsklausul id="id3b67d87b-7d4d-4249-836a-2fa5534a05d8">
+          <Exitus>
+            <Linea>
+              <Char>Stk. 2 og 3 bliver herefter stk. 3 og 4.</Char>
+            </Linea>
+          </Exitus>
+        </Rykningsklausul>
+      </AendringsNummer>
+      <AendringsNummer id="idefa2bed9-07bc-4223-86ab-a1b513e3c151">
+        <Explicatus>3.</Explicatus>
+        <Aendring id="ida49bd9b6-22a5-4740-9993-7e50190a6b76">
+          <AendringDefinition id="iddadaa0ec-e89e-4ef1-a6b4-80fcb8bfb0a0">
+            <Exitus>
+              <Linea>
+                <Char>I </Char>
+                <Char formaChar="Italic">§ 15, stk. 3,</Char>
+                <Char> som bliver stk. 4, indsættes som </Char>
+                <Char signiChar="AendringURN" formaChar="Italic">2. pkt.:</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="idbfcf96cc-fc34-4a35-9bec-af8291534393">
+            <AendringNyTekst>
+              <Exitus>
+                <Linea>
+                  <Char>Ministeren kan endvidere fastsætte regler om helt eller delvis at undlade opkrævning efter stk. 1.</Char>
+                </Linea>
+              </Exitus>
+            </AendringNyTekst>
+          </AendringAktion>
+        </Aendring>
+      </AendringsNummer>
+    </AendringCentreretParagraf>
+    <AendringCentreretParagraf id="idbdcffb1e-53ac-4137-b77e-c87a8ce54019" localId="5">
+      <Explicatus>§ 5</Explicatus>
+      <Exitus>
+        <Linea>
+          <Char>I lov om foderstoffer, jf. lovbekendtgørelse nr. 1000 af 2. juli 2018, foretages følgende ændring:</Char>
+        </Linea>
+      </Exitus>
+      <AendringsNummer id="id0e6ee7c3-0566-4e64-8724-3e4e2e6647de">
+        <Explicatus>1.</Explicatus>
+        <Aendring id="id9141ec4d-3fc5-4c7f-910f-49c96f2467c7">
+          <AendringDefinition id="id7a13e0f4-f35b-477d-9a24-28b12bba0332">
+            <Exitus>
+              <Linea>
+                <Char>Efter § 2 b indsættes:</Char>
+              </Linea>
+            </Exitus>
+          </AendringDefinition>
+          <AendringAktion id="id8a026342-cf33-414b-b8a0-68af16b5a4b9">
+            <AendringNyTekst>
+              <Paragraf id="id09d1a2c1-3a52-41a1-bd35-d2d8d377b086" localId="2c">
+                <Explicatus>§ 2 c.</Explicatus>
+                <Stk id="id7f1b941c-7433-48cf-9875-733fba3f1381">
+                  <Exitus>
+                    <Linea>
+                      <Char>Ministeren for fødevarer, landbrug og fiskeri kan på anmodning fra en fysisk eller juridisk person eller en sammenslutning af sådanne yde bistand i forbindelse med eksport af foderstoffer.</Char>
+                    </Linea>
+                    <Linea>
+                      <Char>Ministeren kan endvidere yde bistand af mere generel art til eksporterhverv.</Char>
+                    </Linea>
+                  </Exitus>
+                </Stk>
+                <Stk id="id188908f0-ce0f-499b-9e2d-c08c0d272c49">
+                  <Explicatus>Stk. 2.</Explicatus>
+                  <Exitus>
+                    <Linea>
+                      <Char>Ministeren kan fastsætte regler om bistand efter stk. 1 og om betaling til hel eller delvis dækning af de faktiske omkostninger forbundet hermed.</Char>
+                    </Linea>
+                    <Linea>
+                      <Char>Afholdte udlæg i forbindelse med bistandsydelsen kan kræves refunderet.</Char>
+                    </Linea>
+                  </Exitus>
+                </Stk>
+              </Paragraf>
+            </AendringNyTekst>
+          </AendringAktion>
+        </Aendring>
+      </AendringsNummer>
+    </AendringCentreretParagraf>
+    <IkraftCentreretParagraf id="id053dff6d-2380-4905-bf2d-6a8c7668467e" localId="6">
+      <Explicatus>§ 6</Explicatus>
+      <Stk id="ided2a8fbd-4f69-4def-a6cd-dca808bffe9f">
+        <Exitus>
+          <Linea>
+            <Char>Loven træder i kraft den 1. januar 2024.</Char>
+          </Linea>
+        </Exitus>
+      </Stk>
+    </IkraftCentreretParagraf>
+    <IkraftCentreretParagraf id="idd6d8d399-58bf-4720-8404-c08700f6d70f" localId="7">
+      <Explicatus>§ 7</Explicatus>
+      <Stk id="id7f8eb035-0770-4d69-96e7-4407f8f4c3a0">
+        <Explicatus>Stk. 1.</Explicatus>
+        <Exitus>
+          <Linea>
+            <Char>Loven gælder ikke for Færøerne og Grønland, jf. dog stk. 2.</Char>
+          </Linea>
+        </Exitus>
+      </Stk>
+      <Stk id="id1cd835e4-f21f-4233-890a-c15ba0b66d85">
+        <Explicatus>Stk. 2.</Explicatus>
+        <Exitus>
+          <Linea>
+            <Char>§§ 1, 3 og 5 kan ved kongelig anordning sættes helt eller delvis i kraft for Grønland med de ændringer, som de grønlandske forhold tilsiger.</Char>
+          </Linea>
+        </Exitus>
+      </Stk>
+    </IkraftCentreretParagraf>
+  </DokumentIndhold>
+  <UnderskriftGruppe id="id3ac212cd-4e5b-4315-8120-2a7a730bb95b">
+    <UnderskriftStedDato />
+    <Segl>
+      <Linea>
+        <Char>Under Vor Kongelige Hånd og Segl</Char>
+      </Linea>
+    </Segl>
+    <Underskriver />
+  </UnderskriftGruppe>
+</Dokument>
