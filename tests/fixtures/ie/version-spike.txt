@@ -1,0 +1,55 @@
+Version History Spike — Ireland (IE)
+=====================================
+
+Date: 2026-04-13
+Test law: Environment (Miscellaneous Provisions) Act 2015 (No. 29/2015)
+
+Source 1: Irish Statute Book (irishstatutebook.ie)
+--------------------------------------------------
+- URL: https://www.irishstatutebook.ie/eli/2015/act/29/enacted/en/xml
+- Result: Returns XML of the act AS ENACTED (original text from 2015)
+- Only one version available: the enacted text
+- No archive URLs, no version parameter, no point-in-time endpoint
+- CONCLUSION: ISB provides ONLY "as enacted" text. No historical versions.
+
+Source 2: Revised Acts (revisedacts.lawreform.ie)
+-------------------------------------------------
+- URL: https://revisedacts.lawreform.ie/eli/2015/act/29/revised/en/html
+- Result: Returns consolidated HTML "Updated to 31 July 2024"
+- Amendment annotations present: F1-F9+ with dates and source SIs
+- Example annotation: "F1 Repealed (31.07.2024) by European Union (...) Regulations 2024 (S.I. No. 356 of 2024)"
+- NO version selector, NO previous versions navigation, NO point-in-time URL parameter
+- Only ~560 of ~4,041 acts are available on Revised Acts (14%)
+- CONCLUSION: Provides current consolidated text only, not intermediate versions.
+
+Source 3: Oireachtas API (api.oireachtas.ie)
+--------------------------------------------
+- URL: https://api.oireachtas.ie/v1/legislation?act_year=2015&act_no=29
+- Result: Returns metadata + link to PDF, no text content
+- versions array: [{"showAs": "As enacted", "lang": "eng", ...}] — only one version
+- CONCLUSION: Catalog/metadata only, no text, no version history.
+
+GATE RESULT: FAIL
+=================
+Cannot extract 2 distinct text versions with dates from any single source.
+
+- ISB: only enacted text (1 version)
+- Revised Acts: only current consolidated text (1 version), no intermediate versions
+- Oireachtas API: no text content at all
+
+DECISION: Proceed with SINGLE-SNAPSHOT ship (as enacted text from ISB XML).
+
+Justification:
+1. Ireland's 4,041 acts with clean XML are a valuable corpus even as enacted text
+2. The "as enacted" text IS the official published version — it has legal value
+3. Revised Acts could be added later as a Phase 2 to provide "current consolidated"
+   for the ~560 acts they cover (but still only 2 versions: enacted + current)
+4. Full point-in-time history may become available if Ireland implements the EU
+   open data directive more fully (as other EU countries have)
+5. The amendment annotations in Revised Acts (F1, F2, ...) record WHEN and HOW
+   each section changed — these could theoretically be used to reconstruct
+   intermediate versions, but this would require diffing and is unreliable
+
+Follow-up tasks:
+- Phase 2: Add Revised Acts HTML scraping for ~560 consolidated acts
+- Phase 3: Monitor if ISB or LRC adds point-in-time API
