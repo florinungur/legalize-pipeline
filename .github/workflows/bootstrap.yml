@@ -32,6 +32,8 @@ jobs:
         with:
           app-id: ${{ secrets.LEGALIZE_APP_ID }}
           private-key: ${{ secrets.LEGALIZE_APP_PRIVATE_KEY }}
+          owner: legalize-dev
+          repositories: legalize-${{ inputs.country }}
 
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:

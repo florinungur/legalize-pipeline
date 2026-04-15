@@ -1,0 +1,97 @@
+name: Backfill daily updates
+
+# Process a date range for a country. Useful for:
+# - Recovering missed days after an outage
+# - Backfilling a newly onboarded country
+# - Re-processing specific dates after a parser fix
+
+on:
+  workflow_dispatch:
+    inputs:
+      country:
+        description: "Country code (es, fr, at, de, se, pt, lv, ad, lt, ee, pl, uy, gr, nl, be)"
+        required: true
+        type: string
+        default: "es"
+      start_date:
+        description: "Start date (YYYY-MM-DD)"
+        required: true
+        type: string
+      end_date:
+        description: "End date (YYYY-MM-DD), empty = same as start"
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+
+      - uses: actions/create-github-app-token@f8d387b68d61c58ab83c6c016672934102569859 # v3
+        id: app-token
+        with:
+          app-id: ${{ secrets.LEGALIZE_APP_ID }}
+          private-key: ${{ secrets.LEGALIZE_APP_PRIVATE_KEY }}
+          owner: legalize-dev
+          repositories: legalize-${{ inputs.country }}
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          repository: legalize-dev/legalize-${{ inputs.country }}
+          path: repos/${{ inputs.country }}
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -e .
+
+      - name: Process date range
+        env:
+          INPUT_COUNTRY: ${{ inputs.country }}
+          INPUT_START: ${{ inputs.start_date }}
+          INPUT_END: ${{ inputs.end_date }}
+        run: |
+          END="${INPUT_END:-$INPUT_START}"
+          CURRENT="$INPUT_START"
+          TOTAL=0
+          ERRORS=0
+
+          while [ "$CURRENT" != "$(date -d "$END + 1 day" +%Y-%m-%d)" ]; do
+            echo "::group::$CURRENT"
+            if legalize daily -c "$INPUT_COUNTRY" --repo-path "repos/$INPUT_COUNTRY" --date "$CURRENT"; then
+              echo "::endgroup::"
+            else
+              echo "::endgroup::"
+              echo "::warning::Failed to process $CURRENT"
+              ERRORS=$((ERRORS + 1))
+            fi
+            TOTAL=$((TOTAL + 1))
+            CURRENT=$(date -d "$CURRENT + 1 day" +%Y-%m-%d)
+          done
+
+          echo ""
+          echo "Processed $TOTAL date(s), $ERRORS error(s)"
+          if [ "$ERRORS" -gt 0 ]; then
+            echo "::warning::$ERRORS date(s) had errors — check logs above"
+          fi
+
+      - name: Push results
+        env:
+          INPUT_COUNTRY: ${{ inputs.country }}
+        run: |
+          cd "repos/$INPUT_COUNTRY"
+          if git diff --quiet HEAD origin/main 2>/dev/null; then
+            echo "No new commits to push."
+          else
+            AHEAD=$(git rev-list --count origin/main..HEAD)
+            echo "Pushing $AHEAD new commit(s)..."
+            git push origin HEAD
+          fi

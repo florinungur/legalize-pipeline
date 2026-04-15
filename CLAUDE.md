@@ -134,6 +134,7 @@ rm -rf ../countries/es
 - English for all code, comments, and variable names (see "Language & stack").
 - Use `git -C <dir> <command>` instead of `cd <dir> && git <command>` to keep the working directory stable.
 - CI via GitHub App (Legalize Pipeline); daily runs via cron workflow.
+- **GitHub App token scope:** any workflow that pushes to a country repo (`legalize-{code}`) MUST pass `owner: legalize-dev` and `repositories: legalize-{code}` to `create-github-app-token`. Without these, the token is scoped only to `legalize-pipeline` and pushes fail with 403.
 - Commands and CLI usage are documented in `README.md`. Do not duplicate them here.
 
 ## Git commits

@@ -84,11 +84,23 @@ REGISTRY: dict[str, dict[str, tuple[str, str]]] = {
         "text_parser": ("legalize.fetcher.lt.parser", "TARTextParser"),
         "metadata_parser": ("legalize.fetcher.lt.parser", "TARMetadataParser"),
     },
+    "lu": {
+        "client": ("legalize.fetcher.lu.client", "LegiluxClient"),
+        "discovery": ("legalize.fetcher.lu.discovery", "LegiluxDiscovery"),
+        "text_parser": ("legalize.fetcher.lu.parser", "LegiluxTextParser"),
+        "metadata_parser": ("legalize.fetcher.lu.parser", "LegiluxMetadataParser"),
+    },
     "pt": {
         "client": ("legalize.fetcher.pt.client", "DREClient"),
         "discovery": ("legalize.fetcher.pt.discovery", "DREDiscovery"),
         "text_parser": ("legalize.fetcher.pt.parser", "DRETextParser"),
         "metadata_parser": ("legalize.fetcher.pt.parser", "DREMetadataParser"),
+    },
+    "ro": {
+        "client": ("legalize.fetcher.ro.client", "RoClient"),
+        "discovery": ("legalize.fetcher.ro.discovery", "RoDiscovery"),
+        "text_parser": ("legalize.fetcher.ro.parser", "RoTextParser"),
+        "metadata_parser": ("legalize.fetcher.ro.parser", "RoMetadataParser"),
     },
     "uy": {
         "client": ("legalize.fetcher.uy.client", "IMPOClient"),
@@ -126,6 +138,12 @@ REGISTRY: dict[str, dict[str, tuple[str, str]]] = {
         "text_parser": ("legalize.fetcher.nl.parser", "BWBTextParser"),
         "metadata_parser": ("legalize.fetcher.nl.parser", "BWBMetadataParser"),
     },
+    "no": {
+        "client": ("legalize.fetcher.no.client", "LovdataClient"),
+        "discovery": ("legalize.fetcher.no.discovery", "LovdataDiscovery"),
+        "text_parser": ("legalize.fetcher.no.parser", "LovdataTextParser"),
+        "metadata_parser": ("legalize.fetcher.no.parser", "LovdataMetadataParser"),
+    },
     "be": {
         "client": ("legalize.fetcher.be.client", "JustelClient"),
         "discovery": ("legalize.fetcher.be.discovery", "JustelDiscovery"),
@@ -138,11 +156,41 @@ REGISTRY: dict[str, dict[str, tuple[str, str]]] = {
         "text_parser": ("legalize.fetcher.cz.parser", "ESbirkaTextParser"),
         "metadata_parser": ("legalize.fetcher.cz.parser", "ESbirkaMetadataParser"),
     },
+    "fi": {
+        "client": ("legalize.fetcher.fi.client", "FinlexClient"),
+        "discovery": ("legalize.fetcher.fi.discovery", "FinlexDiscovery"),
+        "text_parser": ("legalize.fetcher.fi.parser", "FinlexTextParser"),
+        "metadata_parser": ("legalize.fetcher.fi.parser", "FinlexMetadataParser"),
+    },
     "ie": {
         "client": ("legalize.fetcher.ie.client", "ISBClient"),
         "discovery": ("legalize.fetcher.ie.discovery", "ISBDiscovery"),
         "text_parser": ("legalize.fetcher.ie.parser", "ISBTextParser"),
         "metadata_parser": ("legalize.fetcher.ie.parser", "ISBMetadataParser"),
+    },
+    "ua": {
+        "client": ("legalize.fetcher.ua.client", "RadaClient"),
+        "discovery": ("legalize.fetcher.ua.discovery", "RadaDiscovery"),
+        "text_parser": ("legalize.fetcher.ua.parser", "RadaTextParser"),
+        "metadata_parser": ("legalize.fetcher.ua.parser", "RadaMetadataParser"),
+    },
+    "dk": {
+        "client": ("legalize.fetcher.dk.client", "RetsinformationClient"),
+        "discovery": ("legalize.fetcher.dk.discovery", "RetsinformationDiscovery"),
+        "text_parser": ("legalize.fetcher.dk.parser", "DanishTextParser"),
+        "metadata_parser": ("legalize.fetcher.dk.parser", "DanishMetadataParser"),
+    },
+    "sk": {
+        "client": ("legalize.fetcher.sk.client", "SlovLexClient"),
+        "discovery": ("legalize.fetcher.sk.discovery", "SlovLexDiscovery"),
+        "text_parser": ("legalize.fetcher.sk.parser", "SlovLexTextParser"),
+        "metadata_parser": ("legalize.fetcher.sk.parser", "SlovLexMetadataParser"),
+    },
+    "eu": {
+        "client": ("legalize.fetcher.eu.client", "EURLexClient"),
+        "discovery": ("legalize.fetcher.eu.discovery", "EURLexDiscovery"),
+        "text_parser": ("legalize.fetcher.eu.parser", "EURLexTextParser"),
+        "metadata_parser": ("legalize.fetcher.eu.parser", "EURLexMetadataParser"),
     },
     # To add a new country:
     # 1. Create fetcher/{code}/ with client.py, discovery.py, parser.py

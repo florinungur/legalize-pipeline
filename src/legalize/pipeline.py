@@ -61,6 +61,9 @@ _SKIP_WEEKDAYS: dict[str, set[int]] = {
     "uy": {6},  # Mon-Sat (IMPO)
     "be": {5, 6},  # Mon-Fri (Moniteur Belge — consolidations published on business days)
     "ar": {0, 1, 2, 3, 4, 5, 6},  # InfoLEG catalog refreshes monthly; daily runs are no-ops
+    "fi": {5, 6},  # Mon-Fri (Finlex updates on business days)
+    "ua": {6},  # Mon-Sat (Rada publishes on business days)
+    "dk": {5, 6},  # Mon-Fri (Retsinformation harvest API, business days)
 }
 
 
@@ -79,11 +82,7 @@ def finalize_daily(
     Call this at the end of any daily() function (generic or custom).
     """
     if not dry_run and push and commits_created > 0:
-        try:
-            repo.push()
-        except subprocess.CalledProcessError:
-            logger.error("Error pushing", exc_info=True)
-            errors.append("Error pushing")
+        repo.push()
 
     state.record_run(
         summaries=[d.isoformat() for d in dates_to_process],
@@ -269,7 +268,7 @@ def generic_fetch_one(
                 get_text_kwargs["meta_data"] = meta_data
             text_data = client.get_text(norm_id, **get_text_kwargs)
             blocks = text_parser.parse_text(text_data)
-            reforms = _extract_reforms_generic(text_parser, client, norm_id, blocks)
+            reforms = _extract_reforms_generic(text_parser, client, norm_id, blocks, text_data)
 
             # Suvestine: replace blocks + reforms with versioned historical data
             if hasattr(text_parser, "parse_suvestine") and hasattr(client, "get_suvestine"):
@@ -311,11 +310,12 @@ def generic_fetch_all(
     country: str,
     force: bool = False,
     limit: int | None = None,
+    offset: int = 0,
 ) -> list[str]:
     """Fetch all norms for any country using discovery + dispatch.
 
     Uses NormDiscovery.discover_all() then fetches each norm.
-    Supports --limit for testing (fetch only N norms).
+    Supports --limit and --offset for splitting across multiple VMs.
     Uses max_workers from config for parallel fetching.
     """
     from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -343,10 +343,17 @@ def generic_fetch_all(
         discovery_cache.write_text("\n".join(norm_ids) + "\n")
         console.print(f"[dim]Saved {len(norm_ids)} IDs to discovery cache[/dim]")
 
+    if offset:
+        norm_ids = norm_ids[offset:]
     if limit:
         norm_ids = norm_ids[:limit]
 
-    console.print(f"[bold]Fetch — {len(norm_ids)} norms for {country.upper()}[/bold]\n")
+    console.print(f"[bold]Fetch — {len(norm_ids)} norms for {country.upper()}[/bold]")
+    if offset:
+        console.print(
+            f"  [dim](offset={offset}, processing IDs {offset}–{offset + len(norm_ids)})[/dim]"
+        )
+    console.print()
 
     workers = getattr(cc, "max_workers", 1) or 1
 
@@ -450,11 +457,13 @@ def generic_bootstrap(
     return total_commits
 
 
-def _extract_reforms_generic(text_parser, client, norm_id, blocks):
+def _extract_reforms_generic(text_parser, client, norm_id, blocks, text_data=None):
     """Extract reforms, with country-specific hooks.
 
-    Swedish parser has extract_reforms_from_sfsr for the SFSR amendment register.
-    Falls back to generic extract_reforms() from blocks.
+    Priority order:
+    1. Swedish SFSR amendment register (extract_reforms_from_sfsr)
+    2. Parser-level extract_reforms(text_data) — e.g. UA amendment annotations
+    3. Generic block-based extract_reforms(blocks) from transformer
     """
     if hasattr(text_parser, "extract_reforms_from_sfsr") and hasattr(
         client, "get_amendment_register"
@@ -467,6 +476,29 @@ def _extract_reforms_generic(text_parser, client, norm_id, blocks):
                 "Amendment register unavailable for %s, using text-based reforms",
                 norm_id,
             )
+
+    # Argentine hook: reconstruct versions from per-modificatoria text.
+    # Adds Versions to existing blocks and returns Reform objects, making AR
+    # compatible with the standard fetch → commit_all_fast pipeline.
+    if hasattr(client, "reconstruct_reforms"):
+        try:
+            new_blocks, reforms = client.reconstruct_reforms(norm_id, blocks)
+            if reforms:
+                blocks.clear()
+                blocks.extend(new_blocks)
+                return reforms
+        except Exception:
+            logger.warning(
+                "Version reconstruction unavailable for %s, using text-based reforms",
+                norm_id,
+            )
+
+    # Try parser-level reform extraction from raw text (e.g. UA annotations)
+    if text_data is not None and hasattr(text_parser, "extract_reforms"):
+        parser_reforms = text_parser.extract_reforms(text_data)
+        if parser_reforms:
+            return parser_reforms
+
     return extract_reforms(blocks)
 
 

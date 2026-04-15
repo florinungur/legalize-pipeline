@@ -25,7 +25,7 @@ countries:
     repo_path: "../countries/ar"
     data_dir: "../countries/data-ar"
     cache_dir: ".cache"
-    max_workers: 2
+    max_workers: 4
     source:
       base_url: "http://servicios.infoleg.gob.ar/infolegInternet"
       catalog_url: "https://datos.jus.gob.ar/dataset/d9a963ea-8b1d-4ca3-9dd9-07a4773e8c23/resource/bf0ec116-ad4e-4572-a476-e57167a84403/download/base-infoleg-normativa-nacional.zip"
@@ -144,6 +144,40 @@ countries:
       max_retries: 5
       requests_per_second: 2.0
 
+  lu:
+    repo_path: "../countries/lu"
+    data_dir: "../countries/data-lu"
+    cache_dir: ".cache"
+    # Legilux open data: SPARQL (discovery) + filestore (XML downloads).
+    # No documented rate limits. Benchmarked 2026-04-13: server handles
+    # 150+ req/s without errors. XML URLs derived deterministically from
+    # ELI (no per-norm SPARQL needed for download). Only consolidation
+    # queries hit SPARQL (~1,317 laws have history).
+    #
+    # Benchmark (50 laws, filestore GET):
+    #   1w  → 20 req/s (HTTP latency bound)
+    #   4w  → 67 req/s
+    #   8w  → 112 req/s
+    #  12w  → 153 req/s (zero errors at all levels)
+    #
+    # Settled on 8w × 10 req/s = polite but fast.
+    # Full bootstrap (~24K acts + ~4K consolidation XMLs):
+    #   downloads: ~28K files / ~80 eff req/s → ~6 min
+    #   SPARQL consolidation queries: ~24K / ~10 q/s → ~40 min
+    #   parsing + commits: ~30 min
+    #   Total: ~1.5h
+    max_workers: 8
+    source:
+      sparql_url: "https://data.legilux.public.lu/sparqlendpoint"
+      filestore_url: "https://data.legilux.public.lu/filestore"
+      request_timeout: 30
+      max_retries: 5
+      requests_per_second: 10.0
+      doc_types:
+        - "LOI"
+        - "RGD"
+        - "Constitution"
+
   pt:
     repo_path: "../countries/pt"
     data_dir: "../countries/data-pt"
@@ -152,6 +186,16 @@ countries:
       # Download SQLite dump from https://uploads.tretas.org/
       # Decompress: bunzip2 YYYY-MM-DD-DRE.sqlite3.bz2
       db_path: "../countries/data-pt/2026-03-01-DRE.sqlite3"
+
+  ro:
+    repo_path: "../countries/ro"
+    data_dir: "../countries/data-ro"
+    max_workers: 8
+    source:
+      base_url: "https://legislatie.just.ro"
+      requests_per_second: 2.0
+      request_timeout: 60
+      max_retries: 5
 
   uy:
     repo_path: "../countries/uy"
@@ -267,6 +311,20 @@ countries:
       # that only commits the current state.
       include_history: true
 
+  "no":
+    repo_path: "../countries/no"
+    data_dir: "../countries/data-no"
+    # Single-threaded: the public data dump is a single archive download,
+    # not per-law HTTP requests. Bootstrap processes 781 files locally.
+    max_workers: 1
+    source:
+      # Lovdata public data API — no authentication required.
+      # License: NLOD 2.0 (Norwegian Licence for Open Government Data).
+      # Downloads gjeldende-lover.tar.bz2 (~5.6 MB, 781 current laws).
+      # Historical versions require authenticated API (pending API key
+      # request to api@lovdata.no — see RESEARCH-NO.md).
+      api_base: "https://api.lovdata.no/v1/publicData"
+
   be:
     repo_path: "../countries/be"
     data_dir: "../countries/data-be"
@@ -320,3 +378,101 @@ countries:
       request_timeout: 30
       max_retries: 3
       requests_per_second: 2.0
+
+  ua:
+    repo_path: "../countries/ua"
+    data_dir: "../countries/data-ua"
+    # Benchmark 2026-04-13 (50 laws, .txt + .xml per law):
+    #   1w × 1.0 r/s → 0.21 laws/s (0 errors)
+    #   2w × 1.5 r/s → 0.34 laws/s (0 errors) — sweet spot
+    #   4w × 2.0 r/s → 0.44 laws/s (5 errors, 429 Too Many Requests)
+    # API rate limit: 60 req/min. Each law = 2 reqs (.txt + .xml).
+    # Full bootstrap (~43K laws): ~35h at 2w × 1.5 r/s.
+    max_workers: 2
+    source:
+      base_url: "https://data.rada.gov.ua"
+      zakon_base_url: "https://zakon.rada.gov.ua"
+      request_timeout: 30
+      max_retries: 5
+      requests_per_second: 1.5
+      type_lists: ["t1", "t3", "t4", "t5", "t21", "t216"]
+      include_perv1: true
+
+  fi:
+    repo_path: "../countries/fi"
+    data_dir: "../countries/data-fi"
+    cache_dir: ".cache"
+    # Finlex API: public REST, no auth, returns 429 on overload.
+    # Benchmark 2026-04-13 (50 acts, metadata + text, 2 reqs/law):
+    #   1w × 1.0 r/s → 0.63 laws/s (0 errors)
+    #   8w × 4.0 r/s → 2.46 laws/s (0 errors)
+    #   8w × 8.0 r/s → 4.72 laws/s (0 errors)
+    #  16w × 16  r/s → 8.96 laws/s (0 errors)
+    # Discovery /list endpoint rate-limits at ~4 req/s → use 1.5 r/s.
+    # Full bootstrap (~27K laws): ~8-10h at 4w × 1.5 r/s.
+    max_workers: 4
+    source:
+      api_base: "https://opendata.finlex.fi/finlex/avoindata/v1"
+      request_timeout: 30
+      max_retries: 5
+      requests_per_second: 1.5
+
+  dk:
+    repo_path: "../countries/dk"
+    data_dir: "../countries/data-dk"
+    cache_dir: ".cache"
+    # Retsinformation ELI XML: no auth, behind Cloudflare.
+    # Benchmark 2026-04-13 (50 laws, XML fetch + parse):
+    #   1w × 2.0 r/s → 2.01 laws/s (0 errors)
+    #   4w × 4.0 r/s → 3.96 laws/s (0 errors) — sweet spot
+    #   8w × 8.0 r/s → 3.94 laws/s (0 errors) — server bottleneck, no gain
+    # Zero 429/5xx at any rate tested. Cloudflare absorbs burst.
+    # Full bootstrap (~63K lta documents): ~4.5h at 4w × 4 r/s.
+    max_workers: 4
+    source:
+      base_url: "https://www.retsinformation.dk"
+      harvest_api: "https://api.retsinformation.dk"
+      request_timeout: 30
+      max_retries: 5
+      requests_per_second: 4.0
+
+  sk:
+    repo_path: "../countries/sk"
+    data_dir: "../countries/data-sk"
+    cache_dir: ".cache"
+    # Slov-Lex static site + API gateway. No documented rate limits.
+    # Response time ~50ms. No auth required. Zero 429/5xx observed in testing.
+    # Each law requires 1 history page + N version portal fragments.
+    # Full bootstrap (~26K laws × ~3-5 versions avg): ~80K-130K requests.
+    # At 4 workers × 2 req/s = 8 req/s → ~4-5h fetch time.
+    max_workers: 4
+    source:
+      api_base: "https://api-gateway.slov-lex.sk"
+      static_base: "https://static.slov-lex.sk"
+      request_timeout: 30
+      max_retries: 5
+      requests_per_second: 2.0
+
+  eu:
+    repo_path: "../countries/eu"
+    data_dir: "../countries/data-eu"
+    cache_dir: ".cache"
+    # CELLAR SPARQL + REST API. Public, no auth. Virtuoso backend
+    # with 60-second query timeout. No documented rate limits, but
+    # recommended to stay under 5 concurrent connections per IP.
+    # Discovery: ~16K in-force regulations via paged SPARQL (~16 pages × 400ms).
+    # Text: XHTML consolidated texts via CELLAR REST (~450KB-4.6MB each).
+    # Each regulation needs: 1 SPARQL (consolidations) + N XHTML downloads.
+    # Full bootstrap (~16K regs × ~2 consolidations avg): ~48K requests.
+    # At 4 workers × 2 req/s = 8 req/s → ~1.5-2h fetch time.
+    max_workers: 4
+    source:
+      sparql_url: "https://publications.europa.eu/webapi/rdf/sparql"
+      request_timeout: 30
+      max_retries: 5
+      requests_per_second: 2.0
+      reg_types:
+        - "REG"
+        - "REG_IMPL"
+        - "REG_DEL"
+        - "REG_FINANC"
