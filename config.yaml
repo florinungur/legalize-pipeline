@@ -405,6 +405,25 @@ countries:
       max_retries: 5
       requests_per_second: 1.5
 
+  dk:
+    repo_path: "../countries/dk"
+    data_dir: "../countries/data-dk"
+    cache_dir: ".cache"
+    # Retsinformation ELI XML: no auth, behind Cloudflare.
+    # Benchmark 2026-04-13 (50 laws, XML fetch + parse):
+    #   1w × 2.0 r/s → 2.01 laws/s (0 errors)
+    #   4w × 4.0 r/s → 3.96 laws/s (0 errors) — sweet spot
+    #   8w × 8.0 r/s → 3.94 laws/s (0 errors) — server bottleneck, no gain
+    # Zero 429/5xx at any rate tested. Cloudflare absorbs burst.
+    # Full bootstrap (~63K lta documents): ~4.5h at 4w × 4 r/s.
+    max_workers: 4
+    source:
+      base_url: "https://www.retsinformation.dk"
+      harvest_api: "https://api.retsinformation.dk"
+      request_timeout: 30
+      max_retries: 5
+      requests_per_second: 4.0
+
   sk:
     repo_path: "../countries/sk"
     data_dir: "../countries/data-sk"

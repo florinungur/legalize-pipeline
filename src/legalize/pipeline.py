@@ -63,6 +63,7 @@ _SKIP_WEEKDAYS: dict[str, set[int]] = {
     "ar": {0, 1, 2, 3, 4, 5, 6},  # InfoLEG catalog refreshes monthly; daily runs are no-ops
     "fi": {5, 6},  # Mon-Fri (Finlex updates on business days)
     "ua": {6},  # Mon-Sat (Rada publishes on business days)
+    "dk": {5, 6},  # Mon-Fri (Retsinformation harvest API, business days)
 }
 
 

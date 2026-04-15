@@ -1,0 +1,31 @@
+Version Spike: "Lov om hold af dyr" (Animal Husbandry Act)
+================================================================
+
+Approach: Follow `legislationConsolidates` chain in metadata API
+Endpoint: GET /api/document/metadata/{accession_number}
+Response: JSON with schema.org `legislationConsolidates` array
+
+Chain (newest → oldest):
+  1. LBK 62/2024  (A20240006229) — DiesSigni: 2024-01-19, Status: Valid
+     Consolidates: [eli/lta/2022/9, eli/lta/2023/1547]
+       ↑ previous LBK          ↑ amendment law incorporated
+
+  2. LBK 9/2022   (A20220000929) — DiesSigni: 2022-01-06, Status: Historic
+     Consolidates: [eli/lta/2021/330, eli/lta/2021/2384]
+       ↑ previous LBK          ↑ amendment law incorporated
+
+  3. LBK 330/2021  — (would continue chain...)
+
+Gate result: ≥2 versions extracted with dates from 1 law ✓
+
+Version reconstruction algorithm:
+  1. Start with latest LBK (Status: Valid) for a given law
+  2. Fetch metadata via /api/document/metadata/{accn}
+  3. Parse schemaOrgMetadata → legislationConsolidates
+  4. First URL is usually the previous LBK, rest are amendments
+  5. Follow chain backwards until no more legislationConsolidates
+  6. Each LBK in chain = one git commit, dated DiesSigni or StartDate
+
+XML fetch for each version:
+  GET https://www.retsinformation.dk/eli/accn/{accession_number}/xml
+  → Full LexDania 2.1 XML with text body
