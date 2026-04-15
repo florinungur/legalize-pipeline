@@ -28,6 +28,7 @@ from pathlib import Path
 import requests
 
 from legalize.config import Config
+from legalize.fetcher.it.client import TIPO_TO_CODE
 from legalize.models import ParsedNorm, Reform
 from legalize.pipeline import (
     commit_all_fast,
@@ -63,22 +64,6 @@ BULK_COLLECTIONS = [
 ]
 
 API_BASE = "https://api.normattiva.it/t/normattiva.api/bff-opendata/v1/api/v1"
-
-TIPO_TO_CODE = {
-    "DECRETO DEL PRESIDENTE DELLA REPUBBLICA": "PPR",
-    "DECRETO DEL PRESIDENTE DEL CONSIGLIO DEI MINISTRI": "PCM_DPC",
-    "DECRETO LEGISLATIVO": "PLL",
-    "DECRETO": "DCT",
-    "LEGGE COSTITUZIONALE": "PLC",
-    "DECRETO-LEGGE": "PDL",
-    "LEGGE": "PLE",
-    "REGIO DECRETO": "PRD",
-    "REGIO DECRETO-LEGGE": "PRL",
-    "DECRETO LUOGOTENENZIALE": "PLU",
-    "REGIO DECRETO LEGISLATIVO": "RDL",
-    "DECRETO LEGISLATIVO LUOGOTENENZIALE": "PLG",
-    "COSTITUZIONE": "COS",
-}
 
 FNAME_RE = re.compile(
     r"(\d{4}-\d{2}-\d{2})_([A-Z0-9]+)_(ORIGINALE|VIGENZA)"
