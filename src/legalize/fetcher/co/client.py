@@ -111,8 +111,15 @@ class SuinClient(HttpClient):
                 raise
         raise last_exc or RuntimeError(f"Failed {method} {url}")
 
-    def get_text(self, norm_id: str) -> bytes:
-        """Fetch the full HTML page for a SUIN document."""
+    def get_text(self, norm_id: str, meta_data: bytes | None = None) -> bytes:
+        """Fetch the full HTML page for a SUIN document.
+
+        ``meta_data`` reuses the body fetched by the prior ``get_metadata``
+        call, since SUIN serves text + metadata on the same page. Without
+        it, every law triggers two identical GETs.
+        """
+        if meta_data is not None:
+            return meta_data
         return self._get(f"{self._base_url}/viewDocument.asp?id={norm_id}")
 
     def get_metadata(self, norm_id: str) -> bytes:

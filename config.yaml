@@ -148,12 +148,17 @@ countries:
     repo_path: "../countries/co"
     data_dir: "../countries/data-co"
     cache_dir: ".cache"
-    max_workers: 5
+    # SUIN has no rate docs. Empirical: ~0.7s per request; pipeline creates
+    # a fresh client per fetch (no connection reuse across calls), so the
+    # per-client rate limit never throttles — throughput is bound by
+    # latency × workers. 20 parallel workers takes a ~10h full bootstrap
+    # down to ~2.5h. Back off if we start seeing 429/503.
+    max_workers: 20
     source:
       base_url: "https://www.suin-juriscol.gov.co"
       id_start: 1000000
       id_end: 1950000
-      requests_per_second: 1.0
+      requests_per_second: 5.0
 
   lu:
     repo_path: "../countries/lu"
