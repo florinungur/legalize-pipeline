@@ -23,7 +23,7 @@ from legalize.models import Block, NormMetadata, NormStatus, Paragraph, Rank, Ve
 
 logger = logging.getLogger(__name__)
 
-_CHARSET_RE = re.compile(br"<meta[^>]+charset=[\"']?([A-Za-z0-9._-]+)", re.I)
+_CHARSET_RE = re.compile(rb"<meta[^>]+charset=[\"']?([A-Za-z0-9._-]+)", re.I)
 _CONTROL_CHAR_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f]")
 _ARTICLE_RE = re.compile(
     r"^\s*(?:ART[IÍ]CULO|Art\.?)\s+([0-9]+|[a-záéíóúñ]+|[úu]nico)[°ºo.]?",
@@ -33,13 +33,61 @@ _TITULO_RE = re.compile(r"^\s*(?:T[IÍ]TULO|LIBRO|PARTE\s+[IVXLC]+)\b", re.I)
 _CAPITULO_RE = re.compile(r"^\s*CAP[IÍ]TULO\b", re.I)
 _SECCION_RE = re.compile(r"^\s*(?:SECCI[OÓ]N|PARTE)\b", re.I)
 _LIST_ITEM_RE = re.compile(
-    r"^\s*(?:\d+[°ºo.]|\([a-z]\)|[a-z]\)|[ivxlcdm]+\.)\s+",
+    r"^\s*(?:\d+[°ºo.]|\d+\.\d+\.|\([a-z]\)|[a-z]\)|[ivxlcdm]+[.)])\s+",
     re.I,
 )
 _NOTE_HEADING_RE = re.compile(
     r"^\s*(?:TEXTO CORRESPONDIENTE A|LEGISLACI[OÓ]N ANTERIOR|"
-    r"Afecta la vigencia de:|JURISPRUDENCIA)\b",
+    r"Afecta la vigencia de:|JURISPRUDENCIA)",
     re.I,
+)
+_METADATA_CARD_RE = re.compile(r"^\s*Subtipo\s*:", re.I)
+_NOISE_CLASSES = frozenset({"toctoggle", "resumenvigencias"})
+
+# Every span[field] key SUIN exposes that isn't already represented in the
+# top-level NormMetadata fields. English snake_case per the project rule
+# "Metadata completeness: every field the source exposes must be captured".
+_EXTRA_TEXT_FIELDS: tuple[tuple[str, str], ...] = (
+    ("documento_fuente", "gazette_reference"),
+    ("numero_diario_oficial", "gazette_number"),
+    ("pagina_diario_oficial", "gazette_page"),
+    ("pagina_diario_oficial_pdf", "gazette_pdf_page"),
+    ("documento_fuente2", "gazette_reference_secondary"),
+    ("numero_diario_oficial2", "gazette_number_secondary"),
+    ("pagina_diario_oficial2", "gazette_page_secondary"),
+    ("subtipo", "subtype"),
+    ("sector", "sector"),
+    ("comentarios", "comments"),
+    ("descriptores", "descriptors"),
+    ("tema", "theme"),
+    ("titulo_uniforme", "uniform_title"),
+    ("Estatutos", "statute_text"),
+    ("asunto", "subject_matter"),
+    ("de", "sender"),
+    ("para", "addressee"),
+    ("fe_de_erratas", "errata"),
+    ("lugar_fecha", "place_date"),
+    ("nombre_codigo", "code_name"),
+    ("notas_vigencias", "validity_notes"),
+    ("observaciones", "observations"),
+    ("observaciones_internas", "internal_observations"),
+    ("separacion_numero", "number_separator"),
+    ("juris_estado_excepcion", "emergency_state_case_law"),
+)
+_EXTRA_DATE_FIELDS: tuple[tuple[str, str], ...] = (
+    ("fecha_vigencia", "entry_into_force"),
+    ("fecha_fin_vigencia", "expiry_date"),
+    ("fecha_expedicion", "issued_date"),
+    ("fecha_diario_oficial2", "gazette_date_secondary"),
+)
+_EXTRA_BOOL_FIELDS: tuple[tuple[str, str], ...] = (
+    ("division_documento", "has_divisions"),
+    ("en_estudio_depuracion", "under_purge_review"),
+    ("es_codigo", "is_code"),
+    ("es_estatuto", "is_statute"),
+    ("es_reglamento", "is_regulation"),
+    ("estado_excepcion", "is_emergency_state"),
+    ("marco_regulatorio", "is_regulatory_framework"),
 )
 _DATE_IN_SCRIPT_RE = re.compile(r"new Date\((\d{2}/\d{2}/\d{4})\)")
 _BASE_URL = "https://www.suin-juriscol.gov.co"
@@ -130,10 +178,20 @@ def _inline_text(el) -> str:
             inner = walk(child)
             if tag in ("b", "strong"):
                 stripped = inner.strip()
-                parts.append(f"**{stripped}**" if stripped else "")
+                if stripped:
+                    lead = " " if inner[:1].isspace() else ""
+                    trail = " " if inner[-1:].isspace() else ""
+                    if not trail and (child.tail or "")[:1].isalpha():
+                        trail = " "
+                    parts.append(f"{lead}**{stripped}**{trail}")
             elif tag in ("i", "em"):
                 stripped = inner.strip()
-                parts.append(f"*{stripped}*" if stripped else "")
+                if stripped:
+                    lead = " " if inner[:1].isspace() else ""
+                    trail = " " if inner[-1:].isspace() else ""
+                    if not trail and (child.tail or "")[:1].isalpha():
+                        trail = " "
+                    parts.append(f"{lead}*{stripped}*{trail}")
             elif tag == "a":
                 text = inner.strip()
                 href = _normalize_href(child.get("href") or "")
@@ -143,6 +201,9 @@ def _inline_text(el) -> str:
                     parts.append(inner)
             elif tag == "br":
                 parts.append(" ")
+            elif tag in ("p", "div") and inner:
+                sep = "" if not parts or not parts[-1] or parts[-1][-1:].isspace() else " "
+                parts.append(f"{sep}{inner}")
             else:
                 parts.append(inner)
 
@@ -151,7 +212,35 @@ def _inline_text(el) -> str:
 
         return "".join(parts)
 
-    return _clean_text(walk(el))
+    text = walk(el)
+
+    def _join(left: str, right: str) -> str:
+        # When the HTML concatenates two adjacent emphasis runs without any
+        # whitespace, reinsert a single space at the join when the boundary
+        # would glue two words together (lowercase letter → uppercase letter).
+        if left and right and left[-1].islower() and right[0].isupper():
+            return " "
+        return ""
+
+    prev = ""
+    while prev != text:
+        prev = text
+        text = re.sub(
+            r"\*\*([^*\n]*)\*\*\*\*([^*\n]*)\*\*",
+            lambda m: f"**{m.group(1)}{_join(m.group(1), m.group(2))}{m.group(2)}**",
+            text,
+        )
+        text = re.sub(
+            r"\*\*\*([^*\n]*)\*\*\*\*\*([^*\n]*)\*\*",
+            lambda m: f"***{m.group(1)}{_join(m.group(1), m.group(2))}{m.group(2)}***",
+            text,
+        )
+        text = re.sub(
+            r"\*\*([^*\n]*)\*\*\*\*\*([^*\n]*)\*\*\*",
+            lambda m: f"***{m.group(1)}{_join(m.group(1), m.group(2))}{m.group(2)}***",
+            text,
+        )
+    return _clean_text(text)
 
 
 def _get_classes(el) -> set[str]:
@@ -425,9 +514,10 @@ def _paragraphs_from_element(
         if node.xpath("ancestor::table"):
             continue
 
+        _strip_descendants_with_classes(node, _NOISE_CLASSES)
         plain_text = _element_text(node)
         text = _inline_text(node)
-        if not text or _NOTE_HEADING_RE.match(text):
+        if not text or _NOTE_HEADING_RE.match(text) or _METADATA_CARD_RE.match(plain_text):
             continue
         css_class = default_css
         if promote_first_article and not paragraphs and _ARTICLE_RE.match(plain_text):
@@ -437,6 +527,12 @@ def _paragraphs_from_element(
         elif _LIST_ITEM_RE.match(plain_text):
             css_class = "list_item"
             text = f"- {text}"
+        if css_class == "firma_rey":
+            # The transformer wraps firma_rey in **...**; feeding it text that
+            # already contains **...** runs from <strong>/<em> produces broken
+            # ****NAME**** or *****NAME***** in the output. Use plain text so
+            # the transformer is the only source of bold.
+            text = plain_text
         paragraphs.append(Paragraph(css_class=css_class, text=text))
 
     if paragraphs:
@@ -482,6 +578,9 @@ class SuinTextParser(TextParser):
         for child in body:
             tag = (child.tag or "").lower()
             if tag == "a" or _is_hidden_or_note(child):
+                continue
+
+            if tag == "p" and _METADATA_CARD_RE.match(_element_text(child)):
                 continue
 
             child_id = child.get("id") or ""
@@ -533,7 +632,9 @@ class SuinTextParser(TextParser):
                 block_id = f"text-{block_index}"
                 title = first_text[:80]
 
-            blocks.append(_make_block(block_id, block_type, title, paragraphs, pub_date, law_norm_id))
+            blocks.append(
+                _make_block(block_id, block_type, title, paragraphs, pub_date, law_norm_id)
+            )
             block_index += 1
 
         return blocks
@@ -560,7 +661,11 @@ class SuinMetadataParser(MetadataParser):
         if not fields:
             raise ValueError(f"No SUIN metadata fields found for norm {norm_id}")
 
-        title = _element_text(tree.xpath('//div[@id="titulotipo"]//h1')[0]) if tree.xpath('//div[@id="titulotipo"]//h1') else ""
+        title = (
+            _element_text(tree.xpath('//div[@id="titulotipo"]//h1')[0])
+            if tree.xpath('//div[@id="titulotipo"]//h1')
+            else ""
+        )
         if not title:
             h1 = tree.xpath("//h1")
             title = _element_text(h1[0]) if h1 else ""
@@ -570,9 +675,7 @@ class SuinMetadataParser(MetadataParser):
         identifier = _normalize_identifier(fields, title, norm_id)
         status, status_extra = _status_from_text(fields.get("estado_documento", ""))
         subjects = tuple(
-            subject.strip()
-            for subject in fields.get("materia", "").split("|")
-            if subject.strip()
+            subject.strip() for subject in fields.get("materia", "").split("|") if subject.strip()
         )
         publication_date = (
             _parse_date(fields.get("fecha_diario_oficial", ""))
@@ -584,32 +687,39 @@ class SuinMetadataParser(MetadataParser):
         modification_items = tree.xpath(
             '//div[contains(@id, "ResumenNotasVigencia")]//li[contains(@class, "referencia")]'
         )
-        modification_summary = "\n".join(_element_text(item) for item in modification_items)
 
         extra: list[tuple[str, str]] = list(status_extra)
-        extra_keys = [
-            ("documento_fuente", "gazette_reference"),
-            ("numero_diario_oficial", "gazette_number"),
-            ("pagina_diario_oficial", "gazette_page"),
-            ("fecha_vigencia", "entry_into_force"),
-            ("fecha_fin_vigencia", "expiry_date"),
-            ("fecha_expedicion", "issued_date"),
-            ("subtipo", "subtype"),
-            ("sector", "sector"),
-            ("comentarios", "comments"),
-        ]
-        for field_name, extra_name in extra_keys:
+        raw_status = fields.get("estado_documento", "").strip()
+        if raw_status:
+            extra.append(("document_status_raw", raw_status))
+        for field_name, extra_name in _EXTRA_TEXT_FIELDS:
             value = fields.get(field_name, "")
             if value:
-                if field_name.startswith("fecha_"):
-                    value = _normalize_extra_date(value)
                 extra.append((extra_name, value[:1000]))
+        for field_name, extra_name in _EXTRA_DATE_FIELDS:
+            value = fields.get(field_name, "")
+            if value:
+                extra.append((extra_name, _normalize_extra_date(value)[:1000]))
+        for field_name, extra_name in _EXTRA_BOOL_FIELDS:
+            if fields.get(field_name, "").strip().lower() == "true":
+                extra.append((extra_name, "true"))
         if subjects:
             extra.append(("subjects", " | ".join(subjects)))
         if modification_items:
             extra.append(("modification_count", str(len(modification_items))))
-            linked_summary = "\n".join(_inline_text(item) for item in modification_items)
-            extra.append(("modification_summary", (linked_summary or modification_summary)[:5000]))
+            seen: set[str] = set()
+            unique: list[str] = []
+            for item in modification_items:
+                entry = _clean_text(_inline_text(item))
+                if entry and entry not in seen:
+                    seen.add(entry)
+                    unique.append(entry)
+            summary = " · ".join(unique)
+            if len(summary) > 5000:
+                boundary = summary[:5000].rfind(" · ")
+                summary = summary[:boundary] if boundary > 0 else summary[:5000]
+            if summary:
+                extra.append(("modification_summary", summary))
 
         source_url = f"https://www.suin-juriscol.gov.co/viewDocument.asp?id={norm_id}"
 

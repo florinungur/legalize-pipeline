@@ -74,10 +74,7 @@ class SuinClient(HttpClient):
                     timeout=timeout or self._timeout,
                     verify=False,
                 )
-                if (
-                    response.status_code in _RETRY_STATUS_CODES
-                    and attempt < self._max_retries - 1
-                ):
+                if response.status_code in _RETRY_STATUS_CODES and attempt < self._max_retries - 1:
                     wait = 2**attempt
                     logger.warning(
                         "%s %d on %s, retrying in %ds (attempt %d/%d)",
