@@ -90,6 +90,10 @@ _EXTRA_BOOL_FIELDS: tuple[tuple[str, str], ...] = (
     ("marco_regulatorio", "is_regulatory_framework"),
 )
 _DATE_IN_SCRIPT_RE = re.compile(r"new Date\((\d{2}/\d{2}/\d{4})\)")
+_LEG_ANT_RANGE_RE = re.compile(
+    r"Vigente\s+desde:\s*(\d{1,2}/\d{1,2}/\d{4})\s+y\s+hasta\s+el:\s*(\d{1,2}/\d{1,2}/\d{4})",
+    re.I,
+)
 _BASE_URL = "https://www.suin-juriscol.gov.co"
 
 _ES_MONTHS: dict[str, int] = {
@@ -346,8 +350,31 @@ def _make_block(
     paragraphs: list[Paragraph],
     pub_date: date,
     law_norm_id: str,
+    prior_paragraphs: list[Paragraph] | None = None,
+    prior_from: date | None = None,
+    prior_until: date | None = None,
 ) -> Block:
-    """Build a Block with a single Version from paragraphs."""
+    """Build a Block from one or two Versions.
+
+    When ``prior_paragraphs`` is provided, the Block gets two Versions:
+    the prior text valid from ``prior_from`` until ``prior_until``, then
+    the current ``paragraphs`` valid from ``prior_until`` onward. Otherwise
+    the Block gets a single Version at ``pub_date``.
+    """
+    if prior_paragraphs and prior_from and prior_until:
+        v_old = Version(
+            norm_id=law_norm_id,
+            publication_date=prior_from,
+            effective_date=prior_from,
+            paragraphs=tuple(prior_paragraphs),
+        )
+        v_new = Version(
+            norm_id=law_norm_id,
+            publication_date=prior_until,
+            effective_date=prior_until,
+            paragraphs=tuple(paragraphs),
+        )
+        return Block(id=block_id, block_type=block_type, title=title, versions=(v_old, v_new))
     version = Version(
         norm_id=law_norm_id,
         publication_date=pub_date,
@@ -544,6 +571,47 @@ def _paragraphs_from_element(
     return []
 
 
+def _extract_prior_version(
+    toggle_div,
+) -> tuple[list[Paragraph], date, date] | None:
+    """Extract prior article text + validity range from a nested leg_ant div.
+
+    SUIN embeds a "LEGISLACIÓN ANTERIOR" block inside each toggle_ article
+    whose text was modified at least once. The block has:
+      - A content container with the previous article text (paragraphs).
+      - A footer `<font color="#336600">Vigente desde: X y hasta el: Y`.
+    Returns (prior_paragraphs, desde, hasta) or ``None`` if unavailable.
+    """
+    legants = toggle_div.xpath('.//div[starts-with(@id, "div") and contains(@id, "leg_ant")]')
+    if not legants:
+        return None
+    container = legants[0]
+
+    range_match = _LEG_ANT_RANGE_RE.search(" ".join(container.itertext()))
+    if not range_match:
+        return None
+    desde = _parse_date(range_match.group(1))
+    hasta = _parse_date(range_match.group(2))
+    if not desde or not hasta or desde >= hasta:
+        return None
+
+    import copy
+
+    clone = copy.deepcopy(container)
+    # Un-hide so _paragraphs_from_element doesn't drop it.
+    clone.attrib.pop("style", None)
+    clone.attrib.pop("id", None)
+    for desc in clone.xpath('.//font[@color="#336600"]'):
+        parent = desc.getparent()
+        if parent is not None:
+            parent.remove(desc)
+
+    paragraphs = _paragraphs_from_element(clone, "parrafo", promote_first_article=True)
+    if not paragraphs:
+        return None
+    return paragraphs, desde, hasta
+
+
 def _is_signature_block(el) -> bool:
     text = _element_text(el)
     if re.search(r"\b(Dado en|Publ[ií]quese|Presidente|Ministro|Secretario)\b", text, re.I):
@@ -585,6 +653,7 @@ class SuinTextParser(TextParser):
 
             child_id = child.get("id") or ""
             if child_id.startswith("toggle_"):
+                prior = _extract_prior_version(child)
                 paragraphs = _paragraphs_from_element(
                     child,
                     "parrafo",
@@ -596,9 +665,25 @@ class SuinTextParser(TextParser):
                 match = _ARTICLE_RE.match(_element_text(child))
                 article_id = match.group(1).lower() if match else str(block_index)
                 block_id = f"p{article_id}"
-                blocks.append(
-                    _make_block(block_id, "article", title, paragraphs, pub_date, law_norm_id)
-                )
+                if prior:
+                    prior_paragraphs, prior_from, prior_until = prior
+                    blocks.append(
+                        _make_block(
+                            block_id,
+                            "article",
+                            title,
+                            paragraphs,
+                            pub_date,
+                            law_norm_id,
+                            prior_paragraphs=prior_paragraphs,
+                            prior_from=prior_from,
+                            prior_until=prior_until,
+                        )
+                    )
+                else:
+                    blocks.append(
+                        _make_block(block_id, "article", title, paragraphs, pub_date, law_norm_id)
+                    )
                 seen_article = True
                 block_index += 1
                 continue
@@ -640,12 +725,16 @@ class SuinTextParser(TextParser):
         return blocks
 
     def extract_reforms(self, data: bytes) -> list[Any]:
-        """SUIN provides current consolidated text only.
+        """Return reform points reconstructed from per-article leg_ant blocks.
 
-        No point-in-time versions available (documented in RESEARCH-CO.md §0.5).
-        Returns empty list — single-snapshot country.
+        SUIN embeds one previous version per modified article
+        (``LEGISLACIÓN ANTERIOR``) with its validity range. Parsing those
+        yields a Version chain per article, and the generic block-based
+        reform extractor turns each unique transition date into a Reform.
         """
-        return []
+        from legalize.transformer.xml_parser import extract_reforms
+
+        return extract_reforms(self.parse_text(data))
 
 
 class SuinMetadataParser(MetadataParser):

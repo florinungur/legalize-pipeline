@@ -45,10 +45,18 @@ class TestSuinTextParser:
         blocks = SuinTextParser().parse_text(data)
         assert len(blocks) > 0
 
-    def test_extract_reforms_empty(self):
+    def test_extract_reforms_from_leg_ant(self):
+        # LEY-57-1887 has 90 articles with a "LEGISLACIÓN ANTERIOR" block,
+        # yielding reforms with distinct dates (bootstrap + per-article cuts).
         data = (FIXTURES / "sample-ley-1887.html").read_bytes()
         reforms = SuinTextParser().extract_reforms(data)
-        assert reforms == []
+        assert len(reforms) > 1, "should reconstruct reforms from leg_ant blocks"
+        assert reforms[0].date.year == 1887, "earliest reform is the original publication"
+        # Prior-version reform dates must span a reasonable legislative range.
+        years = {r.date.year for r in reforms}
+        assert any(1900 <= y <= 2026 for y in years), (
+            "reform dates should include modern amendments"
+        )
 
     def test_body_table_is_markdown_paragraph(self):
         data = (FIXTURES / "sample-decreto-1993.html").read_bytes()
