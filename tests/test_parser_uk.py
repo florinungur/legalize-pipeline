@@ -84,8 +84,12 @@ class TestNormId:
         assert _entry_to_norm_id("http://www.legislation.gov.uk/id/uksi/2024/1") == "uksi-2024-1"
         assert _entry_to_norm_id("http://www.legislation.gov.uk/id/ssi/2020/55") == "ssi-2020-55"
         assert _entry_to_norm_id("http://www.legislation.gov.uk/id/wsi/2019/51") == "wsi-2019-51"
-        assert _entry_to_norm_id("http://www.legislation.gov.uk/id/nisr/1996/267") == "nisr-1996-267"
-        assert _entry_to_norm_id("http://www.legislation.gov.uk/id/nisro/1968/218") == "nisro-1968-218"
+        assert (
+            _entry_to_norm_id("http://www.legislation.gov.uk/id/nisr/1996/267") == "nisr-1996-267"
+        )
+        assert (
+            _entry_to_norm_id("http://www.legislation.gov.uk/id/nisro/1968/218") == "nisro-1968-218"
+        )
 
     def test_entry_to_norm_id_filters_unknown_type(self):
         assert _entry_to_norm_id("http://www.legislation.gov.uk/id/eudr/2024/1") is None
@@ -313,7 +317,10 @@ class TestSIMetadata:
     def test_uksi_metadata(self):
         data = _read_fixture("sample-si-uksi-2020-52.xml")
         meta = UKMetadataParser().parse(data, "uksi-2020-52")
-        assert meta.title == "The Veterinary Surgeons (Recognition of University Degree) (Surrey) Order of Council 2020"
+        assert (
+            meta.title
+            == "The Veterinary Surgeons (Recognition of University Degree) (Surrey) Order of Council 2020"
+        )
         assert meta.country == "uk"
         assert meta.jurisdiction is None  # state-level
         assert meta.rank == "statutory-instrument"
@@ -348,15 +355,9 @@ class TestSIMetadata:
 
     def test_si_filepath_routing(self):
         """SIs route to the same jurisdiction directories as Acts."""
-        uksi = UKMetadataParser().parse(
-            _read_fixture("sample-si-uksi-2020-52.xml"), "uksi-2020-52"
-        )
-        ssi = UKMetadataParser().parse(
-            _read_fixture("sample-si-ssi-2002-519.xml"), "ssi-2002-519"
-        )
-        wsi = UKMetadataParser().parse(
-            _read_fixture("sample-si-wsi-2026-14.xml"), "wsi-2026-14"
-        )
+        uksi = UKMetadataParser().parse(_read_fixture("sample-si-uksi-2020-52.xml"), "uksi-2020-52")
+        ssi = UKMetadataParser().parse(_read_fixture("sample-si-ssi-2002-519.xml"), "ssi-2002-519")
+        wsi = UKMetadataParser().parse(_read_fixture("sample-si-wsi-2026-14.xml"), "wsi-2026-14")
         nisr = UKMetadataParser().parse(
             _read_fixture("sample-si-nisr-1996-267.xml"), "nisr-1996-267"
         )
